@@ -8,6 +8,9 @@ class JejuProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
+	
+	
 
 }
