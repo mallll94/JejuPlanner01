@@ -53,6 +53,6 @@ public class Planner {
 	                             //삭제된게 X , 남아있는게 Y
 
 	/** 사용자 플래너 장소 */
-	@OneToMany(mappedBy = "planner")
-	private List<PlannerPlace> plannerPlaceList;
+	//@OneToMany(mappedBy = "planner")
+	//private List<PlannerPlace> plannerPlaceList;
 }
