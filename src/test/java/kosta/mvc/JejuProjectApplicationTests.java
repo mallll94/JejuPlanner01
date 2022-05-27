@@ -15,6 +15,7 @@ import kosta.mvc.domain.ChatBoard;
 import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.FreeReply;
+import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.TimeDeal;
 import kosta.mvc.domain.TimeOrderLine;
@@ -82,19 +83,22 @@ class JejuProjectApplicationTests {
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 		@Test
 		void userinsert() {
-			//userRep.save(new Users("aaa", "데이지", "1234", 01012341234, "aaa111@gmail.com", null, null, "F"));
-			//userRep.save(new Users("bbb", "구름", "112233", 01011112222, "cloud@gmail.com", null, null, "M"));
-			//userRep.save(new Users("abc123", "오월", "55555", 01055550000, "may55@gmail.com", null, null, "F"));
-			//userRep.save(new Users("ccc", "데이지", "1234", 01012341234, "1111@gmail.com", null, null, "F"));
-			//userRep.save(new Users("ddd", "구름", "112233", 01011112222, "2222@gmail.com", null, null, "M"));
-			//userRep.save(new Users("eee", "오월", "55555", 01055550000, "3333@gmail.com", null, null, "F"));
+			userRep.save(new Users("aaa", "데이지", "1234", 01012341234, "aaa111@gmail.com", null, null, "F"));
+			userRep.save(new Users("bbb", "구름", "112233", 01011112222, "cloud@gmail.com", null, null, "M"));
+			userRep.save(new Users("abc123", "오월", "55555", 01055550000, "may55@gmail.com", null, null, "F"));
+			userRep.save(new Users("ccc", "유월", "1234", 01012341234, "1111@gmail.com", null, null, "F"));
+			userRep.save(new Users("ddd", "감자", "112233", 01011112222, "2222@gmail.com", null, null, "M"));
+			userRep.save(new Users("eee", "제주도좋아", "55555", 01055550000, "3333@gmail.com", null, null, "F"));
 			userRep.save(new Users("admin", "관리자", "admin", 000000000000, "Jeju@gmail.com", null, null, "admin"));
 			
-			/* placeRep.save(new Place(null, "장소", "성산일출봉", "제주 서귀포시 성산읍 성산리 1", "높이 180m. 제주특별자치도 동쪽에 돌출한 성산반도 끝머리에 있다. ", 
-					null, "http://www.visitjeju.net","14130522.0387535", "3956372.5709820",  0)); */
-		
-		    //noticeRep.save(new Notice(null, "제목", "내용", null, "사진") );
 			
+		    //
+			
+		}
+		//공지사항
+		@Test
+		void noticeinsert() {
+			noticeRep.save(new Notice(null, "제목", "내용", null, "사진") );
 		}
 		
 		/**자유게시판*/
@@ -151,16 +155,16 @@ class JejuProjectApplicationTests {
 		/**핫딜*/
 		@Test
 		void timedealinsert() {
-			/*LocalDate start = LocalDate.of(2022, 06, 01);
-			/LocalDate end = LocalDate.of(2022, 06, 30);
+			LocalDate start = LocalDate.of(2022, 06, 01);
+			LocalDate end = LocalDate.of(2022, 06, 30);
 			timedealRep.save(new TimeDeal(null, "제주도 동쪽 버스투어", 39900, 20000 ,30 , "제주도 동쪽을 도는 버스투어입니다. 1명만 신청하여도 가능하며 매일 진행합니다", 
-				"사진", start, end, "https://www.myrealtrip.com/offers/79378") );*/
+				"사진", start, end, "https://www.myrealtrip.com/offers/79378") );
 			
-			/*LocalDate start2 = LocalDate.of(2022, 06, 01);
+			LocalDate start2 = LocalDate.of(2022, 06, 01);
 			LocalDate end2 = LocalDate.of(2022, 06, 15);
 			timedealRep.save(new TimeDeal(null, "율랜드 스쿠버 다이빙체험 ", 95000, 50000, 30, 
 					"초보자도 쉽게 할 수 있는 스쿠버 다이빙입니다. 장소는 서귀포시에서 진행하며 고프로로 사진도 찍어드립니다.",
-					"사진", start2, end2, "https://www.myrealtrip.com/offers/84760") );*/
+					"사진", start2, end2, "https://www.myrealtrip.com/offers/84760") );
 			
 			LocalDate start3 = LocalDate.of(2022, 06, 01);
 			LocalDate end3 = LocalDate.of(2022, 06, 10);

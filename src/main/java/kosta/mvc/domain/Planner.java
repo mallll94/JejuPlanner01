@@ -42,6 +42,7 @@ public class Planner {
 	@JoinColumn(name = "user_fk")
 	private Users user;
 	
+	@Column(columnDefinition = "varchar(20) default '제주도'")
 	private String plannerName;
 	private String plannerType;
 	private int plannerCount;

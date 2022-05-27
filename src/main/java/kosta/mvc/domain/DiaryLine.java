@@ -38,8 +38,7 @@ public class DiaryLine {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "planner_fk")
-	private Planner planner; 
-	//private PlannerPlace plannerPlace; //사용자플래너장소 번호
+	private PlannerPlace plannerPlace; //사용자플래너장소 번호
 	
 	@Column(length = 2000)
 	private String diaryLineContent;
