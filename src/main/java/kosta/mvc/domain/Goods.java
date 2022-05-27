@@ -51,11 +51,11 @@ public class Goods {
 	private String goodsAddr;
 	
 	/** 상품후기 */
-	@OneToMany(mappedBy = "goods")
-	private List<GoodsReply> goodsReplyList;
+	//@OneToMany(mappedBy = "goods")
+	//private List<GoodsReply> goodsReplyList;
 	
 	/** 상품상세 */
-	@OneToMany(mappedBy = "goods")
-	private List<GoodsLine> goodsLineList;
+	//@OneToMany(mappedBy = "goods")
+	//private List<GoodsLine> goodsLineList;
 
 }
