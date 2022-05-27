@@ -14,7 +14,7 @@ public interface OrdersService {
 	/**
 	 * 주문 취소하기
 	 */
-	public void cancelOrders(Long ordersId);
+	public void deleteOrders(Long ordersId);
 	
 	/**
 	 * 주문 전체 조회하기

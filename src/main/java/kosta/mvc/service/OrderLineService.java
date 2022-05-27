@@ -12,6 +12,6 @@ public interface OrderLineService {
 	/**
 	 * 주문 상품 취소하기
 	 */
-	public void cancelOrderLine(Long orderLineId);
+	public void deleteOrderLine(Long orderLineId);
 	
 }
