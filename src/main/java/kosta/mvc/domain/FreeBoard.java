@@ -59,8 +59,8 @@ public class FreeBoard {
 	private LocalDateTime freeUpdate;
 	
 	/** 댓글 */
-	@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)
-	private List<FreeReply> freeReply;
+	//@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)
+	//private List<FreeReply> freeReplyList;
 
 	
 
