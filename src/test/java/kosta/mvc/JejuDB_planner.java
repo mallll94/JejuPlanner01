@@ -10,13 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import kosta.mvc.domain.Diary;
+import kosta.mvc.domain.DiaryLine;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlanBoard;
+import kosta.mvc.domain.PlanReply;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.PlaceRepository;
+import kosta.mvc.repository.PlanBoardRepository;
+import kosta.mvc.repository.PlanReplyRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
 import kosta.mvc.repository.UserRepository;
@@ -38,19 +43,21 @@ public class JejuDB_planner {
 	private DiaryRepository diaryRep;
 	@Autowired
 	private DiaryLineRepository diarylineRep;
-	
+	@Autowired
+	private PlanBoardRepository planBRep;
+	@Autowired
+	private PlanReplyRepository planreplyRep;
 	
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 	@Test
 	void userinsert() {
-		userRep.save(new Users("aaa", "데이지", "1234", 01012341234, "aaa111@gmail.com", null, null, "F"));
-		userRep.save(new Users("bbb", "구름", "112233", 01011112222, "cloud@gmail.com", null, null, "M"));
-		userRep.save(new Users("abc123", "오월", "55555", 01055550000, "may55@gmail.com", null, null, "F"));
+		//userRep.save(new Users("aaa", "데이지", "1234", 01012341234, "aaa111@gmail.com", null, null, "F"));
+		//userRep.save(new Users("bbb", "구름", "112233", 01011112222, "cloud@gmail.com", null, null, "M"));
+		//userRep.save(new Users("abc123", "오월", "55555", 01055550000, "may55@gmail.com", null, null, "F"));
 		
 		
 	}
 	
-	/**장소/숙소 등록*/
 	@Test
 	public void placeisert() {
 		placeRep.save(new Place(null, "장소", "성산일출봉", "제주 서귀포시 성산읍 성산리 1", "높이 180m. 제주특별자치도 동쪽에 돌출한 성산반도 끝머리에 있다.", 
@@ -65,14 +72,14 @@ public class JejuDB_planner {
 				null, "https://www.hyatt.com/en-US/hotel/south-korea/grand-hyatt-jeju/cjugh","14077988.5120126", "3959892.9773350",  0));
 		
 	}
-	
 	/**플래너 등록*/
+	//onetomany null처리
 	@Test
 	public void plannerinsert() {
 		
 		Users user1  = userRep.findById("aaa").orElse(null);
-		LocalDate p1start = LocalDate.of(2022,06,01);
-		LocalDate p1end = LocalDate.of(2022, 06, 03);
+		LocalDate p1start = LocalDate.of(2021,8,02);
+		LocalDate p1end = LocalDate.of(2021,8, 05);
 		LocalDate p2start = LocalDate.of(2022,06,22);
 		LocalDate p2end = LocalDate.of(2022, 06, 27);
 		plannerRep.save(new Planner(null, user1, "제주도", null, 4, p1start, p1end, null));
@@ -80,7 +87,6 @@ public class JejuDB_planner {
 		
 		Users user2  = userRep.findById("bbb").orElse(null);
 		LocalDate p3start = LocalDate.of(2020,01,12);
-	
 		LocalDate p3end = LocalDate.of(2020, 01, 15);
 		LocalDate p4start = LocalDate.of(2022,06,03);
 		LocalDate p4end = LocalDate.of(2022, 06, 05);
@@ -104,28 +110,28 @@ public class JejuDB_planner {
 		Place place5 = placeRep.findById(5L).orElse(null); //그랜드하얏트제주
 		
 		Users user1  = userRep.findById("aaa").orElse(null);
-		Planner planner11 = plannerRep.findById(7L).orElse(null);
+		Planner planner11 = plannerRep.findById(1L).orElse(null);
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner11, place1, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner11, place4, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner11, place2, 2));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner11, place4, 2));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner11, place3, 2));
 		
-		Planner planner12 = plannerRep.findById(8L).orElse(null);
+		Planner planner12 = plannerRep.findById(2L).orElse(null);
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner12, place1, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner12, place4, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner12, place2, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user1, planner12, place5, 2));
 		
 		Users user2  = userRep.findById("bbb").orElse(null);
-		Planner planner21 = plannerRep.findById(9L).orElse(null);
+		Planner planner21 = plannerRep.findById(3L).orElse(null);
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner21, place1, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner21, place4, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner21, place2, 2));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner21, place4, 2));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner21, place3, 2));
 		
-		Planner planner22 = plannerRep.findById(10L).orElse(null);
+		Planner planner22 = plannerRep.findById(4L).orElse(null);
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner22, place3, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner22, place5, 1));
 		plannerplaceRep.save(new PlannerPlace(null, user2, planner22, place2, 1));
@@ -133,34 +139,78 @@ public class JejuDB_planner {
 	}
 	
 	/**다이어리*/
+	//onetomany null처리
+	@Test
 	public void diaryinsert() {
 		Users user1  = userRep.findById("aaa").orElse(null);
 		Users user2  = userRep.findById("bbb").orElse(null);
 		Users user3  = userRep.findById("abc123").orElse(null);
-		Planner planner11 = plannerRep.findById(7L).orElse(null);
-		Planner planner12 = plannerRep.findById(8L).orElse(null);
-		Planner planner21 = plannerRep.findById(9L).orElse(null);
-		Planner planner22 = plannerRep.findById(10L).orElse(null);
-		Planner planner31 = plannerRep.findById(11L).orElse(null);
+		Planner planner11 = plannerRep.findById(1L).orElse(null);
+		Planner planner12 = plannerRep.findById(2L).orElse(null);
+		Planner planner21 = plannerRep.findById(3L).orElse(null);
+		Planner planner22 = plannerRep.findById(4L).orElse(null);
+		Planner planner31 = plannerRep.findById(5L).orElse(null);
 		diaryRep.save(new Diary(null, user1, planner11, null, planner11.getPlannerName(), planner11.getPlannerType(), planner11.getPlannerCount()));
 		diaryRep.save(new Diary(null, user1, planner12, null, planner12.getPlannerName(), planner12.getPlannerType(), planner12.getPlannerCount()));
 		diaryRep.save(new Diary(null, user2, planner21, null, planner21.getPlannerName(), planner21.getPlannerType(), planner21.getPlannerCount()));
+		diaryRep.save(new Diary(null, user2, planner22, null, planner22.getPlannerName(), planner22.getPlannerType(), planner22.getPlannerCount()));
+		diaryRep.save(new Diary(null, user3, planner31, null, planner31.getPlannerName(), null, planner31.getPlannerCount()));
 	}
 	
 	/**다이어리 내용*/
+	@Test
 	public void diarylineinsert() {
 		
+		Diary diary1 = diaryRep.findById(1L).orElse(null);
+		Diary diary2 = diaryRep.findById(2L).orElse(null);
+		Diary diary3 = diaryRep.findById(3L).orElse(null);
+		Diary diary4 = diaryRep.findById(4L).orElse(null);
+		Diary diary5 = diaryRep.findById(5L).orElse(null);
+		PlannerPlace pp1 = plannerplaceRep.findById(1L).orElse(null);
+		PlannerPlace pp2 = plannerplaceRep.findById(2L).orElse(null);
+		PlannerPlace pp3 = plannerplaceRep.findById(3L).orElse(null);
+		PlannerPlace pp4 = plannerplaceRep.findById(4L).orElse(null);
+		
+		diarylineRep.save(new DiaryLine(null, diary1, pp1, "신나는 여행~", null, 10000));
+		diarylineRep.save(new DiaryLine(null, diary1, pp2, "신나는 여행~", null, 210000));
+		diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
+		diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
 	}
 	
 	/**플래너 공유게시판*/
+	//onetomany null처리
+	@Test
 	public void plannerBinsert() {
+		Users user1  = userRep.findById("aaa").orElse(null);
+		Users user2  = userRep.findById("bbb").orElse(null);
+		Users user3  = userRep.findById("abc123").orElse(null);
+		Planner planner11 = plannerRep.findById(1L).orElse(null);
+		Planner planner12 = plannerRep.findById(2L).orElse(null);
+		Planner planner21 = plannerRep.findById(3L).orElse(null);
+		Planner planner22 = plannerRep.findById(4L).orElse(null);
+		Planner planner31 = plannerRep.findById(5L).orElse(null);
+		
+		planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null, 0));
+		planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null, 0));
 		
 	}
 	
 	/**플래너 공유게시판 댓글*/
+	@Test
 	public void plannerBreplyinsert() {
+		Users user1  = userRep.findById("aaa").orElse(null);
+		Users user2  = userRep.findById("bbb").orElse(null);
+		Users user3  = userRep.findById("abc123").orElse(null);
+		Planner planner11 = plannerRep.findById(1L).orElse(null);
+		Planner planner21 = plannerRep.findById(3L).orElse(null);
+		PlanBoard pboard1 = planBRep.findById(1L).orElse(null);
+		PlanBoard pboard2 = planBRep.findById(2L).orElse(null);
 		
+		planreplyRep.save(new PlanReply(null, pboard1, planner11, user2,"우와", null));
+		planreplyRep.save(new PlanReply(null, pboard1, planner11, user2, "제주도 여행 좋아요~", null));
+		planreplyRep.save(new PlanReply(null, pboard1, planner11, user3, "참고할게요^^", null));
 	}
+	
 	
 	
 }
