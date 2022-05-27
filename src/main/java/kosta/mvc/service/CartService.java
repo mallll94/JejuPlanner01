@@ -1,5 +1,5 @@
 package kosta.mvc.service;
 
-public class TestService {
+public interface CartService {
 
 }
