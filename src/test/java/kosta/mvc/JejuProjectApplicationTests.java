@@ -31,6 +31,7 @@ import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.repository.FreeReplyRepository;
 import kosta.mvc.repository.NotiecRepository;
+import kosta.mvc.repository.OrderRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
@@ -73,6 +74,8 @@ class JejuProjectApplicationTests {
 	private TimeDealRepository timedealRep;
 	@Autowired
 	private TimeOrderLineRepository timeorderlineRep;
+	@Autowired
+	private OrderRepository orderRep;
 
 	@Test
 	void contextLoads() {
@@ -174,9 +177,8 @@ class JejuProjectApplicationTests {
 		@Test
 		void timeorderlineinsert() {
 		 TimeDeal time = timedealRep.findById(1L).orElse(null);
-		 //Orders 들어갈 자리 
-		 
-			timeorderlineRep.save(new TimeOrderLine(null, null, null, 1, 20000) );
+		 Orders orders = orderRep.findById(4L).orElse(null);
+			timeorderlineRep.save(new TimeOrderLine(null, time, orders, 1, 20000) );
 		}
 		
 
