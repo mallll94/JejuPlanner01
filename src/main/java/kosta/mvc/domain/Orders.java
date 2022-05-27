@@ -35,33 +35,33 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
 	@SequenceGenerator(sequenceName = "order_seq", allocationSize = 1, name = "order_seq")
-	private Long orderId; //주문번호
+	private Long ordersId; //주문번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
 	private Users user;
 	
 	@Column(nullable = false)
-	private String orderPayment;
+	private String ordersPayment; //카드,카카오페이,계좌이체
 	
-	private int orderPrice;
-	private String orderBookName;
-	private String orderBookEmail;
-	private int orderBookPhone;
+	private int ordersPrice;
+	private String ordersBookName;
+	private String ordersBookEmail;
+	private int ordersBookPhone;
 	
 	@Column(length = 300)
-	private String orderContent; //추가사항
+	private String ordersContent; //추가사항
 	
 	@CreationTimestamp
-	private LocalDate orderDate;
+	private LocalDate ordersDate;
 	
 	/** 주문상세 */
-	@OneToMany(mappedBy = "order")
-	private List<OrderLine> orderLineList;
+	//@OneToMany(mappedBy = "order")
+	//private List<OrderLine> ordersLineList;
 	
 	
 	/** 핫딜상세 */
-	@OneToMany(mappedBy = "order")
-	private List<TimeOrderLine> timeOrderLineList;
+	//@OneToMany(mappedBy = "order")
+	//private List<TimeOrderLine> timeOrdersLineList;
 	
 }

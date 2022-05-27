@@ -59,8 +59,8 @@ public class PlanBoard {
 	private int pboardGood;
 	
 	/**댓글*/
-	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
-	private List<PlanReply> planReply;
+	//@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
+	//private List<PlanReply> planReply;
 	
 	
 
