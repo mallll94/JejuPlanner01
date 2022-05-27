@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import kosta.mvc.domain.Diary;
-import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.domain.GoodsLine;
+import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.PlanBoard;
@@ -20,7 +21,8 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
-import kosta.mvc.repository.OrderRepository;
+import kosta.mvc.repository.OrderLineRepository;
+import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlanBoardRepository;
 import kosta.mvc.repository.PlanReplyRepository;
@@ -49,7 +51,10 @@ public class JejuDB_planner {
 	private PlanBoardRepository planBRep;
 	@Autowired
 	private PlanReplyRepository planreplyRep;
-	
+	@Autowired
+	private OrdersRepository orderRep;
+	@Autowired
+	private OrderLineRepository orderLineRep;
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 	@Test
 	void userinsert() {
@@ -214,8 +219,6 @@ public class JejuDB_planner {
 	}
 	
 	
-	@Autowired
-	private OrderRepository orderRep;
 	
 	/**
 	 * 주문하기 
@@ -232,6 +235,10 @@ public class JejuDB_planner {
 		
 	}
 	
+	
+
+
+
 	/**
 	 * 주문상세 
 	 * */
@@ -241,10 +248,17 @@ public class JejuDB_planner {
 		Users user2  = userRep.findById("bbb").orElse(null);
 		Users user3  = userRep.findById("abc123").orElse(null);
 		
-		orderRep.save(new Orders(null, user1, "카드", 30000, user1.getUserName(), user1.getUserEmail(), user1.getUserPhone(), "픽업요청합니다.", null));
-		orderRep.save(new Orders(null, user2, "카카오페이", 45000, user2.getUserName(), user2.getUserEmail(), user2.getUserPhone(), null, null));
-		orderRep.save(new Orders(null, user3, "계좌이체", 5500, user3.getUserName(), user3.getUserEmail(), user3.getUserPhone(), "연락주세요", null));
+		Orders orders1 = orderRep.findById(4L).orElse(null);
+		Orders orders2 = orderRep.findById(5L).orElse(null);
+		Orders orders3 = orderRep.findById(6L).orElse(null);
 		
+		GoodsLine goodsLine1 = goodsLineRep.findById().orElse(null);
+		GoodsLine goodsLine2 = goodsLineRep.findById().orElse(null);
+		GoodsLine goodsLine3 = goodsLineRep.findById().orElse(null);
+		
+		orderLineRep.save(new OrderLine(null, orders1, goodsLine1, 4, 20000, "BU"));
+		orderLineRep.save(new OrderLine(null, orders1, goodsLine2, 4, 20000, "CU"));
+		orderLineRep.save(new OrderLine(null, orders1, goodsLine3, 4, 20000, "EX"));
 	}
 	
 	
