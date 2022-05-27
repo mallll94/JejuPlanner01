@@ -1,7 +1,6 @@
 package kosta.mvc;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -16,9 +15,7 @@ import kosta.mvc.domain.ChatBoard;
 import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.FreeReply;
-import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
-import kosta.mvc.domain.Place;
 import kosta.mvc.domain.TimeDeal;
 import kosta.mvc.domain.TimeOrderLine;
 import kosta.mvc.domain.Users;
@@ -31,14 +28,13 @@ import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.repository.FreeReplyRepository;
 import kosta.mvc.repository.NotiecRepository;
-import kosta.mvc.repository.OrderRepository;
+import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
 import kosta.mvc.repository.TimeDealRepository;
 import kosta.mvc.repository.TimeOrderLineRepository;
 import kosta.mvc.repository.UserRepository;
-import net.bytebuddy.asm.Advice.Local;
 
 @SpringBootTest
 @Transactional
@@ -75,7 +71,7 @@ class JejuProjectApplicationTests {
 	@Autowired
 	private TimeOrderLineRepository timeorderlineRep;
 	@Autowired
-	private OrderRepository orderRep;
+	private OrdersRepository orderRep;
 
 	@Test
 	void contextLoads() {
