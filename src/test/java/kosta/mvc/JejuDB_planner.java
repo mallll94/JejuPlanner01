@@ -10,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import kosta.mvc.domain.Diary;
-import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.domain.GoodsLine;
+import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.PlanBoard;
@@ -20,7 +21,8 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
-import kosta.mvc.repository.OrderRepository;
+import kosta.mvc.repository.OrderLineRepository;
+import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlanBoardRepository;
 import kosta.mvc.repository.PlanReplyRepository;
@@ -49,7 +51,10 @@ public class JejuDB_planner {
 	private PlanBoardRepository planBRep;
 	@Autowired
 	private PlanReplyRepository planreplyRep;
-	
+	@Autowired
+	private OrdersRepository orderRep;
+	@Autowired
+	private OrderLineRepository orderLineRep;
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 	@Test
 	void userinsert() {
@@ -214,8 +219,6 @@ public class JejuDB_planner {
 	}
 	
 	
-	@Autowired
-	private OrderRepository orderRep;
 	
 	/**
 	 * 주문하기 
@@ -232,8 +235,7 @@ public class JejuDB_planner {
 		
 	}
 	
-	@Autowired
-	private OrderLineRepository orderLineRep;
+	
 
 
 
