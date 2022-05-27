@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Commit;
 
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.PlanReply;
@@ -19,6 +20,7 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
+import kosta.mvc.repository.OrderRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlanBoardRepository;
 import kosta.mvc.repository.PlanReplyRepository;
@@ -211,6 +213,39 @@ public class JejuDB_planner {
 		planreplyRep.save(new PlanReply(null, pboard1, planner11, user3, "참고할게요^^", null));
 	}
 	
+	
+	@Autowired
+	private OrderRepository orderRep;
+	
+	/**
+	 * 주문하기 
+	 * */
+	@Test
+	public void orderInsert() {
+		Users user1  = userRep.findById("aaa").orElse(null);
+		Users user2  = userRep.findById("bbb").orElse(null);
+		Users user3  = userRep.findById("abc123").orElse(null);
+		
+		orderRep.save(new Orders(null, user1, "카드", 30000, user1.getUserName(), user1.getUserEmail(), user1.getUserPhone(), "픽업요청합니다.", null));
+		orderRep.save(new Orders(null, user2, "카카오페이", 45000, user2.getUserName(), user2.getUserEmail(), user2.getUserPhone(), null, null));
+		orderRep.save(new Orders(null, user3, "계좌이체", 5500, user3.getUserName(), user3.getUserEmail(), user3.getUserPhone(), "연락주세요", null));
+		
+	}
+	
+	/**
+	 * 주문상세 
+	 * */
+	@Test
+	public void orderLineInsert() {
+		Users user1  = userRep.findById("aaa").orElse(null);
+		Users user2  = userRep.findById("bbb").orElse(null);
+		Users user3  = userRep.findById("abc123").orElse(null);
+		
+		orderRep.save(new Orders(null, user1, "카드", 30000, user1.getUserName(), user1.getUserEmail(), user1.getUserPhone(), "픽업요청합니다.", null));
+		orderRep.save(new Orders(null, user2, "카카오페이", 45000, user2.getUserName(), user2.getUserEmail(), user2.getUserPhone(), null, null));
+		orderRep.save(new Orders(null, user3, "계좌이체", 5500, user3.getUserName(), user3.getUserEmail(), user3.getUserPhone(), "연락주세요", null));
+		
+	}
 	
 	
 }
