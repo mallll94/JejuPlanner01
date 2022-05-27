@@ -32,13 +32,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class FreeBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "free_seq")
 	@SequenceGenerator(sequenceName = "free_seq", allocationSize = 1, name = "free_seq")
-	@NonNull
 	private Long freeId; //글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

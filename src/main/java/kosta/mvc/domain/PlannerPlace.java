@@ -23,13 +23,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class PlannerPlace {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planner_place_seq")
 	@SequenceGenerator(sequenceName = "planner_place_seq", allocationSize = 1, name = "planner_place_seq")
-	@NonNull
 	private Long plannerPlaceId; //사용자플래너장소 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

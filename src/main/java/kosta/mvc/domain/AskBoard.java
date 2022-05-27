@@ -31,13 +31,11 @@ import lombok.Setter;
 @Table(name = "askboard")
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class AskBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ask_seq")
 	@SequenceGenerator(sequenceName = "ask_seq", allocationSize = 1, name = "ask_seq")
-	@NonNull
 	private Long askId; //글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -28,13 +28,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class FreeReply {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "free_reply_seq")
 	@SequenceGenerator(sequenceName = "free_reply_seq", allocationSize = 1, name = "free_reply_seq")
-	@NonNull
 	private Long freeReplyId; //댓글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

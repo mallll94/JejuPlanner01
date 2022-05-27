@@ -23,13 +23,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TimeDeal {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "time_deal_seq")
 	@SequenceGenerator(sequenceName = "time_deal_seq", allocationSize = 1, name = "time_deal_seq")
-	@NonNull
 	private Long timeDealId; //핫딜번호
 	
 	private String timeDealName;

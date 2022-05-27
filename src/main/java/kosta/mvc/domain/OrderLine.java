@@ -26,13 +26,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class OrderLine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_line_seq")
 	@SequenceGenerator(sequenceName = "order_line_seq", allocationSize = 1, name = "order_line_seq")
-	@NonNull
 	private Long orderLineId; //주문상세번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -23,13 +23,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Cart {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_seq")
 	@SequenceGenerator(sequenceName = "cart_seq", allocationSize = 1, name = "cart_seq")
-	@NonNull
 	private Long cartId; //장바구니번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

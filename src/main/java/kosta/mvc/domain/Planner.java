@@ -31,13 +31,11 @@ import lombok.Setter;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Planner {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planner_seq")
 	@SequenceGenerator(sequenceName = "planner_seq", allocationSize = 1, name = "planner_seq")
-	@NonNull
 	private Long plannerId; //사용자플래너 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

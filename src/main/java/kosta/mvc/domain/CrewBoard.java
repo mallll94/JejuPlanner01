@@ -30,13 +30,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class CrewBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "crew_seq")
 	@SequenceGenerator(sequenceName = "crew_seq", allocationSize = 1, name = "crew_seq")
-	@NonNull
 	private Long crewId; //동행구하기 글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

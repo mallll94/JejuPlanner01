@@ -31,13 +31,11 @@ import lombok.Setter;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class ChatBoard {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_seq")
 	@SequenceGenerator(sequenceName = "chat_seq", allocationSize = 1, name = "chat_seq")
-	@NonNull
 	private Long chatId; //채팅번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

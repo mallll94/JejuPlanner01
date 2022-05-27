@@ -25,13 +25,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class GoodsLine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goods_line_seq")
 	@SequenceGenerator(sequenceName = "goods_line_seq", allocationSize = 1, name = "goods_line_seq")
-	@NonNull
 	private Long goodsLineId; //상품상세 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

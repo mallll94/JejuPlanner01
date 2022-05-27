@@ -21,13 +21,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-//@RequiredArgsConstructor
 public class Place {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "place_seq")
 	@SequenceGenerator(sequenceName = "place_seq", allocationSize = 1, name = "place_seq")
-	@NonNull
 	private Long placeId; //장소데이터 번호
 	
 	private String placeCategory;

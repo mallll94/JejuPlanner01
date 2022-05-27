@@ -27,13 +27,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Diary {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "diary_seq")
 	@SequenceGenerator(sequenceName = "diary_seq", allocationSize = 1, name = "diary_seq")
-	@NonNull
 	private Long diaryId; //다이어리 글 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

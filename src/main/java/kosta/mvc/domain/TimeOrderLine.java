@@ -24,13 +24,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TimeOrderLine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "time_order_line_seq")
 	@SequenceGenerator(sequenceName = "time_order_line_seq", allocationSize = 1, name = "time_order_line_seq")
-	@NonNull
 	private Long timeOrderLineId; //핫딜상세번호
 	
 	@OneToOne(fetch = FetchType.LAZY)

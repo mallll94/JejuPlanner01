@@ -24,13 +24,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Notice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "notice_seq" )
 	@SequenceGenerator(sequenceName = "notice_seq" , allocationSize = 1 , name="notice_seq" )
-	@NonNull
 	private Long noticeId;
 	private String noticeTitle;
 	

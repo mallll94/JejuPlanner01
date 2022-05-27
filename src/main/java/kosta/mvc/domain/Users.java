@@ -22,11 +22,9 @@ import lombok.Setter;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Users {
 
 	@Id
-	@NonNull
 	private String userId;
 	
 	private String userName;

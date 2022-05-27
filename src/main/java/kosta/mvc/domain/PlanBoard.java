@@ -31,13 +31,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class PlanBoard {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planboard_seq")
 	@SequenceGenerator(sequenceName = "planboard_seq", allocationSize = 1, name = "planboard_seq")
-	@NonNull
 	private Long pboardId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

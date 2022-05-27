@@ -28,13 +28,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class PlanReply {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plan_reply_seq")
 	@SequenceGenerator(sequenceName = "plan_reply_seq", allocationSize = 1, name = "plan_reply_seq")
-	@NonNull
 	private Long pboardReplyId; //댓글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

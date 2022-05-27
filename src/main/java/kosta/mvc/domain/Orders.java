@@ -30,13 +30,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Orders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
 	@SequenceGenerator(sequenceName = "order_seq", allocationSize = 1, name = "order_seq")
-	@NonNull
 	private Long orderId; //주문번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)

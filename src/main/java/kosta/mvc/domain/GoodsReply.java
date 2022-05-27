@@ -28,13 +28,11 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class GoodsReply{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goods_reply_seq")
 	@SequenceGenerator(sequenceName = "goods_reply_seq", allocationSize = 1, name = "goods_reply_seq")
-	@NonNull
 	private Long goodsReplyId; //상품후기번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
