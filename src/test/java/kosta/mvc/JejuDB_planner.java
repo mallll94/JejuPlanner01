@@ -21,6 +21,8 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
+import kosta.mvc.repository.GoodsLineRepository;
+import kosta.mvc.repository.GoodsRepository;
 import kosta.mvc.repository.OrderLineRepository;
 import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.PlaceRepository;
@@ -55,6 +57,15 @@ public class JejuDB_planner {
 	private OrdersRepository orderRep;
 	@Autowired
 	private OrderLineRepository orderLineRep;
+	
+	@Autowired
+	private GoodsRepository goodsRep;
+	
+	@Autowired
+	private GoodsLineRepository goodsLineRep;
+	
+	
+	
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 	@Test
 	void userinsert() {
@@ -252,13 +263,13 @@ public class JejuDB_planner {
 		Orders orders2 = orderRep.findById(5L).orElse(null);
 		Orders orders3 = orderRep.findById(6L).orElse(null);
 		
-		GoodsLine goodsLine1 = goodsLineRep.findById().orElse(null);
-		GoodsLine goodsLine2 = goodsLineRep.findById().orElse(null);
-		GoodsLine goodsLine3 = goodsLineRep.findById().orElse(null);
+		GoodsLine goodsLine1 = goodsLineRep.findById(1L).orElse(null);
+		GoodsLine goodsLine2 = goodsLineRep.findById(2L).orElse(null);
+		GoodsLine goodsLine3 = goodsLineRep.findById(3L).orElse(null);
 		
 		orderLineRep.save(new OrderLine(null, orders1, goodsLine1, 4, 20000, "BU"));
-		orderLineRep.save(new OrderLine(null, orders1, goodsLine2, 4, 20000, "CU"));
-		orderLineRep.save(new OrderLine(null, orders1, goodsLine3, 4, 20000, "EX"));
+		orderLineRep.save(new OrderLine(null, orders2, goodsLine2, 4, 20000, "CU"));
+		orderLineRep.save(new OrderLine(null, orders3, goodsLine3, 4, 20000, "EX"));
 	}
 	
 	
