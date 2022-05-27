@@ -42,7 +42,7 @@ public class Orders {
 	private Users user;
 	
 	@Column(nullable = false)
-	private String ordersPayment;
+	private String ordersPayment; //카드,카카오페이,계좌이체
 	
 	private int ordersPrice;
 	private String ordersBookName;
@@ -56,12 +56,12 @@ public class Orders {
 	private LocalDate ordersDate;
 	
 	/** 주문상세 */
-	@OneToMany(mappedBy = "order")
-	private List<OrderLine> ordersLineList;
+	//@OneToMany(mappedBy = "order")
+	//private List<OrderLine> ordersLineList;
 	
 	
 	/** 핫딜상세 */
-	@OneToMany(mappedBy = "order")
-	private List<TimeOrderLine> timeOrdersLineList;
+	//@OneToMany(mappedBy = "order")
+	//private List<TimeOrderLine> timeOrdersLineList;
 	
 }
