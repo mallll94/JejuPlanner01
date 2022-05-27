@@ -1,5 +1,6 @@
 package kosta.mvc;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,10 @@ import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.FreeReply;
 import kosta.mvc.domain.Notice;
+import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.TimeDeal;
+import kosta.mvc.domain.TimeOrderLine;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.AskBoardRepository;
 import kosta.mvc.repository.AskReplyRepository;
@@ -30,7 +34,10 @@ import kosta.mvc.repository.NotiecRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
+import kosta.mvc.repository.TimeDealRepository;
+import kosta.mvc.repository.TimeOrderLineRepository;
 import kosta.mvc.repository.UserRepository;
+import net.bytebuddy.asm.Advice.Local;
 
 @SpringBootTest
 @Transactional
@@ -62,6 +69,10 @@ class JejuProjectApplicationTests {
 	private CrewBoardRepository crewboardRep;
 	@Autowired
 	private ChatBoardRepository chatboardRep;
+	@Autowired
+	private TimeDealRepository timedealRep;
+	@Autowired
+	private TimeOrderLineRepository timeorderlineRep;
 
 	@Test
 	void contextLoads() {
@@ -137,6 +148,37 @@ class JejuProjectApplicationTests {
 			//chatboardRep.save(new ChatBoard(null, board, user1, user2, 0, null, null, "ddd님,동행구하셨나요?", 0) );
 			chatboardRep.save(new ChatBoard(null, board, user2, user1, 0, null, null, "ccc님,아직구하지못하였습니다. 제주도 가시는 날짜가 언제인가요?", 0) );
 		}
+		
+		/**핫딜*/
+		@Test
+		void timedealinsert() {
+			/*LocalDate start = LocalDate.of(2022, 06, 01);
+			/LocalDate end = LocalDate.of(2022, 06, 30);
+			timedealRep.save(new TimeDeal(null, "제주도 동쪽 버스투어", 39900, 20000 ,30 , "제주도 동쪽을 도는 버스투어입니다. 1명만 신청하여도 가능하며 매일 진행합니다", 
+				"사진", start, end, "https://www.myrealtrip.com/offers/79378") );*/
+			
+			/*LocalDate start2 = LocalDate.of(2022, 06, 01);
+			LocalDate end2 = LocalDate.of(2022, 06, 15);
+			timedealRep.save(new TimeDeal(null, "율랜드 스쿠버 다이빙체험 ", 95000, 50000, 30, 
+					"초보자도 쉽게 할 수 있는 스쿠버 다이빙입니다. 장소는 서귀포시에서 진행하며 고프로로 사진도 찍어드립니다.",
+					"사진", start2, end2, "https://www.myrealtrip.com/offers/84760") );*/
+			
+			LocalDate start3 = LocalDate.of(2022, 06, 01);
+			LocalDate end3 = LocalDate.of(2022, 06, 10);
+			timedealRep.save(new TimeDeal(null, "중문색달해변 서핑강습", 60000, 40000 ,30 , "초보자도 할 수 있는 서핑강습입니다. 슈트는 따로 렌탈하셔야 하며 사업장의 샤워실에서 환복하고 이동합니다.", 
+				"사진", start3, end3, "https://www.myrealtrip.com/offers/104207") );
+			
+		}
+		
+		/**핫딜상세*/
+		@Test
+		void timeorderlineinsert() {
+		 TimeDeal time = timedealRep.findById(1L).orElse(null);
+		 //Orders 들어갈 자리 
+		 
+			timeorderlineRep.save(new TimeOrderLine(null, null, null, 1, 20000) );
+		}
+		
 
 }
 

@@ -171,10 +171,10 @@ public class JejuDB_planner {
 		PlannerPlace pp3 = plannerplaceRep.findById(3L).orElse(null);
 		PlannerPlace pp4 = plannerplaceRep.findById(4L).orElse(null);
 		
-		diarylineRep.save(new DiaryLine(null, diary1, pp1, "신나는 여행~", null, 10000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp2, "신나는 여행~", null, 210000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp1, "신나는 여행~", null, 10000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp2, "신나는 여행~", null, 210000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
 	}
 	
 	/**플래너 공유게시판*/
