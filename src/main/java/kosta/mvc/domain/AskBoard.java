@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "askboard")
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 public class AskBoard {
@@ -49,13 +51,15 @@ public class AskBoard {
 	private String askContent;
 	
 	private String askAttach;
-	private String askComplete; //답변여부
+	
+	//@Column(columnDefinition = "varchar2(20) default 'N'")
+	private String askComplete; //답변여부 Y는 답변완료 N은 미완료
 	
 	@CreationTimestamp
 	private LocalDateTime askRegdate;
 	
 	/** 댓글 */
-	@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
-	private List<AskReply> askReplyList;
+	//@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
+	//private List<AskReply> askReplyList;
 
 }

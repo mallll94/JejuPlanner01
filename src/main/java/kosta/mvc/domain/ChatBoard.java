@@ -60,6 +60,6 @@ public class ChatBoard {
 	@Column(length = 2000)
 	private String chatContent;
 	
-	@Column(columnDefinition = "varchar2(20) default 'N'")
-	private int chatCheck; //메세지읽기체크 , 읽으면 R 안읽으면 N
+	@Column(columnDefinition = "varchar2(20) default '0'")
+	private int chatCheck; //메세지읽기체크 , 읽으면 1 안읽으면 0
 }
