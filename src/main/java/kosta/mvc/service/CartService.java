@@ -9,10 +9,7 @@ public interface CartService {
 	 */
 	public void addCart(Cart add);
 	
-	/**
-	 * 장바구니 수량 변경
-	 */
-	
+
 	/**
 	 * 장바구니 부분 삭제하기
 	 */
@@ -25,7 +22,5 @@ public interface CartService {
 	 * 장바구니 조회하기
 	 */
 	
-	/**
-	 * 장바구니 아이디로 장바구니 조회하기
-	 */
+
 }
