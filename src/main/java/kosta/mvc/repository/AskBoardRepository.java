@@ -9,30 +9,6 @@ public interface AskBoardRepository extends JpaRepository<AskBoard, Long> {
 
 
 
-	/**
-	 * 1:1문의 등록하기
-	 */
-	public void insertAskBoard(AskBoard askBoard);
-	
-	/**
-	 * 1:1문의 수정하기
-	 */
-	public void updateAskBoard(AskBoard askBoard);
-	
-	/**
-	 * 1:1문의 전체 조회하기
-	 */
-	public List<AskBoard> selectAllAskBoards();
-	
-	/**
-	 * 1:1문의 조회하기 (askBoardId를 이용해)
-	 */
-	public AskBoard selectAskBoard(Long askId);
-	
-	
-	/**
-	 * 1:1문의 삭제하기 (askBoardId를 이용해)
-	 */
-	//public void deleteAskBoard(Long askId);
+
 }
 
