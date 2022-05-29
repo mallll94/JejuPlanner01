@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TestController {
 
-	@RequestMapping("/")
+	@RequestMapping("/test")
 	public String index() {
 		System.out.println("test...............");
-		return "index";
+		return "admin/mapTest";
 	}
 }
