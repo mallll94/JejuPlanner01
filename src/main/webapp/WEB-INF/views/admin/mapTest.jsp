@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiAlckPzSsiwSO9cxBjZG4aesSdwFwAs&callback=myMap&libraries=places&region=kr"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=key&callback=myMap&libraries=places&region=kr"></script>
 <script type="text/javascript">
 	var map;
 	var box = [];
