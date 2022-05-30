@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
+	<h1>plannerIndex</h1>
 		<c:forEach items="${plannerList}" var="planner">
 			<div class="card" style="width: 18rem;">
 				<img src="..." class="card-img-top" alt="...">

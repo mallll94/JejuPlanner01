@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Planner;
@@ -13,10 +14,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class PlannerServiceImpl implements PlannerService {
 
-	private final PlannerRepository plannerRep;
+	@Autowired
+	private PlannerRepository plannerRep;
 	
 	@Override
 	public List<Planner> selectAll(String userId) {
