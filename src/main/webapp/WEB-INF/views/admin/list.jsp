@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+
+
 <script type="text/javascript">
 	$(function(){
 		function selectAll(){
@@ -17,7 +19,7 @@
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
 					data: {json :$("#li").val() , nowPage : 1},//서버에게 보낼 parameter정보
 					success: function(result){
-						alert(result.pageList.content.totalPages);
+						
 						var doneLoop =false;
 						var paging ="";
 						var data = "<table border='1' cellpadding='5'>";
@@ -38,32 +40,12 @@
 							data+="</tr>";
 							 
 						})
-						if((result.startPage-result.blockCount) > 0){
-							paging+=`<a class='pagination-newer' href='${pageContext.request.contextPath}/board/list?nowPage=${"${result.startPage-1}"}' >PREV</a>`;
-						}
 						
-							paging+=`<span class="pagination-inner">`;
-							
-						for(var i = result.startPage;i<(result.startPage-1)+result.blockCount;i++){
-							if((i-1)>=result.pageList.content.getTotalPages()){
-								doneLoop=true;
-							}
-							
-							if(!doneLoop){
-								paging+=`<a class='${i==nowPage?"pagination-active":page}' href='${pageContext.request.contextPath}/board/list?nowPage=${"${i}"}'>${i}</a>`; 
-							}
 
-						}
-						paging+=`</span> `;
-						
-						if((result.startPage+result.blockCount)<=result.pageList.content.getTotalPages()){
-							paging+=`<a class='pagination-older' href='${pageContext.request.contextPath}/board/list?nowPage=${"${result.startPage+result.blockCount}"}'>NEXT</a>`;
-						}
-						
 						 data+="</table>";
 						 
 
-						$("#paging").html(paging);
+						//$("#paging").html(paging);
 						$("#table").html(data);
 						
 					},
@@ -203,10 +185,8 @@
 						alert("오류다");
 					  }
 				  });//ajax
-			  });//click 
-			  
+			  });//click   
 		  });//click
-		
 		  selectAll();
 	})
 </script>
@@ -226,9 +206,11 @@
 
 <div id="table"></div>
 <div class="pagination" id="paging"></div>
+
 <a href="/admin/insert">등록하기</a>
 
 	 
 
 </body>
+
 </html>
