@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class PlaceServiceImpl implements PlaceService {
 	public List<Place> selectAll() {
 		
 		return placeRep.findAll();
+	}
+	
+	@Override
+	public Page<Place> selectAll(Pageable page) {
+		Page<Place> pageList = placeRep.findAll(page);
+		return pageList;
 	}
 
 	@Override
@@ -69,5 +77,7 @@ public class PlaceServiceImpl implements PlaceService {
 		}
 		return list;
 	}
+
+	
 
 }

@@ -15,9 +15,11 @@
 					url:"all", //서버요청주소
 					type:"post", // 요청방식(get, post)
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					//data: "cata="+$("#li").val(),//서버에게 보낼 parameter정보
-					//async: false,
+					data: {json :$("#li").val() , nowPage : 1},//서버에게 보낼 parameter정보
 					success: function(result){
+						alert(result.pageList.content.totalPages);
+						var doneLoop =false;
+						var paging ="";
 						var data = "<table border='1' cellpadding='5'>";
 						data+="<tr>";
 						data+="<td>ID</td>";
@@ -25,15 +27,43 @@
 						data+="<td>설명</td>";
 						data+="<td>담은 개수</td>";
 						data+="</tr>";
-						$.each(result, function(index, item){
+						
+						$.each(result.pageList.content, function(index, item){
+							
 						 	data+="<tr>";
 							data+="<td>"+item.placeId+"</td>";
 							data+="<td>"+item.placeName+"</td>";
 							data+="<td>"+item.placeContent+"</td>";
 							data+="<td>"+item.placeSave+"</td>";
 							data+="</tr>";
-						 }) 
+							 
+						})
+						if((result.startPage-result.blockCount) > 0){
+							paging+=`<a class='pagination-newer' href='${pageContext.request.contextPath}/board/list?nowPage=${"${result.startPage-1}"}' >PREV</a>`;
+						}
+						
+							paging+=`<span class="pagination-inner">`;
+							
+						for(var i = result.startPage;i<(result.startPage-1)+result.blockCount;i++){
+							if((i-1)>=result.pageList.content.getTotalPages()){
+								doneLoop=true;
+							}
+							
+							if(!doneLoop){
+								paging+=`<a class='${i==nowPage?"pagination-active":page}' href='${pageContext.request.contextPath}/board/list?nowPage=${"${i}"}'>${i}</a>`; 
+							}
+
+						}
+						paging+=`</span> `;
+						
+						if((result.startPage+result.blockCount)<=result.pageList.content.getTotalPages()){
+							paging+=`<a class='pagination-older' href='${pageContext.request.contextPath}/board/list?nowPage=${"${result.startPage+result.blockCount}"}'>NEXT</a>`;
+						}
+						
 						 data+="</table>";
+						 
+
+						$("#paging").html(paging);
 						$("#table").html(data);
 						
 					},
@@ -157,7 +187,7 @@
 					  data: {filter :$("#li").val(),name : "숙소"},//서버에게 보낼 parameter정보
 					  success: function(result){
 						  var data = "";
-							
+						  
 							$.each(result, function(index, item){
 							 	data+="<tr>";
 								data+="<td>"+item.placeId+"</td>";
@@ -183,7 +213,7 @@
 </head>
 <body>
 <a href="/admin/list">플래너 데이터 관리</a>
-<form action="">
+
 
 <input type="button" value="장소" id="place"><input type="button" value="숙소" id="home">
 
@@ -195,10 +225,10 @@
 	</select>
 
 <div id="table"></div>
- 
- 
+<div class="pagination" id="paging"></div>
+<a href="/admin/insert">등록하기</a>
 
-</form>
+	 
 
 </body>
 </html>

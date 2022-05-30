@@ -2,6 +2,9 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import kosta.mvc.domain.Place;
 
 public interface PlaceService {
@@ -11,6 +14,7 @@ public interface PlaceService {
 	 * */
 	List<Place> selectAll();
 	
+	Page<Place> selectAll(Pageable page);
 	/**
 	 * 장소 상세 정보 조회하기
 	 * */
