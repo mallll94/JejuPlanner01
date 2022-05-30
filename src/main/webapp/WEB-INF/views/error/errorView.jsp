@@ -2,8 +2,6 @@
     pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- isErrorPage="true"와 함께 500번 에러가 안나도록 설정해줘야한다. -->
-<%response.setStatus(200); %> 
 <!DOCTYPE html>
 <html>
 <head>
