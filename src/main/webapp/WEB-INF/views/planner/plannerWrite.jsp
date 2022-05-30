@@ -5,10 +5,13 @@ pageEncoding="UTF-8"%>
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <title>Document</title>
+        <title>::플래너 작성하기::</title>
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
-	
+		<h3>플래너 작성하기</h3>
+		<div class="jeju-sidebar-left" id="sidebar-left">
+			
+		</div>
 	</body>
 </html>
