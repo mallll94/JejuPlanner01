@@ -15,6 +15,10 @@ public interface PlaceService {
 	 * 장소 상세 정보 조회하기
 	 * */
 	Place selectById(Long placeId);
+	/**
+	 * 장소 필터 별 정보 조회하기
+	 * */
+	List<Place> selectByCata(String cataNo, String placeCategory);
 	
 	/**
 	 * 장소 등록하기

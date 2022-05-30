@@ -11,4 +11,6 @@ public class TestController {
 		System.out.println("test...............");
 		return "admin/mapTest";
 	}
+	
+	
 }
