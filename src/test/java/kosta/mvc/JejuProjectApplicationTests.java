@@ -1,12 +1,14 @@
 package kosta.mvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 
 import kosta.mvc.domain.AskBoard;
@@ -17,6 +19,7 @@ import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.FreeReply;
 import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
+import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.TimeDeal;
 import kosta.mvc.domain.TimeOrderLine;
 import kosta.mvc.domain.Users;
@@ -76,7 +79,13 @@ class JejuProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
+	
+		   
+		   
+		   
 		System.out.println("userRep " + userRep);
+		
+		
 	}
 	
 	
