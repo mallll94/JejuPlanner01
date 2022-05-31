@@ -24,7 +24,7 @@ public interface NoticeService {
 	/**
 	 * 공지사항 수정- 관리자
 	 * */
-	void update(Notice notice);
+	Notice update(Notice notice);
 	
 	/**
 	 * 공지사항 삭제- 관리자
