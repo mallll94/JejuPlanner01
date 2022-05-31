@@ -47,9 +47,10 @@ public class AdminController {
 		int startPage =nowPage-temp;
 		
 		map.put("pageList", pageList);
+		map.put("list", pageList.getContent());
 		map.put("blockCount", BLOCK_COUNT);
 		map.put("startPage", startPage);
-		map.put("totalPages", pageList.getContent())	;
+		
 		
 		return map;
 		
@@ -76,5 +77,12 @@ public class AdminController {
 	public List<Place> homeList(String filter,String name) {
 		System.out.println("filter : "+filter+" | name : "+name);
 		return placeService.selectByCata(filter, name);
+	}
+	
+	
+	@RequestMapping("/insert")
+	public String insert(Place place) {
+		//placeService.insertPlace(place);
+		return "/admin/list";
 	}
 }

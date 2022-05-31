@@ -3,6 +3,8 @@ package kosta.mvc.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Place;
+import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.repository.PlaceRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 public class PlaceServiceImpl implements PlaceService {
 
 	@Autowired
@@ -38,7 +43,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void insertPlace(Place place) {
-		// TODO Auto-generated method stub
+		//placeRep.save(place);
 
 	}
 
