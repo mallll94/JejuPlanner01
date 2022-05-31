@@ -13,6 +13,12 @@ public interface CartService {
 	public void addCart(Cart cart);
 	
 	/**
+	 * 장바구니 수정하기
+	 */
+	
+	public void updateCart(Cart cart);
+	
+	/**
 	 * 장바구니 삭제하기
 	 */
 	
