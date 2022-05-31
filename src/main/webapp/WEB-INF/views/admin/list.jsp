@@ -13,19 +13,15 @@
 	$(function(){
 		//인기순/등록순관련
 		$(".typeName").click(function(){
-			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
-				paramNowPage=1;
-			}
 				$("#name").val($(this).val());
-				selectAll(paramNowPage);
+				selectAll(1);
 		})
 		
-		$("#li").change(function(){
-			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
-				paramNowPage=1;
-			}
-			selectAll(paramNowPage);
+		$("#li").change(function(){	
+			selectAll(1);
+			
 		});//click 
+		
 
 		function selectAll(paramNowPage){ //전,	
 			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){

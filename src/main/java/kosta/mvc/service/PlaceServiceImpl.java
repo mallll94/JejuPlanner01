@@ -36,10 +36,6 @@ public class PlaceServiceImpl implements PlaceService {
 	
 	@Override
 	public Page<Place> selectAll(int nowPage,int PAGE_COUNT) {
-		
-		BooleanBuilder builder = new BooleanBuilder();
-		
-		QPlace place = QPlace.place;
 
 		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "placeId");
 		
@@ -73,19 +69,25 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override//Sort.by(Sort.Order.asc(filter))
 	public Page<Place> selectByCata(String filter, String placeCategory, int nowPage,int PageCount) {
+		QPlace place = QPlace.place;
+		BooleanBuilder builder = new BooleanBuilder();
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
 		
-		//BooleanBuilder builder = new BooleanBuilder();
-		
-		//QPlace place = QPlace.place;
+		if((filter.equals("none")|| filter==null)) {
+			pageable = PageRequest.of((nowPage-1), PageCount);
 
-		//Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
+		}else if(filter.equals("placeName")){
+			pageable = PageRequest.of((nowPage-1), PageCount, Direction.ASC, filter);
+		}
 		
-		//builder.and(place.placeCategory.contains(placeCategory));
-		
-		
-		//Page<Place> result = placeRep.findAll(builder, pageable);
 
-		return null;
+		if(!placeCategory.equals("selectAll")) {
+			builder.and(place.placeCategory.contains(placeCategory));
+		}
+
+		Page<Place> result = placeRep.findAll(builder, pageable);
+
+		return result;
 	}
 	
 }
