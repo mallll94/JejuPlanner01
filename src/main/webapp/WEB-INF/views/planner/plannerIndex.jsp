@@ -42,10 +42,12 @@ pageEncoding="UTF-8"%>
 				  </c:choose>
 				  	
 				
-				  <a href="#" class="btn btn-primary">Go somewhere</a>
+				  <a href="${pageContext.request.contextPath}/planner/plannerWrite/${planner.plannerId}" class="btn btn-primary">플래너 계속 작성하기</a>
 				</div>
 			  </div>
 		</c:forEach>
+		
+		<a href="${pageContext.request.contextPath}/planner/plannerWrite">플래너 작성하기</a>
 		
 	</body>
 </html>

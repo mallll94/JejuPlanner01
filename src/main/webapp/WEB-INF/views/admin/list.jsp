@@ -9,18 +9,35 @@
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
-
 <script type="text/javascript">
 	$(function(){
-		function selectAll(){
+		//인기순/등록순관련
+		$(".typeName").click(function(){
+			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
+				paramNowPage=1;
+			}
+				$("#name").val($(this).val());
+				selectAll(paramNowPage);
+		})
+		
+		$("#li").change(function(){
+			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
+				paramNowPage=1;
+			}
+			selectAll(paramNowPage);
+		});//click 
+
+		function selectAll(paramNowPage){ //전,	
+			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
+				paramNowPage=1;
+			}
+			
 			$.ajax({
-					url:"all", //서버요청주소
+					url:"${pageContext.request.contextPath}/admin/all", //서버요청주소
 					type:"post", // 요청방식(get, post)
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					data: {json :$("#li").val() , nowPage : 1},//서버에게 보낼 parameter정보
+					data: {filter :$("#li").val(),name : $("#name").val(), nowPage :paramNowPage},//서버에게 보낼 parameter정보
 					success: function(result){
-						
-						var doneLoop =false;
 						var paging ="";
 						var data = "<table border='1' cellpadding='5'>";
 						data+="<tr>";
@@ -40,173 +57,53 @@
 							data+="</tr>";
 							 
 						})
+						data+="</table>";
 						
+						if((result.startPage-result.blockCount) > 0){	
+							paging +=`<a class='pagination-newer' href='#' id='nowPage'>PREV</a>`
+							paging +=`<input type='hidden' id='PrevPage' value=${'${result.startPage-1}'}>`;
+						}	
+						paging +=`<span class='pagination-inner'>`;
+					    for(let i=result.startPage ; i<=(result.startPage-1)+result.blockCount ;i++ ){
+					    	if((i-1) >= result.totalPages)break
+					    	paging +=`<a class='${i==nowPage?"pagination-active":page}' href='#'  id='nowPage'>${"${i}"}</a>`;
+					    	
+					    }
+						paging +=`</span>`;
+						if((result.startPage+result.blockCount)<=result.totalPages){	
+							paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
+							paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
+						}	
 
-						//여기서 페이(startPage,blockCount  , TotalPages , nowPagg)
-						
-			
-				 
-						
-						
-						
-						
-						
-						
-						 data+="</table>";
-						 
-
-						//$("#paging").html(paging);
+						$("#paging").html(paging);
 						$("#table").html(data);
-						
 					},
 					error: function(err){
-						alert("ddd");
+						alert(err);
 					}	
 			});//ajax
-			$("#li").change(function(){	  
-				  $.ajax({
-					  url:"selectBy", //서버요청주소
-					  type:"post", // 요청방식(get, post)
-					  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					  data: {filter :$("#li").val() ,name : "selectAll"},//서버에게 보낼 parameter정보
-					  success: function(result){
-						  
-						  var data = "";
-							
-							$.each(result, function(index, item){
-							 	data+="<tr>";
-								data+="<td>"+item.placeId+"</td>";
-								data+="<td>"+item.placeName+"</td>";
-								data+="<td>"+item.placeContent+"</td>";
-								data+="<td>"+item.placeSave+"</td>";
-								data+="</tr>";
-							 }) 
-							 $("#table tr:gt(0)").remove();
-					   		 $("#table tr:eq(0)").after(data);
-							 
-							 
-					  },
-					  error: function(err){
-						alert("오류다");
-					  }
-				  });//ajax
-			  });//click 
 		};
-		
-		$("#place").click(function(){	  
-			  $.ajax({
-				  url:"place", //서버요청주소
-				  type:"post", // 요청방식(get, post)
-				  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-				  data: {filter :$("#li").val() ,name : "장소"},//서버에게 보낼 parameter정보
-				  success: function(result){
-					  var data = "";
-						
-						$.each(result, function(index, item){
-						 	data+="<tr>";
-							data+="<td>"+item.placeId+"</td>";
-							data+="<td>"+item.placeName+"</td>";
-							data+="<td>"+item.placeContent+"</td>";
-							data+="<td>"+item.placeSave+"</td>";
-							data+="</tr>";
-						 }) 
-						 $("#table tr:gt(0)").remove();
-				   		 $("#table tr:eq(0)").after(data);
-				  },
-				  error: function(err){
-					alert("오류다");
-				  }
-	  
-			  });//ajax
-			  
-			  $("#li").change(function(){	  
-				  $.ajax({
-					  url:"selectBy", //서버요청주소
-					  type:"post", // 요청방식(get, post)
-					  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					  data: {filter :$("#li").val(),name : "장소"},//서버에게 보낼 parameter정보
-					  success: function(result){
-						  var data = "";
-							
-							$.each(result, function(index, item){
-							 	data+="<tr>";
-								data+="<td>"+item.placeId+"</td>";
-								data+="<td>"+item.placeName+"</td>";
-								data+="<td>"+item.placeContent+"</td>";
-								data+="<td>"+item.placeSave+"</td>";
-								data+="</tr>";
-							 }) 
-							 $("#table tr:gt(0)").remove();
-					   		 $("#table tr:eq(0)").after(data);
-					  },
-					  error: function(err){
-						alert("오류다");
-					  }
-				  });//ajax
-			  });//click   
-		  });//click
-		  
-		  $("#home").click(function(){	  
-			  $.ajax({
-				  url:"home", //서버요청주소
-				  type:"post", // 요청방식(get, post)
-				  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-				  data: {filter :$("#li").val(),name : "숙소"},//서버에게 보낼 parameter정보
-				  success: function(result){
-					  var data = "";
-						
-						$.each(result, function(index, item){
-						 	data+="<tr>";
-							data+="<td>"+item.placeId+"</td>";
-							data+="<td>"+item.placeName+"</td>";
-							data+="<td>"+item.placeContent+"</td>";
-							data+="<td>"+item.placeSave+"</td>";
-							data+="</tr>";
-						 }) 
-						 $("#table tr:gt(0)").remove();
-				   		 $("#table tr:eq(0)").after(data);
-				  },
-				  error: function(err){
-					  alert("오류다");
-				  }
-			  });//ajax
-			  
-			  $("#li").change(function(){	  
-				  $.ajax({
-					  url:"selectBy", //서버요청주소
-					  type:"post", // 요청방식(get, post)
-					  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					  data: {filter :$("#li").val(),name : "숙소"},//서버에게 보낼 parameter정보
-					  success: function(result){
-						  var data = "";
-						  
-							$.each(result, function(index, item){
-							 	data+="<tr>";
-								data+="<td>"+item.placeId+"</td>";
-								data+="<td>"+item.placeName+"</td>";
-								data+="<td>"+item.placeContent+"</td>";
-								data+="<td>"+item.placeSave+"</td>";
-								data+="</tr>";
-							 }) 
-							 $("#table tr:gt(0)").remove();
-					   		 $("#table tr:eq(0)").after(data);
-					  },
-					  error: function(err){
-						alert("오류다");
-					  }
-				  });//ajax
-			  });//click   
-		  });//click
-		  selectAll();
+		///////////////////////////////////////
+		$(document).on("click","#nowPage", function(){
+			if($(this).text() == "NEXT"){
+				selectAll($("#NextPage").val())
+			}else if($(this).text() == "PREV"){
+				selectAll($("#PrevPage").val())
+			}else{
+				selectAll($(this).text())
+			}
+		});
+		//////////////////////////////
+		selectAll();
 	})
 </script>
 </head>
 <body>
-<a href="/admin/list">플래너 데이터 관리</a>
+<a href="${pageContext.request.contextPath}/admin/list">플래너 데이터 관리</a>
 
 
-<input type="button" value="장소" id="place"><input type="button" value="숙소" id="home">
-
+<input type="button" value="장소" id="place" class="typeName"><input type="button" value="숙소" id="home" class="typeName">
+<input type="hidden" value="selectAll" id="name">
 	<select id="li">
 		<option value='none'>선택</option>
 		<option value='placeSave'>인기순</option>
@@ -215,10 +112,11 @@
 	</select>
 
 <div id="table"></div>
+<nav class="pagination-container">
 <div class="pagination" id="paging"></div>
-
-<a href="/admin/insertForm">등록하기</a>
-
+</nav>
+<a href="/admin/insertForm" >등록하기1</a>
+<div id="test"></div>
 	 
 
 </body>

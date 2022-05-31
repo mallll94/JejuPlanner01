@@ -2,15 +2,13 @@ package kosta.mvc.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.repository.PlannerRepository;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -19,16 +17,18 @@ public class PlannerServiceImpl implements PlannerService {
 	@Autowired
 	private PlannerRepository plannerRep;
 	
+	
 	@Override
 	public List<Planner> selectAll(String userId) {
-		List<Planner> plist = plannerRep.selectByUserID(userId);
-		return plist;
+			List<Planner> plist = plannerRep.selectByUserID(userId);		
+			return plist;
 	}
 
 	@Override
 	public Planner selectBy(Long plannerId) {
-		// TODO Auto-generated method stub
-		return null;
+		Planner planner = plannerRep.findById(plannerId).orElse(null);
+		if(planner==null) throw new RuntimeException("해당 플래너 정보가 없습니다.");
+		return planner;
 	}
 
 	@Override
