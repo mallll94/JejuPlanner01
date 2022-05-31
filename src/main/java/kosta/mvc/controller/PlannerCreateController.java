@@ -55,8 +55,8 @@ public class PlannerCreateController {
 		//개수제한 하는 로직 필요함!!! 전체가져오면 X
 		System.out.println(category);
 		//List<Place> plist =null;
-		List<Place> plist =placeService.selectByCata("placeSave", category);
-		return plist;
+		//List<Place> plist =placeService.selectByCata("placeSave", category);
+		return null;
 	}
 	
 	/**오른쪽 사이드바에서 장소추가하기*/
