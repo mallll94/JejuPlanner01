@@ -24,6 +24,6 @@ public class noticeController {
 	@RequestMapping("/notice")
 	public void list(Model model) {
 		List<Notice> list = noticeService.selectAll();
-		model.addAllAttributes(list);
+		model.addAttribute(list);
 	}
 }

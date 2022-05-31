@@ -77,25 +77,27 @@
 </head>
 <body>
 <h5 class="mt-4">공지사항</h5>
-<c:forEach items="${requestScope.list}" var="notice">
+${requestScope.list}
+
 <div class="row">
   <div class="col-md mb-4 mb-md-0">
     <div class="accordion mt-3" id="accordionExample">
+	 <c:forEach items="${requestScope.list}" var="notice">   
       <div class="card accordion-item active">
         <h2 class="accordion-header" id="headingOne">
           <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
-            ${notice.noticeTitle}
+            ${notice.noticeTitle}dd
           </button>
         </h2>
         <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-           ${notice.noticeContent}
+           ${notice.noticeContent}dd
           </div>
         </div>
       </div>
+       </c:forEach>
     </div>
   </div>
 </div>
-</c:forEach>
 </body>
 </html>  
