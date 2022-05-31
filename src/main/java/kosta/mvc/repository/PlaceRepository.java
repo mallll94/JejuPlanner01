@@ -2,33 +2,37 @@ package kosta.mvc.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.Place;
 
-public interface PlaceRepository extends JpaRepository<Place, Long> {
+public interface PlaceRepository extends JpaRepository<Place, Long>, QuerydslPredicateExecutor<Place>  {
 
-	/*
-	List<Place> findByPlaceCategoryOrderByPlaceSaveAsc(String placeCategory);
+	@Query("select p from Place p")//Sort sort,
+	List<Place> findAllSort(Pageable pageable);
 	
-	List<Place> findByPlaceCategoryOrderByPlaceNameAsc(String placeCategory);
+	@Query("select p from Place p where p.placeCategory=?1")//,Sort sort
+	List<Place> findbyPlaceCategory(String placeCategory,Pageable pageable);
 	
-	List<Place> findByPlaceCategoryOrderByPlaceIdAsc(String placeCategory);
+	/**
+	 * 장소/숙박 선택시
+	 * 가나다 순
+	 * */
+	List<Place> findbyPlaceCategoryOrderByPlaceNameAsc(String placeCategory,Pageable pageable);
+	/**
+	 * 장소/숙박 선택시
+	 * 인기순
+	 * */
+	List<Place> findbyPlaceCategoryOrderByPlaceSaveDesc(String placeCategory,Pageable pageable);
+	/**
+	 * 장소/숙박 선택시
+	 * 등록순
+	 * */
+	List<Place> findbyPlaceCategoryOrderByPlaceIdDesc(String placeCategory,Pageable pageable);
 	
 	
-	
-	@Query("select b from Board b order by ")
-	List<Place> findOrderByPlaceSaveAsc(String placeCategory);
-	
-	List<Place> findOrderByPlaceNameAsc(String placeCategory);
-	
-	List<Place> findOrderByPlaceIdAsc(String placeCategory);
-	*/
-	@Query("select p from Place p")
-	List<Place> findAllSort(Sort sort);
-	
-	@Query("select p from Place p where p.placeCategory=?1")
-	List<Place> findbyPlaceCategory(String placeCategory,Sort sort);
 }

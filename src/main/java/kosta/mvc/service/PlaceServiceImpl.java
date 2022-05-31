@@ -7,8 +7,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Place;
@@ -59,25 +62,28 @@ public class PlaceServiceImpl implements PlaceService {
 
 	}
 
-	@Override
-	public List<Place> selectByCata(String filter, String placeCategory) {
+	@Override//Sort.by(Sort.Order.asc(filter))
+	public List<Place> selectByCata(String filter, String placeCategory, int nowPage,int PageCount) {
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
+		
 		List<Place> list =null;
 		if(placeCategory.equals("selectAll")) {
 			if(filter.equals("none")) {
-				list=placeRep.findAllSort(null);		
+				list=placeRep.findAllSort(pageable);		
 			}else if(filter.equals("placeName")){
-				list=placeRep.findAllSort(Sort.by(Sort.Order.asc(filter)));
-			}
-			else{
-				list=placeRep.findAllSort(Sort.by(Sort.Order.desc(filter)));
+				pageable = PageRequest.of((nowPage-1), PageCount, Direction.ASC, filter);
+				list=placeRep.findAllSort(pageable);
+			}else{
+				list=placeRep.findAllSort(pageable);
 			}
 		}else {
 			if(filter.equals("none")) {
 				list=placeRep.findbyPlaceCategory(placeCategory, null);	
 			}else if(filter.equals("placeName")){
-				list=placeRep.findbyPlaceCategory(placeCategory,Sort.by(Sort.Order.asc(filter)));
+				pageable = PageRequest.of((nowPage-1), PageCount, Direction.ASC, filter);
+				list=placeRep.findbyPlaceCategory(placeCategory,pageable);
 			}else{
-				list=placeRep.findbyPlaceCategory(placeCategory, Sort.by(Sort.Order.desc(filter)));	
+				list=placeRep.findbyPlaceCategory(placeCategory,pageable);	
 			}
 		}
 		return list;

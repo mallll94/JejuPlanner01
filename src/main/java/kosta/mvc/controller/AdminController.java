@@ -27,7 +27,7 @@ public class AdminController {
 	@Autowired
 	private PlaceService placeService;
 	
-	private final static int PAGE_COUNT=2;
+	private final static int PAGE_COUNT=1;
 	private final static int BLOCK_COUNT=4;
 
 	@RequestMapping("/{url}")
@@ -36,7 +36,7 @@ public class AdminController {
 	
 	@RequestMapping("/all")
 	@ResponseBody
-	public Map<String, Object> selectAll(String cata,@RequestParam(defaultValue = "1")int nowPage, Model mv) {
+	public Map<String, Object> selectAll(String cata,@RequestParam(defaultValue = "1")int nowPage) {
 		System.out.println(nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
 		//페이징처리하기
@@ -47,7 +47,8 @@ public class AdminController {
 		int startPage =nowPage-temp;
 		
 		map.put("pageList", pageList);
-		map.put("list", pageList.getContent());
+		map.put("totalPages", pageList.getTotalPages());
+		map.put("nowPage", nowPage);
 		map.put("blockCount", BLOCK_COUNT);
 		map.put("startPage", startPage);
 		
@@ -58,26 +59,36 @@ public class AdminController {
 	
 	@RequestMapping("/selectBy")
 	@ResponseBody
-	public List<Place> selectByCata(String filter,String name) {//cata = non 인기순 이런거
-		System.out.println("filter : "+filter+" | name : "+name);
-		List<Place> list = placeService.selectByCata(filter, name);
+	public List<Place> selectByCata(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {//cata = non 인기순 이런거
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		List<Place> list = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
+		
+		map.put("pageList", list);
+		//map.put("totalPages", list.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		
+		
+		
 		return list;
 	}
 	
 	
-	@RequestMapping("/place")
+	@RequestMapping("/typeName")
 	@ResponseBody
-	public List<Place> placeList(String filter,String name) {
-		System.out.println("filter : "+filter+" | name : "+name);
-		return placeService.selectByCata(filter, name);
+	public List<Place> placeList(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		return placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
 	}
 	
-	@RequestMapping("/home")
-	@ResponseBody
-	public List<Place> homeList(String filter,String name) {
-		System.out.println("filter : "+filter+" | name : "+name);
-		return placeService.selectByCata(filter, name);
-	}
+	
 	
 	
 	@RequestMapping("/insert")
