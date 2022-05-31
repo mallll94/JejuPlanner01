@@ -28,4 +28,25 @@ public class noticeController {
 
 		model.addAttribute("list", list);
 	}
+	
+	/**
+	 * 글 등록폼 
+	 **/
+	@RequestMapping("/write")
+	public void write( ) {}
+	
+	/**
+	 * 글 등록
+	 **/
+	@RequestMapping("/insert")
+	public String insert(Notice notice) {
+		noticeService.insert(notice);
+		
+		return "redirect:/board/list";
+	}
+	  
+	
+	
+	
+	
 }

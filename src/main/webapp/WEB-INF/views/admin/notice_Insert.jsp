@@ -85,7 +85,7 @@
         <h5 class="mb-0">공지사항 등록</h5> 
       </div>
       <div class="card-body">
-        <form>
+        <form name="writeForm" method="post" action="${pageContext.request.contextPath}/notice/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
             <input type="text" class="form-control" id="basic-default-fullname" placeholder="제목을 입력해주세요" />
@@ -103,6 +103,7 @@
 		      </div>
 		    </div>
           <button type="submit" class="btn btn-primary">작성하기</button>
+          <button type="reset" class="btn btn-primary">취소하기</button>
         </form>
       </div>
     </div>

@@ -48,8 +48,8 @@
 	  
 	  
 	
-	  <!-- Main JS 
-	  <script src="${pageContext.request.contextPath}/assets/js/main.js"></script> -->
+	  <!-- Main JS -->
+	  <script src="${pageContext.request.contextPath}/assets/js/main.js"></script> 
 
     <!-- Page CSS -->
     
@@ -77,8 +77,6 @@
 </head>
 <body>
 <h5 class="mt-4">공지사항</h5>
-
-
 <div class="row">
   <div class="col-md mb-4 mb-md-0">
     <div class="accordion mt-3" id="accordionExample">
