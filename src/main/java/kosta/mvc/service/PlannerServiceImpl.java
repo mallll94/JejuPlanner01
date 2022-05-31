@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.repository.PlannerRepository;
-import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -27,8 +26,9 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public Planner selectBy(Long plannerId) {
-		// TODO Auto-generated method stub
-		return null;
+		Planner planner = plannerRep.findById(plannerId).orElse(null);
+		if(planner==null) throw new RuntimeException("해당 플래너 정보가 없습니다.");
+		return planner;
 	}
 
 	@Override
