@@ -43,7 +43,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void insertPlace(Place place) {
-		// TODO Auto-generated method stub
+		//placeRep.save(place);
 
 	}
 

@@ -77,7 +77,7 @@
 </head>
 <body>
 <h5 class="mt-4">공지사항</h5>
-<c:forEach items="${requestScope.list} var="notice">
+<c:forEach items="${requestScope.list}" var="notice">
 <div class="row">
   <div class="col-md mb-4 mb-md-0">
     <div class="accordion mt-3" id="accordionExample">

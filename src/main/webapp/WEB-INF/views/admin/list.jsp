@@ -42,6 +42,16 @@
 						})
 						
 
+						//여기서 페이(startPage,blockCount  , TotalPages , nowPagg)
+						
+			
+				 
+						
+						
+						
+						
+						
+						
 						 data+="</table>";
 						 
 
@@ -207,7 +217,7 @@
 <div id="table"></div>
 <div class="pagination" id="paging"></div>
 
-<a href="/admin/insert">등록하기</a>
+<a href="/admin/insertForm">등록하기</a>
 
 	 
 
