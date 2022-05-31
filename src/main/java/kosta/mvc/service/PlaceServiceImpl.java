@@ -3,21 +3,23 @@ package kosta.mvc.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Place;
-import kosta.mvc.repository.FreeBoardRepository;
+import kosta.mvc.domain.QPlace;
+
 import kosta.mvc.repository.PlaceRepository;
-import lombok.RequiredArgsConstructor;
+
 
 @Service
 @Transactional
@@ -33,7 +35,14 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 	
 	@Override
-	public Page<Place> selectAll(Pageable page) {
+	public Page<Place> selectAll(int nowPage,int PAGE_COUNT) {
+		
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		QPlace place = QPlace.place;
+
+		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "placeId");
+		
 		Page<Place> pageList = placeRep.findAll(page);
 		return pageList;
 	}
@@ -63,32 +72,20 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override//Sort.by(Sort.Order.asc(filter))
-	public List<Place> selectByCata(String filter, String placeCategory, int nowPage,int PageCount) {
-		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
+	public Page<Place> selectByCata(String filter, String placeCategory, int nowPage,int PageCount) {
 		
-		List<Place> list =null;
-		if(placeCategory.equals("selectAll")) {
-			if(filter.equals("none")) {
-				list=placeRep.findAllSort(pageable);		
-			}else if(filter.equals("placeName")){
-				pageable = PageRequest.of((nowPage-1), PageCount, Direction.ASC, filter);
-				list=placeRep.findAllSort(pageable);
-			}else{
-				list=placeRep.findAllSort(pageable);
-			}
-		}else {
-			if(filter.equals("none")) {
-				list=placeRep.findbyPlaceCategory(placeCategory, null);	
-			}else if(filter.equals("placeName")){
-				pageable = PageRequest.of((nowPage-1), PageCount, Direction.ASC, filter);
-				list=placeRep.findbyPlaceCategory(placeCategory,pageable);
-			}else{
-				list=placeRep.findbyPlaceCategory(placeCategory,pageable);	
-			}
-		}
-		return list;
+		//BooleanBuilder builder = new BooleanBuilder();
+		
+		//QPlace place = QPlace.place;
+
+		//Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
+		
+		//builder.and(place.placeCategory.contains(placeCategory));
+		
+		
+		//Page<Place> result = placeRep.findAll(builder, pageable);
+
+		return null;
 	}
-
 	
-
 }

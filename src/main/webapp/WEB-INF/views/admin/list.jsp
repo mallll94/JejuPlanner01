@@ -8,23 +8,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<style type="text/css">
-
-
-
-</style>
-
 
 <script type="text/javascript">
 	$(function(){
 		//인기순/등록순관련
-		  $(".typeName").click(function(){
+		$(".typeName").click(function(){
+			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
+				paramNowPage=1;
+			}
 				$("#name").val($(this).val());
-			})
+				selectAll(paramNowPage);
+		})
 		
-		
-		
-		function selectAll(paramNowPage){	
+		$("#li").change(function(){
+			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
+				paramNowPage=1;
+			}
+			selectAll(paramNowPage);
+		});//click 
+
+		function selectAll(paramNowPage){ //전,	
 			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
 				paramNowPage=1;
 			}
@@ -33,7 +36,7 @@
 					url:"${pageContext.request.contextPath}/admin/all", //서버요청주소
 					type:"post", // 요청방식(get, post)
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-					data: {json :$("#li").val(), nowPage :paramNowPage},//서버에게 보낼 parameter정보
+					data: {filter :$("#li").val(),name : $("#name").val(), nowPage :paramNowPage},//서버에게 보낼 parameter정보
 					success: function(result){
 						var paging ="";
 						var data = "<table border='1' cellpadding='5'>";
@@ -71,6 +74,7 @@
 							paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
 							paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
 						}	
+
 						$("#paging").html(paging);
 						$("#table").html(data);
 					},
@@ -79,7 +83,7 @@
 					}	
 			});//ajax
 		};
-		///////////////////////////////////	
+		///////////////////////////////////////
 		$(document).on("click","#nowPage", function(){
 			if($(this).text() == "NEXT"){
 				selectAll($("#NextPage").val())
@@ -90,62 +94,7 @@
 			}
 		});
 		//////////////////////////////
-
-		$(".typeName").click(function(){	  
-			  $.ajax({
-				  url:"typeName", //서버요청주소
-				  type:"post", // 요청방식(get, post)
-				  dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-				  data: {filter :$("#li").val() ,name :  $("#name").val()},//서버에게 보낼 parameter정보
-				  success: function(result){
-					  var data = "";
-						
-						$.each(result, function(index, item){
-						 	data+="<tr>";
-							data+="<td>"+item.placeId+"</td>";
-							data+="<td>"+item.placeName+"</td>";
-							data+="<td>"+item.placeContent+"</td>";
-							data+="<td>"+item.placeSave+"</td>";
-							data+="</tr>";
-						 }) 
-						 $("#table tr:gt(0)").remove();
-				   		 $("#table tr:eq(0)").after(data);
-				   		//$("#paging").remove();
-				  },
-				  error: function(err){
-					alert(err);
-				  }
-			  });//ajax  
-		  });//click
-
-
-			
-			$("#li").change(function(){	  
-				  $.ajax({
-					  url:"selectBy",
-					  type:"post",
-					  dataType:"json",
-					  data: {filter :$("#li").val() ,name : $("#name").val()},
-					  success: function(result){
-						  var data = "";			
-							$.each(result, function(index, item){
-							 	data+="<tr>";
-								data+="<td>"+item.placeId+"</td>";
-								data+="<td>"+item.placeName+"</td>";
-								data+="<td>"+item.placeContent+"</td>";
-								data+="<td>"+item.placeSave+"</td>";
-								data+="</tr>";
-							 }) 
-							 $("#table tr:gt(0)").remove();
-					   		 $("#table tr:eq(0)").after(data); 
-					  },
-					  error: function(err){
-						alert(err);
-					  }
-				  });//ajax
-			  });//click 
-
-		  selectAll();
+		selectAll();
 	})
 </script>
 </head>

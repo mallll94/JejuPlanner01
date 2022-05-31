@@ -40,8 +40,8 @@ public class AdminController {
 		System.out.println(nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
 		//페이징처리하기
-		Pageable page = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "placeId");
-		Page<Place> pageList = placeService.selectAll(page);
+		
+		Page<Place> pageList = placeService.selectAll(nowPage,PAGE_COUNT);
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
@@ -59,33 +59,42 @@ public class AdminController {
 	
 	@RequestMapping("/selectBy")
 	@ResponseBody
-	public List<Place> selectByCata(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {//cata = non 인기순 이런거
+	public Map<String, Object> selectByCata(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {//cata = non 인기순 이런거
 		Map<String, Object> map = new HashMap<String, Object>();
-
+		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
 		
-		List<Place> list = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
+		Page<Place> list = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
 		
 		map.put("pageList", list);
-		//map.put("totalPages", list.getTotalPages());
+		map.put("totalPages", list.getTotalPages());
 		map.put("nowPage", nowPage);
 		map.put("blockCount", BLOCK_COUNT);
 		map.put("startPage", startPage);
-		
-		
-		
-		
-		return list;
+		System.out.println(list.getTotalPages());
+		return map;
 	}
 	
 	
 	@RequestMapping("/typeName")
 	@ResponseBody
-	public List<Place> placeList(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
+	public Map<String, Object> placeList(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		return placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		Page<Place> list = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
+		
+		map.put("pageList", list);
+		map.put("totalPages", list.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+
+		System.out.println(list.getTotalPages());
+		return map;
 	}
 	
 	
