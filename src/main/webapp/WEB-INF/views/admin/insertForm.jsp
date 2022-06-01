@@ -8,7 +8,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	function readImage(input){
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        // FileReader 인스턴스 생성
+	        const reader = new FileReader()
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preview-image")
+	            previewImage.src = e.target.result
+	        }
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0])
+	    }
+	}
+	const inputImage = document.getElementById("ss")
+	inputImage.addEventListener("change", e => {
+	    readImage(e.target)
+	})	
+	
+	
+})
+	
+		
+		
 
+
+
+
+
+</script>
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme-default.css" class="template-customizer-theme-css" />
@@ -34,7 +67,7 @@
 </head>
 <body>
 <h1>플래너데이터 - 등록</h1>
-		<form action="${pageContext.request.contextPath}/admin/insert" >
+		<form method="post" action="${pageContext.request.contextPath}/admin/placeInsert" >
 			<div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -43,60 +76,68 @@
                     </div>
                     <div class="card-body">
                       
-                        <div class="row mb-3">
+                       <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">분류</label>
-                          <div class="col-sm-10">
-                          	<select id="li">
-								<option value='place'>장소</option>
-								<option value='home'>숙소</option>
+                          
+                         <div class="col-sm-10">
+                          	<select id="li" name="placeCategory">
+								<option value='장소'>장소</option>
+								<option value='숙소'>숙소</option>
 							</select>
-                          
-                          
-                          
-                          
-                            <input type="text" class="form-control" id="basic-default-name" placeholder="내용을 입력해주세요" name="placeName"/>
                           </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-company">Company</label>
+                       </div>
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-company">명칭</label>
                           <div class="col-sm-10">
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="basic-default-company"
-                              placeholder="ACME Inc."
-                            />
+                            <input type="text" class="form-control" id="basic-default-company" placeholder="내용을 입력해주세요." name="placeName" />
                           </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-message">설명</label>
                           <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="basic-default-email"
-                                class="form-control"
-                                placeholder="john.doe"
-                                aria-label="john.doe"
-                                aria-describedby="basic-default-email2"
-                              />
-                              <span class="input-group-text" id="basic-default-email2">@example.com</span>
-                            </div>
-                            <div class="form-text">You can use letters, numbers & periods</div>
+                            <textarea id="basic-default-message" class="form-control" placeholder="내용을 입력해주세요." name="placeContent"></textarea>
                           </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-phone">Phone No</label>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">주소</label>
                           <div class="col-sm-10">
-                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="658 799 8941" aria-label="658 799 8941" aria-describedby="basic-default-phone"/>
+                            <input type="text" id="basic-default-addr" class="form-control addr-mask" placeholder="내용을 입력해주세요." name="placeAddr"/>
                           </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-default-message">Message</label>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">위도</label>
                           <div class="col-sm-10">
-                            <textarea id="basic-default-message" class="form-control" placeholder="Hi, Do you have a moment to talk Joe?" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                            <input type="text" id="basic-default-placeLatitude" class="form-control placeLatitude-mask" placeholder="ex)125.3032" name="placeLatitude"/>
                           </div>
-                        </div>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">경도</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="basic-default-placeLongitude" class="form-control placeLongitude-mask" placeholder="ex)45.3032" name="placeLongitude"/>
+                          </div>
+                       </div>
+                       
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">연결 링크</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="basic-default-URL" class="form-control URL-mask" name="placeUrl"/>
+                          </div>
+                       </div>
+                       
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">첨부 사진</label>
+                          <div class="col-sm-10">
+                          
+                          	<input type="file" id="ss" name="file"/>
+                          	<img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+                          </div>
+ 
+                       </div> 
+
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Send</button>

@@ -53,7 +53,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void insertPlace(Place place) {
-		//placeRep.save(place);
+		placeRep.save(place);
 
 	}
 

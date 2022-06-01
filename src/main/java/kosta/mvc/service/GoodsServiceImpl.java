@@ -45,10 +45,10 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Goods getGoodsByGoodsId(Long goodsId) throws Exception {
+	public Goods getGoodsByGoodsId(Long goodsId) throws RuntimeException {
 		// TODO Auto-generated method stub
-		Optional<Goods> goods = goodsRepository.findById(goodsId);
-		return goods.orElseThrow(() -> new Exception("잘못된 조회입니다."));
+		//Optional<Goods> goods = goodsRepository.findById(goodsId);
+		return null;//goods.orElseThrow(() -> new RuntimeException("잘못된 조회입니다."));
 	}
 
 	@Override
