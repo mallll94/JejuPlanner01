@@ -1,14 +1,18 @@
 package kosta.mvc.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kosta.mvc.domain.Notice;
 import kosta.mvc.repository.NotiecRepository;
+import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
 
@@ -18,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 public class NoticeServiceImpl implements NoticeService {
     
 	private final NotiecRepository noticeRep;
+	
+	private final FileStore fileStore;
+	
 	
 	@Override
 	public List<Notice> selectAll() {
@@ -34,9 +41,24 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void insert(Notice notice) {
+	public void insert(Notice notice, String uploadPath) {
 		
-		Notice saveNotice = noticeRep.save(notice);	
+		Notice saveNotice = noticeRep.save(notice);
+		
+		MultipartFile file = notice.getFile();
+		if (!file.isEmpty()) {
+			if (file.getContentType().startsWith("image") == false) {
+				// 런타임예외 발생시키기(이미지가 아닐 때)
+			}
+			
+			try {
+				String storeFIleName = fileStore.storeFile(uploadPath, file);
+				notice.setNoticeAttach(storeFIleName);
+			} catch (IOException e) {
+				// 런타임예외 빌셍시키기(파일 입출력 관련)
+			}
+		}
+			
 	}
 
 	@Override

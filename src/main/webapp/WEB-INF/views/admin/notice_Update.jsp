@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>공지사항 등록</title>
+    <title>공지사항 수정,삭제</title>
     
     <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
@@ -82,23 +82,23 @@
   <div class="col-xl">
     <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">공지사항 등록</h5> 
+        <h5 class="mb-0">공지사항 수정,삭제</h5> 
       </div>
       <div class="card-body">
-        <form name="writeForm" method="post" action="${pageContext.request.contextPath}/admin/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
+        <form name="updateForm" method="post" action="${pageContext.request.contextPath}/admin/update" onSubmit='return checkValid()' enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
-            <input type="text" class="form-control" id="basic-default-fullname" name="noticeTitle" placeholder="제목을 입력해주세요" />
+            <input type="text" class="form-control" id="basic-default-fullname" name="noticeTitle" placeholder="제목을 입력해주세요"/> 
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-message">내용</label>
-            <textarea id="basic-default-message" class="form-control" name="noticeContent" placeholder="내용을 입력해주세요"></textarea>
+            <textarea id="basic-default-message" class="form-control" name="noticeContent" placeholder="내용을 입력해주세요">${notice.noticeContent}</textarea>
           </div>           
 		    <div class="card">
 		      <h5 class="card-header">첨부파일</h5>
 		      <div class="card-body">
 		        <div class="mb-3">
-		          <input class="form-control" type="file" name="file" accept=".png, .jpg]">
+		          <input class="form-control" type="file" name="file">
 		        </div>
 		      </div>
 		    </div>

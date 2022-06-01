@@ -85,9 +85,12 @@
 	           			  <c:forEach items="${requestScope.list}" var="notice">   
 		                      <tbody>
 		                         <tr>
-		                            <td>${notice.noticeId}</td>
+		                         <a href="">
+		                         <td>${notice.noticeId}</td>
 		                            <td>${notice.noticeTitle}</td>
 		                            <td>${notice.noticeRegdate}</td>
+		                         </a>
+		                            
 		                         </tr>
 		                      </tbody>
 		                  </c:forEach>

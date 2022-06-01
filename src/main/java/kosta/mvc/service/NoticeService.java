@@ -19,7 +19,7 @@ public interface NoticeService {
 	/**
 	 * 공지사항 등록- 관리자
 	 * */
-	void insert(Notice notice);
+	void insert(Notice notice, String uploadPath);
 	
 	/**
 	 * 공지사항 수정- 관리자

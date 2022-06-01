@@ -2,15 +2,17 @@ package kosta.mvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import kosta.mvc.domain.Notice;
 import kosta.mvc.service.NoticeService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ public class noticeController {
 	
 	
 	private final NoticeService noticeService;
+	
     
 	/**
 	 * 전체검색
@@ -55,8 +58,13 @@ public class noticeController {
 	 * 글 등록
 	 **/
 	@RequestMapping(value = "/admin/insert", method = RequestMethod.POST)
-	public String insert(Notice notice) {
-		noticeService.insert(notice);
+	public String insert(Notice notice, HttpSession session) {
+		
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/notice/";
+		noticeService.insert(notice, uploadPath);
+		
+
+		
 		return "redirect:/admin/notice_Admin";
 	}
 	  
