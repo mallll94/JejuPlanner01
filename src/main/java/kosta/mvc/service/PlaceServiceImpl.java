@@ -46,8 +46,9 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public Place selectById(Long placeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Place> result = placeRep.findById(placeId);
+		
+		return result.orElse(null);
 	}
 
 	@Override
