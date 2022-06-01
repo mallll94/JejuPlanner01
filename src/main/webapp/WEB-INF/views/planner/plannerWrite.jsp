@@ -7,6 +7,8 @@ pageEncoding="UTF-8"%>
 		<meta charset="UTF-8">
         <title>::플래너 작성하기::</title>
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 		<style>
@@ -42,49 +44,17 @@ pageEncoding="UTF-8"%>
 			}
 			/* Always set the map height explicitly to define the size of the div
 			* element that contains the map. */
-			#googleMap {
-				height: 100%;
-			}
+			#googleMap {height: 100%;}
 			/* Optional: Makes the sample page fill the window. */
-			html, body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
-			.search-place-keyword{
-				float: left;
-			}
-			input[ class="category-input"]{
-				display: none;
-			}
-			.ul-spot{
-				padding: 0px;
-				margin: 0px;
-			}
-			.spot-card{
-				padding: 1px;
-			}
-			.spot-info{
-				width: 200px;
-				height: 60px;
-				border: 1px solid gray;
-				margin:2px;
-			}
-			.spot-info-photo{
-				box-sizing: inherit;
-				float: left;
-				width: 65px;
-				height: 100%;
-				background-color: antiquewhite;
-				
-			}
-			.spot-info-detail{
-				box-sizing: inherit;
-				float: left;
-				width:100px;
-				height: 100%;
-				
-			}
+			html, body {height: 100%;margin: 0;padding: 0;}
+			.search-place-keyword{float: left;}
+			input[ class="category-input"]{display: none;}
+			.ul-spot{padding: 0px;margin: 0px;}
+			.spot-card{padding: 1px;}
+			.spot-info{width: 200px;height: 60px;border: 1px solid gray;margin:2px;}
+			.spot-info-photo{box-sizing: inherit;float: left;width: 65px;height: 100%;background-color: antiquewhite;}
+			.spot-info-detail{box-sizing: inherit;float: left;width:100px;height: 100%;}
+			.plan-setday{width: 200px; font-size: 15px; text-align: center;}
 		</style>
 		<script>
 			/*googleMap*/
@@ -265,7 +235,9 @@ pageEncoding="UTF-8"%>
 									</c:otherwise>
 								</c:choose>
 							</div>
-							<div class="planner-calander">
+							<div class="planner-calender">
+								<input type="text" id="plan-startday" class="datepicker plan-setday" readonly="readonly">
+								~<input type="text" id="plan-endday" class="datepicker plan-setday" readonly="readonly">
 							</div>
 						</div>
 					</div>
