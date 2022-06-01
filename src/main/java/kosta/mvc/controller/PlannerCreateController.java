@@ -82,6 +82,7 @@ public class PlannerCreateController {
 	
 	
 	
-	/***/
+	/**플래너 작성하기2로 이동*/
+	
 	
 }
