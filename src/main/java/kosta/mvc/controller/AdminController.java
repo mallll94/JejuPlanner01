@@ -111,6 +111,13 @@ public class AdminController {
 		return "admin/list";
 	}
 	
+	@RequestMapping("/placeDelete")
+	public String delete(Place place) {
+		
+		placeService.deletePlace(place.getPlaceId());
+		return "admin/list";
+	}
+	
 	
 	
 	

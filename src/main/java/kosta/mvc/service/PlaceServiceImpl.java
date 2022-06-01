@@ -85,8 +85,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void deletePlace(Long placeId) {
-		// TODO Auto-generated method stub
-
+		placeRep.deleteById(placeId);
 	}
 
 	@Override//Sort.by(Sort.Order.asc(filter))

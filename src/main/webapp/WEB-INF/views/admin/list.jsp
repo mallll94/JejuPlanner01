@@ -144,7 +144,7 @@
 						$("#placeLongitude").val(result.placeLongitude);
 						$("#placeUrl").val(result.placeUrl);
 						$("#file").val(result.file);
-
+						$("#delete").val(result.placeId);
 						
 					},
 					error: function(err){
@@ -154,8 +154,12 @@
 		};
 
 		$("#delete").click(function(){
-			
-			
+			  $("#modalForm").attr("action", "${pageContext.request.contextPath}/admin/placeDelete");
+			  $("#modalForm").submit();	
+		})
+		$("#update").click(function(){
+			  $("#modalForm").attr("action", "${pageContext.request.contextPath}/admin/placeUpdate");
+			  $("#modalForm").submit();	
 		})
 		
 		
@@ -206,7 +210,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" action="${pageContext.request.contextPath}/admin/placeUpdate" >	
+      <form method="post" id="modalForm" action="${pageContext.request.contextPath}/admin/placeUpdate" >	
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">플래너 데이터 관리</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -286,8 +290,8 @@
 
       </div>
       <div class="modal-footer">
-        <button id="delete" type="button" class="btn btn-danger">삭제</button>
-        <button id="update" type="submit" class="btn btn-primary">수정하기</button>
+        <button id="delete" type="button" class="btn btn-danger" value="">삭제</button>
+        <button id="update" type="button" class="btn btn-primary">수정하기</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
       </form>  
