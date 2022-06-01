@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Notice;
@@ -21,7 +22,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<Notice> selectAll() {
 		
-		return noticeRep.findAll();
+		return noticeRep.findAll(Sort.by(Sort.Direction.DESC, "noticeId"));
 	}
 
 	@Override

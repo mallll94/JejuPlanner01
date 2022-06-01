@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +41,9 @@ public class Notice {
 	private LocalDateTime noticeRegdate;
 	
 	private String noticeAttach;
+	
+	@Transient
+	private MultipartFile file;
 	
 
 }

@@ -17,52 +17,52 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="../css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../css/notice/bootstrap.min.css" />
       <!-- site css -->
-      <link rel="stylesheet" href="../style.css" />
+      <link rel="stylesheet" href="../css/notice/style.css" />
       <!-- responsive css -->
-      <link rel="stylesheet" href="../css/responsive.css" />
+      <link rel="stylesheet" href="../css/notice/responsive.css" />
       <!-- color css -->
-      <link rel="stylesheet" href="../css/colors.css" />
+      <link rel="stylesheet" href="../css/notice/colors.css" />
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="../css/bootstrap-select.css" />
+      <link rel="stylesheet" href="../css/notice/bootstrap-select.css" />
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="../css/perfect-scrollbar.css" />
+      <link rel="stylesheet" href="../css/notice/perfect-scrollbar.css" />
       <!-- custom css -->
-      <link rel="stylesheet" href="../css/custom.css" />
+      <link rel="stylesheet" href="../css/notice/custom.css" />
       <!-- calendar file css -->
-      <link rel="stylesheet" href="../js/semantic.min.css" />
+      <link rel="stylesheet" href="../css/notice/semantic.min.css" />
       <!-- fancy box js -->
-      <link rel="stylesheet" href="../css/jquery.fancybox.css" />
+      <link rel="stylesheet" href="../css/notice/jquery.fancybox.css" />
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
       
       <!-- jQuery -->
-      <script src="../js/jquery.min.js"></script>
-      <script src="../js/popper.min.js"></script>
-      <script src="../js/bootstrap.min.js"></script>
+      <script src="../js/notice/jquery.min.js"></script>
+      <script src="../js/notice/popper.min.js"></script>
+      <script src="../js/notice/bootstrap.min.js"></script>
       <!-- wow animation -->
-      <script src="../js/animate.js"></script>
+      <script src="../js/notice/animate.js"></script>
       <!-- select country -->
-      <script src="../js/bootstrap-select.js"></script>
+      <script src="../js/notice/bootstrap-select.js"></script>
       <!-- owl carousel -->
-      <script src="../js/owl.carousel.js"></script> 
+      <script src="../js/notice/owl.carousel.js"></script> 
       <!-- chart js -->
-      <script src="../js/Chart.min.js"></script>
-      <script src="../js/Chart.bundle.min.js"></script>
-      <script src="../js/utils.js"></script>
-      <script src="../js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="../js/perfect-scrollbar.min.js"></script>
-      <!-- fancy box js -->
-      <script src="../js/jquery-3.3.1.min.js"></script>
-      <script src="../js/jquery.fancybox.min.js"></script>
-      <!-- custom js -->
-      <script src="../js/custom.js"></script>
+      <script src="../js/notice/Chart.min.js"></script>
+      <script src="../js/notice/Chart.bundle.min.js"></script>
+      <script src="../js/notice/utils.js"></script>
+      <script src="../js/notice/analyser.js"></script>
+      <!-- nice scrollbar 
+      <script src="../js/notice/perfect-scrollbar.min.js"></script> -->
+      <!-- fancy box js 
+      <script src="../js/notice/jquery-3.3.1.min.js"></script>
+      <script src="../js/notice/jquery.fancybox.min.js"></script> -->
+      <!-- custom js 
+      <script src="../js/notice/custom.js"></script> -->
       <!-- calendar file css -->    
-      <script src="../js/semantic.min.js"></script>
+      <script src="../js/notice/semantic.min.js"></script>
  </head>
 	<body>
        <div class="col-md-12">
@@ -72,7 +72,6 @@
                    <h2>관리자 공지사항 관리</h2>
                 </div>
              </div>
-           <c:forEach items="${requestScope.list}" var="notice">   
 	             <div class="table_section padding_infor_info">
 	                <div class="table-responsive-sm">
 	                   <table class="table">
@@ -83,17 +82,19 @@
 	                            <th>등록일</th>
 	                         </tr>
 	                      </thead>
-	                      <tbody>
-	                         <tr>
-	                            <td>${notice.noticeId}</td>
-	                            <td>${notice.noticeTitle}</td>
-	                            <td>${notice.noticeRegdate}</td>
-	                         </tr>
-	                      </tbody>
+	           			  <c:forEach items="${requestScope.list}" var="notice">   
+		                      <tbody>
+		                         <tr>
+		                            <td>${notice.noticeId}</td>
+		                            <td>${notice.noticeTitle}</td>
+		                            <td>${notice.noticeRegdate}</td>
+		                         </tr>
+		                      </tbody>
+		                  </c:forEach>
 	                   </table>
 	                </div>
 	             </div>
-             </c:forEach>
+             <button onclick="location='./notice_Write'">작성</button>
           </div>
        </div>
 	</body>

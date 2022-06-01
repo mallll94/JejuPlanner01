@@ -85,17 +85,17 @@
         <h5 class="mb-0">공지사항 등록</h5> 
       </div>
       <div class="card-body">
-        <form name="writeForm" method="post" action="${pageContext.request.contextPath}/notice/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
+        <form name="writeForm" method="post" action="${pageContext.request.contextPath}/admin/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
-            <input type="text" class="form-control" id="basic-default-fullname" placeholder="제목을 입력해주세요" />
+            <input type="text" class="form-control" id="basic-default-fullname" name="noticeTitle" placeholder="제목을 입력해주세요" />
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-message">내용</label>
-            <textarea id="basic-default-message" class="form-control" placeholder="내용을 입력해주세요"></textarea>
+            <textarea id="basic-default-message" class="form-control" name="noticeContent" placeholder="내용을 입력해주세요"></textarea>
           </div>           
 		    <div class="card">
-		      <h5 class="card-header">첨부파일</h5>
+		      <h5 class="card-header" name="noticeAttach">첨부파일</h5>
 		      <div class="card-body">
 		        <div class="mb-3">
 		          <input class="form-control" type="file" id="formFileMultiple" multiple>

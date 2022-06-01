@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kosta.mvc.domain.Notice;
 import kosta.mvc.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/board")
 @RequiredArgsConstructor
 public class noticeController {
 	
@@ -21,7 +22,7 @@ public class noticeController {
 	/**
 	 * 전체검색
 	 **/
-	@RequestMapping("/notice")
+	@RequestMapping("/board/notice")
 	public void list(Model model) {
 		
 		List<Notice> list = noticeService.selectAll();
@@ -30,19 +31,33 @@ public class noticeController {
 	}
 	
 	/**
-	 * 글 등록폼 
+	 * 전체검색
 	 **/
-	@RequestMapping("/write")
-	public void write( ) {}
+	@RequestMapping("/admin/notice_Admin")
+	public void listForAdimin(Model model) {
+		
+		List<Notice> list = noticeService.selectAll();
+
+		model.addAttribute("list", list);
+	}
+	
+
+	/**
+	  * 글 등록폼
+	  * */
+	 @RequestMapping("/admin/notice_Write")
+	 public void write() {
+		 
+		 
+	 }
 	
 	/**
 	 * 글 등록
 	 **/
-	@RequestMapping("/insert")
+	@RequestMapping(value = "/admin/insert", method = RequestMethod.POST)
 	public String insert(Notice notice) {
 		noticeService.insert(notice);
-		
-		return "redirect:/board/list";
+		return "redirect:/admin/notice_Admin";
 	}
 	  
 	
