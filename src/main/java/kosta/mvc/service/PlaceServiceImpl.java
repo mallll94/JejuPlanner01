@@ -2,8 +2,7 @@ package kosta.mvc.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,26 +46,47 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public Place selectById(Long placeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Place> result = placeRep.findById(placeId);
+		
+		return result.orElse(null);
 	}
 
 	@Override
+	public Optional<Place> selectByName(String placeName) {
+		
+		QPlace place = QPlace.place;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(place.placeName.contains(placeName));
+		
+		Optional<Place> selectPlace = placeRep.findOne(builder);
+		
+		
+		return selectPlace;
+	}
+	
+	@Override
 	public void insertPlace(Place place) {
-		//placeRep.save(place);
+		placeRep.save(place);
 
 	}
 
 	@Override
 	public void updatePlace(Place place) {
-		// TODO Auto-generated method stub
+		
+		Place result=placeRep.findById(place.getPlaceId()).orElse(null);
+		result.setPlaceAddr(place.getPlaceAddr());
+		result.setPlaceContent(place.getPlaceContent());
+		result.setPlaceLatitude(place.getPlaceLatitude());
+		result.setPlaceLongitude(place.getPlaceLongitude());
+		result.setPlaceName(place.getPlaceName());
+		result.setPlacePhoto(place.getPlacePhoto());
+		result.setPlaceUrl(place.getPlaceUrl());
 
 	}
 
 	@Override
 	public void deletePlace(Long placeId) {
-		// TODO Auto-generated method stub
-
+		placeRep.deleteById(placeId);
 	}
 
 	@Override//Sort.by(Sort.Order.asc(filter))
@@ -91,5 +111,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 		return result;
 	}
+
+	
 	
 }

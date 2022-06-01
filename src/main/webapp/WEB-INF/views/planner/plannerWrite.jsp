@@ -7,6 +7,8 @@ pageEncoding="UTF-8"%>
 		<meta charset="UTF-8">
         <title>::플래너 작성하기::</title>
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 		<style>
@@ -42,49 +44,18 @@ pageEncoding="UTF-8"%>
 			}
 			/* Always set the map height explicitly to define the size of the div
 			* element that contains the map. */
-			#googleMap {
-				height: 100%;
-			}
+			#googleMap {height: 100%;}
 			/* Optional: Makes the sample page fill the window. */
-			html, body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
-			.search-place-keyword{
-				float: left;
-			}
-			input[ class="category-input"]{
-				display: none;
-			}
-			.ul-spot{
-				padding: 0px;
-				margin: 0px;
-			}
-			.spot-card{
-				padding: 1px;
-			}
-			.spot-info{
-				width: 200px;
-				height: 60px;
-				border: 1px solid gray;
-				margin:2px;
-			}
-			.spot-info-photo{
-				box-sizing: inherit;
-				float: left;
-				width: 65px;
-				height: 100%;
-				background-color: antiquewhite;
-				
-			}
-			.spot-info-detail{
-				box-sizing: inherit;
-				float: left;
-				width:100px;
-				height: 100%;
-				
-			}
+			html, body {height: 100%;margin: 0;padding: 0;}
+			.search-place-keyword{float: left;}
+			input[ class="category-input"]{display: none;}
+			.ul-spot{padding: 0px;margin: 0px;}
+			.spot-card{padding: 1px;}
+			.spot-info{width: 200px;height: 60px;border: 1px solid gray;margin:2px;}
+			.spot-info-photo{box-sizing: inherit;float: left;width: 65px;height: 100%;background-color: antiquewhite;}
+			.spot-info-detail{box-sizing: inherit;float: left;width:135px;height: 100%;}
+			.plan-setday{width: 200px; font-size: 15px; text-align: center;}
+			p{margin:0px;}
 		</style>
 		<script>
 			/*googleMap*/
@@ -97,73 +68,79 @@ pageEncoding="UTF-8"%>
 			];
 			var mymap;
 
+			//지도 조회
 			function initMap() {  
-			const mapDiv= document.getElementById("googleMap");
-			mymap = new google.maps.Map(mapDiv,{
-				center: targets[0],
-				zoom: 13,
-				mapId: "a0f291588508440c",
-				streetViewControl: false
-			})
-
-			//마커표시
-			/*
-			for(let i=0;i<targets.length;i++){
-				var position = targets[i];
-				alert(position)
-				let marker = new google.maps.Marker({
-				position: position,
-				map: mymap,
-				//animation: google.maps.Animation.Drop
+				const mapDiv= document.getElementById("googleMap");
+				mymap = new google.maps.Map(mapDiv,{
+					center: targets[0],
+					zoom: 13,
+					mapId: "a0f291588508440c",
+					streetViewControl: false
 				})
-				//마커 배열 저장
-				markers.push(marker);
-			}
-			
-			
-			//선잇기
-			var line = new google.maps.Polyline({
-				path : targets,
-				geodesic:true,
-				strokeColor: "#ff841f",
-				strokeOpacity:1.0,
-				strokeWeight:5
-			})
-			line.setMap(mymap);
-			*/
-			addMarker(targets);
-			addLine(targets);
+
+				//마커표시
+				/*
+				for(let i=0;i<targets.length;i++){
+					var position = targets[i];
+					alert(position)
+					let marker = new google.maps.Marker({
+					position: position,
+					map: mymap,
+					//animation: google.maps.Animation.Drop
+					})
+					//마커 배열 저장
+					markers.push(marker);
+				}
+				
+				
+				//선잇기
+				var line = new google.maps.Polyline({
+					path : targets,
+					geodesic:true,
+					strokeColor: "#ff841f",
+					strokeOpacity:1.0,
+					strokeWeight:5
+				})
+				line.setMap(mymap);
+				*/
+				addMarker(targets);
+				addLine(targets);
 			}
 
 			//마커표시
 			function addMarker(targets){
-			for(let i=0;i<targets.length;i++){
-				var position = targets[i];
-				//alert(position)
-				let marker = new google.maps.Marker({
-				position: position,
-				map: mymap,
-				//animation: google.maps.Animation.Drop
-				})
-				//마커 배열 저장
-				markers.push(marker);
-			}
+				for(let i=0;i<targets.length;i++){
+					var position = targets[i];
+					//alert(position)
+					let marker = new google.maps.Marker({
+					position: position,
+					map: mymap,
+					//animation: google.maps.Animation.Drop
+					})
+					//마커 배열 저장
+					markers.push(marker);
+				}
 			}
 
 			//선잇기
 			function addLine(targets){
-			var line = new google.maps.Polyline({
-				path : targets,
-				geodesic:true,
-				strokeColor: "#ff841f",
-				strokeOpacity:1.0,
-				strokeWeight:5
-			})
-			line.setMap(mymap);
+				var line = new google.maps.Polyline({
+					path : targets,
+					geodesic:true,
+					strokeColor: "#ff841f",
+					strokeOpacity:1.0,
+					strokeWeight:5
+				})
+				line.setMap(mymap);
 			}
 
+			
+
 			$(function(){
-				var targetPlanner='${planner}';
+				const targetPlanner='${planner}';
+				const targetPlanStartDay ='${planner.plannerStart}';
+
+				
 
 				//기본 플래너 정보 조회
 				function getplannerInfo(){
@@ -180,8 +157,6 @@ pageEncoding="UTF-8"%>
 						}
 					})
 				}
-
-
 				//오른쪽 사이드바 - 추천장소, 추천숙소 버튼동작
 				$("input[class='category-input']").click(function(){
 					var category =$(this).val();
@@ -195,11 +170,12 @@ pageEncoding="UTF-8"%>
 							//alert(result)
 							let str="";
 							$.each(result,function(index,place){
-								
 								str+="<il class='spot-card'>"
-								str+=`<div class="spot-info" id=${'${place.placeId}'}}>`
+								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-									str+= `<div class="spot-info-detail"><span>\${place.placeName}</span></div>`
+									str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
+										str+=`<div class="spot-bnt-wrap"><span><a href="javascript:void(0);" id="plan-info-bnt" placeId="${'${place.placeId}'}">정보</a></span>`
+										str+=`<span><a href="javascript:void(0);" id="plan-add-bnt" placeId="${'${place.placeId}'}">추가</a></span></div>`
 								str+=`</div>`
 								str+="</il>"
 							})
@@ -213,17 +189,61 @@ pageEncoding="UTF-8"%>
 					})
 				})
 
+				//오른쪽 사이드바 - 장소 정보 모달 버튼동작
+				$(document).on("click","#plan-info-bnt",function(){
+					alert("정보 모달...")
+				})
+
+				//오른쪽 사이드바 - 장소 추가하기 버튼동작
+				$(document).on("click","#plan-add-bnt",function(){
+					//alert("추가하기")
+					let state = true;
+					let startDay= $('#plan-startday').datepicker('getDate');
+					let endDay = $('#plan-endday').datepicker('getDate');
+					let targetPlaceId = $(this).attr("placeId")
+					if(!startDay || !endDay){
+						alert("우선 여행 날짜를 선택해주세요.");
+						return;
+					}
+
+					//왼쪽 사이드바에 일정추가하기
+					if(state){
+						$.ajax({
+							url: "${pageContext.request.contextPath}/planner/addPlace",
+							type: "post",
+							dataType: "text",
+							data: {placeId: targetPlaceId},
+							success: function(result){
+								alert(result)
+							},
+							error: function(error){
+								alert("장소 정보를 불러오지 못했습니다.")
+							}
+						})
+					}
+				})
+				
 				//오른쪽 사이드바 - 검색하기
 
 				//getplannerInfo();
 			})
-			
 		</script>
 		<script>
 		$(function() {
+			function showDays(){
+				startDay= $('#plan-startday').datepicker('getDate');
+				endDay = $('#plan-endday').datepicker('getDate');
+				if(!startDay || !endDay){
+					return;
+				}
+				var days = (endDay-startDay)/1000/60/60/24;
+				//$('#planner-dayset-day').val(days);
+				document.getElementById("planner-dayset-day").innerText = Math.abs(days);
+			}
+			
 			//datepicker 설정
 			$.datepicker.setDefaults({
-				dateFormat: 'yy-mm-dd',
+				dateFormat: 'yy년 mm월 dd일(DD)',
 				prevText: '이전 달',
 				nextText: '다음 달',
 				monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -232,10 +252,25 @@ pageEncoding="UTF-8"%>
 				dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
 				dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 				showMonthAfterYear: true,
-				yearSuffix: '년'
+				yearSuffix: '년',
+				onSelect: showDays
 			});
+			//왼쪽 사이드바 -여행 시작일 설정 후 이벤트
+			$('#plan-startday').datepicker();
+			$('#plan-startday').datepicker("option","maxDate",$("#plan-endday").val());
+			$('#plan-startday').datepicker("option","onClose",function(selectedDate){
+				$('#plan-endday').datepicker("option","minDate",selectedDate)
+				getDay();
+			})
 
-			$(".datepicker").datepicker();
+			//왼쪽 사이드바 -여행 종료일 설정 후 이벤트
+			$('#plan-endday').datepicker();
+			$('#plan-endday').datepicker("option","minDate",$("#plan-startday").val());
+			$('#plan-endday').datepicker("option","onClose",function(selectedDate){
+				$('#plan-startday').datepicker("option","maxDate",selectedDate)
+				getDay();
+			})
+
 		})
 
 		</script>
@@ -252,26 +287,40 @@ pageEncoding="UTF-8"%>
 			<!--LEFT SIDEBAR-->
 			<div class="jeju-sidebar-left" id="sidebar-left">
 				<div class="sidebar-left-area">
-					<!-- 날짜설정 사이드바(좌측상단) -->
-					<div class="planner-container">
-						<div class="planner-info-wrapper">
-							<div class="planner-info-container">
-								<c:choose>
-									<c:when test="${not empty planner}">
-										<div class="planner-name"><span>${planner.plannerName}</span></div>
-									</c:when>
-									<c:otherwise>
-										<div class="planner-name"><span>제주도</span></div>
-									</c:otherwise>
-								</c:choose>
+					<!-- 플래너기본설정 사이드바(좌측상단) -->
+					<div class="planner-info-wrapper">
+						<!--플래너 이름-->
+						<div class="planner-info-name">
+							<c:choose>
+								<c:when test="${not empty planner}">
+									<div class="planner-name"><span>${planner.plannerName}</span></div>
+								</c:when>
+								<c:otherwise>
+									<div class="planner-name"><span>제주도</span></div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<!--플래너 날짜-->
+						<div class="planner-info-day">
+							<div class="planner-dayset">
+								<span id="planner-dayset-day" class="plan-showdays"></span>
+								<span class="plan-showdays"> DAY</span>
 							</div>
-							<div class="planner-calander">
+							<div class="planner-calender">
+								<input type="text" id="plan-startday" class="datepicker plan-setday" readonly="readonly" onChange="setDay()">
+								~<input type="text" id="plan-endday" class="datepicker plan-setday" readonly="readonly" onChange="setDay()">
 							</div>
 						</div>
 					</div>
 					<!-- 일정설정 사이드바(좌측하단) -->
-					<div class="planner-make-plan">
-
+					<div class="planner-my-plan">
+						<div class="planner-plan-category">
+							<input class="myPlan-category" id="planner-hotel" type="button" name="myPlanCategory" value="숙소" />
+							<input class="myPlan-category" id="planner-place" type="button" name="myPlanCategory" value="장소" />
+						</div>
+						<div class="planner-plan-detail">
+							<span>일정내용</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -309,7 +358,7 @@ pageEncoding="UTF-8"%>
 					<div class="sidebar-spot-wrapper">
 						<ul class="ul-spot" id="spotList"></ul>
 					</div>
-					<!--페이징처리-->
+					<!--검색 페이징처리-->
 					<div id="pageSearch" class="paging-center">
 						<div class="page-search-nav">
 							<a id="spot-page-P" href="#" onclick="searchSpotNextPage('p')" >이전</a>

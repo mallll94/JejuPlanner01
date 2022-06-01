@@ -1,6 +1,7 @@
 package kosta.mvc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +16,16 @@ public interface PlaceService {
 	List<Place> selectAll();
 	
 	Page<Place> selectAll(int nowPage,int PAGE_COUNT);
+	
 	/**
-	 * 장소 상세 정보 조회하기
+	 * 장소 상세 정보 조회하기(id)
 	 * */
 	Place selectById(Long placeId);
+	
+	/**
+	 * 장소 상세 정보 조회하기(name)
+	 * */
+	Optional<Place> selectByName(String placeName);
 	/**
 	 * 장소 필터 별 정보 조회하기
 	 * */

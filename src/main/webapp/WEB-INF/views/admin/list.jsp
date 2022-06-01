@@ -6,11 +6,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
 
 <script type="text/javascript">
 	$(function(){
+		//////////파일 사진 미리보기//////////
+		function readImage(input){
+		    // 인풋 태그에 파일이 있는 경우
+		    if(input.files && input.files[0]) {
+		        // 이미지 파일인지 검사 (생략)
+		        // FileReader 인스턴스 생성
+		        const reader = new FileReader()
+		        // 이미지가 로드가 된 경우
+		        reader.onload = e => {
+		            const previewImage = document.getElementById("preview-image")
+		            previewImage.src = e.target.result
+		        }
+		        // reader가 이미지 읽도록 하기
+		        reader.readAsDataURL(input.files[0])
+		    }
+		}
+		const inputImage = document.getElementById("file")
+		inputImage.addEventListener("change", e => {
+		    readImage(e.target)
+		})	
+		///////////////////////////////
+		
+		
+		
 		//인기순/등록순관련
 		$(".typeName").click(function(){
 				$("#name").val($(this).val());
@@ -23,6 +54,22 @@
 		});//click 
 		
 
+		$(document).on("click","#nowPage", function(){
+			if($(this).text() == "NEXT"){
+				selectAll($("#NextPage").val())
+			}else if($(this).text() == "PREV"){
+				selectAll($("#PrevPage").val())
+			}else{
+				selectAll($(this).text())
+			}
+		});
+		
+		$(document).on("click","#modal", function(){
+			modalSelect($(this).text());
+		});
+
+		
+		
 		function selectAll(paramNowPage){ //전,	
 			if(paramNowPage == "undefined" || paramNowPage=="" || paramNowPage==null){
 				paramNowPage=1;
@@ -42,12 +89,11 @@
 						data+="<td>설명</td>";
 						data+="<td>담은 개수</td>";
 						data+="</tr>";
-						
 						$.each(result.pageList.content, function(index, item){
-							
+						
 						 	data+="<tr>";
 							data+="<td>"+item.placeId+"</td>";
-							data+="<td>"+item.placeName+"</td>";
+							data+="<td><button class='btn btn-link-dark text-decoration-none' data-bs-toggle='modal' data-bs-target='#exampleModal' id='modal' >"+item.placeName+"</button></td>";
 							data+="<td>"+item.placeContent+"</td>";
 							data+="<td>"+item.placeSave+"</td>";
 							data+="</tr>";
@@ -79,17 +125,52 @@
 					}	
 			});//ajax
 		};
-		///////////////////////////////////////
-		$(document).on("click","#nowPage", function(){
-			if($(this).text() == "NEXT"){
-				selectAll($("#NextPage").val())
-			}else if($(this).text() == "PREV"){
-				selectAll($("#PrevPage").val())
-			}else{
-				selectAll($(this).text())
-			}
-		});
-		//////////////////////////////
+		
+		
+		//모달 뿌려주는 ajax
+		function modalSelect(placeName){
+			$.ajax({
+					url:"${pageContext.request.contextPath}/admin/modalSelect", 
+					type:"post", 
+					dataType:"json",
+					data: {name : placeName},
+					success: function(result){
+						$("#placeId").val(result.placeId);
+						$("#placeCategory").val(result.placeCategory);
+						$("#placeName").val(placeName);
+						$("#placeContent").html(result.placeContent);
+						$("#placeAddr").val(result.placeAddr);
+						$("#placeLatitude").val(result.placeLatitude);
+						$("#placeLongitude").val(result.placeLongitude);
+						$("#placeUrl").val(result.placeUrl);
+						$("#file").val(result.file);
+						$("#delete").val(result.placeId);
+						
+					},
+					error: function(err){
+						alert(err);
+					}	
+			});//ajax
+		};
+
+		$("#delete").click(function(){
+			  $("#modalForm").attr("action", "${pageContext.request.contextPath}/admin/placeDelete");
+			  $("#modalForm").submit();	
+		})
+		$("#update").click(function(){
+			  $("#modalForm").attr("action", "${pageContext.request.contextPath}/admin/placeUpdate");
+			  $("#modalForm").submit();	
+		})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		selectAll();
 	})
 </script>
@@ -108,12 +189,119 @@
 	</select>
 
 <div id="table"></div>
+
+
+
 <nav class="pagination-container">
 <div class="pagination" id="paging"></div>
 </nav>
-<a href="/admin/insertForm" >등록하기1</a>
+
+
+<a href="/admin/insertForm" >등록하기</a>
 <div id="test"></div>
 	 
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" id="modalForm" action="${pageContext.request.contextPath}/admin/placeUpdate" >	
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">플래너 데이터 관리</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+	 		<div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">Basic Layout</h5>
+                      <small class="text-muted float-end">Default label</small>
+                    </div>
+                    <div class="card-body">
+                      
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">분류</label>
+                          
+                         <div class="col-sm-10">
+                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="placeId" />
+                         	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="placeCategory" disabled="disabled" />
+                          </div>
+                       </div>
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-company">명칭</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="placeName" class="form-control placeName-mask" placeholder="내용을 입력해주세요." name="placeName"  />
+                          </div>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-message">설명</label>
+                          <div class="col-sm-10">
+                            <textarea id="placeContent" class="form-control" placeholder="내용을 입력해주세요." name="placeContent"></textarea>
+                          </div>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">주소</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="placeAddr" class="form-control addr-mask" placeholder="내용을 입력해주세요." name="placeAddr"/>
+                          </div>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">위도</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="placeLatitude" class="form-control placeLatitude-mask" placeholder="ex)125.3032" name="placeLatitude"/>
+                          </div>
+                       </div>
+                        
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">경도</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="placeLongitude" class="form-control placeLongitude-mask" placeholder="ex)45.3032" name="placeLongitude"/>
+                          </div>
+                       </div>
+                       
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">연결 링크</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="placeUrl" class="form-control URL-mask" name="placeUrl"/>
+                          </div>
+                       </div>
+                       
+                       <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">첨부 사진</label>
+                          <div class="col-sm-10">
+                          
+                          	<input type="file" id="file" name="file"/>
+                          	<img style="width: 100px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+                          </div>
+ 
+                       </div> 
+                    </div>
+                  </div>
+                </div>
+
+      </div>
+      <div class="modal-footer">
+        <button id="delete" type="button" class="btn btn-danger" value="">삭제</button>
+        <button id="update" type="button" class="btn btn-primary">수정하기</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+      </form>  
+    </div>
+  </div>
+</div>
+
+
+
+
 
 </body>
 

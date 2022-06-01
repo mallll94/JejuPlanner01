@@ -5,8 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,4 +45,7 @@ public class Place {
 	private String placeLatitude; //위도
 	private String placeLongitude; //경도
 	private int placeSave; //담은 개수
+	
+	//@Transient
+	//private MultipartFile file;//파일업로드용
 }
