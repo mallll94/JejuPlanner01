@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
 
 @Service
@@ -16,6 +17,8 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Autowired
 	private PlannerRepository plannerRep;
+	@Autowired
+	private PlannerPlaceRepository plannerPlaceRep;
 	
 	
 	@Override
@@ -33,13 +36,13 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void insertPlan(Planner planner) {
-		// TODO Auto-generated method stub
+		plannerRep.save(planner);
 
 	}
 
 	@Override
-	public void insertPlanPlace(PlannerPlace PlannerPlace) {
-		// TODO Auto-generated method stub
+	public void insertPlanPlace(PlannerPlace plannerPlace) {
+		plannerPlaceRep.save(plannerPlace);
 
 	}
 
