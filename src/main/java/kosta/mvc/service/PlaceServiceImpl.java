@@ -19,14 +19,16 @@ import kosta.mvc.domain.Place;
 import kosta.mvc.domain.QPlace;
 
 import kosta.mvc.repository.PlaceRepository;
+import lombok.RequiredArgsConstructor;
 
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class PlaceServiceImpl implements PlaceService {
 
-	@Autowired
-	private PlaceRepository placeRep;
+	
+	private final PlaceRepository placeRep;
 	
 	@Override
 	public List<Place> selectAll() {

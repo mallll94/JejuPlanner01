@@ -19,13 +19,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.service.PlaceService;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 	
-	@Autowired
-	private PlaceService placeService;
+	
+	private final PlaceService placeService;
 	
 	private final static int PAGE_COUNT=2;
 	private final static int BLOCK_COUNT=4;
@@ -46,11 +48,7 @@ public class AdminController {
 		
 		
 		Page<Place> pageList = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
-		
-		
-		
-		
-		
+	
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
 		

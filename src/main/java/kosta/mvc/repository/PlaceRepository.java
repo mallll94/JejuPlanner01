@@ -12,31 +12,5 @@ import kosta.mvc.domain.Place;
 
 public interface PlaceRepository extends JpaRepository<Place, Long>, QuerydslPredicateExecutor<Place>  {
 
-	
-	
-	/**
-	 * 장소/숙박 선택시
-	 * 가나다 순
-	 * */
-	//List<Place> findAllbyOrderByPlaceNameAsc(Pageable pageable);
-	
-	//List<Place> findByPlaceCategoryOrderByPlaceNameAsc(String placeCategory,Pageable pageable);
-	
-	/**
-	 * 장소/숙박 선택시
-	 * 인기순
-	 * */
-	//List<Place> findAllbyOrderByPlaceSaveDesc(Pageable pageable);
-	
-	//List<Place> findByPlaceCategoryOrderByPlaceSaveDesc(String placeCategory,Pageable pageable);
-	/**
-	 * 장소/숙박 선택시
-	 * 등록순
-	 * */
-	//List<Place> findAllbyOrderByPlaceIdDesc(Pageable pageable);
-	
-	//List<Place> findByPlaceCategoryOrderByPlaceIdDesc(String placeCategory,Pageable pageable);
-	
-	
-	
+
 }
