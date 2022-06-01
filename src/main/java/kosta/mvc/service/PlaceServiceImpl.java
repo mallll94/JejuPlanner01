@@ -2,8 +2,7 @@ package kosta.mvc.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,6 +51,19 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
+	public Optional<Place> selectByName(String placeName) {
+		
+		QPlace place = QPlace.place;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(place.placeName.contains(placeName));
+		
+		Optional<Place> selectPlace = placeRep.findOne(builder);
+		
+		
+		return selectPlace;
+	}
+	
+	@Override
 	public void insertPlace(Place place) {
 		placeRep.save(place);
 
@@ -59,7 +71,15 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public void updatePlace(Place place) {
-		// TODO Auto-generated method stub
+		
+		Place result=placeRep.findById(place.getPlaceId()).orElse(null);
+		result.setPlaceAddr(place.getPlaceAddr());
+		result.setPlaceContent(place.getPlaceContent());
+		result.setPlaceLatitude(place.getPlaceLatitude());
+		result.setPlaceLongitude(place.getPlaceLongitude());
+		result.setPlaceName(place.getPlaceName());
+		result.setPlacePhoto(place.getPlacePhoto());
+		result.setPlaceUrl(place.getPlaceUrl());
 
 	}
 
@@ -91,5 +111,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 		return result;
 	}
+
+	
 	
 }

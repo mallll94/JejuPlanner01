@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -92,4 +93,38 @@ public class AdminController {
 		
 		return "admin/list";
 	}
+	
+	@RequestMapping("/modalSelect")
+	@ResponseBody
+	public Place insert(String name) {
+		Optional<Place> optional =placeService.selectByName(name);	
+		Place result = optional.orElse(null);
+		
+		return result;
+	}
+	
+	@RequestMapping("/placeUpdate")
+	public String update(Place place) {
+		System.out.println(place.getPlaceId());
+		placeService.updatePlace(place);
+		
+		return "admin/list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
