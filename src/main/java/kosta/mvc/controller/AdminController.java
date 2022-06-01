@@ -27,7 +27,7 @@ public class AdminController {
 	@Autowired
 	private PlaceService placeService;
 	
-	private final static int PAGE_COUNT=1;
+	private final static int PAGE_COUNT=2;
 	private final static int BLOCK_COUNT=4;
 
 	@RequestMapping("/{url}")
@@ -36,12 +36,20 @@ public class AdminController {
 	
 	@RequestMapping("/all")
 	@ResponseBody
-	public Map<String, Object> selectAll(String cata,@RequestParam(defaultValue = "1")int nowPage) {
+	public Map<String, Object> selectAll(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
 		System.out.println(nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
 		//페이징처리하기
+		//Page<Place> pageList = null;
 		
-		Page<Place> pageList = placeService.selectAll(nowPage,PAGE_COUNT);
+		//Page<Place>	pageList = placeService.selectAll(nowPage, PAGE_COUNT);
+		
+		
+		Page<Place> pageList = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
+		
+		
+		
+		
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
