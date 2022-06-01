@@ -107,7 +107,7 @@ class JejuProjectApplicationTests {
 		//공지사항
 		@Test
 		void noticeinsert() {
-			noticeRep.save(new Notice(null, "제목", "내용", null, "사진") );
+			noticeRep.save(new Notice(null, "제목", "내용", null, "사진", null) );
 		}
 		
 		/**자유게시판*/
