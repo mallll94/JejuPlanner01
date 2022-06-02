@@ -84,13 +84,10 @@
 	                      </thead>
 	           			  <c:forEach items="${requestScope.list}" var="notice">   
 		                      <tbody>
-		                         <tr>
-		                         <a href="">
-		                         <td>${notice.noticeId}</td>
-		                            <td>${notice.noticeTitle}</td>
-		                            <td>${notice.noticeRegdate}</td>
-		                         </a>
-		                            
+		                      	<tr>
+		                         	<td>${notice.noticeId}</td>
+		                            <td> <span><a href="${pageContext.request.contextPath}/admin/notice_Detail/${notice.noticeId}">${notice.noticeTitle}</a></span></td>
+		                            <td>${notice.noticeRegdate}</td>  
 		                         </tr>
 		                      </tbody>
 		                  </c:forEach>

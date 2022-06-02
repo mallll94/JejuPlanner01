@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>공지사항 수정,삭제</title>
+    <title>공지사항 등록</title>
     
     <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
@@ -75,6 +75,24 @@
     </script>
     <!-- Custom notification for demo -->
     <!-- beautify ignore:end -->
+    
+<script type="text/javascript">
+        
+        $(function() {
+		 alert(1)	
+	
+        $("button[value=수정]").click(function() {
+        	$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/updateForm");
+			$("#requestForm").submit();
+		})
+		
+        $("button[value=삭제]").click(function() {
+        	$("#requestForm").attr("action", "${pageContext.request.contextPath}/delete");
+			$("#requestForm").submit();
+		})
+     })
+        
+</script>
 
 </head>
 <body>
@@ -82,13 +100,12 @@
   <div class="col-xl">
     <div class="card mb-4">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">공지사항 수정,삭제</h5> 
+        <h5 class="mb-0">공지사항 상세</h5> 
       </div>
       <div class="card-body">
-        <form name="updateForm" method="post" action="${pageContext.request.contextPath}/admin/update" onSubmit='return checkValid()' enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
-            <input type="text" class="form-control" id="basic-default-fullname" name="noticeTitle" placeholder="제목을 입력해주세요" value="${notice.noticeTitle}" /> 
+            <input type="text" class="form-control" id="basic-default-fullname" name="noticeTitle" placeholder="제목을 입력해주세요" value="${notice.noticeTitle}"/>
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-message">내용</label>
@@ -98,14 +115,15 @@
 		      <h5 class="card-header">첨부파일</h5>
 		      <div class="card-body">
 		        <div class="mb-3">
-		            <input class="form-control" type="file" name="file" accept=".png, .jpg]">
+		          <img alt="첨부된 이미지"  src="/images/notice/${notice.noticeAttach}"  width="300" height="300">
 		        </div>
 		      </div>
 		    </div>
-		    <input type="hidden" value="${notice.noticeId}" name="noticeId">
-          <button type="submit" class="btn btn-primary">작성하기</button>
-          <button type="reset" class="btn btn-primary">취소하기</button>
-        </form>
+		  <form name="requestForm" method="post" id="requestForm">
+		      <input type="hidden" name="noticeId" value="${notice.noticeId}">
+	          <button type="button" class="btn btn-primary" value="수정">수정하기</button>
+	          <button type="button" class="btn btn-primary" value="삭제">삭제하기</button>
+          </form>
       </div>
     </div>
   </div>
