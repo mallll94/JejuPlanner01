@@ -146,6 +146,10 @@
 						$("#file").val(result.file);
 						$("#delete").val(result.placeId);
 						
+						
+						//readImage(result.placePhoto);
+						
+						
 					},
 					error: function(err){
 						alert(err);

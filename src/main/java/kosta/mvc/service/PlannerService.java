@@ -5,6 +5,7 @@ import java.util.List;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 
+
 public interface PlannerService {
 
 	/**
@@ -15,8 +16,8 @@ public interface PlannerService {
 	/**
 	 * 플래너 상세 검색
 	 * */
+	//PlannerDTO selectBy(Long plannerId);
 	Planner selectBy(Long plannerId);
-	
 	/**
 	 * 플래너 생성
 	 * */

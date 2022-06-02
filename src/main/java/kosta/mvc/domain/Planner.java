@@ -3,6 +3,7 @@ package kosta.mvc.domain;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,8 +42,9 @@ public class Planner {
 	@SequenceGenerator(sequenceName = "planner_seq", allocationSize = 1, name = "planner_seq")
 	private Long plannerId; //사용자플래너 번호
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	@Column(columnDefinition = "varchar(20) default '제주도'")
@@ -54,6 +59,7 @@ public class Planner {
 	                             //삭제된게 X , 남아있는게 Y
 
 	/** 사용자 플래너 장소 */
-	//@OneToMany(mappedBy = "planner")
-	//private List<PlannerPlace> plannerPlaceList;
+	@OneToMany(fetch = FetchType.LAZY,  mappedBy = "planner" , cascade = CascadeType.REMOVE  , orphanRemoval = true   )
+	@JsonIgnore
+	private List<PlannerPlace> plannerPlaceList;
 }
