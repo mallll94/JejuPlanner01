@@ -13,8 +13,8 @@ pageEncoding="UTF-8"%>
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 		<style>
 			html,body{
-				
-				width:1200px;
+				display: table;
+				width:100%;
 				height:100%;
 			}
 			div.jeju-sidebar-left{
@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
 			}
 			/* Always set the map height explicitly to define the size of the div
 			* element that contains the map. */
-			#googleMap {width: 800px;height: 100%;}
+			#googleMap {height: 100%;}
 			/* Optional: Makes the sample page fill the window. */
 			html, body {height: 100%;margin: 0;padding: 0;}
 			.search-place-keyword{float: left;}
