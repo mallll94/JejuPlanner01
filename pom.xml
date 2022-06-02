@@ -93,6 +93,7 @@
 			<artifactId>querydsl-jpa</artifactId>
 		</dependency>
 
+		<!-- Tiles적용 -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
 		<dependency>
 		    <groupId>org.apache.tiles</groupId>
@@ -103,6 +104,20 @@
 		<dependency>
 		    <groupId>org.apache.tiles</groupId>
 		    <artifactId>tiles-core</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-extras</artifactId>
+		    <version>3.0.8</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet -->
+		<dependency>
+		    <groupId>org.apache.tiles</groupId>
+		    <artifactId>tiles-servlet</artifactId>
 		    <version>3.0.8</version>
 		</dependency>
 		

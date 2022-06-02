@@ -93,6 +93,7 @@ public class JejuDB_planner {
 	}*/
 	/**플래너 등록*/
 	//onetomany null처리
+	/*
 	@Test
 	public void plannerinsert() {
 		
@@ -117,7 +118,7 @@ public class JejuDB_planner {
 		LocalDate p5end = LocalDate.of(2020, 01, 15);
 		plannerRep.save(new Planner(null, user3, "제주도", null, 1, p5start, p5end, null));	
 	}
-	
+	*/
 	/**플래너 세부 내용 등록*/
 	@Test
 	public void plannerplaceinsert() {

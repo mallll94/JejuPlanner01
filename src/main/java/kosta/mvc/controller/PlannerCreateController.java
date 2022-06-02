@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
+
 import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.PlannerService;
 
@@ -82,6 +84,7 @@ public class PlannerCreateController {
 	
 	
 	
-	/***/
+	/**플래너 작성하기2로 이동*/
+	
 	
 }
