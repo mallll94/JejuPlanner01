@@ -143,8 +143,6 @@ pageEncoding="UTF-8"%>
 				const targetPlanner='${planner}';
 				const targetPlanStartDay ='${planner.plannerStart}';
 
-				
-
 				//기본 플래너 정보 조회
 				function getplannerInfo(){
 					$.ajax({
@@ -203,6 +201,7 @@ pageEncoding="UTF-8"%>
 					let state = true;
 					let startDay= $('#plan-startday').datepicker('getDate');
 					let endDay = $('#plan-endday').datepicker('getDate');
+					var selectedDays = (endDay-startDay)/1000/60/60/24;
 					let targetPlaceId = $(this).attr("placeId")
 					if(!startDay || !endDay){
 						alert("우선 여행 날짜를 선택해주세요.");
@@ -217,14 +216,17 @@ pageEncoding="UTF-8"%>
 							dataType: "json",
 							data: {placeId: targetPlaceId},
 							success: function(result){
-								//alert(result)
-								let no=$("#planner-dayset-day").value();
-								alert(no);
+								//alert(selectedDays)
+								//let no=$("#planner-dayset-day").value();
+								//alert(no);
 								let str="";
 								str+="<il class='add-plan-card'>"
 									str+=`<div class="add-plan-info" id="${'${result.placeId}'}">`
-										//for(int i=0;i<=)
-									str+=`<div><select name='add-plan-setday'></select>`
+									str+=`<div><select class='add-plan-setday'>`
+										for(var i=1;i<=selectedDays+1;i++){
+											str+=`<option value=${'${i}'}>\${i} 일차</option>`
+										}
+									str+=`</select></div>`
 									str+=`<div class="add-plan-detail"><span><h7>\${result.placeName}</h7><span>`
 									str+=`<span><a href="javascript:void(0);" id="delete-plan-bnt" placeId="${'${result.placeId}'}">x</a></span></div>`
 									str+=`</div>`
@@ -242,6 +244,7 @@ pageEncoding="UTF-8"%>
 				//오른쪽 사이드바 - 검색하기
 
 				//getplannerInfo();
+				
 			})
 		</script>
 		<script>
@@ -255,9 +258,15 @@ pageEncoding="UTF-8"%>
 				var days = (endDay-startDay)/1000/60/60/24;
 				//$('#planner-dayset-day').val(days);
 				//$("planner-dayset-day").innerText = Math.abs(days);
-				$("#planner-dayset-day").html(Math.abs(days));
+				$("#planner-dayset-day").html(Math.abs(days)+1);
 
-				$('#add-plan-setday').html("<option value=''>")				
+				//날짜변경하면 장소 select 태그 day변경하기
+				$('.add-plan-setday').html("")
+				let str=""
+				for(var i=1;i<=Math.abs(days)+1;i++){
+				str+=`<option value=${'${i}'}>\${i} 일차</option>`
+				}
+				$(".add-plan-setday").append(str);			
 			}
 			
 			//datepicker 설정
@@ -278,7 +287,7 @@ pageEncoding="UTF-8"%>
 			$('#plan-startday').datepicker();
 			$('#plan-startday').datepicker("option","maxDate",$("#plan-endday").val());
 			$('#plan-startday').datepicker("option","onClose",function(selectedDate){
-				$('#plan-endday').datepicker("option","minDate",selectedDate)
+				$('#plan-endday').datepicker("option","minDate",selectedDate);
 				getDay();
 			})
 
@@ -286,7 +295,7 @@ pageEncoding="UTF-8"%>
 			$('#plan-endday').datepicker();
 			$('#plan-endday').datepicker("option","minDate",$("#plan-startday").val());
 			$('#plan-endday').datepicker("option","onClose",function(selectedDate){
-				$('#plan-startday').datepicker("option","maxDate",selectedDate)
+				$('#plan-startday').datepicker("option","maxDate",selectedDate);
 				getDay();
 			})
 
