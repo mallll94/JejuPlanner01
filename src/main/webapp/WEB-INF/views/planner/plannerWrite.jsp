@@ -12,31 +12,34 @@ pageEncoding="UTF-8"%>
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 		<style>
-			html,body{
-				display: table;
-				width:100%;
-				height:100%;
+			.body-main{
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				height: 100%;
 			}
 			div.jeju-sidebar-left{
-				position: absolute;
-				width: 25%;
-				height:100%;
-				left: 0;
+				flex-basis: 350px;
+				flex-shrink: 0;
 				background-color: gainsboro;
+				overflow: hidden;
+				height: 100%;
+				order: 0;
 				text-align: center;
 			}
 			div.jeju-sidebar-right{
-				position: absolute;
-				width: 20%;
-				height:100%;
-				right: 0;
+				flex-basis: 250px;
+				flex-shrink: 0;
 				background-color: gainsboro;
+				overflow: hidden;
+				height: 100%;
+				order: 2;
 				text-align: center;
 			}
 			div.jeju-googleMap{ 
-				display: table-cell;
-				width: 100%;
-				background-color: azure;
+				flex-basis: 100%;
+				height: 100%;
+				order: 1;
 			}
 			div.sidebar-left-area, div.sidebar-right-area{
 				box-sizing: border-box;
@@ -211,10 +214,23 @@ pageEncoding="UTF-8"%>
 						$.ajax({
 							url: "${pageContext.request.contextPath}/planner/addPlace",
 							type: "post",
-							dataType: "text",
+							dataType: "json",
 							data: {placeId: targetPlaceId},
 							success: function(result){
-								alert(result)
+								//alert(result)
+								let no=$("#planner-dayset-day").value();
+								alert(no);
+								let str="";
+								str+="<il class='add-plan-card'>"
+									str+=`<div class="add-plan-info" id="${'${result.placeId}'}">`
+										//for(int i=0;i<=)
+									str+=`<div><select name='add-plan-setday'></select>`
+									str+=`<div class="add-plan-detail"><span><h7>\${result.placeName}</h7><span>`
+									str+=`<span><a href="javascript:void(0);" id="delete-plan-bnt" placeId="${'${result.placeId}'}">x</a></span></div>`
+									str+=`</div>`
+								str+="</il>"
+								//$("#planList").html("");
+								$("#planList").append(str);
 							},
 							error: function(error){
 								alert("장소 정보를 불러오지 못했습니다.")
@@ -238,7 +254,10 @@ pageEncoding="UTF-8"%>
 				}
 				var days = (endDay-startDay)/1000/60/60/24;
 				//$('#planner-dayset-day').val(days);
-				document.getElementById("planner-dayset-day").innerText = Math.abs(days);
+				//$("planner-dayset-day").innerText = Math.abs(days);
+				$("#planner-dayset-day").html(Math.abs(days));
+
+				$('#add-plan-setday').html("<option value=''>")				
 			}
 			
 			//datepicker 설정
@@ -319,7 +338,7 @@ pageEncoding="UTF-8"%>
 							<input class="myPlan-category" id="planner-place" type="button" name="myPlanCategory" value="장소" />
 						</div>
 						<div class="planner-plan-detail">
-							<span>일정내용</span>
+							<ul class="ul-plan" id="planList"></ul>
 						</div>
 					</div>
 				</div>
