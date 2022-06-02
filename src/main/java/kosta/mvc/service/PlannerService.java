@@ -42,4 +42,6 @@ public interface PlannerService {
 	 * 플래너 삭제 - 진짜 삭제가 아니고 state를 비활성화 해준다.
 	 * */
 	void deletePlan(Long plannerId);
+
+	
 }

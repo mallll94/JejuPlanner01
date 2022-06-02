@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.dto.PlaceDTO;
 
 public interface PlaceService {
 
@@ -45,5 +47,10 @@ public interface PlaceService {
 	 * 장소 삭제하기
 	 * */
 	void deletePlace(Long placeId);
+	
+	/**
+	 * 플래너 장소 list 목록 조회하기
+	 * */
+	List<PlaceDTO> selectByPlanner(List<PlannerPlace> list);
 
 }

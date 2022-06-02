@@ -15,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QPlace;
-
+import kosta.mvc.dto.PlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -109,6 +110,23 @@ public class PlaceServiceImpl implements PlaceService {
 
 		Page<Place> result = placeRep.findAll(builder, pageable);
 
+		return result;
+	}
+
+	@Override
+	public List<PlaceDTO> selectByPlanner(List<PlannerPlace> list) {
+		List<PlaceDTO> result = new ArrayList<PlaceDTO>();
+		
+		for(PlannerPlace x :list) {
+			
+			
+			result.add(new PlaceDTO(x.getPlace().getPlaceId(), x.getPlace().getPlaceCategory(),
+					x.getPlace().getPlaceName(), x.getPlace().getPlaceAddr(),
+					x.getPlace().getPlaceContent(), x.getPlace().getPlacePhoto(), x.getPlace().getPlaceUrl(),
+					x.getPlace().getPlaceLatitude(), x.getPlace().getPlaceLongitude(), 0));
+			
+		}
+		
 		return result;
 	}
 

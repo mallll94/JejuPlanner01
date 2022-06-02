@@ -12,64 +12,168 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback&callback=myMap&map_ids=a0f291588508440c&libraries=places&region=kr"></script>
 <script type="text/javascript">
-var map;
-var box = [];
-var markerbox =[];
-function myMap(){
-	var marker,i;
-	
-	var addr = [[33.4518,126.4417],
-				[33.4638,126.4754],
-				[33.4738,126.4954]];
-	
-	
-	var mapOptions = { 
-		center:new google.maps.LatLng(33.3893, 126.5362),
-		zoom:11,
-		mapId: "a0f291588508440c",
-		disableDefaultUI:true,
-        zoomControl: true
-	};
-	
-	
-	var infowindow = new google.maps.InfoWindow();
-	
-	map = new google.maps.Map( document.getElementById("map") , mapOptions );
-	
-	
-	
-	for(i =0;i<addr.length;i++){
-		
-		box.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-		
-		var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(addr[i][0], addr[i][1]),
-			map: map
-		 });
-		
-		google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    		return function() {
-				infowindow.setContent(i+"제발되라");
-      			infowindow.open(map, marker);
-    		}
-  		})(marker, i));	
-	};
-	
-	
-	//선 폴리선 잇는법
-	var line= new google.maps.Polyline({
-	    path: box,
-	    geodesic: true,
-	    strokeColor: '#FF0000',
-	    strokeOpacity: 1.0,
-	    strokeWeight: 2
-	});
-	line.setMap(map);
+	var map;
 
-	box.push(location); //선으로 이을 박스 생성
-};
-	$(function(){
+	function getColor(place,plannerPlace){
+		if(place.placeCategory =='장소'){
+			if(plannerPlace.plannerPlaceDate==1){
+				return 'skyblue';
+			}else if(plannerPlace.plannerPlaceDate==2){
+				return 'pink'
+			}else if(plannerPlace.plannerPlaceDate==3){
+				return 'yellow'
+			}else if(plannerPlace.plannerPlaceDate==4){
+				return 'red'
+			}else if(plannerPlace.plannerPlaceDate==5){
+				return 'green'
+			}	
+		}else{
+			return 'black';
+		}
 		
+	}
+	
+	function getLineColor(day){	
+			if(day==1){
+				return "#00C3FF";
+			}else if(day==2){
+				return "#FFDD00";
+			}else if(day==3){
+				return "#7C8C91";
+			}else if(day==4){
+				return "#FF0000";
+			}else if(day==5){
+				return "#5100FF";
+			}else if(day==6){
+				return "#FF841F";
+			}else if(day==7){
+				return "#E9F086";
+			}
+	}
+	
+	
+	
+	
+	
+	
+	function myMap(){//지도생성
+		var mapOptions = { 
+			center:new google.maps.LatLng(33.3893, 126.5362),
+			zoom:11,
+			mapId: "a0f291588508440c",
+			disableDefaultUI:true,
+	        zoomControl: true
+		};
+		var infowindow = new google.maps.InfoWindow();	
+		map = new google.maps.Map( document.getElementById("map") , mapOptions );
+	};
+	function markerLine(data,day){
+		
+		var addr=[];
+		for(var j =0;j<data.length;j++){
+			addr[j]=[data[j].placeLatitude,data[j].placeLongitude];
+		}
+		
+		var i;
+		var color;
+		var box1=[];
+		var box2=[];
+		var box3=[];
+		var box4=[];
+		var box5=[];
+		var box6=[];
+		var box7=[];
+		var box8=[];
+		//var box9=[];
+		//var box10=[];
+		
+		
+		for(i =0;i<data.length;i++){
+			color = getColor(data[i],day[i]);
+			var title = data[i].placeName;
+			
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(addr[i][0], addr[i][1]),
+				map: map,
+				icon:{
+					path:google.maps.SymbolPath.CIRCLE,
+					strokeWeight:0,
+					fillOpacity:1,
+					fillColor:color,
+					scale:10
+				}
+			 });
+			var infowindow = new google.maps.InfoWindow();
+			google.maps.event.addListener(marker, 'click', (function(marker, title) {
+        		return function() {
+					infowindow.setContent(title);
+          			infowindow.open(map, marker);
+        		}
+      		})(marker, title));
+				
+	  		
+	  		
+			if(day[i].plannerPlaceDate==1){	
+				box1.push(new google.maps.LatLng(addr[i][0], addr[i][1]));		
+			}else if(day[i].plannerPlaceDate==2){		
+				box2.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+				
+			}else if(day[i].plannerPlaceDate==3){
+				
+				box3.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+				
+			}else if(day[i].plannerPlaceDate==4){
+				
+				box4.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+				
+			}else if(day[i].plannerPlaceDate==5){
+				
+				box5.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+				
+			}else if(day[i].plannerPlaceDate==6){
+				
+				box6.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+				
+			}else if(day[i].plannerPlaceDate==7){		
+				box7.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+			}else{	
+				box8.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
+			} 
+			
+		};
+		
+		addLine(box1,getLineColor(1));
+		addLine(box2,getLineColor(2));
+		addLine(box3,getLineColor(3));
+		addLine(box4,getLineColor(4));
+		addLine(box5,getLineColor(5));
+		addLine(box6,getLineColor(6));
+		addLine(box7,getLineColor(7));
+		addLine(box8,getLineColor(8));
+		
+		
+		
+	}
+	//선 폴리선 잇는법
+	function addLine(targets,lineColor){
+	    var line = new google.maps.Polyline({
+	      path : targets,
+	      geodesic:true,
+	      strokeColor: lineColor,
+	      strokeOpacity:1.0,
+	      strokeWeight:3
+	    })
+	    line.setMap(map);
+	}
+
+
+
+
+
+
+
+	$(function(){
+
 		function selectAll(){
 			$.ajax({
 				url: "${pageContext.request.contextPath}/planner/select",
@@ -77,7 +181,29 @@ function myMap(){
 				dataType: "json",
 				data: {placeId: "1"},
 				success: function(result){
-					alert(1);
+					//alert(result.plannerPlaces[3].plannerPlaceDate)
+					var name = result.planner.plannerName;
+					var dayNo = result.dayNo;
+					
+					
+					var dayNoLi = "";
+					for(let i=0; i < dayNo;i++){
+						dayNoLi+=`<option value=${'${i}'}>${'${i+1}'}day</option>`;
+					}
+					
+					$.each(result.plannerPlaces, function(index, item){
+						
+						
+					})
+					
+					markerLine(result.place,result.plannerPlaces);
+					
+					
+					
+					
+					
+					$("#li").append(dayNoLi);
+					$("#name").html(name);
 					
 				},
 				error: function(error){
@@ -95,7 +221,7 @@ function myMap(){
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<span>플래너 이름</span>
+			<span id="name"></span>
 			<select id="">
 					<option value='none'>관리</option>
 					<option value='dateUpdate'>일정 수정</option>

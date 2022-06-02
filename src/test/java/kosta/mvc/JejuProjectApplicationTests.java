@@ -80,10 +80,10 @@ class JejuProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	
+		
 		   
 		   
-		   
-		System.out.println("userRep " + userRep);
+		System.out.println(plannerRep.findById(1L).orElse(null).getPlannerPlaceList());
 		
 		
 	}
