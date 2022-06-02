@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,14 +34,17 @@ public class PlannerPlace {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")	
+	@JsonIgnore
 	private Users user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "planner_fk")
+	@JsonIgnore
 	private Planner planner;  //사용자플래너 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "place_fk")
+	@JsonIgnore
 	private Place place; //장소데이터 번호
 	
 	private int plannerPlaceDate; //1DAY ,2DAY....
