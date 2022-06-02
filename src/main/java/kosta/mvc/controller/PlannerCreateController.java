@@ -53,7 +53,7 @@ public class PlannerCreateController {
 	}
 	
 	/**플래너 등록하기 > 플래너 작성하기2로 이동*/
-	@RequestMapping("/plannerInsert")
+	@RequestMapping("/insert")
 	public String insert(Planner planner) {
 		
 		return null;
@@ -67,9 +67,7 @@ public class PlannerCreateController {
 		List<Place> plist = dblist.getContent();
 		return plist;
 	}
-	
-	
-	
+
 	/**오른쪽 사이드바에서 장소추가하기 >> 장소 아이디로 장소 검색하기*/
 	@RequestMapping("/addPlace")
 	@ResponseBody
