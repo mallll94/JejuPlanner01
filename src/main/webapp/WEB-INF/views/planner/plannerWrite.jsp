@@ -146,23 +146,35 @@ pageEncoding="UTF-8"%>
 			
 
 			$(function(){
-				const targetPlanner='${planner}';
+				const targetPlanner= "${planner}";
+				const targetPlannerId= "${planner.plannerId}";
 				const targetPlanStartDay ='${planner.plannerStart}';
+				const targetPlanEndDay ='${planner.plannerEnd}';
+				const loginUserId = '${planner.user.userId}'
 
-				//기본 플래너 정보 조회
+				//플래너 상세 정보 조회
 				function getplannerInfo(){
+
+					if(!targetPlanner){
+						alert("플래너가 생성되지 않았습니다.")
+					}
 					$.ajax({
 						url:"${pageContext.request.contextPath}/planner/selectBy",
 						type:"post",
 						dataType:"text",
-						data:{planner: targetPlanner},
-						success: function(result){
-							alert(result)
+						data:{plannerId: targetPlannerId},
+						success: function(planner){
+							//날짜 조회
+							$('#plan-startday').datepicker('setDate',new Date(targetPlanStartDay));
+							$('#plan-endday').datepicker('setDate',new Date(targetPlanEndDay));
+							var days = (targetPlanEndDay-targetPlanStartDay)/1000/60/60/24;
+							$("#planner-dayset-day").html(Math.abs(days)+1)
 						},
 						error: function(result){
 							alert("플래너 정보가 없습니다.")
 						}
 					})
+					
 				}
 				//오른쪽 사이드바 - 추천장소, 추천숙소 버튼동작
 				$("input[class='category-input']").click(function(){
@@ -204,8 +216,8 @@ pageEncoding="UTF-8"%>
 				$(document).on("click","#plan-add-bnt",function(){
 					//alert("추가하기")
 					let state = true;
-					let startDay= $('#plan-startday').datepicker('getDate');
-					let endDay = $('#plan-endday').datepicker('getDate');
+					// let startDay= $('#plan-startday').datepicker('getDate');
+					// let endDay = $('#plan-endday').datepicker('getDate');
 					var selectedDays = (endDay-startDay)/1000/60/60/24;
 					let targetPlaceId = $(this).attr("placeId")
 					if(!startDay || !endDay){
@@ -219,7 +231,7 @@ pageEncoding="UTF-8"%>
 							url: "${pageContext.request.contextPath}/planner/addPlace",
 							type: "get",
 							dataType: "json",
-							data: {placeId: targetPlaceId},
+							data: {planner: targetPlanner ,placeId: targetPlaceId},
 							success: function(result){
 								let str="";
 								let dbCategory = result.placeCategory;
@@ -244,9 +256,9 @@ pageEncoding="UTF-8"%>
 									$("#plan-hotelList").append(str);
 								}
 								
-								let str2 ="";
-								str2+=`<input type='hidden' name='placelist[].place' value="${'${result.placeId}'}">`
-								str2+=`<input type='hidden' name='placelist[].plannerPlaceDate' value="1">`
+								// let str2 ="";
+								// str2+=`<input type='hidden' name='placelist[].place' value="${'${result.placeId}'}">`
+								// str2+=`<input type='hidden' name='placelist[].plannerPlaceDate' value="1">`
 								
 							},
 							error: function(error){
@@ -290,6 +302,8 @@ pageEncoding="UTF-8"%>
 					form.submit();
 				})
 
+				getplannerInfo();
+				
 				
 				
 			})
@@ -305,32 +319,45 @@ pageEncoding="UTF-8"%>
 			*/
 		
 			//day선택 select변경시 form내부 day 값변경
-			function changeDaySelect(){
+			// function changeDaySelect(){
 
-			}
+			// }
 
 			
 		</script>
 		<script>
 		$(function() {
+
+			//Day 계산 함수
 			function showDays(){
+				alert("showDays()!")
 				startDay= $('#plan-startday').datepicker('getDate');
 				endDay = $('#plan-endday').datepicker('getDate');
 				if(!startDay || !endDay){
 					return;
 				}
-				var days = (endDay-startDay)/1000/60/60/24;
-				//$('#planner-dayset-day').val(days);
-				//$("planner-dayset-day").innerText = Math.abs(days);
-				$("#planner-dayset-day").html(Math.abs(days)+1);
+				$.ajax({
+						url: "${pageContext.request.contextPath}/planner/setDate",
+						type:"post",
+						dataType:"json",
+						data:{plannerStart: startDay, plannerEnd: endDay},
+						success: function(result){
+							var days = (endDay-startDay)/1000/60/60/24;
+							$("#planner-dayset-day").html(Math.abs(days)+1);
 
-				//날짜변경하면 장소 select 태그 day변경하기				
-				$('.add-plan-setday').html("")
-				let str=""
-				for(var i=1;i<=Math.abs(days)+1;i++){
-				str+=`<option value=${'${i}'}>\${i} 일차</option>`
-				}
-				$(".add-plan-setday").append(str);			
+							//날짜변경하면 장소 select 태그 day변경하기				
+							$('.add-plan-setday').html("")
+							let str=""
+							for(var i=1;i<=Math.abs(days)+1;i++){
+								str+=`<option value=${'${i}'}>\${i} 일차</option>`
+							}
+							$(".add-plan-setday").append(str);
+						},
+						error: function(error){
+							alert("여행날짜를 변경하지 못 했습니다.")
+						}
+					})
+							
 			}
 			
 			//datepicker 설정
@@ -345,7 +372,7 @@ pageEncoding="UTF-8"%>
 				dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 				showMonthAfterYear: true,
 				yearSuffix: '년',
-				onSelect: showDays
+				onSelect: showDays()
 			});
 			//왼쪽 사이드바 -여행 시작일 설정 후 이벤트
 			$('#plan-startday').datepicker();
@@ -362,6 +389,7 @@ pageEncoding="UTF-8"%>
 				$('#plan-startday').datepicker("option","maxDate",selectedDate);
 				showDays();
 			})
+			
 
 		})
 

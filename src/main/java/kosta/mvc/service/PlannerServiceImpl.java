@@ -66,8 +66,6 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public void insertPlan(Planner planner) {
 		plannerRep.save(planner);
-	
-
 	}
 
 	@Override
