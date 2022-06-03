@@ -11,10 +11,6 @@ public interface AskBoardService {
 	 */
 	public void addAskBoard(AskBoard askBoard);
 	
-	/**
-	 * 1:1문의 수정하기
-	 */
-	public void updateAskBoard(AskBoard askBoard);
 	
 	/**
 	 * 1:1문의 전체 조회하기
