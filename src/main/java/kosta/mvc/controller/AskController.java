@@ -3,11 +3,13 @@ package kosta.mvc.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.AskBoard;
@@ -46,14 +48,17 @@ public class AskController {
 	/**글 등록폼*/
 	@RequestMapping("/board/AskBoard")
 	public void write() {
-
+        System.out.println("askboard test");
 	}
 
 	
 	/**글 등록*/
-	@RequestMapping("/board/insert")
-	public String insert(AskBoard askBoard) {
-		askBoardService.addAskBoard(askBoard);
+	@RequestMapping(value= "/board/insert", method = RequestMethod.POST)
+	public String insert(AskBoard askBoard , HttpSession session) {
+		System.out.println("insert test");
+
+		String uploadpath = session.getServletContext().getRealPath("/WEB-INF") + "upload/AskBoard/";
+		askBoardService.addAskBoard(askBoard, uploadpath);
 
 		return "redirect:/board/AskList";
 
@@ -61,9 +66,11 @@ public class AskController {
 
 	
 	/**상세보기*/
-	@RequestMapping("/board/Ask_Detail/{askBoardId}")
-	public ModelAndView read(@PathVariable Long askBoardId) {
-		AskBoard askBoard = askBoardService.getAskBoard(askBoardId);
+	@RequestMapping("/board/Ask_Detail/{askId}")
+	public ModelAndView read(@PathVariable Long askId) {
+		System.out.println("askboardId test");
+		
+		AskBoard askBoard = askBoardService.getAskBoard(askId);
 		
 		return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
 		
@@ -72,9 +79,14 @@ public class AskController {
 	
 	/**삭제*/
 	@RequestMapping("/Askdelete")
-	public String delete(Long askBoardId) {
-		askBoardService.deleteAskBoard(askBoardId);
+	public String delete(Long askId) {
+		
+		System.out.println("delete test1");
+		
+		askBoardService.deleteAskBoard(askId);
 
+		System.out.println("delete test2");
+		
 		return "redirect:/board/AskList";
 	}
 

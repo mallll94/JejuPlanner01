@@ -32,6 +32,7 @@ public class Notice {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "notice_seq" )
 	@SequenceGenerator(sequenceName = "notice_seq" , allocationSize = 1 , name="notice_seq" )
 	private Long noticeId;
+	
 	private String noticeTitle;
 	
 	@Column(length=2000)
