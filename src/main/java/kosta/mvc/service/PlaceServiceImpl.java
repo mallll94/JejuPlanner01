@@ -122,7 +122,7 @@ public class PlaceServiceImpl implements PlaceService {
 			result.add(new PlaceDTO(x.getPlace().getPlaceId(), x.getPlace().getPlaceCategory(),
 					x.getPlace().getPlaceName(), x.getPlace().getPlaceAddr(),
 					x.getPlace().getPlaceContent(), x.getPlace().getPlacePhoto(), x.getPlace().getPlaceUrl(),
-					x.getPlace().getPlaceLatitude(), x.getPlace().getPlaceLongitude(), 0));
+					x.getPlace().getPlaceLatitude(), x.getPlace().getPlaceLongitude(), 0,x.getPlannerPlaceDate()));
 			
 		}
 		

@@ -23,5 +23,5 @@ public class PlaceDTO {
 	private String placeLatitude; //위도
 	private String placeLongitude; //경도
 	private int placeSave; //담은 개수
-	
+	private int day;
 }
