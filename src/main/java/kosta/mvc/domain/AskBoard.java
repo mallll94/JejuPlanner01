@@ -15,9 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -57,6 +59,9 @@ public class AskBoard {
 	
 	@CreationTimestamp
 	private LocalDateTime askRegdate;
+	
+	@Transient
+	private MultipartFile file;
 	
 	/** 댓글 */
 	//@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)

@@ -98,7 +98,10 @@
                </tbody>
               </c:forEach> 
             </table>
-         <div align="right"> <button onclick="location = '/board/AskBoard'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">작성하기</button> </div>   
+             <div align="right"> 
+              <button onclick="location = '/board/AskBoard'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">작성하기</button> 
+             </div>   
+          
           </div>
         </div>
        

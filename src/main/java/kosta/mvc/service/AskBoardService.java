@@ -6,10 +6,9 @@ import kosta.mvc.domain.AskBoard;
 
 public interface AskBoardService {
 	
-	/**
-	 * 1:1문의 등록하기
-	 */
-	public void addAskBoard(AskBoard askBoard);
+	
+	/**등록하기*/
+	public void addAskBoard(AskBoard askBoard, String uploadpath);
 	
 	
 	/**
@@ -27,4 +26,7 @@ public interface AskBoardService {
 	 * 1:1문의 삭제하기 (askBoardId를 이용해)
 	 */
 	public void deleteAskBoard(Long askBoardId);
+
+
+	
 }

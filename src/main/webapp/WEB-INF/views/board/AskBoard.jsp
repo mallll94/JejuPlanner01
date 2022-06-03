@@ -24,10 +24,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../libs/ask/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/ask/style.css" rel="stylesheet">
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../libs/ask/easing/easing.min.js"></script>
+    <script src="../libs/ask/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="../mail/ask/jqBootstrapValidation.min.js"></script>
+    <script src="../mail/ask/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/ask/main.js"></script>
+    
+    
 
 </head>
 <body>
@@ -43,9 +58,9 @@
                 <div class="contact-form">
                     <div id="success"></div>
                     
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <form name="AskBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
                         
-                <div class="control-group">
+                       <div class="control-group">
                          상담유형 <select class="form-select" aria-label="Default select example">
                             <option selected>Category</option>
                             <option value="1">회원문의</option>
@@ -59,25 +74,25 @@
                        
                        
                     <div class="control-group">
-                            제목 <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
-                        </div>
+                    제목 <input type="text" class="form-control" id="askTitle" name="askTitle" placeholder="Title"
+                          required="required" data-validation-required-message="Please enter a subject" />
+                         <p class="help-block text-danger"></p>
+                    </div>
                     <div class="control-group">
-                           내용 <textarea class="form-control" rows="6" id="message" placeholder="Message"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-	            <div class="control-group">
-                            첨부파일 <input type="file" class="form-control" id="file" placeholder="File"
-                                required="required" data-validation-required-message="Please enter a file" />
-                            <p class="help-block text-danger"></p>
-	                    </div> 
+                    내용 <textarea class="form-control" rows="6" id="askContent" name="askContent" placeholder="Content"
+                         required="required" data-validation-required-message="Please enter your message"></textarea>
+                         <p class="help-block text-danger"></p>
+                    </div>
+	                <div class="control-group">
+                    첨부파일 <input type="file" class="form-control" id="askAttach" name="file" placeholder="Attach"
+                             required="required" data-validation-required-message="Please enter a file" accept=".png, .jpg" />
+                             <p class="help-block text-danger"></p>
+	                </div> 
 
-                        <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">등록하기</button>
+                        <div align="right">
+                            <button onclick="location = '/board/AskList'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">등록하기</button>
                         </div>
+                    
                     </form>
                 
                 </div>
@@ -87,18 +102,7 @@
     </div>
     <!-- Contact End -->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    
     
 </body>
 </html>
