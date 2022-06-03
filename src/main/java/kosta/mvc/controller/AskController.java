@@ -21,9 +21,9 @@ public class AskController {
 	private final AskBoardService askBoardService;
 
 	/**전체검색 - board에서*/
-	@RequestMapping("/board/askList") 
+	@RequestMapping("/board/AskList") 
 	public void askList(Model model) {
-		System.out.println("test!!!");
+		System.out.println("asklist test");
 
 		List<AskBoard> list = askBoardService.getAllAskBoards();
 
@@ -35,9 +35,11 @@ public class AskController {
 	/**전체검색 - admin에서*/
 	@RequestMapping("/admin/AskList_Admin")
 	public void askListAdmin(Model model) {
-		List<AskBoard> list = askBoardService.getAllAskBoards();
+		System.out.println("admin test");
+		
+		List<AskBoard> askList = askBoardService.getAllAskBoards();
 
-		model.addAttribute("list",list);
+		model.addAttribute("askList",askList);
 	}
 
 	
@@ -69,7 +71,7 @@ public class AskController {
 
 	
 	/**삭제*/
-	@RequestMapping("/delete")
+	@RequestMapping("/Askdelete")
 	public String delete(Long askBoardId) {
 		askBoardService.deleteAskBoard(askBoardId);
 

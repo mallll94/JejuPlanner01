@@ -29,71 +29,7 @@
       <!-- fancy box js -->
       <link rel="stylesheet" href="css/jquery.fancybox.css" />
  
-</head>
-<body>
-    
-    <!-- row -->
-<div class="row">
-<!-- table section -->
- <div class="col-md-6">
-   <div class="white_shd full margin_bottom_30">
-      <div class="full graph_head">
-         <div class="heading1 margin_0">
-            <h2>1:1 문의 목록</h2>
-         </div>
-      </div> 
-    <div class="table_section padding_infor_info">
-       <div class="table-responsive-sm">
-          <table class="table">
-             <c:choose>
-             <c:otherwise>
-             <c:forEach items="${requseScope.pageList.content}" var="board"> 
-             <thead>
-                <tr>
-                  <th>순서</th>
-                  <th>제목</th>
-                  <th>날짜</th>
-                  <th>답변여부</th>
-                </tr>
-             </thead>
-               <tbody>
-                 <tr>
-                   <td>순서</td>
-                   <td>제목</td>
-                   <td>작성한날짜</td>
-                   <td>답변완료</td>
-                 </tr>
-                 <tr>
-                   <td>순서</td>
-                   <td>제목</td>
-                   <td>작성한날짜</td>
-                   <td>답변완료</td>
-                 </tr>
-                 <tr>
-                   <td>순서</td>
-                   <td>제목</td>
-                   <td>작성한날짜</td>
-                   <td>답변완료</td>
-                 </tr>
-                 <tr>
-                   <td>순서</td>
-                   <td>제목</td>
-                   <td>작성한날짜</td>
-                   <td>답변완료</td>
-                 </tr>
-               </tbody>
-              </c:forEach> 
-              </c:otherwise>
-              </c:choose>
-            </table>
-          <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">작성하기</button>   
-          </div>
-        </div>
-       
-       </div>                    
-     </div>
-   </div>
-      <!-- jQuery -->
+        <!-- jQuery -->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
@@ -114,12 +50,62 @@
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- fancy box js -->
-      <script src="js/jquery-3.3.1.min.js"></script>
+      <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
       <script src="js/jquery.fancybox.min.js"></script>
       <!-- custom js -->
       <script src="js/custom.js"></script>
       <!-- calendar file css -->    
-      <script src="js/semantic.min.js"></script>
+      <script src="js/semantic.min.js"></script> 
+       
+       
+       
+</head>
+<body>
+    
+<!-- row -->
+<div class="row">
+<!-- table section -->
+ <div class="col-md-6">
+   <div class="white_shd full margin_bottom_30">
+      <div class="full graph_head">
+         <div class="heading1 margin_0">
+            <h2 align="center">1:1 문의 목록</h2>
+         </div>
+      </div> 
+    <div class="table_section padding_infor_info">
+       <div class="table-responsive-sm">
+          <table class="table">
+             <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>제목</th>
+                  <th>날짜</th>
+                  <th>답변여부</th>
+                </tr>
+             </thead>
+             <c:forEach items="${requseScope.list}" var="askboard"> 
+               <tbody>
+                 <tr>
+                   <td>${askboard.askId}</td>
+                   <td>
+                    <a href = "${pageContext.request.contextPath}/board/Ask_Detail/${askboard.askId}">
+                      ${askboard.askTitle}
+                    </a> 
+                   </td>
+                   <td>${askboard.askRegdate}</td>
+                   <td>${askboard.askComplete}</td>
+                 </tr>
+               </tbody>
+              </c:forEach> 
+            </table>
+     
+          </div>
+        </div>
+       
+       </div>                    
+     </div>
+   </div>
+    
 
 </body>
 </html>
