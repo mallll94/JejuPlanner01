@@ -76,8 +76,13 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void updatePlan(Planner planner) {
-		// TODO Auto-generated method stub
-
+		Planner dbPlanner =selectBy(planner.getPlannerId());
+		dbPlanner.setPlannerName(planner.getPlannerName());
+		dbPlanner.setPlannerType(planner.getPlannerType());
+		dbPlanner.setPlannerCount(planner.getPlannerCount());
+		dbPlanner.setPlannerStart(planner.getPlannerStart());
+		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
+		dbPlanner.setPlannerState(planner.getPlannerState());
 	}
 
 	@Override
