@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
-
+import kosta.mvc.dto.PlannerPlaceDTO;
+import kosta.mvc.dto.PlannerPlaceListDTO;
 import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.PlannerService;
 
@@ -54,8 +56,12 @@ public class PlannerCreateController {
 	
 	/**플래너 등록하기 > 플래너 작성하기2로 이동*/
 	@RequestMapping("/insert")
-	public String insert(Planner planner) {
-		
+	public String insert(/*
+							 * Model model ,Planner planner, @ModelAttribute(value = "PlannerPlaceListDTO")
+							 * PlannerPlaceListDTO placelist
+							 */ String plannerStart) {
+		System.out.println("왔다!");
+		System.out.println("컨트롤러!!: "+plannerStart);
 		return null;
 	}
 
@@ -77,8 +83,9 @@ public class PlannerCreateController {
 	}
 	
 	/**왼쪽 사이드바에서 기간정하기*/
-	//@RequestMapping("/setDate")
-	//@ResponseBody
+	@RequestMapping("/setDate")
+	@ResponseBody
+	public void setDate() {}
 	
 	
 	

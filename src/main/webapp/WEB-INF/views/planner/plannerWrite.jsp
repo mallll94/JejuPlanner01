@@ -224,8 +224,8 @@ pageEncoding="UTF-8"%>
 								let str="";
 								let dbCategory = result.placeCategory;
 									str+="<il class='add-plan-card'>"
-										str+=`<div class="add-plan-info" id="${'${result.placeId}'}">`
-										str+=`<div><select class='add-plan-setday'>`
+										str+=`<div class="add-plan-info">`
+										str+=`<div><select class='add-plan-setday' name="" placeId="${'${result.placeId}'}" onchange="changeDaySelect()">`
 											for(var i=1;i<=selectedDays+1;i++){
 												str+=`<option value=${'${i}'}>\${i} 일차</option>`
 											}
@@ -242,7 +242,12 @@ pageEncoding="UTF-8"%>
 									$(".planner-plan-placeList").hide();
 									$(".planner-plan-hotelList").show();
 									$("#plan-hotelList").append(str);
-								}	
+								}
+								
+								let str2 ="";
+								str2+=`<input type='hidden' name='placelist[].place' value="${'${result.placeId}'}">`
+								str2+=`<input type='hidden' name='placelist[].plannerPlaceDate' value="1">`
+								
 							},
 							error: function(error){
 								alert("장소 정보를 불러오지 못했습니다.")
@@ -273,6 +278,17 @@ pageEncoding="UTF-8"%>
 					let selected = $(this)
 				}
 				*/
+				//플래너 등록하기
+				$("#planner-insert-save").on('submit',function savePlanner(){
+					const saveStartDay= $('#plan-startday').datepicker('getDate');
+					const saveEndDay = $('#plan-endday').datepicker('getDate');
+					var form = $('<form></form>')
+					form.attr('action','${pageContext.request.contextPath}/planner/insert')
+					form.attr('method','post');
+					form.appendTo('form');
+					form.append($('<input type="hidden" value="'+saveStartDay+'" name="plannerStart">'))
+					form.submit();
+				})
 
 				
 				
@@ -287,6 +303,11 @@ pageEncoding="UTF-8"%>
 					alert(insertDays)
 			}
 			*/
+		
+			//day선택 select변경시 form내부 day 값변경
+			function changeDaySelect(){
+
+			}
 
 			
 		</script>
@@ -399,9 +420,11 @@ pageEncoding="UTF-8"%>
 						</div>
 					</div>
 					<div class="planner-save-area">
-						<form name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/insert">
+						<form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/insert">
+							<input type="hidden" name="userId" value="">
 							<input type="submit" value="작업 완료">
 						</form>
+						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
 						
 					</div>
 				</div>
