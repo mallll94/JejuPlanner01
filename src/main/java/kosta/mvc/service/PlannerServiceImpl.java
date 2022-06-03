@@ -54,6 +54,15 @@ public class PlannerServiceImpl implements PlannerService {
 		return planner;
 	}
 
+	@Override//일자별 플래너 검색
+	public Planner selectByDay(Long plannerId, int day) {
+		
+		
+		
+		return null;
+	}
+	
+	
 	@Override
 	public void insertPlan(Planner planner) {
 		plannerRep.save(planner);
@@ -84,6 +93,8 @@ public class PlannerServiceImpl implements PlannerService {
 		// TODO Auto-generated method stub
 
 	}
+
+	
 
 
 }

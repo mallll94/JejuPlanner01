@@ -18,6 +18,14 @@ public interface PlannerService {
 	 * */
 	//PlannerDTO selectBy(Long plannerId);
 	Planner selectBy(Long plannerId);
+	
+	/**
+	 * 일자별 플래너 검색
+	 * */
+	Planner selectByDay(Long plannerId,int day);
+	
+	
+	
 	/**
 	 * 플래너 생성
 	 * */

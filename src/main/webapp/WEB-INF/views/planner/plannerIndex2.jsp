@@ -67,11 +67,13 @@
 		var infowindow = new google.maps.InfoWindow();	
 		map = new google.maps.Map( document.getElementById("map") , mapOptions );
 	};
-	function markerLine(data,day){
+	
+	
+	function markerLine(data,day,dayNo){//data = List<PlaceDTO>위도 경도,  숫자 1,2,3,  - > day = List<PlannerPlace>
 		
 		var addr=[];
 		for(var j =0;j<data.length;j++){
-			addr[j]=[data[j].placeLatitude,data[j].placeLongitude];
+			addr[j]=[data[j].placeLatitude , data[j].placeLongitude];
 		}
 		
 		var i;
@@ -84,11 +86,13 @@
 		var box6=[];
 		var box7=[];
 		var box8=[];
-		//var box9=[];
-		//var box10=[];
+		
+		//let arr =[[],[],[]];
+
 		
 		
-		for(i =0;i<data.length;i++){
+		for(i =0;i<data.length;i++){ //List<PlaceDTO> 길만큼 잠
+			
 			color = getColor(data[i],day[i]);
 			var title = data[i].placeName;
 			
@@ -110,47 +114,24 @@
           			infowindow.open(map, marker);
         		}
       		})(marker, title));
-				
-	  		
-	  		
-			if(day[i].plannerPlaceDate==1){	
-				box1.push(new google.maps.LatLng(addr[i][0], addr[i][1]));		
-			}else if(day[i].plannerPlaceDate==2){		
-				box2.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-				
-			}else if(day[i].plannerPlaceDate==3){
-				
-				box3.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-				
-			}else if(day[i].plannerPlaceDate==4){
-				
-				box4.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-				
-			}else if(day[i].plannerPlaceDate==5){
-				
-				box5.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-				
-			}else if(day[i].plannerPlaceDate==6){
-				
-				box6.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-				
-			}else if(day[i].plannerPlaceDate==7){		
-				box7.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-			}else{	
-				box8.push(new google.maps.LatLng(addr[i][0], addr[i][1]));
-			} 
 			
+			
+			for(let a=1 ; a<=dayNo ; a++){
+				let b = eval("box"+a);
+				if(day[i].plannerPlaceDate==a){
+					b.push(new google.maps.LatLng(addr[i][0], addr[i][1]));	
+					break;
+				}
+			}
+			
+						
 		};
 		
-		addLine(box1,getLineColor(1));
-		addLine(box2,getLineColor(2));
-		addLine(box3,getLineColor(3));
-		addLine(box4,getLineColor(4));
-		addLine(box5,getLineColor(5));
-		addLine(box6,getLineColor(6));
-		addLine(box7,getLineColor(7));
-		addLine(box8,getLineColor(8));
-		
+		for(let c=1; c<=dayNo ; c++){
+			console.log(c)
+		    let obj= eval("box"+c);
+			addLine(obj , getLineColor(c));
+		}
 		
 		
 	}
@@ -167,43 +148,40 @@
 	}
 
 
-
-
-
-
-
 	$(function(){
+		$(document).on("change","#days", function(){
+			
+			selectAll($(this).val());
+		});
+		
+		
 
-		function selectAll(){
+		function selectAll(no){
 			$.ajax({
 				url: "${pageContext.request.contextPath}/planner/select",
 				type: "post",
 				dataType: "json",
-				data: {placeId: "1"},
+				data: {plannerId: '1' ,DayPlanner : no},
 				success: function(result){
-					//alert(result.plannerPlaces[3].plannerPlaceDate)
+					
 					var name = result.planner.plannerName;
-					var dayNo = result.dayNo;
-					
-					
-					var dayNoLi = "";
+					var dayNo = result.dayNo;			
+					var dayNoLi = "<option value='0'>일정</option>";
 					for(let i=0; i < dayNo;i++){
-						dayNoLi+=`<option value=${'${i}'}>${'${i+1}'}day</option>`;
-					}
-					
+						dayNoLi+=`<option value=${'${i+1}'}>${'${i+1}'}day</option>`;
+					}			
 					$.each(result.plannerPlaces, function(index, item){
 						
 						
-					})
+					})		
+					markerLine(result.place,result.plannerPlaces,dayNo);	
+					$("#days").empty();
+					$("#days").append(dayNoLi);
+					$("#days").val(no);
 					
-					markerLine(result.place,result.plannerPlaces);
-					
-					
-					
-					
-					
-					$("#li").append(dayNoLi);
 					$("#name").html(name);
+					
+					
 					
 				},
 				error: function(error){
@@ -211,7 +189,7 @@
 				}
 			})
 		}
-		selectAll();
+		selectAll(0);
 		
 	})
 
@@ -229,8 +207,8 @@
 					<option value='placeId'>공유하기</option>
 					<option value='placeName'>플래너 이름수정</option>
 			</select>
-			<select id="li">
-					<option value='none'>일정</option>
+			<select id="days">
+					
 					
 			</select>
 		</div>

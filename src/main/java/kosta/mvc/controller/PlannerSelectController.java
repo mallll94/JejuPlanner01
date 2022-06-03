@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.dto.PlaceDTO;
@@ -28,21 +27,37 @@ public class PlannerSelectController {
 
 	@RequestMapping("/select")
 	@ResponseBody
-	public Map<String, Object> selectAll(Long placeId){
+	public Map<String, Object> selectAll(Long plannerId,int DayPlanner){
+		System.out.println(DayPlanner);
+		Planner planner= plannerService.selectBy(plannerId);
+		//if(DayPlanner == 0) {
+			
+		//}else {
+			//planner=plannerService.selectByDay(plannerId, DayPlanner);
+		//}
 		
-		Planner planner= plannerService.selectBy(placeId);
+		
+		
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<PlannerPlace> list = planner.getPlannerPlaceList();
 		
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-		
 		List<PlaceDTO> place=placeService.selectByPlanner(list);
 		
 		
 		
+			
 		
-		map.put("planner", planner );
+			
+		 
+		
+		
+		
+		
+		map.put("planner", planner ); //
 		map.put("plannerPlaces",  list);
 		map.put("dayNo", period.getDays());
 		map.put("place", place);
