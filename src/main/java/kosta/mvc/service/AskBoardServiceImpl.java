@@ -54,8 +54,8 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 	/**askboardId 이용해서 조회*/
 	@Override
-	public AskBoard getAskBoard(Long askBoardId) {
-		AskBoard askBoard = askBoardRep.findById(askBoardId).orElse(null);
+	public AskBoard getAskBoard(Long askId) {
+		AskBoard askBoard = askBoardRep.findById(askId).orElse(null);
 		if(askBoard==null) new RuntimeException("상세보기에 오류가 발생하였습니다.");
 		
 		return askBoard;
@@ -63,14 +63,14 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 	/**삭제하기*/
 	@Override
-	public void deleteAskBoard(Long askBoardId) {
+	public void deleteAskBoard(Long askId) {
 		
-		AskBoard dbAsk = askBoardRep.findById(askBoardId).orElse(null);
+		AskBoard dbAsk = askBoardRep.findById(askId).orElse(null);
 		if(dbAsk==null) {
 			throw new RuntimeException("오류로 인해 삭제할 수 없습니다.");
 		}
 		
-		askBoardRep.deleteById(askBoardId);
+		askBoardRep.deleteById(askId);
 
 	}
 

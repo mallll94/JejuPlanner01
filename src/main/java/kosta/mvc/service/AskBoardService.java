@@ -19,13 +19,13 @@ public interface AskBoardService {
 	/**
 	 * 1:1문의 조회하기 (askBoardId를 이용해)
 	 */
-	public AskBoard getAskBoard(Long askBoardId);
+	public AskBoard getAskBoard(Long askId);
 	
 	
 	/**
 	 * 1:1문의 삭제하기 (askBoardId를 이용해)
 	 */
-	public void deleteAskBoard(Long askBoardId);
+	public void deleteAskBoard(Long askId);
 
 
 	

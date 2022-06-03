@@ -14,7 +14,7 @@
 
 
  <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <!--  <link href="img/favicon.ico" rel="icon"> -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -49,11 +49,8 @@
 	   $("button[value=삭제]").click(function() {
        	$("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
 			$("#requestForm").submit();
-		})
-		
+		})	
    })
-   
-   
    
 </script>    
     
@@ -91,7 +88,7 @@
                    <form name="requestForm" method = "post" id="requestForm">
                      <input type="hidden" name="askId" value="${askboard.askId}">
                        <div align="right">
-                         <button onclick="location = '/board/AskList'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton" value="삭제">삭제하기</button>
+                         <button type="button" class="btn btn-primary py-2 px-4" value="삭제">삭제하기</button>
                        </div>
                    </form>    
                       
