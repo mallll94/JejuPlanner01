@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">
-                                <img class="img-fluid" id="placeContent">
+                                <img class="img-fluid" id="placeContent" src="">
                                 <!-- 썸네일 이미지 -->
                             </div>
                             <div class="col-6">
@@ -97,9 +97,8 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal"
-										>일정 추가하기</button>
-									<button type="reset" class="btn btn-default" data-dismiss="modal">취소</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-link-bnt">링크</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">추가하기</button>
 								</div>
                             </div>
                         </div>
