@@ -38,7 +38,7 @@ public class noticeController {
 	}
 	
 	/**
-	 * 전체검색
+	 * 전체검색 관리자
 	 **/
 	@RequestMapping("/admin/notice_Admin")
 	public void listForAdimin(Model model) {
@@ -54,7 +54,6 @@ public class noticeController {
 	  * */
 	 @RequestMapping("/admin/notice_Write")
 	 public void write() {
-		 
 		 
 	 }
 	
@@ -85,7 +84,7 @@ public class noticeController {
 	/**
 	 * 수정폼
 	 **/
-	 @RequestMapping("admin/updateForm")
+	 @RequestMapping("admin/notice_updateForm")
 	 public ModelAndView updateForm(Long noticeId) {
 		Notice notice = noticeService.selectById(noticeId);
 		 return new ModelAndView("admin/notice_Update","notice", notice);
@@ -107,7 +106,7 @@ public class noticeController {
 	 /**
 	  * 삭제하기
 	  **/
-	 @RequestMapping("/delete")
+	 @RequestMapping("/noticeDelete")
 	 public String delete(Long noticeId) {
 	   noticeService.delete(noticeId);
 	   

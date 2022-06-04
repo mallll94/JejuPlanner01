@@ -38,6 +38,7 @@ public class Notice {
 	private String noticeContent;
 	
 	@CreationTimestamp
+	@Column(updatable = false)
 	private LocalDateTime noticeRegdate;
 	
 	private String noticeAttach;
