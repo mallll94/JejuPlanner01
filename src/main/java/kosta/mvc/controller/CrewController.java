@@ -76,10 +76,10 @@ public class CrewController {
 	 * 동행 구하기 완료여부
 	 * */
 	@RequestMapping("/board/crew_Detail/changeState") 
-	public String changeState(Long crewId,String btnradio) {
+	public ModelAndView changeState(Long crewId,String btnradio) {
 		 System.out.println(crewId);
 		 crewService.changeState(crewId,btnradio);
-		 return "/board/crew_Detail";
+		 return new ModelAndView("redirect:/board/crew");
 		 
 		  
 	}

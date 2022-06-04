@@ -56,6 +56,7 @@ public class PlaceServiceImpl implements PlaceService {
 		
 		QPlace place = QPlace.place;
 		BooleanBuilder builder = new BooleanBuilder();
+		
 		builder.and(place.placeName.contains(placeName));
 		
 		Optional<Place> selectPlace = placeRep.findOne(builder);
