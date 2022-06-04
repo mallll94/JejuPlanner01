@@ -70,8 +70,6 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public void insertPlan(Planner planner) {
 		plannerRep.save(planner);
-	
-
 	}
 
 	@Override
@@ -82,10 +80,14 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void updatePlan(Planner planner) {
-		Planner result = plannerRep.findById(planner.getPlannerId()).orElse(null);
-		
-		result.setPlannerName(planner.getPlannerName());
+		Planner dbPlanner = plannerRep.findById(planner.getPlannerId()).orElse(null);
 
+		dbPlanner.setPlannerName(planner.getPlannerName());
+		dbPlanner.setPlannerType(planner.getPlannerType());
+		dbPlanner.setPlannerCount(planner.getPlannerCount());
+		dbPlanner.setPlannerStart(planner.getPlannerStart());
+		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
+		dbPlanner.setPlannerState(planner.getPlannerState());
 	}
 
 	@Override

@@ -33,10 +33,10 @@ pageEncoding="UTF-8"%>
 				  
 				  <c:choose>
 				  	<c:when test="${bdayNum - nowNum<=0}">
-				  	 	<span>D+${(bdayNum - nowNum)*-1}일</span>
+				  	 	<span>D+${(bdayNum - nowNum+1)*-1}일</span>
 				  	</c:when>
 				  	<c:otherwise>
-				  		<span>D-${bdayNum - nowNum}일</span>
+				  		<span>D-${bdayNum - nowNum +1}일</span>
 				  	</c:otherwise>
 				  </c:choose>
 				  	
@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
 			  </div>
 		</c:forEach>
 		
-		<a href="${pageContext.request.contextPath}/planner/plannerWrite">플래너 작성하기</a>
+		<a href="${pageContext.request.contextPath}/planner/plannerWrite/00">플래너 작성하기</a>
 		
 	</body>
 </html>

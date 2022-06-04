@@ -35,6 +35,7 @@ import lombok.Setter;
 @DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Planner {
 	
 	@Id
@@ -45,6 +46,7 @@ public class Planner {
 	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "user_fk")
 	@JsonIgnore
+	@NonNull
 	private Users user;
 	
 	@Column(columnDefinition = "varchar(20) default '제주도'")
