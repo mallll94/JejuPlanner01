@@ -47,6 +47,6 @@ public class PlannerPlace {
 	@JsonIgnore
 	private Place place; //장소데이터 번호
 	
-	private int plannerPlaceDate; //1DAY ,2DAY....
+	private int plannerPlaceDate; //1DAY ,2DAY....1, 2,
 	
 }

@@ -80,10 +80,10 @@ class JejuProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	
+		
 		   
 		   
-		   
-		System.out.println("userRep " + userRep);
+		System.out.println(plannerRep.findById(1L).orElse(null).getPlannerPlaceList());
 		
 		
 	}
@@ -133,7 +133,7 @@ class JejuProjectApplicationTests {
 		@Test
 		void askboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
-			askboardRep.save(new AskBoard(null, user1, "회원가입", "문의드립니다", "회원 수정 시 오류가 떠서 문의드립니다", "사진", "N", null) );
+			askboardRep.save(new AskBoard(null, user1, "회원가입", "문의드립니다", "회원 수정 시 오류가 떠서 문의드립니다", "사진", "N", null, null) );
 		}
 		
 		/**1:1문의 댓글*/

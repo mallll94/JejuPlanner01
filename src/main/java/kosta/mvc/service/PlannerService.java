@@ -18,6 +18,14 @@ public interface PlannerService {
 	 * */
 	//PlannerDTO selectBy(Long plannerId);
 	Planner selectBy(Long plannerId);
+	
+	/**
+	 * 일자별 플래너 검색
+	 * */
+	Planner selectByDay(Long plannerId,int day);
+	
+	
+	
 	/**
 	 * 플래너 생성
 	 * */
@@ -42,4 +50,6 @@ public interface PlannerService {
 	 * 플래너 삭제 - 진짜 삭제가 아니고 state를 비활성화 해준다.
 	 * */
 	void deletePlan(Long plannerId);
+
+	
 }

@@ -6,15 +6,10 @@ import kosta.mvc.domain.AskBoard;
 
 public interface AskBoardService {
 	
-	/**
-	 * 1:1문의 등록하기
-	 */
-	public void addAskBoard(AskBoard askBoard);
 	
-	/**
-	 * 1:1문의 수정하기
-	 */
-	public void updateAskBoard(AskBoard askBoard);
+	/**등록하기*/
+	public void addAskBoard(AskBoard askBoard, String uploadpath);
+	
 	
 	/**
 	 * 1:1문의 전체 조회하기
@@ -24,11 +19,14 @@ public interface AskBoardService {
 	/**
 	 * 1:1문의 조회하기 (askBoardId를 이용해)
 	 */
-	public AskBoard getAskBoard(Long askBoardId);
+	public AskBoard getAskBoard(Long askId);
 	
 	
 	/**
 	 * 1:1문의 삭제하기 (askBoardId를 이용해)
 	 */
-	public void deleteAskBoard(Long askBoardId);
+	public void deleteAskBoard(Long askId);
+
+
+	
 }

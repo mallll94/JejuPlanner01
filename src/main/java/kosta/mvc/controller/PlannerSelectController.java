@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.dto.PlaceDTO;
+import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 
@@ -20,55 +24,74 @@ public class PlannerSelectController {
 
 	private final PlannerService plannerService;
 	
-	/*@RequestMapping("/select")
-	@ResponseBody
-	@JsonIgnore
-	public Map<String, Object> selectAll(Long placeId){
-		
-		PlannerDTO planner= plannerService.selectBy(placeId);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("**********************");
-		
-		map.put("planner",planner );
-		System.out.println("**22222222*******************");
-		//map.put("plannerPlaces", planner.getPlannerPlaceList());
-		
-	
-		return map;
-	}*/
-	
+	private final PlaceService placeService;
+
 	@RequestMapping("/select")
 	@ResponseBody
-	public Map<String, Object> selectAll(Long placeId){
-		
-		Planner planner= plannerService.selectBy(placeId);
+	public Map<String, Object> selectAll(Long plannerId,int DayPlanner){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("**********************");
+		Planner planner= plannerService.selectBy(plannerId);
+		List<PlannerPlace> list = null;
+		List<PlannerPlace> boxList = new ArrayList<>();
 		
-		map.put("planner",planner );
-		System.out.println("**22222222*******************");
-		List<PlannerPlace> list = planner.getPlannerPlaceList();
-		System.out.println("list = " + list);
+		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
+
+		if(DayPlanner==0) {
+			list = planner.getPlannerPlaceList();
+			
+		}else {
+			for(int i=0;i<planner.getPlannerPlaceList().size();i++) {
+				if(planner.getPlannerPlaceList().get(i).getPlannerPlaceDate()==DayPlanner) {				
+					boxList.add(planner.getPlannerPlaceList().get(i));
+				}
+			}
+			
+			list = boxList;
+		}
+		//D-day
+		
+		List<PlaceDTO> place=placeService.selectByPlanner(list);
+		
+		for(PlaceDTO x :place) {
+			System.out.println(x.getPlaceName());
+		}
+		map.put("planner", planner ); //
 		map.put("plannerPlaces",  list);
-		
+		map.put("dayNo", period.getDays());
+		map.put("place", place);
 	
 		return map;
 	}
 	
-	
-	/*
-	@RequestMapping("/select")
-	public String selectAll(@RequestParam Long placeId , Model model){
-		System.out.println("플래너 아이디값 : "+placeId);
-		Planner planner= plannerService.selectBy(placeId);
+	@RequestMapping("/nameUpdate")
+	public String nameUpdate(Planner planner) {
+		System.out.println("잘오는거맞아?");
+		plannerService.updatePlan(planner);
 		
-		model.addAttribute("planner", planner);
-		model.addAttribute("plannerPlaces", planner.getPlannerPlaceList());
 		
-	
-		return "/planner/plannerIndex2";
+		return "redirect:/planner/plannerIndex2";
 	}
-*/
+	
+	
+	
+	@RequestMapping("/plannerDelete")
+	public String plannerDelete(Long plannerId) {
+		System.out.println(plannerId);
+		plannerService.deletePlan(plannerId);
+		
+		
+		return "redirect:/planner/plannerIndex";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 }

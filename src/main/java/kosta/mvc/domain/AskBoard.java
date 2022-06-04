@@ -15,9 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,14 +56,18 @@ public class AskBoard {
 	
 	private String askAttach;
 	
-	//@Column(columnDefinition = "varchar2(20) default 'N'")
+	@Column(columnDefinition = "varchar2(20) default 'N'")
 	private String askComplete; //답변여부 Y는 답변완료 N은 미완료
 	
 	@CreationTimestamp
+	@Column(updatable = false)
 	private LocalDateTime askRegdate;
 	
+	@Transient
+	private MultipartFile file;
+	
 	/** 댓글 */
-	//@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
-	//private List<AskReply> askReplyList;
+	@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
+	private List<AskReply> askReplyList;
 
 }
