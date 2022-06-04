@@ -49,7 +49,6 @@ public class AskReplyController {
 	}
 	
 	
-	
 	/**댓글 삭제*/
 	@RequestMapping("/reply/delete/{askReplyId}/{askId}")
 	public String delete(@PathVariable Long askReplyId, @PathVariable Long askId) {
