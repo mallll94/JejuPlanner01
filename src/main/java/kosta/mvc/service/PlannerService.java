@@ -4,6 +4,7 @@ import java.util.List;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.dto.PlannerPlaceDTO;
 
 
 public interface PlannerService {
@@ -24,6 +25,8 @@ public interface PlannerService {
 	 * */
 	Planner selectByDay(Long plannerId,int day);
 	
+	/**카테고리별 플래너 일정 검색*/
+	List<PlannerPlaceDTO> selectPlaceByPlanner (List<PlannerPlace> list);
 	
 	
 	/**

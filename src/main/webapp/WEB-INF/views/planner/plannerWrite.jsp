@@ -152,37 +152,88 @@ pageEncoding="UTF-8"%>
 				let targetPlanEndDay =new Date('${planner.plannerEnd}')
 				let loginUserId = '${planner.user.userId}'
 
-				//플래너 상세 정보 조회
+
+				//왼쪽 사이드바 - 플래너 일정 정보 조회
+				function selectPlaceByMyPlanner(){
+					alert("플래너 일정 정보 조회")
+					$.ajax({
+						url: "${pageContext.request.contextPath}/planner/selectPlace",
+						type: "post",
+						dataType: "json",
+						data: {plannerId: targetPlannerId},
+						success: function(result){
+							
+							var Dday = result.Dday;
+							alert(result.plist)
+
+							$.each(result.plist, function(index,plannerplace){
+								let str="";
+								str+="<il class='add-plan-card'>"
+									str+=`<div class="add-plan-info">`
+									str+=`<div><select class='add-plan-setday' plannerPlaceId="${'${plannerplace.plannerPlaceId}'}" onchange="changeDaySelect()">`
+										for(var i=1;i<=Dday+1;i++){
+											if(plannerplace.plannerPlaceDate!=i){
+												str+=`<option value=${'${i}'}>\${i} 일차</option>`
+											}else{
+												str+=`<option value=${'${i}'} selected>\${i} 일차</option>`
+											}
+										}
+									str+=`</select></div>`
+									str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
+									str+=`<span><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+									str+=`</div>`
+								str+="</il>"
+								if(plannerplace.placeCategory==="장소"){
+									$("#plan-placeList").append(str);
+								}else if(plannerplace.placeCategory==="숙소"){
+									$("#plan-hotelList").append(str);
+								}
+							})
+							$(".planner-plan-hotelList").hide();
+							$(".planner-plan-placeList").show();
+
+						},
+						error: function(error){
+							alert("장소 정보를 불러오지 못했습니다.")
+						}
+					})
+
+				}
+
+
+				//왼쪽 사이드바 - 플래너 날짜 정보 조회
 				function getplannerInfo(){
 					
 					//기존에 생성된 플래너라면
 					if(targetPlanner){
 						$.ajax({
-							url:"${pageContext.request.contextPath}/planner/selectBy",
+							url:"${pageContext.request.contextPath}/planner/selectByUserId",
 							type:"post",
-							dataType:"json",
+							dataType:"text",
 							data:{plannerId: targetPlannerId},
 							success: function(result){
 								//날짜 조회
-								$('#plan-startday').datepicker('setDate',targetPlanStartDay);
-								$('#plan-endday').datepicker('setDate',targetPlanEndDay);
-								var inputdays = (targetPlanEndDay-targetPlanStartDay)/1000/60/60/24;
-								$("#planner-dayset-day").html(Math.abs(inputdays)+1)
-								// $('#plan-startday').datepicker('setDate',result.planner.plannerStart);
-								// $('#plan-endday').datepicker('setDate',result.planner.plannerEnd);
-								// var inputdays = (targetPlanEndDay-targetPlanStartDay)/1000/60/60/24;
-								// $("#planner-dayset-day").html(result.Dday)
-
+								if(result==targetPlannerId){
+									$('#plan-startday').datepicker('setDate',targetPlanStartDay);
+									$('#plan-endday').datepicker('setDate',targetPlanEndDay);
+									var inputdays = (targetPlanEndDay-targetPlanStartDay)/1000/60/60/24;
+									$("#planner-dayset-day").html(Math.abs(inputdays)+1)
+									selectPlaceByMyPlanner();
+								}else{
+									alert("플래너 정보가 없습니다.")
+								}
 							},
 							error: function(result){
 								alert("플래너 정보가 없습니다.")
 							}
 						})
 					}else{
-						alert("플래너를 생성하기 위해선 날짜지정부터~")
+						$("#plan-startday").focus()
 					}
 					
 				}
+
+				
 
 				//여행 일자 수정
 				function showDays(){
@@ -192,21 +243,11 @@ pageEncoding="UTF-8"%>
 
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if(!startDay || !endDay){
-						alert("날짜 두개 다 지정해야함")
 						return;
 					}
 					alert(startDay)
 					let StartDate = startDay.toLocaleDateString('en-US'); //8/15/2022
 					let EndDate = endDay.toLocaleDateString('en-US'); //8/15/2022
-					let StartDateK = startDay.toLocaleDateString('ko-KR'); //2022. 8. 15.
-					let EndDateK = endDay.toLocaleDateString('ko-KR'); //2022. 8. 15.
-					let parseSt=Date.parse(startDay) //Date객체로 parse 1660489200000
-					let parseEd=Date.parse(endDay) //Date객체로 parse 1660489200000
-					let StartDateIO =startDay.toISOString().split('T',1); //2022-08-14 국제표준시기준..인듯?
-					let StartDateL =startDay.toLocaleDateString(); //string변환후2022. 8. 15.
-
-					
-
 
 					//기존에 생성된 플래너라면 날짜만 변경
 					if(targetPlanner){
@@ -231,11 +272,9 @@ pageEncoding="UTF-8"%>
 						dataType:"json",
 						data:{plannerStart: StartDate, plannerEnd: EndDate},
 						success: function(result){
-							alert("플래너 등록함")
 							var dbplannerPlace = result.plannerPlace;
 							var Dday = result.Dday;
 							$("#planner-dayset-day").html(Dday+1);
-
 						},
 						error: function(error){
 							alert("플래너를 생성하지 못 했습니다.")
@@ -318,6 +357,8 @@ pageEncoding="UTF-8"%>
 				})
 
 				//오른쪽 사이드바 - 장소 추가하기 버튼동작
+
+				//오른쪽 사이드바 - 장소 추가하기 버튼동작
 				$(document).on("click","#plan-add-bnt",function(){
 					//alert("추가하기")
 					let state = true;
@@ -381,6 +422,9 @@ pageEncoding="UTF-8"%>
 					$(".planner-plan-hotelList").hide();
 					$(".planner-plan-placeList").show();
 				})
+				function changeDaySelect(){
+					alert("Day변경!")
+				}
 
 				//왼쪽 사이드바 - 장소/숙소 삭제 버튼
 				
@@ -396,18 +440,19 @@ pageEncoding="UTF-8"%>
 				}
 				*/
 				//플래너 등록하기
-				$("#planner-insert-save").on('submit',function savePlanner(){
-					const saveStartDay= $('#plan-startday').datepicker('getDate');
-					const saveEndDay = $('#plan-endday').datepicker('getDate');
-					var form = $('<form></form>')
-					form.attr('action','${pageContext.request.contextPath}/planner/insert')
-					form.attr('method','post');
-					form.appendTo('form');
-					form.append($('<input type="hidden" value="'+saveStartDay+'" name="plannerStart">'))
-					form.submit();
-				})
+				// $("#planner-insert-save").on('submit',function savePlanner(){
+				// 	const saveStartDay= $('#plan-startday').datepicker('getDate');
+				// 	const saveEndDay = $('#plan-endday').datepicker('getDate');
+				// 	var form = $('<form></form>')
+				// 	form.attr('action','${pageContext.request.contextPath}/planner/insert')
+				// 	form.attr('method','post');
+				// 	form.appendTo('form');
+				// 	form.append($('<input type="hidden" value="'+saveStartDay+'" name="plannerStart">'))
+				// 	form.submit();
+				// })
 
 				getplannerInfo();
+				
 				
 				
 				
@@ -430,15 +475,7 @@ pageEncoding="UTF-8"%>
 
 			
 		</script>
-		<script>
-		$(function() {
-
-			
-			
-
-		})
-
-		</script>
+		
 
 		
 

@@ -1,10 +1,9 @@
 package kosta.mvc.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,20 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.PlannerService;
 import kosta.mvc.service.UserService;
@@ -37,8 +33,6 @@ public class PlannerCreateController {
 
 	@Autowired
 	private PlannerService plannerService;
-	//@Autowired
-
 	@Autowired
 	private PlaceService placeService;
 	@Autowired
@@ -77,18 +71,52 @@ public class PlannerCreateController {
 	}
 	
 	/**플래너 상세 조회하기*/
-	@RequestMapping("/selectBy")
+	@RequestMapping("/selectByUserId")
 	@ResponseBody
-	public Map<String, Object> selectBy(Long plannerId) {
+	public String selectBy(Long plannerId) {
+		Planner dbplanner =plannerService.selectBy(plannerId);
+		String result =Long.toString(dbplanner.getPlannerId());
+		return result;
+	}
+	
+	/**planner place 조회*/
+	@RequestMapping("/selectPlace")
+	@ResponseBody
+	public Map<String, Object> selectPlace(Long plannerId) {
+		/*
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		List<PlannerPlace> placelist= new ArrayList<>();
+		List<PlannerPlace> hotellist= new ArrayList<>();
 		Planner dbplanner =plannerService.selectBy(plannerId);
 		
+		//D-day
 		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
-		List<PlannerPlace> placelist= dbplanner.getPlannerPlaceList();
-		map.put("planner", dbplanner);
+		
+		//카테고리별 다르게 저장
+		for(int i=0;i<dbplanner.getPlannerPlaceList().size();i++) {
+			if(dbplanner.getPlannerPlaceList().get(i).getPlace().getPlaceCategory().equals("장소")) {
+				placelist.add(dbplanner.getPlannerPlaceList().get(i));
+			}else if(dbplanner.getPlannerPlaceList().get(i).getPlace().getPlaceCategory().equals("숙소")) {
+				hotellist.add(dbplanner.getPlannerPlaceList().get(i));
+			}
+		}
 		map.put("Dday", period.getDays());
-		map.put("plannerPlace", placelist);
+		map.put("place", placelist);
+		map.put("hotel", hotellist);
+		map.put("plist", plist);
+		*/
+		Map<String, Object> map = new HashMap<String, Object>();
+		Planner dbplanner =plannerService.selectBy(plannerId);
+		
+		//D-day
+		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
+		
+		//PlannerPlaceDTO
+		List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
+		List<PlannerPlaceDTO> plist = plannerService.selectPlaceByPlanner(list);
+
+		map.put("Dday", period.getDays());
+		map.put("plist", plist);
 		return map;
 	}
 	
@@ -108,7 +136,6 @@ public class PlannerCreateController {
 	
 	/**기존플래너 날짜 수정*/
 	@RequestMapping("updateDate")
-	//@DateTimeFormat(pattern = "yyyy. m. dd.")
 	@ResponseBody
 	public Map<String, Object> updateDate(Long plannerId,String plannerStart,String plannerEnd){
 		Map<String, Object> map = new HashMap<String, Object>();
