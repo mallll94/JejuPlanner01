@@ -15,6 +15,7 @@ import kosta.mvc.domain.Users;
 
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
+import kosta.mvc.util.PdfStore;
 
 @Service
 @Transactional
@@ -104,7 +105,12 @@ public class PlannerServiceImpl implements PlannerService {
 
 	}
 
-	
+	@Override
+	public void PlannerShareBoard(Long placeId) {
+		
+
+		
+	}
 
 
 }

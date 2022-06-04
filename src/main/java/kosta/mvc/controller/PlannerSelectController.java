@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -85,7 +86,16 @@ public class PlannerSelectController {
 	}
 	
 	
-	
+	@RequestMapping("/${pageContext.request.contextPath}/planner/PlannerShareBoard")
+	public String PlannerShareBoard(Long plannerId,Model model) {
+		System.out.println(plannerId);
+
+		
+		Planner planner=plannerService.selectBy(plannerId);
+		model.addAttribute("planner", planner);
+		
+		return "planner/플래너 공유 게시판 주소";
+	}
 	
 	
 	

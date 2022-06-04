@@ -51,5 +51,8 @@ public interface PlannerService {
 	 * */
 	void deletePlan(Long plannerId);
 
-	
+	/**
+	 * 공유하기
+	 * */
+	void PlannerShareBoard(Long placeId);
 }
