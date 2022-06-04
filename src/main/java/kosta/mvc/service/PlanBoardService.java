@@ -24,13 +24,13 @@ public interface PlanBoardService {
 	/**
 	 * 플래너게시판 등록
 	 * */
-	void insertPlanBoard(PlanBoard board);
+	void insertPlanBoard(PlanBoard planBoard, String uploadpath);
 	
 	
 	/**
 	 * 플래너게시판 수정
 	 * */
-	void updatePlanBoard(PlanBoard board);
+	void updatePlanBoard(PlanBoard planBoard, String uploadpath);
 	
 	/**
 	 * 플래너게시판 삭제

@@ -23,6 +23,7 @@ public class PlanBoardController {
 	public void planList(Model model) {
 		List<PlanBoard> list = planBoardService.selectAll();
 		
+		System.out.println("list" + list.size());
 		System.out.println("planlist");
 		
 		model.addAttribute("list", list);
@@ -33,8 +34,20 @@ public class PlanBoardController {
 	public ModelAndView read(@PathVariable Long pboardId) {
 		PlanBoard planBoard = planBoardService.selectById(pboardId);
 		
+		System.out.println("나와라");
+		
 		return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
 		
 	}
+	
+	/**등록 폼*/
+	
+	/**등록하기*/
+	
+	/**수정 폼*/
+	
+	/**수정하기*/
+	
+	/**삭제하기*/
 
 }

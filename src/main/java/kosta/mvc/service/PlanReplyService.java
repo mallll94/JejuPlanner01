@@ -20,10 +20,14 @@ public interface PlanReplyService {
 	/**
 	 * 댓글 수정
 	 * */
-	void update(PlanReply planReply);
+	//void update(PlanReply planReply);
 	
 	/**
 	 * 댓글 삭제
 	 * */
 	void delete(Long pboardReplyId);
+
+	
+
+
 }

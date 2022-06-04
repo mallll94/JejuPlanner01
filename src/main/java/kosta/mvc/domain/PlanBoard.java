@@ -15,8 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -57,6 +59,10 @@ public class PlanBoard {
 	private LocalDateTime pboardRegdate;
 	
 	private int pboardGood;
+	
+	@Transient
+	private MultipartFile file;
+	
 	
 	/**댓글*/
 	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)

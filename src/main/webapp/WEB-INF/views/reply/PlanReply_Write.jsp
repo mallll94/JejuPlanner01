@@ -29,16 +29,16 @@
 </form>
 
 <div align="right">
-  <button onclick="location = '/reply/PlanReply_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">등록하기</button>
+  <button onclick="location = '${pageContext.request.contextPath}/board/Planboard_Detail'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">등록하기</button>
 </div>
                                   
 </div>
-</div>
+</div><p><p>
 
 <div align="right">
-  <textarea readonly class="form-control">댓글내용</textarea>
-   <button onclick="location = '/reply/PlanReply_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정</button>
-   <button onclick="location = '/reply/PlanReply_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">삭제</button>
+  <textarea readonly class="form-control">${planReply.pboardReplyContent}</textarea>
+   <button onclick="location = '${pageContext.request.contextPath}/reply/PlanReply_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정</button>
+   <button onclick="location = '${pageContext.request.contextPath}/reply/PlanReply_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">삭제</button>
 </div>
 
 </section>
