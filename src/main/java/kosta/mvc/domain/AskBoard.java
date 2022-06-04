@@ -54,7 +54,7 @@ public class AskBoard {
 	
 	private String askAttach;
 	
-	//@Column(columnDefinition = "varchar2(20) default 'N'")
+	@Column(columnDefinition = "varchar2(20) default 'N'")
 	private String askComplete; //답변여부 Y는 답변완료 N은 미완료
 	
 	@CreationTimestamp
@@ -64,7 +64,7 @@ public class AskBoard {
 	private MultipartFile file;
 	
 	/** 댓글 */
-	//@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
-	//private List<AskReply> askReplyList;
+	@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
+	private List<AskReply> askReplyList;
 
 }

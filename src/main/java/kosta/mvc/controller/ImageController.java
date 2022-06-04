@@ -34,7 +34,7 @@ public class ImageController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/{askBoard}/{fileame}")
+	@GetMapping("/{askBoard}/{filename}")
 	public Resource downloadImage2(@PathVariable String askBoard,
 			                      @PathVariable String filename,
 			                      HttpSession session) throws MalformedURLException {

@@ -39,9 +39,9 @@ public class AskController {
 	public void askListAdmin(Model model) {
 		System.out.println("admin test");
 		
-		List<AskBoard> askList = askBoardService.getAllAskBoards();
+		List<AskBoard> asklist = askBoardService.getAllAskBoards();
 
-		model.addAttribute("askList",askList);
+		model.addAttribute("askList",asklist);
 	}
 
 	

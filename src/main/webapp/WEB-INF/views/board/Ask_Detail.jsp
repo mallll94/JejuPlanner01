@@ -99,7 +99,10 @@
     </div>
     <!-- Contact End -->
 
-    
+<h4>답변</h4>
+<c:forEach items="${askBoard.askReplyList}" var="askReply">
+  ${askReply.askReplyId } = ${askReply.askReplyContent } <a href="${pageContext.request.contextPath}/reply/delete/${askReply.askReplyId}/${askBoard.askId}">삭제하기</a>
+</c:forEach>    
     
 </body>
 </html>

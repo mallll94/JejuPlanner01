@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -44,11 +45,11 @@ public class AskBoardServiceImpl implements AskBoardService {
 			try {
 				String storeFileName = fileStore.storeFile(uploadpath, file);
 				saveAsk.setAskAttach(storeFileName);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
 			}
 		}
-
+		
 	}
 
 
