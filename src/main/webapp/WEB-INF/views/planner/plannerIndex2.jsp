@@ -51,7 +51,9 @@
 	<!-- main js -->
 	<script src="${pageContext.request.contextPath}/js/planner2/main.js"></script>
 	
-
+<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 <script type="text/javascript">
 	/* 
@@ -150,8 +152,10 @@
 			}else if($(this).val()=="share"){
 				$('#shareModal').modal('show');
 			}
-			
+
 		});
+
+		
 		//이름수정
 		$("#update").click(function(){
 			 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/nameUpdate");
@@ -162,8 +166,18 @@
 			 $("#DeleteModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerDelete");
 			 $("#DeleteModalForm").submit();	
 		})
-		$("#share").click(function(){	 
-			 $("#ShareModalForm").submit();	
+		$("#share").click(function(){	
+			if($("#shareSelect").val()=="kakao"){
+				
+			}else if($("#shareSelect").val()=="pdf"){
+				pdfPrint();
+			}else{
+				$("#ShareModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerShareBoard");
+				$("#ShareModalForm").submit();
+			}
+			
+			
+			
 		})
 		
 
@@ -245,40 +259,49 @@
 		}
 		selectAll(0);
 		
-		$('#savePdf').click(function() { // pdf저장 button id
-			
-		    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
-			
-		    // 캔버스를 이미지로 변환
-		    var imgData = canvas.toDataURL('image/png');
-			     
-		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
-		    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
-		    var imgHeight = canvas.height * imgWidth / canvas.width;
-		    var heightLeft = imgHeight;
-		    var margin = 10; // 출력 페이지 여백설정
-		    var doc = new jsPDF('p', 'mm');
-		    var position = 0;
-		       
-		    // 첫 페이지 출력
-		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
-		    heightLeft -= pageHeight;
-		         
-		    // 한 페이지 이상일 경우 루프 돌면서 출력
-		    while (heightLeft >= 20) {
-		        position = heightLeft - imgHeight;
-		        doc.addPage();
-		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-		        heightLeft -= pageHeight;
-		    }
-		 
-		    // 파일 저장
-		    doc.save('file-name.pdf');
+		function pdfPrint(){
+			 // pdf저장 button id	
+			    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
+				
+			    // 캔버스를 이미지로 변환
+			    var imgData = canvas.toDataURL('image/png');
+				     
+			    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+			    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+			    var imgHeight = canvas.height * imgWidth / canvas.width;
+			    var heightLeft = imgHeight;
+			    var margin = 10; // 출력 페이지 여백설정
+			    var doc = new jsPDF('p', 'mm');
+			    var position = 0;
+			       
+			    // 첫 페이지 출력
+			    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+			    heightLeft -= pageHeight;
+			         
+			    // 한 페이지 이상일 경우 루프 돌면서 출력
+			    while (heightLeft >= 20) {
+			        position = heightLeft - imgHeight;
+			        doc.addPage();
+			        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+			        heightLeft -= pageHeight;
+			    }
+			 
+			    // 파일 저장
+			    doc.save('file-name.pdf');
 
-			  
-			});
+				  
+				});
 
-		});
+		}
+		
+
+		
+		
+		
+		
+		
+		
+		
 	})
 //////////////////////////////////////////
 	var mymap;
@@ -388,30 +411,17 @@
 	    
 	    line.setMap(mymap); 
 	}
-	
-	
-	
-	
+/////////////////////////////////////////////////////////////////////	
 
 </script>
-<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 
 
 
 <body>
-<button id="savePdf">출력</button>
-<div id="pdfDiv">
-
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<span id="name"></span>
-				
+				<span id="name"></span>	
 				<select id="option">
 						<option value='none'>관리</option>
 						<option value='dateUpdate' >일정 수정</option>
@@ -419,26 +429,18 @@
 						<option value='share'>공유하기</option>
 						<option value='placeName'>플래너 이름수정</option>
 				</select>
-				
-				
-				<select id="days">
-						
-						
-				</select>
+				<select id="days"></select>
 			</div>
 		</div>
 	</div>
 	<div id="googleMap" style="width: 100%;height: 600px;"></div>
+	<div id="pdfDiv">
 	<div class="latest-news mt-100 mb-150">
 		<div class="container" id="card">
 	
 		</div>
 	</div>
-</div>
-
-
-
-
+	</div>
 <!-- Modal 이름 수정-->
 <div class="modal fade" id="NameUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -523,7 +525,7 @@
 <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/shareUpdate">	
+      <form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/PlannerShareBoard">	
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">플래너 공유하기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -538,10 +540,10 @@
               <div class="card-body">
                 
                  <div class="row mb-3">
-                 	<select id="shareSelect">
+                 	<select id="shareSelect" name="shareSelect">
                  		<option value="kakao">카카오톡공유</option>
-                 		<option value="kakao">pdf 출력</option>
-                 		<option value="kakao">게시물 공유</option>       	
+                 		<option value="pdf">pdf 출력</option>
+                 		<option value="board">게시물 공유</option>       	
                  	</select>
                                    
                    <div class="col-sm-10">
