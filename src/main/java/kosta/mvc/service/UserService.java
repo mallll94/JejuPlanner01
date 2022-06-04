@@ -24,7 +24,8 @@ public interface UserService {
 	/**
 	 * ID찾기
 	 * */
-	String findId(String userId,String email);
+	void selectbyIdandEmail(String userId, String email);
+	
 	
 	/**
 	 * Pwd찾기-정보받기

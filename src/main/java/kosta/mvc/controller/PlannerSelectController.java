@@ -1,6 +1,7 @@
 package kosta.mvc.controller;
 
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,35 +29,33 @@ public class PlannerSelectController {
 	@RequestMapping("/select")
 	@ResponseBody
 	public Map<String, Object> selectAll(Long plannerId,int DayPlanner){
-		System.out.println(DayPlanner);
-		Planner planner= plannerService.selectBy(plannerId);
-		//if(DayPlanner == 0) {
-			
-		//}else {
-			//planner=plannerService.selectByDay(plannerId, DayPlanner);
-		//}
-		
-		
-		
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<PlannerPlace> list = planner.getPlannerPlaceList();
+		Planner planner= plannerService.selectBy(plannerId);
+		List<PlannerPlace> list = null;
+		List<PlannerPlace> boxList = new ArrayList<>();
 		
-		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
+
+		if(DayPlanner==0) {
+			list = planner.getPlannerPlaceList();
+			
+		}else {
+			for(int i=0;i<planner.getPlannerPlaceList().size();i++) {
+				if(planner.getPlannerPlaceList().get(i).getPlannerPlaceDate()==DayPlanner) {				
+					boxList.add(planner.getPlannerPlaceList().get(i));
+				}
+			}
+			
+			list = boxList;
+		}
+		//D-day
+		
 		List<PlaceDTO> place=placeService.selectByPlanner(list);
 		
-		
-		
-			
-		
-			
-		 
-		
-		
-		
-		
+		for(PlaceDTO x :place) {
+			System.out.println(x.getPlaceName());
+		}
 		map.put("planner", planner ); //
 		map.put("plannerPlaces",  list);
 		map.put("dayNo", period.getDays());
@@ -65,9 +64,25 @@ public class PlannerSelectController {
 		return map;
 	}
 	
+	@RequestMapping("/nameUpdate")
+	public String nameUpdate(Planner planner) {
+		System.out.println("잘오는거맞아?");
+		plannerService.updatePlan(planner);
+		
+		
+		return "redirect:/planner/plannerIndex2";
+	}
 	
 	
 	
+	@RequestMapping("/plannerDelete")
+	public String plannerDelete(Long plannerId) {
+		System.out.println(plannerId);
+		plannerService.deletePlan(plannerId);
+		
+		
+		return "redirect:/planner/plannerIndex";
+	}
 	
 	
 	

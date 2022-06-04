@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 
 import kosta.mvc.repository.PlannerPlaceRepository;
@@ -59,6 +62,7 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		
 		
+		
 		return null;
 	}
 	
@@ -66,8 +70,6 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public void insertPlan(Planner planner) {
 		plannerRep.save(planner);
-	
-
 	}
 
 	@Override
@@ -78,8 +80,14 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void updatePlan(Planner planner) {
-		// TODO Auto-generated method stub
+		Planner dbPlanner = plannerRep.findById(planner.getPlannerId()).orElse(null);
 
+		dbPlanner.setPlannerName(planner.getPlannerName());
+		dbPlanner.setPlannerType(planner.getPlannerType());
+		dbPlanner.setPlannerCount(planner.getPlannerCount());
+		dbPlanner.setPlannerStart(planner.getPlannerStart());
+		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
+		dbPlanner.setPlannerState(planner.getPlannerState());
 	}
 
 	@Override
@@ -90,7 +98,9 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void deletePlan(Long plannerId) {
-		// TODO Auto-generated method stub
+		
+		plannerRep.deleteById(plannerId);
+		
 
 	}
 
