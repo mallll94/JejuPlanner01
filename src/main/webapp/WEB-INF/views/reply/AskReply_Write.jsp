@@ -57,7 +57,7 @@
                     <div id="success"></div>
                     
                     <form name="writeForm" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/reply/insert" >                    
-                      <input type="hidden" name="askId" value="${askId}"/>
+                      <input type="hidden" name="askId" value="42"/>
                        
                        <div class="control-group">
                            내용 <textarea class="form-control" rows="6" id="message" name = "askReplyContent" placeholder="Message"

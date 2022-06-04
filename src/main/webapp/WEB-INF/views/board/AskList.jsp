@@ -78,6 +78,7 @@
              <thead>
                 <tr>
                   <th>순서</th>
+                  <th>카테고리</th>
                   <th>제목</th>
                   <th>날짜</th>
                   <th>답변여부</th>
@@ -87,6 +88,7 @@
                <tbody>
                  <tr>
                    <td>${askboard.askId}</td>
+                   <td>${askboard.askCategory}</td>
                    <td>
                     <a href = "${pageContext.request.contextPath}/board/Ask_Detail/${askboard.askId}">
                       ${askboard.askTitle}

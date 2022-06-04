@@ -61,13 +61,13 @@
                     <form name="AskBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
                         
                        <div class="control-group">
-                         상담유형 <select class="form-select" aria-label="Default select example">
+                         상담유형 <select name="askCategory" class="form-select" aria-label="Default select example">
                             <option selected>Category</option>
-                            <option value="1">회원문의</option>
-                            <option value="2">상품문의</option>
-                            <option value="3">구매문의</option>
-                            <option value="4">플래너문의</option>
-                            <option value="5">사이트이용방법</option>
+                            <option value="회원문의">회원문의</option>
+                            <option value="상품문의">상품문의</option>
+                            <option value="구매문의">구매문의</option>
+                            <option value="플래너문의">플래너문의</option>
+                            <option value="사이트이용방법">사이트이용방법</option>
                          </select>
                             <p class="help-block text-danger"></p>
                         </div>

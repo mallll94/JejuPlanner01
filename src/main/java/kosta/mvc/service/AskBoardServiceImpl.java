@@ -46,6 +46,7 @@ public class AskBoardServiceImpl implements AskBoardService {
 				String storeFileName = fileStore.storeFile(uploadpath, file);
 				saveAsk.setAskAttach(storeFileName);
 			} catch (IOException e) {
+				e.printStackTrace();
 				throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
 			}
 		}
@@ -56,8 +57,8 @@ public class AskBoardServiceImpl implements AskBoardService {
 	/**askboardId 이용해서 조회*/
 	@Override
 	public AskBoard getAskBoard(Long askId) {
-		AskBoard askBoard = askBoardRep.findById(askId).orElse(null);
-		if(askBoard==null) new RuntimeException("상세보기에 오류가 발생하였습니다.");
+		AskBoard askBoard = askBoardRep.findById(askId)
+				.orElseThrow(() -> new RuntimeException("상세보기에 오류가 발생하였습니다."));
 		
 		return askBoard;
 	}

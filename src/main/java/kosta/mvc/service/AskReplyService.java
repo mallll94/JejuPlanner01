@@ -9,7 +9,7 @@ public interface AskReplyService {
 	/**
 	 * 1:1문의게시판 댓글 등록
 	 */
-	public void addAskReply(AskReply askReply);
+	public void addAskReply(Long askId, AskReply askReply);
 	
 	/**
 	 * 1:1문의게시판 댓글 수정

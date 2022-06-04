@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.service.AskBoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AskController {
@@ -57,7 +59,7 @@ public class AskController {
 	public String insert(AskBoard askBoard , HttpSession session) {
 		System.out.println("insert test");
 
-		String uploadpath = session.getServletContext().getRealPath("/WEB-INF") + "upload/AskBoard/";
+		String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/ask/";
 		askBoardService.addAskBoard(askBoard, uploadpath);
 
 		return "redirect:/board/AskList";
@@ -71,7 +73,7 @@ public class AskController {
 		System.out.println("askboardId test");
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
-		
+		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
 		return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
 		
 	}

@@ -33,16 +33,8 @@ public class ImageController {
 		return new UrlResource("file:" + uploadPath + filename);
 	}
 	
-	@ResponseBody
-	@GetMapping("/{askBoard}/{filename}")
-	public Resource downloadImage2(@PathVariable String askBoard,
-			                      @PathVariable String filename,
-			                      HttpSession session) throws MalformedURLException {
-
-		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/" + askBoard + "/";
-		System.out.println(uploadPath);
-		return new UrlResource("file:" + uploadPath + filename);
+	
 }
 	
 
-}
+

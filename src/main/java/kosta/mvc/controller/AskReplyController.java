@@ -22,8 +22,8 @@ public class AskReplyController {
 	@RequestMapping("/board/Ask_Detail")
 	public void askReplyList(Model model) {
 		
-		List<AskReply> list = askReplyService.getAskRepliesByAskBoardId(askId);
-	    model.addAttribute("list", list);
+		//List<AskReply> list = askReplyService.getAskRepliesByAskBoardId(askId);
+	    //model.addAttribute("list", list);
 	}
 	
 	
@@ -38,20 +38,20 @@ public class AskReplyController {
 	
 	
 	/**댓글 등록*/
-	@RequestMapping("/insert")
+	@RequestMapping("/reply/insert")
 	public String insert(AskReply askReply , Long askId) {
-		//부모쪽의 글 번호를 Reply쪽에 저장한다
-		askReply.setAskBoard(new AskBoard(askId));
-		askReplyService.addAskReply(askReply);
 		
-	    return "redirect:/reply/";
+		askReplyService.addAskReply(askId, askReply);
+		
+	    return "redirect:/board/Ask_Detail/" + askId;
 	}
 	
 	/**댓글 수정*/
 	@RequestMapping("/update")
 	public String update() {
-		
+		return null;
 	}
+	
 	
 	/**댓글 삭제*/
 	@RequestMapping("/delete/{askReplyId}/{askId}")

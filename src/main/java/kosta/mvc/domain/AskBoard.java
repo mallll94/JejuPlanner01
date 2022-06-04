@@ -60,6 +60,7 @@ public class AskBoard {
 	private String askComplete; //답변여부 Y는 답변완료 N은 미완료
 	
 	@CreationTimestamp
+	@Column(updatable = false)
 	private LocalDateTime askRegdate;
 	
 	@Transient

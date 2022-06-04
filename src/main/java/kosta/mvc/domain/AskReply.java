@@ -45,6 +45,7 @@ public class AskReply {
 	private String askReplyContent;
 	
 	@CreationTimestamp
+	@Column(updatable = false)
 	private LocalDateTime askReplyRegdate;
 	
 }
