@@ -34,7 +34,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	/**
-	 * 
+	 * 상세보기
 	 **/
 
 	@Override
@@ -43,10 +43,11 @@ public class NoticeServiceImpl implements NoticeService {
 	   Notice notice = noticeRep.findById(noticeId).orElse(null);
 	   if(notice==null)new RuntimeException("오류가 발생했습니다.");
 	   return notice;
+	   
 	}
     
 	/**
-     * 상세보기
+     * 등록하기
      **/
 	
 	@Override
@@ -80,7 +81,7 @@ public class NoticeServiceImpl implements NoticeService {
 	public Notice update(Notice notice, String uploadPath) {
 		
 		Notice dbNotice = noticeRep.findById(notice.getNoticeId())
-				.orElseThrow( () -> new RuntimeException("오류로 인해 수정할 수 없습니다."));
+				.orElseThrow( () -> new RuntimeException("존재하지 않는 글입니다."));
 	
 		dbNotice.setNoticeTitle(notice.getNoticeTitle());
 		dbNotice.setNoticeContent(notice.getNoticeContent());

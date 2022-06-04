@@ -2,6 +2,9 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import kosta.mvc.domain.CrewBoard;
 
 public interface CrewService {
@@ -12,6 +15,11 @@ public interface CrewService {
 	List<CrewBoard> selectAll();
 	
 	/**
+	 * 동행구하기 게시판 Page 처리
+	 **/
+	Page<CrewBoard> selectAll(Pageable pageable);
+	
+	/**
 	 * 동행구하기 게시판 상세 조회
 	 * */
 	CrewBoard selectById(Long crewId);
@@ -19,12 +27,19 @@ public interface CrewService {
 	/**
 	 * 동행구하기 게시판 등록
 	 * */
-	void insertCrewBoard(CrewBoard board);
+	void insertCrewBoard(CrewBoard crewBoard);
+	
+	/**
+	 * 동행 구하기 완료 여부
+	 * @return 
+	 **/
+	void changeState(Long crewId,String btnradio);
 	
 	/**
 	 * 동행구하기 게시판 수정
+	 * @return 
 	 * */
-	void updateCrewBoard(CrewBoard board);
+	CrewBoard updateCrewBoard(CrewBoard crewBoard);
 	
 	/**
 	 * 동행구하기 게시판 삭제

@@ -130,12 +130,13 @@ class JejuProjectApplicationTests {
 		}
 	
 	    /**1:1문의*/
+		/*
 		@Test
 		void askboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
 			askboardRep.save(new AskBoard(null, user1, "회원가입", "문의드립니다", "회원 수정 시 오류가 떠서 문의드립니다", "사진", "N", null, null, null) );
 		}
-		
+		*/
 		/**1:1문의 댓글*/
 		@Test
 		void askreplyinsert() {

@@ -52,83 +52,15 @@
 	<script src="${pageContext.request.contextPath}/js/planner2/main.js"></script>
 	
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=myMap&map_ids=a0f291588508440c&libraries=places&region=kr"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 <script type="text/javascript">
-	var map;
-	
-	var box1=[];
-	var box2=[];
-	var box3=[];
-	var box4=[];
-	var box5=[];
-	var box6=[];
-	var box7=[];
-	var box8=[];
-	function getColor(place,plannerPlace){
-		if(place.placeCategory =='장소'){
-			if(plannerPlace.plannerPlaceDate==1){
-				return 'skyblue';
-			}else if(plannerPlace.plannerPlaceDate==2){
-				return 'pink'
-			}else if(plannerPlace.plannerPlaceDate==3){
-				return 'yellow'
-			}else if(plannerPlace.plannerPlaceDate==4){
-				return 'red'
-			}else if(plannerPlace.plannerPlaceDate==5){
-				return 'green'
-			}	
-		}else{
-			return 'black';
-		}
-		
-	}
-	
-	function getLineColor(day){	
-			if(day==1){
-				return "#00C3FF";
-			}else if(day==2){
-				return "#FFDD00";
-			}else if(day==3){
-				return "#7C8C91";
-			}else if(day==4){
-				return "#FF0000";
-			}else if(day==5){
-				return "#5100FF";
-			}else if(day==6){
-				return "#FF841F";
-			}else if(day==7){
-				return "#E9F086";
-			}
-	}
-	
-	
-	
-	
-	
-	
-	function myMap(){//지도생성
-		var mapOptions = { 
-			center:new google.maps.LatLng(33.3893, 126.5362),
-			zoom:11,
-			mapId: "a0f291588508440c",
-			disableDefaultUI:true,
-	        zoomControl: true
-		};
-		
-		map = new google.maps.Map( document.getElementById("map") , mapOptions );
-	};
-	
-	
+	/* 
 	function markerLine(data,day){//data = List<PlaceDTO>위도 경도,  숫자 1,2,3,  - > day = List<PlannerPlace>
-
-		
-		var addr=[];
-		for(var j =0;j<data.length;j++){
-			addr[j]=[data[j].placeLatitude , data[j].placeLongitude];
-		}
 		
 		var i;
 		var color;
+		
+		
 		box1=[];
 		box2=[];
 		box3=[];
@@ -137,16 +69,15 @@
 		box6=[];
 		box7=[];
 		box8=[];
+		for(var j =0;j<data.length;j++){
+			addr[j]=[data[j].placeLatitude , data[j].placeLongitude];
+		}
 		
-		//let arr =[[],[],[]];
 
 		
 		
 		for(i =0;i<data.length;i++){ //List<PlaceDTO> 길만큼 잠
 			
-			color = getColor(data[i],day[i]);
-			var title = data[i].placeName;
-		
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(addr[i][0], addr[i][1]),
 				map: map,
@@ -158,8 +89,12 @@
 					scale:10
 				}
 			 });
+			markers.push(marker);
+
+			color = getColor(data[i],day[i]);
 			
-			
+			var title = data[i].placeName;
+			var infowindow = new google.maps.InfoWindow();
 			google.maps.event.addListener(marker, 'click', (function(marker, title) {
         		return function() {
 					infowindow.setContent(title);
@@ -168,11 +103,12 @@
       		})(marker, title));
 			
 			
+			
 			for(let a=1 ; a<=data.length ; a++){
 				let b = eval("box"+a);
 				
-				
 				if(day[i].plannerPlaceDate==a){
+					
 					b.push(new google.maps.LatLng(addr[i][0], addr[i][1]));	
 					break;
 				}
@@ -184,40 +120,17 @@
 		for(let c=1; c<=data.length ; c++){
 			
 		    let obj= eval("box"+c);
-			addLine(obj , getLineColor(c));
+			addLine(markers , getLineColor(c));
 		}
 		
 		
 		
-		var infowindow = new google.maps.InfoWindow();
-	}
-	//선 폴리선 잇는법
-	function addLine(targets,lineColor){
-		//alert("")
-		var line;
-	    line = new google.maps.Polyline({
-	      path : targets,
-	      geodesic:true,
-	      strokeColor: lineColor,
-	      strokeOpacity:1.0,
-	      strokeWeight:3
-	    })
-
-	    line.setMap(map);
-	}
+		
+	} */
+	
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	$(function(){
 		$(document).on("change","#days", function(){
@@ -265,23 +178,17 @@
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
 					var dayNoLi = "<option value='0'>일정</option>";
-					console.log(result.planner.plannerEnd,result.planner.plannerStart)
+
 					var saveDayNo= result.dayNo;
-					
-					
-					
+
 					if(no!=0){
 						dayNo=no;
 					}
-					
-					
-					
+
 					for(let i=0; i <saveDayNo ;i++){
 						dayNoLi+=`<option value=${'${i+1}'}>${'${i+1}'}day</option>`;
 					}
-					
 
-					
 					for(let j=1; j<=dayNo;j++){
 						
 						card+=`<div class='row row-cols-10' class='list'>`;
@@ -307,10 +214,17 @@
 						
 					}
 
+					test=`${'${result.place}'}`
+					$("#test").val(test);
+					ajaxData(result.place);
+					
+					
 					if(no==0){
-						markerLine(result.place,result.plannerPlaces);
+						
+						//markerLine(result.place,result.plannerPlaces);
 					}else{
-						markerLine(result.place,result.plannerPlaces);
+						
+						//markerLine(result.place,result.plannerPlaces);
 					}
 					
 					
@@ -331,40 +245,196 @@
 		}
 		selectAll(0);
 		
-	})
+		$('#savePdf').click(function() { // pdf저장 button id
+			
+		    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
+			
+		    // 캔버스를 이미지로 변환
+		    var imgData = canvas.toDataURL('image/png');
+			     
+		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+		    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+		    var imgHeight = canvas.height * imgWidth / canvas.width;
+		    var heightLeft = imgHeight;
+		    var margin = 10; // 출력 페이지 여백설정
+		    var doc = new jsPDF('p', 'mm');
+		    var position = 0;
+		       
+		    // 첫 페이지 출력
+		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+		    heightLeft -= pageHeight;
+		         
+		    // 한 페이지 이상일 경우 루프 돌면서 출력
+		    while (heightLeft >= 20) {
+		        position = heightLeft - imgHeight;
+		        doc.addPage();
+		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+		        heightLeft -= pageHeight;
+		    }
+		 
+		    // 파일 저장
+		    doc.save('file-name.pdf');
 
+			  
+			});
+
+		});
+	})
+//////////////////////////////////////////
+	var mymap;
+	var markers=[];
+	
+	var targets=[];
+	
+	
+	
+	function getColor(place,plannerPlace){
+		if(place.placeCategory =='장소'){
+			if(plannerPlace.plannerPlaceDate==1){
+				return 'skyblue';
+			}else if(plannerPlace.plannerPlaceDate==2){
+				return 'pink'
+			}else if(plannerPlace.plannerPlaceDate==3){
+				return 'yellow'
+			}else if(plannerPlace.plannerPlaceDate==4){
+				return 'red'
+			}else if(plannerPlace.plannerPlaceDate==5){
+				return 'green'
+			}	
+		}else{
+			return 'black';
+		}
+		
+	}
+	
+	function getLineColor(day){	
+			if(day==1){
+				return "#00C3FF";
+			}else if(day==2){
+				return "#FFDD00";
+			}else if(day==3){
+				return "#7C8C91";
+			}else if(day==4){
+				return "#FF0000";
+			}else if(day==5){
+				return "#5100FF";
+			}else if(day==6){
+				return "#FF841F";
+			}else if(day==7){
+				return "#E9F086";
+			}
+	}
+	
+	
+	var box1=[];
+	var box2=[];
+	var box3=[];
+	var box4=[];
+	var box5=[];
+	var box6=[];
+	var box7=[];
+	var box8=[];
+	
+	
+	function initMap(){//지도생성
+		const mapDiv= document.getElementById("googleMap");
+		mymap = new google.maps.Map(mapDiv,{
+			center:new google.maps.LatLng(33.3893, 126.5362),
+			zoom:11,
+			mapId: "a0f291588508440c",
+			streetViewControl: false
+		})
+		
+		addMarker(targets,);
+		addLine(targets,getLineColor);
+		
+	};
+	
+	function ajaxData(addrs){
+		//var data=document.getElementById("test").value;
+		//console.log(data[1])
+		/* for(var j =0;j<addrs.length;j++){
+			targets[j]=[addrs[j].placeLatitude , addrs[j].placeLongitude];
+		} */
+		
+	}
+	//마커표시
+	function addMarker(targets){
+		for(let i=0;i<targets.length;i++){
+			
+			var position = targets[i];
+			//alert(position)
+			let marker = new google.maps.Marker({
+			position: position,
+			map: mymap,
+			//animation: google.maps.Animation.Drop
+			})
+			//마커 배열 저장
+			markers.push(marker);
+		}
+	}
+	
+	//선 폴리선 잇는법
+	function addLine(targets,lineColor){
+		
+		
+	    line = new google.maps.Polyline({
+	      path : targets,
+	      geodesic:true,
+	      strokeColor: lineColor,
+	      strokeOpacity:1.0,
+	      strokeWeight:3
+	    })
+	    
+	    line.setMap(mymap); 
+	}
+	
+	
+	
+	
 
 </script>
+<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+
 
 <body>
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<span id="name"></span>
-			
-			<select id="option">
-					<option value='none'>관리</option>
-					<option value='dateUpdate' >일정 수정</option>
-					<option value='placeDelete'>일정 삭제</option>
-					<option value='share'>공유하기</option>
-					<option value='placeName'>플래너 이름수정</option>
-			</select>
-			
-			
-			<select id="days">
-					
-					
-			</select>
+<button id="savePdf">출력</button>
+<div id="pdfDiv">
+
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<span id="name"></span>
+				
+				<select id="option">
+						<option value='none'>관리</option>
+						<option value='dateUpdate' >일정 수정</option>
+						<option value='placeDelete'>일정 삭제</option>
+						<option value='share'>공유하기</option>
+						<option value='placeName'>플래너 이름수정</option>
+				</select>
+				
+				
+				<select id="days">
+						
+						
+				</select>
+			</div>
+		</div>
+	</div>
+	<div id="googleMap" style="width: 100%;height: 600px;"></div>
+	<div class="latest-news mt-100 mb-150">
+		<div class="container" id="card">
+	
 		</div>
 	</div>
 </div>
-<div id="map" style="width: 100%;height: 600px;"></div>
-<div class="latest-news mt-100 mb-150">
-	<div class="container" id="card">
-
-	</div>
-</div>
-
 
 
 
@@ -491,13 +561,8 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-	
 	
 </body>
 
 </html>
+	
