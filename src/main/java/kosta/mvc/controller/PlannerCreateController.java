@@ -80,31 +80,9 @@ public class PlannerCreateController {
 	}
 	
 	/**planner place 조회*/
-	@RequestMapping("/selectPlace")
+	@RequestMapping("/selectPlannerPlace")
 	@ResponseBody
-	public Map<String, Object> selectPlace(Long plannerId) {
-		/*
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<PlannerPlace> placelist= new ArrayList<>();
-		List<PlannerPlace> hotellist= new ArrayList<>();
-		Planner dbplanner =plannerService.selectBy(plannerId);
-		
-		//D-day
-		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
-		
-		//카테고리별 다르게 저장
-		for(int i=0;i<dbplanner.getPlannerPlaceList().size();i++) {
-			if(dbplanner.getPlannerPlaceList().get(i).getPlace().getPlaceCategory().equals("장소")) {
-				placelist.add(dbplanner.getPlannerPlaceList().get(i));
-			}else if(dbplanner.getPlannerPlaceList().get(i).getPlace().getPlaceCategory().equals("숙소")) {
-				hotellist.add(dbplanner.getPlannerPlaceList().get(i));
-			}
-		}
-		map.put("Dday", period.getDays());
-		map.put("place", placelist);
-		map.put("hotel", hotellist);
-		map.put("plist", plist);
-		*/
+	public Map<String, Object> selectPlannerPlace(Long plannerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Planner dbplanner =plannerService.selectBy(plannerId);
 		
@@ -120,19 +98,7 @@ public class PlannerCreateController {
 		return map;
 	}
 	
-	/**오른쪽 사이드바에서 장소추가하기 >> 장소 아이디로 장소 검색하기*/
-	@RequestMapping("/addPlace")
-	@ResponseBody
-	public Place addPlace(Planner planner, Long placeId) {
-		Place dbplace =placeService.selectById(placeId);
-
-			//임시 테스트 아이디
-			String userId ="aaa";
-			Users loginUser =userService.selectById(userId);
-		
-		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, planner, dbplace, 0));
-		return dbplace;
-	}
+	
 	
 	/**기존플래너 날짜 수정*/
 	@RequestMapping("updateDate")
@@ -187,15 +153,46 @@ public class PlannerCreateController {
 		
 	}
 	
+	/**왼쪽사이드바 일정 Day변경하기*/
+	@RequestMapping("/updatePlanPlace")
+	@ResponseBody
+	public void updatePlanPlace(Long plannerplaceId, String date) {
+		System.out.println(date);
+		plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
+	}
 	
-	/**플래너 등록하기 > 플래너 작성하기2로 이동*/
-	/*
-	@RequestMapping("/insert")
-	public String insert( String plannerStart) {
-		System.out.println("왔다!");
-		System.out.println("컨트롤러!!: "+plannerStart);
-		return null;
-	}*/
+	/**왼쪽사이드바 일정 삭제하기*/
+	@RequestMapping("/deletePlan")
+	@ResponseBody
+	public void deletePlan(Long plannerplaceId) {
+		plannerService.deletePlanPlace(plannerplaceId);
+		System.out.println("삭제!!!!!!!"+plannerplaceId);
+	}
+	
+	/**오른쪽 사이드바 장소정보 조회*/
+	@RequestMapping("/selectPlace")
+	@ResponseBody
+	public Place selectPlace(Long placeId) {
+		Place place =placeService.selectById(placeId);
+		return place;
+	}
+	
+	/**오른쪽 사이드바에서 장소추가하기버튼 >> 장소 아이디로 장소 검색하기*/
+	@RequestMapping("/addPlace")
+	@ResponseBody
+	public Place addPlace(Long plannerId, Long placeId, String inputDate) {
+		Planner dbplanner = plannerService.selectBy(plannerId);
+		Place dbplace =placeService.selectById(placeId);
+		int  plannerPlaceDate = Integer.parseInt(inputDate);
+		System.out.println("addPlace::"+placeId);
+			//임시 테스트 아이디
+			String userId ="aaa";
+			Users loginUser =userService.selectById(userId);
+		
+		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
+		return dbplace;
+	}
+	
 
 	/**오른쪽 사이드바에서 카테고리별 추천받기*/
 	@RequestMapping("/recommend")
@@ -211,6 +208,13 @@ public class PlannerCreateController {
 	
 	
 	/**플래너 작성하기2로 이동*/
-	
+	/**플래너 등록하기 > 플래너 작성하기2로 이동*/
+	/*
+	@RequestMapping("/insert")
+	public String insert( String plannerStart) {
+		System.out.println("왔다!");
+		System.out.println("컨트롤러!!: "+plannerStart);
+		return null;
+	}*/
 	
 }

@@ -106,8 +106,14 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void updatePlanPlace(PlannerPlace PlannerPlace) {
-		// TODO Auto-generated method stub
+		PlannerPlace dbplan = plannerPlaceRep.findById(PlannerPlace.getPlannerPlaceId()).orElse(null);
+		dbplan.setPlannerPlaceDate(PlannerPlace.getPlannerPlaceDate());
 
+	}
+	
+	@Override
+	public void deletePlanPlace(Long plannerPlaceId) {
+		plannerPlaceRep.deleteById(plannerPlaceId);
 	}
 
 	@Override
