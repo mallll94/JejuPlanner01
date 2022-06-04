@@ -18,11 +18,11 @@
     <!--  <link href="img/favicon.ico" rel="icon"> -->
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    Font Awesome
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> -->
 
     <!-- Libraries Stylesheet -->
     <!--  <link href="../libs/ask/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> -->
@@ -31,8 +31,8 @@
     <!--  <link href="../css/ask/style.css" rel="stylesheet"> -->
     
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!--  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
     <!--  <script src="../libs/ask/easing/easing.min.js"></script>
     <script src="../libs/ask/owlcarousel/owl.carousel.min.js"></script> -->
 
@@ -85,10 +85,7 @@
                            내용 <textarea readonly class="form-control" rows="6" id="askContent" name="askContent">${askboard.askContent}</textarea>
                             <p class="help-block text-danger"></p>
                     </div>
-	                <!--  <div class="control-group">
-                            첨부파일 <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
-                            <p class="help-block text-danger"></p>
-	                </div> -->
+	               
 	                <h5 class="card-header">첨부파일</h5>
 		             <div class="card-body">
 		              <div class="mb-3">
@@ -116,16 +113,24 @@
 
 <!-- Reply -->
 <div class="control-group">
-답변 <textarea readonly class="form-control" rows="6" id="askReplyContent" name="askReplyContent">
-	   ${askReply.askReplyContent}
-	 </textarea>
-<p class="help-block text-danger"></p>
+답변 
+<c:forEach items="${replylist}" var="reply">
+<div>
+  <textarea readonly class="form-control" rows="6" id="askReplyContent" name="askReplyContent">
+	   ${reply.askReplyContent}
+  </textarea> 
 </div>
+     <!--<p class="help-block text-danger">dddd</p>-->
+</c:forEach>     
+</div>
+<c:if test="${not empty sessionScope.Admin}">
+ <!--  <a href="${pageContext.request.contextPath}/reply/delete/${askReply.askReplyId}/${askBoard.askId}">삭제하기</a> -->
+</c:if>
 
-<c:forEach items="${askBoard.askReplyList}" var="askReply">
-		
-	  <p>${askReply.askReplyContent}</p> <a href="${pageContext.request.contextPath}/reply/delete/${askReply.askReplyId}/${askBoard.askId}">삭제하기</a>
-</c:forEach>
+
+<!-- <c:forEach items="${askBoard.askReplyList}" var="askReply">
+		 
+</c:forEach> -->
     
 </body>
 </html>

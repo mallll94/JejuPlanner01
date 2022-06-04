@@ -57,10 +57,22 @@
                     <div id="success"></div>
                     
                     <form name="writeForm" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/reply/insert" >                    
-                      <input type="hidden" name="askId" value="42"/>
+                      
+
+                      <input type="hidden" name="askId" value="${askId}"/>
+                      
+                      <div class="control-group">
+                            제목 <input type="text" readonly class="form-control" id="askTitle" name="askTitle" value="${askboard.askTitle}"/>
+                            <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="control-group">
+                           내용 <textarea readonly class="form-control" rows="6" id="askContent" name="askContent">${askboard.askContent}</textarea>
+                            <p class="help-block text-danger"></p>
+                      </div>
+                      
                        
                        <div class="control-group">
-                           내용 <textarea class="form-control" rows="6" id="message" name = "askReplyContent" placeholder="Message"
+                           답변 <textarea class="form-control" rows="6" id="message" name = "askReplyContent" placeholder="Message"
                                 required="required" data-validation-required-message="Please enter your message"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>

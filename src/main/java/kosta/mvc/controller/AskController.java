@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.AskBoard;
+import kosta.mvc.domain.AskReply;
 import kosta.mvc.service.AskBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,11 +40,11 @@ public class AskController {
 	/**전체검색 - admin에서*/
 	@RequestMapping("/admin/AskList_Admin")
 	public void askListAdmin(Model model) {
-		System.out.println("admin test");
+		System.out.println("adminList test");
 		
-		List<AskBoard> asklist = askBoardService.getAllAskBoards();
-
-		model.addAttribute("askList",asklist);
+		List<AskBoard> list = askBoardService.getAllAskBoards();
+			
+		model.addAttribute("list",list);
 	}
 
 	
@@ -69,14 +70,32 @@ public class AskController {
 	
 	/**상세보기*/
 	@RequestMapping("/board/Ask_Detail/{askId}")
-	public ModelAndView read(@PathVariable Long askId) {
+	public String read(@PathVariable Long askId , Model model) {
 		System.out.println("askboardId test");
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
 		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
-		return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
+		//return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
+		List<AskReply> replylist = askBoard.getAskReplyList();
+		model.addAttribute("askboard",askBoard);
+		model.addAttribute("replylist",replylist);
+		
+		return "redirect:/board/Ask_Detail";
+				
+	}
+	
+	/**상세보기*/
+	@RequestMapping("/reply/AskReply_Write/{askId}")
+	public ModelAndView read2(@PathVariable Long askId) {
+		System.out.println("askboardId test");
+		
+		AskBoard askBoard = askBoardService.getAskBoard(askId);
+		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
+		return new ModelAndView("reply/AskReply_Write", "askboard", askBoard);
 		
 	}
+	
+	
 
 	
 	/**삭제*/
