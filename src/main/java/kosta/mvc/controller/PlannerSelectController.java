@@ -86,15 +86,15 @@ public class PlannerSelectController {
 	}
 	
 	
-	@RequestMapping("/${pageContext.request.contextPath}/planner/PlannerShareBoard")
+	@RequestMapping("/plannerShareBoard")
 	public String PlannerShareBoard(Long plannerId,Model model) {
 		System.out.println(plannerId);
 
 		
 		Planner planner=plannerService.selectBy(plannerId);
 		model.addAttribute("planner", planner);
-		
-		return "planner/플래너 공유 게시판 주소";
+		//플래너 공유 게시판 주소 적용해야함
+		return "planner/plannerIndex";
 	}
 	
 	

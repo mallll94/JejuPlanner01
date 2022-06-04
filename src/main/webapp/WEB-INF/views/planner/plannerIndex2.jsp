@@ -172,7 +172,7 @@
 			}else if($("#shareSelect").val()=="pdf"){
 				pdfPrint();
 			}else{
-				$("#ShareModalForm").attr("action", "${pageContext.request.contextPath}/planner/${pageContext.request.contextPath}/planner/PlannerShareBoard");
+				$("#ShareModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerShareBoard");
 				$("#ShareModalForm").submit();
 			}
 			
