@@ -27,6 +27,9 @@ public interface AskReplyService {
 	public void deleteAskReply(Long askReplyId);
 
 
+	
+
+
 
 
 }

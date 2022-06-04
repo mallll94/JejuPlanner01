@@ -68,7 +68,7 @@ public class AskController {
 	}
 
 	
-	/**상세보기*/
+	/**상세보기 - board*/
 	@RequestMapping("/board/Ask_Detail/{askId}")
 	public String read(@PathVariable Long askId , Model model) {
 		System.out.println("askboardId test");
@@ -80,11 +80,11 @@ public class AskController {
 		model.addAttribute("askboard",askBoard);
 		model.addAttribute("replylist",replylist);
 		
-		return "redirect:/board/Ask_Detail";
+		return "/board/Ask_Detail";
 				
 	}
 	
-	/**상세보기*/
+	/**상세보기 - admin*/
 	@RequestMapping("/reply/AskReply_Write/{askId}")
 	public ModelAndView read2(@PathVariable Long askId) {
 		System.out.println("askboardId test");

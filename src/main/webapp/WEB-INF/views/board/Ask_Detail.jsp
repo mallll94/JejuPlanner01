@@ -48,9 +48,10 @@
    $(function(){
 	   
 	   $("button[value=삭제]").click(function() {
-       	$("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
-			$("#requestForm").submit();
+       	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
+		   $("#requestForm").submit();
 		})	
+		
    })
    
 </script>    
@@ -117,20 +118,17 @@
 <c:forEach items="${replylist}" var="reply">
 <div>
   <textarea readonly class="form-control" rows="6" id="askReplyContent" name="askReplyContent">
-	   ${reply.askReplyContent}
-  </textarea> 
+	${reply.askReplyContent}
+  </textarea>
+ </div> 
+ <div align="right">  
+   <span>
+     <a href="${pageContext.request.contextPath}/reply/delete/${reply.askReplyId}/${askboard.askId}">삭제하기</a>
+   </span>
 </div>
-     <!--<p class="help-block text-danger">dddd</p>-->
 </c:forEach>     
 </div>
-<c:if test="${not empty sessionScope.Admin}">
- <!--  <a href="${pageContext.request.contextPath}/reply/delete/${askReply.askReplyId}/${askBoard.askId}">삭제하기</a> -->
-</c:if>
 
 
-<!-- <c:forEach items="${askBoard.askReplyList}" var="askReply">
-		 
-</c:forEach> -->
-    
 </body>
 </html>

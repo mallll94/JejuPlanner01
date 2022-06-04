@@ -18,19 +18,18 @@ public class AskReplyController {
 	
 	private final AskReplyService askReplyService;
 	
-	/**댓글 조회*/
+	/**댓글 조회 - board*/
 	@RequestMapping("/board/Ask_Detail")
 	public void askReplyList(Model model) {
 		
 		List<AskReply> list = askReplyService.getAskRepliesByAskBoardId(null);
 		
-		System.out.println("replylist" + list.size());
+		//System.out.println("replylist" + list.size());
 		
 	    model.addAttribute("list",list);
 	}
 	
-	
-	
+		
 	/**댓글 폼*/
 	@RequestMapping("/reply/AskReply_Write")
 	public String write(Long askId, Model model) {
@@ -49,20 +48,17 @@ public class AskReplyController {
 	    return "redirect:/board/Ask_Detail/" + askId;
 	}
 	
-	/**댓글 수정*/
-	@RequestMapping("/update")
-	public String update() {
-		return null;
-	}
 	
 	
 	/**댓글 삭제*/
-	@RequestMapping("/delete/{askReplyId}/{askId}")
+	@RequestMapping("/reply/delete/{askReplyId}/{askId}")
 	public String delete(@PathVariable Long askReplyId, @PathVariable Long askId) {
 		
 		askReplyService.deleteAskReply(askReplyId);
 		
-		return "redirect:/board/Ask_Detail";
+		System.out.println("reply delete");
+		
+		return "redirect:/board/Ask_Detail/" + askId + "?flag=1";
 	}
 
 }

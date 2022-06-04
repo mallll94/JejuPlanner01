@@ -37,7 +37,7 @@ public class AskReply {
 	@SequenceGenerator(sequenceName = "ask_reply_seq", allocationSize = 1, name = "ask_reply_seq")
 	private Long askReplyId; //댓글번호
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ask_fk")
 	private AskBoard askBoard; //부모 글번호
 	
