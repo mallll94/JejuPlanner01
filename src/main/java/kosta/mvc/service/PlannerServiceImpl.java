@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,10 @@ import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 //import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
-
+import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
+
 
 @Service
 @Transactional
@@ -66,6 +68,19 @@ public class PlannerServiceImpl implements PlannerService {
 		return null;
 	}
 	
+	/**카테고리별 플래너 일정 검색*/
+	@Override
+	public List<PlannerPlaceDTO> selectPlaceByPlanner(List<PlannerPlace> list) {
+		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
+		
+		for(PlannerPlace x :list) {
+			result.add(new PlannerPlaceDTO(x.getPlannerPlaceId(), x.getUser().getUserId(), x.getPlanner().getPlannerId(), x.getPlannerPlaceDate()
+					, x.getPlace().getPlaceId(), x.getPlace().getPlaceCategory(), x.getPlace().getPlaceName(), x.getPlace().getPlaceLatitude(), x.getPlace().getPlaceLongitude()));
+		}
+		
+		return result;
+	}
+	
 	
 	@Override
 	public void insertPlan(Planner planner) {
@@ -92,8 +107,14 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override
 	public void updatePlanPlace(PlannerPlace PlannerPlace) {
-		// TODO Auto-generated method stub
+		PlannerPlace dbplan = plannerPlaceRep.findById(PlannerPlace.getPlannerPlaceId()).orElse(null);
+		dbplan.setPlannerPlaceDate(PlannerPlace.getPlannerPlaceDate());
 
+	}
+	
+	@Override
+	public void deletePlanPlace(Long plannerPlaceId) {
+		plannerPlaceRep.deleteById(plannerPlaceId);
 	}
 
 	@Override
@@ -104,7 +125,12 @@ public class PlannerServiceImpl implements PlannerService {
 
 	}
 
-	
+	@Override
+	public void PlannerShareBoard(Long placeId) {
+		
+
+		
+	}
 
 
 }

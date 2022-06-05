@@ -14,7 +14,7 @@ public interface AskReplyService {
 	/**
 	 * 1:1문의게시판 댓글 수정
 	 */
-	public void updateAskReply(AskReply askReply);
+	//public void updateAskReply(AskReply askReply);
 	
 	/**
 	 * 1:1문의게시판 게시글의 댓글 조회하기
@@ -25,6 +25,9 @@ public interface AskReplyService {
 	 * 1:1문의게시판 댓글 삭제
 	 */
 	public void deleteAskReply(Long askReplyId);
+
+
+	
 
 
 
