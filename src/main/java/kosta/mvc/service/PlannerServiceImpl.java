@@ -10,7 +10,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
-import kosta.mvc.domain.QPlanner;
+//import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 
 import kosta.mvc.repository.PlannerPlaceRepository;
