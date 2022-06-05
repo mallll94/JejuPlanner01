@@ -36,11 +36,12 @@ public class AskReplyServiceImpl implements AskReplyService {
 		askReplyRep.save(askReply);
 	}
 
-	@Override
-	public void updateAskReply(AskReply askReply) {
-		
-      
-	}
+	/*
+	 * @Override public void updateAskReply(AskReply askReply) {
+	 * 
+	 * 
+	 * }
+	 */
 	
 
 	@Override

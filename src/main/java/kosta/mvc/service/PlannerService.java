@@ -4,6 +4,7 @@ import java.util.List;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.dto.PlannerPlaceDTO;
 
 
 public interface PlannerService {
@@ -24,6 +25,8 @@ public interface PlannerService {
 	 * */
 	Planner selectByDay(Long plannerId,int day);
 	
+	/**카테고리별 플래너 일정 검색*/
+	List<PlannerPlaceDTO> selectPlaceByPlanner (List<PlannerPlace> list);
 	
 	
 	/**
@@ -45,6 +48,11 @@ public interface PlannerService {
 	 * 플래너 일정 수정
 	 * */
 	void updatePlanPlace(PlannerPlace PlannerPlace);
+	
+	/**
+	 * 플래너 일정 삭제
+	 * */
+	void deletePlanPlace(Long plannerPlaceId);
 	
 	/**
 	 * 플래너 삭제 - 진짜 삭제가 아니고 state를 비활성화 해준다.

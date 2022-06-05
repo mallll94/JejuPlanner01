@@ -95,9 +95,7 @@ public class AskController {
 		
 	}
 	
-	
-
-	
+		
 	/**삭제*/
 	@RequestMapping("/Askdelete")
 	public String delete(Long askId) {
