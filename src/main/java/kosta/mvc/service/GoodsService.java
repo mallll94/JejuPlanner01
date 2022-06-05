@@ -29,7 +29,7 @@ public interface GoodsService {
 	/**
 	 * 상품 이름으로 상품 조회하기
 	 */
-	public Goods getGoodsByGoodsId(Long goodsId);
+	public Goods getGoodsByGoodsId(Long goodsId) throws Exception;
 	
 	/**
 	 * 상품 판매량 순으로 조회하기
@@ -54,6 +54,6 @@ public interface GoodsService {
 	/**
 	 * 지역 기반 상품 조회
 	 */
-	public List<Goods> getAllGoodsByPlace();
+	public List<Goods> getAllGoodsByLocalCategory();
 
 }

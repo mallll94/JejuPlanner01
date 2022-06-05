@@ -21,6 +21,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void addGoods(Goods goods) {
 		// TODO Auto-generated method stub
+//		goods.setPlace(place);
 		goodsRepository.save(goods);
 	}
 
@@ -70,8 +71,9 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Goods> getAllGoodsByPlace() {
+	public List<Goods> getAllGoodsByLocalCategory() {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
