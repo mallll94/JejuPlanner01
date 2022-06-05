@@ -72,9 +72,11 @@
 		/////이름수정 모달//일정수정
 		$("#option").change(function(){
 			if($(this).val()=="placeName"){
+				console.log("Ddd",${param.plannerId});
 				$('#NameUpdateModal').modal('show');
 			}else if($(this).val()=="dateUpdate"){
-				 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerWrite/1");//${plannerId}
+					
+				 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerWrite");//${plannerId}
 				 $("#UpdateModalForm").submit();
 			}else if($(this).val()=="placeDelete"){
 				$('#DeleteModal').modal('show');
@@ -373,7 +375,7 @@
                           <label class="col-sm-4 col-form-label" for="basic-default-name">변경할 이름</label>
                           
                          <div class="col-sm-10">
-                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="1"/>
+                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="${param.plannerId}"/>
                          	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="plannerName"/>
                           </div>
                        </div>

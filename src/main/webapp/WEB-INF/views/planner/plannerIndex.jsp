@@ -47,7 +47,7 @@ pageEncoding="UTF-8"%>
 			  </div>
 		</c:forEach>
 		
-		<a href="${pageContext.request.contextPath}/planner/plannerWrite/00">플래너 작성하기</a>
+		<a href="${pageContext.request.contextPath}/planner/plannerWrite">플래너 작성하기</a>
 		
 	</body>
 </html>

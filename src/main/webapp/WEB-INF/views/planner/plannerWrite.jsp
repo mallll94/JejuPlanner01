@@ -298,6 +298,7 @@ pageEncoding="UTF-8"%>
 							var dbplannerPlace = result.plannerPlace;
 							var Dday = result.Dday;
 							$("#planner-dayset-day").html(Dday+1);
+							$("#plannerId").val(result.planner.plannerId);
 						},
 						error: function(error){
 							alert("플래너를 생성하지 못 했습니다.")
@@ -561,8 +562,8 @@ pageEncoding="UTF-8"%>
 						</div>
 					</div>
 					<div class="planner-save-area">
-						<form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/insert">
-							<input type="hidden" name="userId" value="">
+						<form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
+							<input type="hidden" name="plannerId" value="">
 							<input type="submit" value="작업 완료">
 						</form>
 						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
