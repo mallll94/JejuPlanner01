@@ -385,10 +385,10 @@ pageEncoding="UTF-8"%>
 						dataType: "json",
 						data: {placeId: placeId},
 						success: function(result){
-							$("#placeName").text(result.placeName);
-							$("#placeAddr").text(result.placeAddr);
-							$("#placeContent").text(result.placeContent);
-							$("placePhoto").attr("src", "/images/place/"+result.placePhoto )
+							$("#placeNameModal").text(result.placeName);
+							$("#placeAddrModal").text(result.placeAddr);
+							$("#placeContentModal").text(result.placeContent);
+							$("placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
 							$("modal-link-bnt").attr("urlInfo",result.placeUrl);
 
 						},
@@ -488,14 +488,12 @@ pageEncoding="UTF-8"%>
 
 				//오른쪽 사이드바 - 장소 정보 모달 버튼동작
 				$(document).on("click","#plan-info-bnt",function(){
-					//$('#placeInfoModal').modal('show');
-					//let modalPlaceId=$(this).attr("placeId")
 					modalInfoPlace($(this).attr('placeId'));
 
 				})
 
-				//오른쪽 사이드바 - 일정 추가하기 모달 버튼 동작
-				$(document).on("click","#modal-add-bnt",function(){
+				//모달-일정 추가하기 버튼 동작
+				$(document).on("click","#modal-add-plan-bnt",function(){
 					addPlaceToPlanner()
 
 				})
@@ -624,12 +622,12 @@ pageEncoding="UTF-8"%>
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="placeInfoTitle"></h4>
+                        <h4 class="modal-title" id="placeInfoTitleModal"></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">
-                                <img class="img-fluid" id="placePhoto" src="">
+                                <img class="img-fluid" id="placePhotoModal" src="">
                                 <!-- 썸네일 이미지 -->
                             </div>
                             <div class="col-6">
@@ -637,24 +635,24 @@ pageEncoding="UTF-8"%>
                                     
                                     <div class="col-8">
 										
-                                        <p id="placeName"></p>
+                                        <p id="placeNameModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     
-                                    <div class="col-8" id="placeContent-area">
-                                        <p id="placeContent"></p>
+                                    <div class="col-8" id="placeContentModal-area">
+                                        <p id="placeContentModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     
                                     <div class="col-8">
-                                        <p id="placeAddr"></p>
+                                        <p id="placeAddrModal"></p>
                                     </div>
                                 </div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-link-bnt">링크</button>
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-bnt" >추가하기</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" >추가하기</button>
 								</div>
                             </div>
                         </div>
