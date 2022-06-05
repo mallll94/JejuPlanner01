@@ -13,7 +13,7 @@
     <meta content="Free HTML Templates" name="description">
 
 
- <!-- Favicon -->
+    <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
@@ -47,60 +47,53 @@
 </head>
 <body>
 
-    <!-- Contact Start -->
-    <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h2> 
-        </div>
-        
-        <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5">
-                <div class="contact-form">
-                    <div id="success"></div>
-                    
-                    <form name="planBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/pupdate/${planboard.pboardId}" onSubmit='return checkValid()' enctype="multipart/form-data">
-                        
-                       <div class="control-group">
-                         카테고리 <select name="pboardCategory" class="form-select" aria-label="Default select example">
-                            <option selected>Category</option>
-                            <option value="나홀로">나홀로</option>
-                            <option value="가족/부모님">가족/부모님</option>
-                            <option value="친구">친구</option>
-                            <option value="연인">연인</option>
-                            
-                         </select>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                       
-                       
-                    <div class="control-group">
-                    제목 <input type="text" class="form-control" id="pboardTitle" name="pboardTitle" placeholder="Title"
-                          required="required" data-validation-required-message="Please enter a subject" />
-                         <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                    내용 <textarea class="form-control" rows="6" id="pboardContent" name="pboardContent" placeholder="Content"
-                         required="required" data-validation-required-message="Please enter your message"></textarea>
-                         <p class="help-block text-danger"></p>
-                    </div>
-	                <div class="control-group">
-                    첨부파일 <input type="file" class="form-control" id="pboardAttach" name="file" placeholder="Attach"
-                             required="required" data-validation-required-message="Please enter a file" accept=".png, .jpg" />
-                             <p class="help-block text-danger"></p>
-	                </div> 
+<!-- Contact Start -->
+<div class="container-fluid pt-5">
+  <div class="text-center mb-4">
+     <h2 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h2> 
+  </div>
+    
+    <div class="row px-xl-5">
+      <div class="col-lg-7 mb-5">
+        <div class="contact-form">
+          <div id="success"></div>
+  
+     <form name="planBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/pupdate" onSubmit='return checkValid()' enctype="multipart/form-data">
+    <input type="hidden" value="${planBoard.pboardId}" id="pboardId" name="pboardId">                
+    <div class="control-group">
+      카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
+    <p class="help-block text-danger"></p></div>
+    <div class="control-group">
+      제목 <input type="text"  class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
+    <p class="help-block text-danger"></p></div>
+    <div class="control-group">
+       내용 <textarea  class="form-control" rows="6" id="pboardContent" name="pboardContent">${planBoard.pboardContent}</textarea>
+    <p class="help-block text-danger"></p></div>
 
-                        <div align="right">
-                            <button onclick="location = '/board/Planboard_Detail'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정</button>
-                        </div>
-                    
-                    </form>
-                
-                </div>
-            </div>
- 
-        </div>
+	<h5 class="card-header">첨부파일</h5>
+	<div class="control-group">
+        <input type="file" class="form-control" id="pboardAttach" name="file" placeholder="Attach"
+         required="required" data-validation-required-message="Please enter a file" accept=".png, .jpg" />
+        <p class="help-block text-danger"></p>
+	</div> 
+    <div class="card-body">
+	  <div class="mb-3">
+		<img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
+     </div>
     </div>
-    <!-- Contact End -->
+
+   <div align="right">
+     <button class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정하기</button>
+     <!-- <button onclick="location = '/board/Planboard_Detail'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정하기</button> -->
+   </div>
+                
+ </form>
+            
+       </div>
+     </div>
+  </div>
+</div>
+<!-- Contact End -->
 
     
     

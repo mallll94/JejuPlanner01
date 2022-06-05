@@ -69,7 +69,7 @@ public class PlanBoardController {
 	}
 	
 	/**수정 폼*/
-	@RequestMapping("/board/Planboard_Update")
+	@RequestMapping("/board/pupdateForm")
 	public ModelAndView updateForm (Long pboardId) {
 		PlanBoard planBoard = planBoardService.selectById(pboardId);
 		
@@ -79,23 +79,27 @@ public class PlanBoardController {
 	}
 	
 	/**수정하기*/
-	@RequestMapping(value = "board/pupdate" , method = RequestMethod.POST)
+	@RequestMapping(value = "/board/pupdate" , method = RequestMethod.POST)
 	public String update(PlanBoard planBoard , HttpSession session) {
+		System.out.println("pboardupdate00");
 		String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
 	    PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
 	    
 	    System.out.println("pboardupdate");
 	    
-	    return "redirect:/board/Planboard_Update/" + dbBoard.getPboardId();
+	    return "redirect:/board/Planboard_Detail/" + dbBoard.getPboardId();
 	
 	}
 	
 	/**삭제하기*/
-	@RequestMapping("/pdelete")
+	@RequestMapping("/board/pdelete")
 	public String delete(Long pboardId) {
+		
+		System.out.println("삭제1");
+		
 		planBoardService.deletePlanBoard(pboardId);
 		
-		System.out.println("pboarddelete");
+		System.out.println("삭제2");
 		
 		return "redirect:/board/PlanboardList";
 		

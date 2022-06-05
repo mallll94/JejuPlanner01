@@ -61,6 +61,11 @@
 
 <h3 align="center">플래너공유 게시판</h3>
 
+<div align="right">
+  <button onclick="location = '/board/Planboard_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">작성하기</button>
+</div>
+                    
+
 <!-- latest news -->
 
 <div class="latest-news mt-150 mb-150">

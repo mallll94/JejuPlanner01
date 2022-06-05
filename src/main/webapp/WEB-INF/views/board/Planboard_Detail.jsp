@@ -143,6 +143,18 @@ $(function(){
 
 })
 
+ $(function(){
+	$("button[value=수정]").click(function() {
+    	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pupdateForm");
+		$("#requestForm").submit();
+	})
+	
+     $("button[value=삭제]").click(function() {
+    	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pdelete");
+		$("#requestForm").submit();
+	}) 
+ }) 
+
 
 </script>
 
@@ -152,8 +164,7 @@ $(function(){
 
 <body>
 
-<!-- Comments section-->
-<section>
+
  
 	<div class="container-fluid pt-5">
   		<div class="text-center mb-4">
@@ -164,9 +175,7 @@ $(function(){
       <div class="col-lg-7 mb-5">
           <div class="contact-form">
               <div id="success"></div>
- 
- 		<form name="sentMessage" id="contactForm" novalidate="novalidate">
- 
+
  		<div class="control-group">
          	카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
          <p class="help-block text-danger"></p>
@@ -187,14 +196,15 @@ $(function(){
    				   <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
   				</div>
 			</div>
-         
-         <div align="right">
-             <button onclick="location = '/board/Planboard_Update'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정</button>
-             <button onclick="location = '/board/PlanboardList'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">삭제</button>
-         </div>
-          
-       </form>      
-     
+  
+       <div align="right">
+       <form name="requestForm" method="post" id="requestForm">
+       <input type="hidden" name="pboardId" value="${planBoard.pboardId}">
+	      <button type="button" class="btn btn-primary" value="수정">수정</button>
+	      <button type="button" class="btn btn-primary" value="삭제">삭제</button>
+       </form>  
+      </div>
+     	 <!-- <button type="button" class="btn btn-primary" value="삭제">삭제</button> -->
      </div>            
   </div>
 </div>
@@ -232,8 +242,6 @@ $(function(){
     
 
 
-
-</section>
 
 </body>
 </html>
