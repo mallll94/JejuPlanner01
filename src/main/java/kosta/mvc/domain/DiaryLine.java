@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +49,8 @@ public class DiaryLine {
 	private String diaryLinePhoto;
 	private int diaryLinePrice;
 	
-	
+	@Transient
+	private MultipartFile file;
 	
 
 }

@@ -8,8 +8,8 @@
    <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
  </definition>
  <!-- tiles 적용 제외 부분 정의부 -->
- <definition name="planner/plannerWrite" template="/WEB-INF/tiles/empty.jsp">
- 	<put-attribute name="content" value="/WEB-INF/views/planner/plannerWrite.jsp"/>
+ <definition name="planner/plannerWrite/*" template="/WEB-INF/tiles/empty.jsp">
+ 	<put-attribute name="content" value="/WEB-INF/views/planner/plannerWrite.{1}.jsp"/>
  </definition>
  
  

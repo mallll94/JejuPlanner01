@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
+import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
+import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
@@ -30,6 +32,7 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlannerRepository plannerRep;
 	private final PlannerPlaceRepository plannerPlaceRep;
 	private final PlaceRepository placeRep;
+	private final DiaryRepository diaryRep;
 	
 	
 	@Override
@@ -73,7 +76,7 @@ public class PlannerServiceImpl implements PlannerService {
 		return null;
 	}
 	
-	/**카테고리별 플래너 일정 검색*/
+	/**카테고리별 플래너 일정 조회*/
 	@Override
 	public List<PlannerPlaceDTO> selectPlaceByPlanner(List<PlannerPlace> list) {
 		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
@@ -90,6 +93,7 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public void insertPlan(Planner planner) {
 		plannerRep.save(planner);
+		diaryRep.save(new Diary(null, planner.getUser(), planner, null, planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount(),null));
 	}
 
 	@Override
