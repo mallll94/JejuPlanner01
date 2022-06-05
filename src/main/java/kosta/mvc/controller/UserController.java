@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.UserService;
@@ -34,6 +34,14 @@ public class UserController {
 		userService.insertUsers(user);
 		
 		return "redirect:/";
+	}
+	
+	
+	@RequestMapping("/idcheckAjax")
+	@ResponseBody
+	public String idcheckAjax(String id) {
+		
+		return userService.idcheck(id);
 	}
 	
 

@@ -36,12 +36,66 @@
 
 <script type="text/javascript">
 $(function(){
+	var checkResultId="";
+	
 	$("#emailCheck").click(function(){
 		emailSend($("#userEmail").val());
 	});
 	$("#codeCheck").click(function(){
 		codeCheck($("#code").val());
 	});
+	
+	$("#regForm").submit(function(){			
+		if($("#regForm :input[name=userId]").val().trim()==""){
+			alert("아이디를 입력하세요");				
+			return false;
+		}
+		if($("#regForm :input[name=userPassword]").val().trim()==""){
+			alert("패스워드를 입력하세요");				
+			return false;
+		}
+		if($("#regForm :input[name=userPassword]").val().trim()!=$("#regForm :input[name=userPassword2]").val().trim()){
+			alert("비밀번호가 다릅니다");				
+			return false;
+		}
+		if($("#regForm :input[name=userName]").val().trim()==""){
+			alert("이름을 입력하세요");				
+			return false;
+		}
+		if($("#regForm :input[name=userPhone]").val().trim()==""){
+			alert("휴대폰 번호를 입력하세요");				
+			return false;
+		}	
+		if(checkResultId==""){
+			alert("아이디 중복확인을 하세요");
+			return false;
+		}		
+	});
+	
+	
+	$("#doubleCheck").click(function(){
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/user/idcheckAjax",
+			dataType:"text",
+			data:"${_csrf.parameterName}=${_csrf.token}&id="+$("#userId").val(),	
+			 /*data:{
+				"${_csrf.parameterName}":"${_csrf.token}"
+			} ,*/
+			success:function(data){						
+				if(data=="fail"){
+					$("#idCheckView").html("중복").css("color","red");
+					checkResultId=="";
+				}else{						
+					$("#idCheckView").html("사용가능").css("color","blue");
+					checkResultId==1;
+				}
+			}//callback			
+		});//ajax
+	});//keyup
+	
+
 	
 	//이메일 보내는 함수
 	function emailSend(email){ //전,	
@@ -100,9 +154,9 @@ $(function(){
                       <h5 class="mb-0">회원가입</h5>
                     </div>
                     <div class="card-body">
-                      <form method="post" action="${pageContext.request.contextPath}/user/register">
+                      <form id="regForm" method="post" action="${pageContext.request.contextPath}/user/register">
                         <div class="mb-3">
-                          <label class="form-label" >아이디</label>
+                          <label class="form-label" >아이디</label><span id="idCheckView"></span>
                           <input type="text" class="form-control" id="userId" name="userId" /><button type="button" id="doubleCheck" value="">중복확인</button>
                         </div>
                         <div class="mb-3">
@@ -157,9 +211,11 @@ $(function(){
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Send</button>
+                        
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" name="role" value="ROLE_USER">
                       </form>
+                      	<input type="hidden" id="doubleCheckResult"/>
                     </div>
                   </div>
                 </div>

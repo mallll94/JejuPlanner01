@@ -17,9 +17,17 @@ public interface UserService {
 	void insertUsers(Users users);
 	
 	/**
+	 * id체크
+	 * */
+	String idcheck(String id);
+	
+	
+	/**
 	 * 회원정보수정 -마이페이지
 	 * */
 	void updateUsers(Users users);
+	
+	
 	
 	/**
 	 * ID찾기

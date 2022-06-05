@@ -6,6 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.querydsl.core.BooleanBuilder;
+
+import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -75,6 +78,18 @@ public class UserServiceImpl implements UserService {
 	public Users selectById(String userId) {
 		Users user =userRep.findById(userId).orElse(null);
 		return user;
+	}
+
+	@Override
+	public String idcheck(String id) {
+		QUsers users = QUsers.users;
+		BooleanBuilder builder = new BooleanBuilder();	
+		builder.and(users.userId.eq(id));
+		
+		Long count=userRep.count(builder);
+		System.out.println(count);
+		return (count==0L) ? "ok":"fail";
+
 	}
 
 }
