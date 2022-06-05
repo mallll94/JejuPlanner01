@@ -20,12 +20,12 @@ import lombok.RequiredArgsConstructor;
 public class PlanBoardServiceImpl implements PlanBoardService {
 
 	private final PlanBoardRepository planBoardRep;
-	
+
 	private final FileStore fileStore;
-	
+
 	@Override
 	public List<PlanBoard> selectAll() {
-		
+
 		return planBoardRep.findAll();
 	}
 
@@ -33,7 +33,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	public PlanBoard selectById(Long pboardId) {
 		PlanBoard planBoard = planBoardRep.findById(pboardId)
 				.orElseThrow(() -> new RuntimeException("상세보기에 오류가 발생하였습니다."));
-		
+
 		return planBoard;
 	}
 
@@ -46,13 +46,13 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	@Override
 	public void insertPlanBoard(PlanBoard planBoard, String uploadpath) {
 		PlanBoard savePlan = planBoardRep.save(planBoard);
-		
+
 		MultipartFile file = planBoard.getFile();
 		if(!file.isEmpty()) {
 			if(file.getContentType().startsWith("image") == false) {
 				throw new RuntimeException("이미지형식이 아닙니다");
 			}
-			
+
 			try {
 				String storeFileName = fileStore.storeFile(uploadpath, file);
 				savePlan.setPboardAttach(storeFileName);
@@ -65,31 +65,30 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	}
 
 	@Override
-	public void updatePlanBoard(PlanBoard planBoard, String uploadpath) {
-		
+	public PlanBoard updatePlanBoard(PlanBoard planBoard, String uploadpath) {
+
 		PlanBoard dbBoard = planBoardRep.findById(planBoard.getPboardId())
 				.orElseThrow(() -> new RuntimeException("존재하지 않는 글 입니다. "));
-		
-				dbBoard.setPboardTitle(planBoard.getPboardTitle());
-		        dbBoard.setPboardContent(planBoard.getPboardContent());
-		        
-		        MultipartFile file = planBoard.getFile();
-				if(!file.isEmpty()) {
-					if(file.getContentType().startsWith("image") == false) {
-						throw new RuntimeException("이미지형식이 아닙니다");
-					}
-					
-					try {
-						String storeFileName = fileStore.storeFile(uploadpath, file);
-						dbBoard.setPboardAttach(storeFileName);
-					} catch (IOException e) {
-						e.printStackTrace();
-						throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
-					}
-				}
-		        
-		        
-				
+
+		dbBoard.setPboardTitle(planBoard.getPboardTitle());
+		dbBoard.setPboardContent(planBoard.getPboardContent());
+
+		MultipartFile file = planBoard.getFile();
+		if(!file.isEmpty()) {
+			if(file.getContentType().startsWith("image") == false) {
+				throw new RuntimeException("이미지형식이 아닙니다");
+			}
+
+			try {
+				String storeFileName = fileStore.storeFile(uploadpath, file);
+				dbBoard.setPboardAttach(storeFileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
+			}
+		}
+
+		return dbBoard;
 
 	}
 

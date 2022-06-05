@@ -138,11 +138,6 @@ $(function(){
         }
     })
     
-    
-    
-    
-    
-    
 
   selectAllReply();
 
@@ -152,22 +147,58 @@ $(function(){
 </script>
 
 
-
-
 </head>
-
-
-
 
 
 <body>
 
 <!-- Comments section-->
 <section>
-
-<div> 
-
-<div>
+ 
+	<div class="container-fluid pt-5">
+  		<div class="text-center mb-4">
+      		<h2 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h2> 
+  	</div>
+  
+  	<div class="row px-xl-5">
+      <div class="col-lg-7 mb-5">
+          <div class="contact-form">
+              <div id="success"></div>
+ 
+ 		<form name="sentMessage" id="contactForm" novalidate="novalidate">
+ 
+ 		<div class="control-group">
+         	카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
+         <p class="help-block text-danger"></p>
+ 		</div>
+ 
+ 		<div class="control-group">
+         	제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
+         <p class="help-block text-danger"></p>
+ 		</div>
+ 		<div class="control-group">
+        	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent">${planBoard.pboardContent}</textarea>
+         <p class="help-block text-danger"></p>
+ 		</div>
+   
+  		<h5 class="card-header">첨부파일</h5>
+			<div class="card-body">
+ 				<div class="mb-3">
+   				   <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
+  				</div>
+			</div>
+         
+         <div align="right">
+             <button onclick="location = '/board/Planboard_Update'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정</button>
+             <button onclick="location = '/board/PlanboardList'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">삭제</button>
+         </div>
+          
+       </form>      
+     
+     </div>            
+  </div>
+</div>
+</div>
 
 
 <!--댓글 등록하기-->

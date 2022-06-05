@@ -29,8 +29,9 @@ public interface PlanBoardService {
 	
 	/**
 	 * 플래너게시판 수정
+	 * @return 
 	 * */
-	void updatePlanBoard(PlanBoard planBoard, String uploadpath);
+	PlanBoard updatePlanBoard(PlanBoard planBoard, String uploadpath);
 	
 	/**
 	 * 플래너게시판 삭제
