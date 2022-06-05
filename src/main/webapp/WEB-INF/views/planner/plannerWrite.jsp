@@ -204,7 +204,7 @@ pageEncoding="UTF-8"%>
 										}
 									str+=`</select></div>`
 									str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-									str+=`<span><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+									str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
 									str+=`</div>`
 								str+=`</li>`
 								if(plannerplace.placeCategory==="장소"){
@@ -339,6 +339,8 @@ pageEncoding="UTF-8"%>
 					showDays();
 				})
 
+				
+
 
 				//오른쪽 사이드바 - 추천장소, 추천숙소 버튼동작
 				$("input[class='category-input']").click(function(){
@@ -356,8 +358,8 @@ pageEncoding="UTF-8"%>
 								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
 									str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
-										str+=`<div class="spot-bnt-wrap"><span><button type="button" id="plan-info-bnt" class="btn btn-light w-50" data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">정보</button></span>`
-										str+=`<span><button type="button" class="btn btn-light w-50" id="plan-add-bnt" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">추가</button></span></div>`
+										str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+										str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
 								str+=`</div>`
 								str+="</il>"
 							})
@@ -383,9 +385,9 @@ pageEncoding="UTF-8"%>
 						dataType: "json",
 						data: {placeId: placeId},
 						success: function(result){
-							$("#placeName").val(result.placeName);
-							$("#placeAddr").val(result.placeAddr);
-							$("#placeContent").val(placeContent);
+							$("#placeName").text(result.placeName);
+							$("#placeAddr").text(result.placeAddr);
+							$("#placeContent").text(result.placeContent);
 							$("placePhoto").attr("src", "/images/place/"+result.placePhoto )
 							$("modal-link-bnt").attr("urlInfo",result.placeUrl);
 
@@ -488,7 +490,7 @@ pageEncoding="UTF-8"%>
 				$(document).on("click","#plan-info-bnt",function(){
 					//$('#placeInfoModal').modal('show');
 					//let modalPlaceId=$(this).attr("placeId")
-					modalInfoPlace($(this).placeId());
+					modalInfoPlace($(this).attr('placeId'));
 
 				})
 
@@ -634,6 +636,7 @@ pageEncoding="UTF-8"%>
                                 <div class="row">
                                     
                                     <div class="col-8">
+										
                                         <p id="placeName"></p>
                                     </div>
                                 </div>

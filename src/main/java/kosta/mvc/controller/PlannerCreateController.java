@@ -174,6 +174,7 @@ public class PlannerCreateController {
 	@ResponseBody
 	public Place selectPlace(Long placeId) {
 		Place place =placeService.selectById(placeId);
+		System.out.println(place.getPlaceName());
 		return place;
 	}
 	
