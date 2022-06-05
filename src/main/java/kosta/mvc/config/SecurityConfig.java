@@ -52,7 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.logoutSuccessUrl("/")//성공하면가능곳
 		.invalidateHttpSession(true)//세션 종료 하는거
 		.deleteCookies("JSESSIONID")//쿠키 없애는거
-		.and();//끝
+		.and();
+		
+		
+		
 	}
 	
 	@Override

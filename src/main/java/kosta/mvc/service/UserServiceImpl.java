@@ -2,7 +2,7 @@ package kosta.mvc.service;
 
 import java.util.List;
 
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +17,8 @@ public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRep;
 
+	private final PasswordEncoder passwordEncoder;
+	
 	@Override
 	public Users loginCheck(String userId) {
 		// TODO Auto-generated method stub
@@ -25,7 +27,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void insertUsers(Users users) {
-		// TODO Auto-generated method stub
+		String encodedPassword = passwordEncoder.encode(users.getUserPassword());
+		System.out.println(encodedPassword);
+		users.setUserPassword(encodedPassword);
+		userRep.save(users);
 
 	}
 

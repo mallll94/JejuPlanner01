@@ -59,6 +59,8 @@ public class PlaceServiceImpl implements PlaceService {
 		
 		builder.and(place.placeName.contains(placeName));
 		
+		
+		
 		Optional<Place> selectPlace = placeRep.findOne(builder);
 		
 		
