@@ -56,85 +56,14 @@
 <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 <script type="text/javascript">
-	/* 
-	function markerLine(data,day){//data = List<PlaceDTO>위도 경도,  숫자 1,2,3,  - > day = List<PlannerPlace>
-		
-		var i;
-		var color;
-		
-		
-		box1=[];
-		box2=[];
-		box3=[];
-		box4=[];
-		box5=[];
-		box6=[];
-		box7=[];
-		box8=[];
-		for(var j =0;j<data.length;j++){
-			addr[j]=[data[j].placeLatitude , data[j].placeLongitude];
-		}
-		
+	var mymap;
+	var markers=[];
+	var line;
+	var targets=[];
 
-		
-		
-		for(i =0;i<data.length;i++){ //List<PlaceDTO> 길만큼 잠
-			
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(addr[i][0], addr[i][1]),
-				map: map,
-				icon:{
-					path:google.maps.SymbolPath.CIRCLE,
-					strokeWeight:0,
-					fillOpacity:1,
-					fillColor:color,
-					scale:10
-				}
-			 });
-			markers.push(marker);
-
-			color = getColor(data[i],day[i]);
-			
-			var title = data[i].placeName;
-			var infowindow = new google.maps.InfoWindow();
-			google.maps.event.addListener(marker, 'click', (function(marker, title) {
-        		return function() {
-					infowindow.setContent(title);
-          			infowindow.open(map, marker);
-        		}
-      		})(marker, title));
-			
-			
-			
-			for(let a=1 ; a<=data.length ; a++){
-				let b = eval("box"+a);
-				
-				if(day[i].plannerPlaceDate==a){
-					
-					b.push(new google.maps.LatLng(addr[i][0], addr[i][1]));	
-					break;
-				}
-				
-			}
-			 
-		};
-		
-		for(let c=1; c<=data.length ; c++){
-			
-		    let obj= eval("box"+c);
-			addLine(markers , getLineColor(c));
-		}
-		
-		
-		
-		
-	} */
-	
-
-	
-
-	
 	$(function(){
+		
+		
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -188,6 +117,7 @@
 				dataType: "json",
 				data: {plannerId: '1' ,DayPlanner : no},
 				success: function(result){
+					
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
@@ -228,20 +158,25 @@
 						
 					}
 
-					test=`${'${result.place}'}`
-					$("#test").val(test);
-					ajaxData(result.place);
+					
+					//마커를 지우고 다시찍자 
+					//deleteLine(targets);
+					deleteMarkers();
+					removeRoute();
 					
 					
-					if(no==0){
-						
-						//markerLine(result.place,result.plannerPlaces);
-					}else{
-						
-						//markerLine(result.place,result.plannerPlaces);
+					console.log("after",line);
+					//deleteLine();
+					targets =[];
+					////////////////////
+					for(let v =0;v<result.place.length;v++){		
+						targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
 					}
+					addMarker(targets);	
+					addLine(targets,getLineColor);		
 					
 					
+					console.log("before",line);
 					$("#days").empty();
 					$("#days").append(dayNoLi);
 					$("#days").val(no);
@@ -257,6 +192,7 @@
 				}
 			})
 		}
+		
 		selectAll(0);
 		
 		function pdfPrint(){
@@ -293,24 +229,9 @@
 				});
 
 		}
-		
-
-		
-		
-		
-		
-		
-		
-		
 	})
 //////////////////////////////////////////
-	var mymap;
-	var markers=[];
-	
-	var targets=[];
-	
-	
-	
+
 	function getColor(place,plannerPlace){
 		if(place.placeCategory =='장소'){
 			if(plannerPlace.plannerPlaceDate==1){
@@ -347,44 +268,21 @@
 				return "#E9F086";
 			}
 	}
-	
-	
-	var box1=[];
-	var box2=[];
-	var box3=[];
-	var box4=[];
-	var box5=[];
-	var box6=[];
-	var box7=[];
-	var box8=[];
-	
-	
-	function initMap(){//지도생성
+	//지도생성
+	function initMap(){
 		const mapDiv= document.getElementById("googleMap");
 		mymap = new google.maps.Map(mapDiv,{
 			center:new google.maps.LatLng(33.3893, 126.5362),
 			zoom:11,
 			mapId: "a0f291588508440c",
 			streetViewControl: false
-		})
-		
-		addMarker(targets,);
-		addLine(targets,getLineColor);
-		
+		})	
 	};
 	
-	function ajaxData(addrs){
-		//var data=document.getElementById("test").value;
-		//console.log(data[1])
-		/* for(var j =0;j<addrs.length;j++){
-			targets[j]=[addrs[j].placeLatitude , addrs[j].placeLongitude];
-		} */
-		
-	}
+
 	//마커표시
 	function addMarker(targets){
 		for(let i=0;i<targets.length;i++){
-			
 			var position = targets[i];
 			//alert(position)
 			let marker = new google.maps.Marker({
@@ -396,10 +294,8 @@
 			markers.push(marker);
 		}
 	}
-	
-	//선 폴리선 잇는법
-	function addLine(targets,lineColor){
-		
+	//선 폴리선 생성
+	function addLine(targets,lineColor){ 
 		
 	    line = new google.maps.Polyline({
 	      path : targets,
@@ -410,6 +306,19 @@
 	    })
 	    
 	    line.setMap(mymap); 
+	}
+
+	//마커삭제
+	function deleteMarkers() {
+		   for (var i = 0; i < markers.length; i++) {
+		     markers[i].setMap(null);
+		   }
+	}
+	
+	function removeRoute(){
+		 if(typeof line !== 'undefined'){
+		  line.setMap(null);
+		 }
 	}
 /////////////////////////////////////////////////////////////////////	
 

@@ -10,10 +10,11 @@
 </head>
 <body>
 <h1>로그인 대강</h1>
-<form method="post" action="${pageContext.request.contextPath}/user/login"> 
-아이디<input type="text" id="userId"/>
-비밀번호<input type="text" id="userPassword"/>
-<button type="button" id="login">로그인</button>
+<form method="post" action="${pageContext.request.contextPath}/loginCheck"> 
+아이디<input type="text" name="id"/>
+비밀번호<input type="password" name="pwd"/>
+<button type="submit" id="login">로그인</button>
+<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 <button type="button" id="findId">아이디찾기</button>
 <button type="button" id="findPwd">비밀번호찾기</button>
 <button type="button" id="join">회원가입</button>

@@ -9,4 +9,7 @@ public class UserController {
 
 	@RequestMapping("/{url}")
 	public void init() {}
+	
+	@RequestMapping("/login")
+	public void login() {} 
 }

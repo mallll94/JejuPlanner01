@@ -41,6 +41,7 @@ public class Users {
 	private String userState; //U=활성유저, X=비활성,탈퇴유저
 	private String userGender;
 	
-	
+	//NOTNULL 해야함!!!
+	private String role;
 	
 }
