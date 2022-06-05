@@ -34,6 +34,58 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
 
+<script type="text/javascript">
+$(function(){
+	$("#emailCheck").click(function(){
+		emailSend($("#userEmail").val());
+	});
+	$("#codeCheck").click(function(){
+		codeCheck($("#code").val());
+	});
+	
+	//이메일 보내는 함수
+	function emailSend(email){ //전,	
+		$.ajax({
+				url:"${pageContext.request.contextPath}/user/mail", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				data: {email : email},//서버에게 보낼 parameter정보
+				success: function(result){
+					$("#EmailCheckModal").modal("show");	
+				},
+				error: function(err){
+					alert("이메일주소가 정확하지 않습니다.");
+				}	
+		});//ajax
+	};
+	
+	//번호 인증하는 함수
+	function codeCheck(code){ //전,	
+		$.ajax({
+				url:"${pageContext.request.contextPath}/user/verifyCode", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				data: {code : code},//서버에게 보낼 parameter정보
+				success: function(result){
+					
+					if(result == 1 ){
+						$("#emailCheck").html("인증완료");
+						$("#emailCheck").attr("disabled","disabled");
+					}
+				},
+				error: function(err){
+					alert("인증을 실패했습니다. 다시 시도해주세요");
+				}	
+		});//ajax
+	};
+	
+	
+	
+	
+	
+	
+})
+</script>
 
 <head>
 <meta charset="UTF-8">
@@ -100,9 +152,10 @@
                         </div>
                         <div class="mb-3">
                      
-                        <label class="form-label" for="basic-default-message">이메일주소</label>
+                        <label class="form-label" for="basic-default-message">이메일주소</label><button type="button" id="emailCheck" class="btn btn-primary"  >이메일인증</button>
 							<input type="text" id="userEmail" class="form-control" name ="userEmail"/>
                         </div>
+                        
                         <button type="submit" class="btn btn-primary">Send</button>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <input type="hidden" name="role" value="ROLE_USER">
@@ -112,5 +165,43 @@
                 </div>
               </div>
               </div>
+
+
+
+<!-- 모달 -->           
+<div class="modal fade" id="EmailCheckModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      	
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">인증확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+				<div class="col-xxl">
+                 <div class="card mb-4">
+                   <div class="card-header d-flex align-items-center justify-content-between">
+                     <h5 class="mb-0">인증번호 확인</h5>
+                   </div>
+                   <div class="card-body">
+                     
+                      <div class="row mb-3">
+                         <label class="col-sm-4 col-form-label" for="basic-default-name">코드 입력</label>
+                        <div class="col-sm-10">
+                        	<input type="text" id="code" class="form-control placeCategory-mask" name="code"/>
+                        </div>
+                      </div>
+                   </div>
+                 </div>
+               </div>
+      </div>
+      <div class="modal-footer">
+        <button id="codeCheck" type="button" class="btn btn-primary">확인</button>
+        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
 </body>
 </html>
