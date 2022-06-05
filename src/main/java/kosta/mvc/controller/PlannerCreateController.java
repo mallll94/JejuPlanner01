@@ -60,11 +60,10 @@ public class PlannerCreateController {
 	}
 	
 	/**플래너 작성하기1로 이동*/
-	@RequestMapping("/plannerWrite/{plannerId}")
-	public String wirteForm(@PathVariable Long plannerId, Model model, HttpSession session) {
-		//Users loginUser =(Users)session.getAttribute("loginUser");
-		//기존에 있던 플래너라면
-		if(plannerId!=00) {
+	@RequestMapping("/plannerWrite")
+	public String wirteForm(Long plannerId, Model model, HttpSession session) {
+
+		if(plannerId!=null) {
 			Planner planner = plannerService.selectBy(plannerId);
 			model.addAttribute("planner", planner);
 		}

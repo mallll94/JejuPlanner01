@@ -184,9 +184,8 @@ pageEncoding="UTF-8"%>
 						data: {plannerId: targetPlannerId},
 						success: function(result){
 							//alert("db저장된 일정::"+result.plist)
-
 							var Dday = result.Dday;
-							
+							$("#plannerId").val(targetPlannerId)
 							$("#plan-placeList").html("")
 							$("#plan-hotelList").html("")
 

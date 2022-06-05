@@ -63,7 +63,7 @@
 
 	$(function(){
 		
-		
+		alert("${param.plannerId}")
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -72,7 +72,7 @@
 		/////이름수정 모달//일정수정
 		$("#option").change(function(){
 			if($(this).val()=="placeName"){
-				console.log("Ddd",${param.plannerId});
+				// console.log("Ddd",${param.plannerId});
 				$('#NameUpdateModal').modal('show');
 			}else if($(this).val()=="dateUpdate"){
 					
