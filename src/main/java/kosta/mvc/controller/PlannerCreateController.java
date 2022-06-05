@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Place;
@@ -38,6 +39,7 @@ public class PlannerCreateController {
 	@Autowired
 	private UserService userService;
 	
+	private final static int PLACE_BLOCK_COUNT=4;
 	private final static int PLACE_PAGE_COUNT=10;
 	
 	
@@ -204,6 +206,24 @@ public class PlannerCreateController {
 		return plist;
 	}
 
+	/**오른쪽 사이드바 검색하기*/
+	@RequestMapping("/searchPlace")
+	@ResponseBody
+	public Map<String, Object> searchPlace(String keyword, @RequestParam(defaultValue = "1")int nowPage){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Page<Place> pageList =placeService.selectByKeyword(keyword, nowPage, PLACE_PAGE_COUNT);
+		
+		int temp =(nowPage-1)%PLACE_BLOCK_COUNT;
+		int startPage = nowPage-temp;
+		
+		map.put("pageList", pageList);
+		map.put("totalPages", pageList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", PLACE_BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		return map;
+	}
 	
 	
 	
