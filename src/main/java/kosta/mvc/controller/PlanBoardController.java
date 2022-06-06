@@ -69,9 +69,7 @@ public class PlanBoardController {
 //		
 //	}
 	 
-	 
-	
-	
+
 	/**전체검색*/
 	/*@RequestMapping("/board/PlanboardList")
 	public void planList(Model model) {
@@ -163,8 +161,7 @@ public class PlanBoardController {
 		
 		System.out.println("삭제2");
 		
-		return "redirect:/board/PlanboardList";
-		
+		return "redirect:/board/PlanboardList";		
 	}
 
 }

@@ -133,7 +133,7 @@
 </div>
 
 <div align="right">
-  <button onclick="location = '/board/Planboard_Write'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">작성하기</button>
+  <button onclick="location = '${pageContext.request.contextPath}/board/Planboard_Write'" class=" insert-btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">작성하기</button>
 </div>
                     
 
