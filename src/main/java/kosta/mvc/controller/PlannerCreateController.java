@@ -89,8 +89,9 @@ public class PlannerCreateController {
 	public Map<String, Object> selectPlannerPlace(Long plannerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		Planner dbplanner =plannerService.selectBy(plannerId);
+		
 		//D-day
+		Planner dbplanner =plannerService.selectBy(plannerId);
 		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
 		
 		List<PlannerPlaceDTO> plist = plannerService.selectPlaceByPlanner(plannerId);
