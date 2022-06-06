@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +16,6 @@ $(function(){
 		$("#loginForm").attr("action","${pageContext.request.contextPath}/user/registerForm");	
 		$("#loginForm").submit();
 	})
-	
-
-
 
 })
 
@@ -26,6 +24,9 @@ $(function(){
 </head>
 <body>
 <h1>로그인 대강</h1>
+
+ ${pageContext.request.userPrincipal}이다
+
 <form id="loginForm" method="post" action="${pageContext.request.contextPath}/loginCheck"> 
 아이디<input type="text" name="id"/>
 비밀번호<input type="password" name="pwd"/>

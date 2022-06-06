@@ -35,7 +35,7 @@ public class DiaryController {
 	private final UserService userService;
 	
 	private final static int PAGE_COUNT=1;
-	private final static int BLOCK_COUNT=3;
+	private final static int BLOCK_COUNT=1;
 	
 	@RequestMapping("/{url}")
 	public void init() {}
