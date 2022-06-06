@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <title>::다이어리::</title>
+        <title>제주잇다::다이어리::</title>
 
 
         <!-- favicon -->
@@ -62,37 +62,41 @@ pageEncoding="UTF-8"%>
 	</head>
 	<body>
         <!-- latest news -->
-        <c:choose>
-            <c:when test="${empty requestScope.pageList}">
-            <tr>
-                <td colspan="5">
-                    <p align="center"><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
-                </td>
-            </tr>
-            </c:when>
-            <c:otherwise>
-                <c:forEach items="${requestScope.pageList.content}" var="diary">
-                    <div class="latest-news mt-150 mb-150">
-                        <div class="container">
-                            <div class="row">
+        <div class="latest-news mt-150 mb-150">
+            <div class="container">
+                <div class="row">
+                    <c:choose>
+                        <c:when test="${empty requestScope.pageList}">
+                        <tr>
+                            <td colspan="5">
+                                <p align="center"><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
+                            </td>
+                        </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${requestScope.pageList.content}" var="diary"></c:forEach>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="single-latest-news">
                                         <a href="#"><div class="latest-news-bg diary-bg-1"></div></a>
                                         <div class="news-text-box">
                                             <h3><a href="#">${diary.diaryTitle}</a></h3>
                                             <p class="blog-meta">
-                                                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                                                <span class="author"><i class="fas fa-user"></i> ${diary.diaryType}</span>
                                                 <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
                                             </p>
                                             <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
-                                            <a href="#" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+                                            <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}" class="read-more-btn">다이어리 작성하기 <i class="fas fa-angle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                </c:forEach>
-            </c:otherwise>
-        </c:choose>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </div>
+            
+        
 
         <div class="row">
             <div class="container">

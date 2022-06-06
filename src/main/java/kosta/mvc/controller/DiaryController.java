@@ -34,8 +34,8 @@ public class DiaryController {
 	private final DiaryService diaryservice;
 	private final UserService userService;
 	
-	private final static int PAGE_COUNT=1;
-	private final static int BLOCK_COUNT=1;
+	private final static int PAGE_COUNT=6;
+	private final static int BLOCK_COUNT=3;
 	
 	@RequestMapping("/{url}")
 	public void init() {}
@@ -81,10 +81,12 @@ public class DiaryController {
 	
 	/**다이어리 상세 조회하기*/
 	@RequestMapping("/diaryRead/{diaryId}")
-	public void selectByDiaryId(Model model,@PathVariable Long diaryId) {
+	public String selectByDiaryId(Model model,@PathVariable Long diaryId) {
 		//Map<String, Object> map = new HashMap<String, Object>();	
-		List<DiaryLineDTO> diaryline =diaryservice.selectById(diaryId);
-		model.addAttribute("diaryline", diaryline);
+		Map<String, Object> map =diaryservice.selectById(diaryId);
+		model.addAttribute("diary", map.get("diary"));
+		model.addAttribute("diaryline", map.get("diaryline"));
+		return "/diary/diaryRead";
 	}
 	
 	

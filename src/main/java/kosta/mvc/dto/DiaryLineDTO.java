@@ -1,5 +1,7 @@
 package kosta.mvc.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,11 @@ public class DiaryLineDTO {
 	private String placeContent;
 	private String placePhoto;
 	private String placeUrl;
+	
+//	private String diaryTitle;
+//	private String diaryType;
+//	private int diaryCount;
+//	
+//	private LocalDate plannerStart;
+//	private LocalDate plannerEnd;
 }

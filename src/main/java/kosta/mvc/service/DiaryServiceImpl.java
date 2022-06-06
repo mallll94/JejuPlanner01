@@ -2,7 +2,9 @@ package kosta.mvc.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,9 +57,11 @@ public class DiaryServiceImpl implements DiaryService {
 	
 	/**다이어리별 다이어리 내용 조회*/
 	@Override
-	public List<DiaryLineDTO> selectById(Long diaryId) {
-		Diary diary = diaryRep.getById(diaryId);
-		List<DiaryLine> diaryLinelist =diaryLineRep.findAllByDiary(diaryId);
+	public Map<String, Object> selectById(Long diaryId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Diary dbDiary = diaryRep.findById(diaryId)
+				.orElseThrow(() -> new RuntimeException("해당 다이어리를 찾을 수 없습니다."));
+		List<DiaryLine> diaryLinelist =diaryLineRep.findAllByDiary(dbDiary.getDiaryId());
 		List<DiaryLineDTO> result = new ArrayList<DiaryLineDTO>();
 		
 		for(DiaryLine x :diaryLinelist) {
@@ -66,8 +70,10 @@ public class DiaryServiceImpl implements DiaryService {
 					x.getPlannerPlace().getPlace().getPlaceAddr(), x.getPlannerPlace().getPlace().getPlaceContent(),
 					x.getPlannerPlace().getPlace().getPlacePhoto(), x.getPlannerPlace().getPlace().getPlaceUrl()));
 		}
-		
-		return result;
+
+		map.put("diary", dbDiary);
+		map.put("diaryline", result);
+		return map;
 	}
 	
 	
