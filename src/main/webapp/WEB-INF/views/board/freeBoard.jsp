@@ -14,7 +14,7 @@
           <div class="white_shd full margin_bottom_30">
              <div class="full graph_head">
                 <div class="heading1 margin_0">
-                   <h2>동행구하기 게시판</h2>
+                   <h2>소통게시판 게시판</h2>
                 </div>
              </div>
 	             <div class="table_section padding_infor_info">
