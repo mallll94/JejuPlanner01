@@ -82,12 +82,10 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		Planner dbplanner =plannerRep.findById(plannerId)
 				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
-		
-		//List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(Long.toString(plannerId));
 
-		
 		//PlannerPlaceDTO
-		List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
+		//List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
+		List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(plannerId);
 		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
 		
 		for(PlannerPlace x :list) {

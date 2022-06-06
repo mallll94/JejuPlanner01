@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%>
 			//위치 위도 경도
 			var targets =[{ lat: 33.3893 ,lng: 126.5362 }];
 			var mymap;
-			var line;
+			let line;
 			var lineArr=[];
 
 			//지도 조회
@@ -131,13 +131,7 @@ pageEncoding="UTF-8"%>
 				}
 			}
 			
-			//선삭제
-			function removeRoute(){
-				if(typeof line !== 'undefined'){
-				line.setMap(null);
-				}
-			}
-
+			
 			//선 색 설정
 			function getLineColor(day){	
 				if(day="1"){
@@ -160,7 +154,7 @@ pageEncoding="UTF-8"%>
 
 			//선잇기
 			function addLine(lineArr, lineColor){
-				var line = new google.maps.Polyline({
+				line = new google.maps.Polyline({
 					path : lineArr,
 					geodesic:true,
 					//strokeColor: "#ff841f",
@@ -171,7 +165,17 @@ pageEncoding="UTF-8"%>
 				line.setMap(mymap);
 			}
 
-			
+			//선삭제
+			function removeRoute(){
+				alert("선삭제하기")
+				//if(typeof line !== 'undefined'){
+				// for (i=0; i<lineArr.length; i++) { 
+				// 	//lineArr[i].setMap(null);
+				// 	lineArr[i].setVisible(false);
+				// }
+				line.setMap(null)
+			}
+
 
 			$(function(){
 				let targetPlanner= "${planner}";
