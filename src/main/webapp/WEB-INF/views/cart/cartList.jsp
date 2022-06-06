@@ -55,18 +55,24 @@
 		
 		//장바구니 뿌려주는
 		function selectAll(){
+			
 			$.ajax({
-				type:"POST",
-				url:"${pageContext.request.contextPath}/cart/selectAll",
-				dataType:"json",
-				data:{},
-				success:function(result){						
-					 console.log(result.cartId);
-					 console.log(result.user.userId);
-				},//callback	
+				url:"${pageContext.request.contextPath}/cart/select", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				success: function(result){
+					//alert(result.cart.cartId);
+					
+					
+					
+					
+					
+					
+				},
 				error: function(err){
 					alert(err);
-				}		
+				}	
 			});//ajax
 		}//selectAll
 		selectAll();

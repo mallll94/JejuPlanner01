@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,10 +34,12 @@ public class Cart {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "goodsline_fk")
+	@JsonIgnore
 	private GoodsLine goodsLine; //상품상세번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	private int cartAmount;
