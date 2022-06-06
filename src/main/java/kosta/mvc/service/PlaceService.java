@@ -37,7 +37,7 @@ public interface PlaceService {
 	/**
 	 * 장소 검색하기
 	 * */
-	Page<Place> selectByKeyword(String keyword, int nowPage,int PageCount);
+	Page<Place> selectByKeyword(Pageable pageable,String keyword);
 	
 	/**
 	 * 장소 등록하기

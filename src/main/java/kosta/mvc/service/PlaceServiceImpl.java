@@ -117,12 +117,12 @@ public class PlaceServiceImpl implements PlaceService {
 	
 	
 	@Override
-	public Page<Place> selectByKeyword(String keyword, int nowPage, int PageCount) {
+	public Page<Place> selectByKeyword(Pageable pageable, String keyword) {
+		//keyword로 검색
 		QPlace place = QPlace.place;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(place.placeName.contains(keyword));
 
-		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC);
 		Page<Place> result = placeRep.findAll(builder, pageable);
 
 		return result;

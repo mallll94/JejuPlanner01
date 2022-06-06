@@ -298,6 +298,8 @@ pageEncoding="UTF-8"%>
 							var Dday = result.Dday;
 							$("#planner-dayset-day").html(Dday+1);
 							$("#plannerId").val(result.planner.plannerId);
+							targetPlannerId= result.planner.plannerId
+							
 						},
 						error: function(error){
 							alert("플래너를 생성하지 못 했습니다.")
@@ -347,7 +349,7 @@ pageEncoding="UTF-8"%>
 					var category =$(this).val();
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/recommend",
-						type:"post",
+						type:"get",
 						dataType:"json",
 						data:{category: category},
 						success: function(result){
@@ -372,9 +374,7 @@ pageEncoding="UTF-8"%>
 						}
 					})
 				})
-
-				//오른쪽 사이드바 - 검색하기
-
+			
 				
 
 				//오른쪽 사이드바 - 모달 정보 ajax
@@ -403,6 +403,7 @@ pageEncoding="UTF-8"%>
 
 				//오른쪽 사이드바 - 장소 추가하기 버튼동작
 				$(document).on("click","#plan-add-bnt",function addPlaceToPlanner(){
+					//alert(targetDate)
 					let targetPlaceId = $(this).attr("placeId")
 					let targetPlaceCategory = $(this).attr("category")
 
@@ -414,11 +415,14 @@ pageEncoding="UTF-8"%>
 					
 					if(targetDate==null){
 						var targetDate="1"
+						alert(targetDate)
+						alert(targetPlannerId)
+						//alert(targetPlaceId)
 					}
 
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
-						alert("우선 여행 날짜를 선택해주세요.22222222");
+						alert("우선 여행 날짜를 선택해주세요.");
 						return;
 					}
 
@@ -439,6 +443,7 @@ pageEncoding="UTF-8"%>
 					})
 					
 				})
+
 				//왼쪽 사이드바 - 장소/숙소 버튼
 				$("#planner-hotel-bnt").on("click",function(){
 					$(".planner-plan-placeList").hide();
@@ -498,10 +503,57 @@ pageEncoding="UTF-8"%>
 
 				})
 
+				//왼쪽사이드바 - 작업완료
+				$(document).on("click","#finish-wirte-bnt", function(){
+					//두 날짜가 비어있으면 함수 빠져나가기
+					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
+						alert("우선 여행 날짜를 선택해주세요.");
+						return;
+					}else{
+						let url = "${pageContext.request.contextPath}/planner/plannerIndex2?plannerId="+ targetPlannerId
+						location.replace(url)
+					}
+				})
+
 
 				getplannerInfo();
 				
 			})
+
+			function getSearchList(){
+				//alert("검색하기")
+				let serchKeyword = $("#searchPlaceKeyWord").val()
+				let nowPage =1;
+				alert(serchKeyword)
+				$.ajax({
+					url: "${pageContext.request.contextPath}/planner/searchPlace",
+					type: "post",
+					dataType: "json",
+					data:{keyword: serchKeyword, nowPage: nowPage} ,
+					success: function(result){
+						alert("검색success")
+						alert("totalPages"+result.totalPages)
+						let str="";
+						$.each(result.pageList,function(index,place){
+							str+="<il class='spot-card'>"
+							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
+								str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+								str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
+									str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+									str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
+							str+=`</div>`
+							str+="</il>"
+						})
+						$("#spotList").html("");
+						$("#spotList").append(str);
+
+					},
+					error: function(error){
+						alert("정보를 불러올 수 없습니다.")
+					}
+				})
+			}
+			
 
 
 			
@@ -560,12 +612,14 @@ pageEncoding="UTF-8"%>
 							</div>
 						</div>
 					</div>
+					<!--완료버튼(좌측 하단)-->
 					<div class="planner-save-area">
-						<form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
+						<!-- <form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
 							<input type="hidden" name="plannerId" value="">
 							<input type="submit" value="작업 완료">
-						</form>
+						</form> -->
 						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
+						<a href="#" id="finish-wirte-bnt" class="btn btn-primary">작업완료</a>
 						
 					</div>
 				</div>
@@ -581,10 +635,10 @@ pageEncoding="UTF-8"%>
 					<div class="search-container">
 						<div class="search-place-keyword-wrapper">
 							<div class="search-place-keyword">
-								<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off"/>
-								<button class="search-place-button" id="searchPlaceButton" onclick="searchPlaceButton()" type="button">
-									<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
-								</button>
+									<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off" onKeyDown="javascript:if (event.keyCode == 13) getSearchList();"/>
+									<button class="search-place-button" id="searchPlaceButton" type="button" onclick="getSearchList()">
+										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
+									</button>
 							</div>
 						</div>
 						<div class="search-place-category">
@@ -656,13 +710,6 @@ pageEncoding="UTF-8"%>
 								</div>
                             </div>
                         </div>
-
-
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"
-                                onclick="dayMealInsert()">등록</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                        </div> -->
                     </div>
 
                 </div>
