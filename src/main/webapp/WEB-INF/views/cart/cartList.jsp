@@ -60,8 +60,9 @@
 				url:"${pageContext.request.contextPath}/cart/selectAll",
 				dataType:"json",
 				data:{},
-				success:function(data){						
-					 
+				success:function(result){						
+					 console.log(result.cartId);
+					 console.log(result.user.userId);
 				},//callback	
 				error: function(err){
 					alert(err);
