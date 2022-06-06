@@ -6,12 +6,16 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.PlanBoard;
+import kosta.mvc.domain.QPlanBoard;
 import kosta.mvc.repository.PlanBoardRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
@@ -116,5 +120,34 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 
 		planBoardRep.deleteById(pboardId);
 	}
+	
+	
+	@Override
+	public Page<PlanBoard> selectByCate(String pboardCategory, int nowPage, int PAGE_COUNT){
+		QPlanBoard plan = QPlanBoard.planBoard;
+		BooleanBuilder builder = new BooleanBuilder();
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC , "pboardId");
+		
+		
+		Page<PlanBoard> result = null;
+		
+		if(pboardCategory == null){
+			 result = planBoardRep.findAll(pageable);
+		}else{
+			builder.and(plan.pboardCategory.contains(pboardCategory));
+			
+			result = planBoardRep.findAll(builder, pageable);
+		}
+		
+		/*
+		 * if( (filter.equals("none")|| filter == null )) { pageable = PageRequest.of(
+		 * (nowPage-1), PageCount); }else if(filter.equals("pboardCategory")) { pageable
+		 * = PageRequest.of( (nowPage-1), PageCount, Direction.DESC, filter); }
+		 */
+		
+		return result;
+	}
+
+	
 
 }

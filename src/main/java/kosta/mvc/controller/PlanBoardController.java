@@ -1,6 +1,7 @@
 package kosta.mvc.controller;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,10 +34,11 @@ public class PlanBoardController {
 	
 	/**전체검색*/
 	@RequestMapping("/board/PlanboardList")
-	public void planList(Model model, @RequestParam(defaultValue="1") int nowPage) {
+	public void planList(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 		
-		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "pboardId");
-		Page<PlanBoard> pageList = planBoardService.selectAll(pageable);
+		System.out.println("category????" + pboardCategory);
+		
+		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
@@ -44,7 +47,29 @@ public class PlanBoardController {
         model.addAttribute("blockCount", BLOCK_COUNT);
         model.addAttribute("startPage", startPage);
         model.addAttribute("nowPage", nowPage);
+        model.addAttribute("pboardCategory",pboardCategory);
+
 	}
+	
+	/**카테고리별*/
+//	@RequestMapping("/board/PlanboardList")
+//	public void selectByCate(Model model, String pboardCategory, @RequestParam(defaultValue="1") int nowPage) {
+//		
+//		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "pboardId");
+//		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory, nowPage, PAGE_COUNT);
+//		
+//		int temp = (nowPage-1)%BLOCK_COUNT;
+//		int startPage = nowPage - temp;
+//		
+//		model.addAttribute("pageList", pageList);
+//        model.addAttribute("blockCount", BLOCK_COUNT);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("nowPage", nowPage);
+//        
+//		
+//	}
+	 
+	 
 	
 	
 	/**전체검색*/
