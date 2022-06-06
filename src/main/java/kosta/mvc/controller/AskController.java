@@ -82,7 +82,7 @@ public class AskController {
 
 	
 	/**글 등록*/
-	@RequestMapping(value= "/board/insert", method = RequestMethod.POST)
+	@RequestMapping(value= "/board/Askinsert", method = RequestMethod.POST)
 	public String insert(AskBoard askBoard , HttpSession session) {
 		System.out.println("insert test");
 

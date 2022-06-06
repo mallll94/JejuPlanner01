@@ -179,12 +179,8 @@
 						<span class="author"><i class="bi bi-emoji-heart-eyes">${planboard.pboardGood}</i></span>
 					 </p>
 					 
-					 
-					
-					<p class="excerpt">${planboard.user.userId}</p>
-		
-					
-				</div>
+					<p class="excerpt">${planboard.user.userId}</p>	
+		   </div>
 		 </div>
 	   </div>
 </c:forEach>			
