@@ -3,12 +3,21 @@ package kosta.mvc.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.domain.Place;
+import kosta.mvc.domain.QDiary;
+import kosta.mvc.domain.QPlace;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.util.FileStore;
@@ -29,6 +38,18 @@ public class DiaryServiceImpl implements DiaryService {
 		return list;
 	}
 
+	@Override
+	public Page<Diary> selectAllPageing(Pageable pageable, String loginUser) {
+		//userId별 검색
+		QDiary diary = QDiary.diary;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(diary.user.userId.eq(loginUser));
+		
+		Page<Diary> pageList = diaryRep.findAll(builder,pageable);
+		
+		return pageList;
+	}
+	
 	@Override
 	public Diary selectById(Long diaryId) {
 		Diary diary = diaryRep.getById(diaryId);

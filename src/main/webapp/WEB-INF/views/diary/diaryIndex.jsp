@@ -62,73 +62,68 @@ pageEncoding="UTF-8"%>
 	</head>
 	<body>
         <!-- latest news -->
-        <div class="latest-news mt-150 mb-150">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-news">
-                            <a href="#"><div class="latest-news-bg diary-bg-1"></div></a>
-                            <div class="news-text-box">
-                                <h3><a href="#">You will vainly look for fruit on it in autumn.</a></h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                                </p>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
-                                <a href="#" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-news">
-                            <a href="#"><div class="latest-news-bg"></div></a>
-                            <div class="news-text-box">
-                                <h3><a href="#">A man's worth has its season, like tomato.</a></h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                                </p>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
-                                <a href="#" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-news">
-                            <a href="#"><div class="latest-news-bg"></div></a>
-                            <div class="news-text-box">
-                                <h3><a href="#">Good thoughts bear good fresh juicy fruit.</a></h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                                </p>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
-                                <a href="#" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                   
-                </div>
-
-                <div class="row">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <div class="pagination-wrap">
-                                    <ul>
-                                        <li><a href="#">Prev</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a class="active" href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">Next</a></li>
-                                    </ul>
+        <c:choose>
+            <c:when test="${empty requestScope.pageList}">
+            <tr>
+                <td colspan="5">
+                    <p align="center"><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
+                </td>
+            </tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach items="${requestScope.pageList.content}" var="diary">
+                    <div class="latest-news mt-150 mb-150">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="single-latest-news">
+                                        <a href="#"><div class="latest-news-bg diary-bg-1"></div></a>
+                                        <div class="news-text-box">
+                                            <h3><a href="#">${diary.diaryTitle}</a></h3>
+                                            <p class="blog-meta">
+                                                <span class="author"><i class="fas fa-user"></i> Admin</span>
+                                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
+                                            </p>
+                                            <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
+                                            <a href="#" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="pagination-wrap"> 
+                            <ul>
+                                <c:set var="doneLoop" value="false"/>
+                                <c:if test="${(startPage-blockCount) > 0}"> <!-- (-2) > 0  -->
+                                    <li><a href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=${startPage-1}">Prev</a></li>
+                                </c:if>
+                                <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
+                                    <c:if test="${(i-1)>=pageList.getTotalPages()}"> <!-- 페이지가 전체페이지보다 크다면 -->
+                                        <c:set var="doneLoop" value="true"/> <!-- 다음페이지 돌지마라 -->
+                                    </c:if> 
+                                    <c:if test="${not doneLoop}" > <!-- 다음페이지가 없으면 -->
+                                        <li><a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=${i}">${i}</a></li>
+                                    </c:if>
+                                </c:forEach>
+                                <!-- <li><a class="active" href="#">2</a></li>
+                                <li><a href="#">3</a></li> -->
+                                <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+                                    <li><a href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=${startPage+blockCount}">Next</a></li>
+                                </c:if>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+                
         <!-- end latest news -->
 
         
