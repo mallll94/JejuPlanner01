@@ -85,7 +85,7 @@ public class PlannerServiceImpl implements PlannerService {
 
 		//PlannerPlaceDTO
 		//List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
-		List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(plannerId);
+		List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(dbplanner.getPlannerId());
 		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
 		
 		for(PlannerPlace x :list) {

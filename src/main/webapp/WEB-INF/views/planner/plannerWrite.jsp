@@ -129,6 +129,7 @@ pageEncoding="UTF-8"%>
 				for (var i = 0; i < markers.length; i++) {
 					markers[i].setMap(null);
 				}
+				markers=[];
 			}
 			
 			
@@ -173,6 +174,7 @@ pageEncoding="UTF-8"%>
 				// 	//lineArr[i].setMap(null);
 				// 	lineArr[i].setVisible(false);
 				// }
+				lineArr=[];
 				line.setMap(null)
 			}
 
@@ -201,14 +203,16 @@ pageEncoding="UTF-8"%>
 							$("#plan-placeList").html("")
 							$("#plan-hotelList").html("")
 
-							//마커 초기화
-							targets =[];
-							lineArr=[];
-
+						
 							//마커를 지우고 다시찍자 
 							//deleteLine(targets);
 							deleteMarkers();
 							removeRoute();
+
+							//마커 초기화
+							targets =[];
+							lineArr=[];
+							markers=[];
 
 							// let lineDay=plannerplace.plannerPlaceDate;
 							// for(var i=1;i<=Dday+1;i++){

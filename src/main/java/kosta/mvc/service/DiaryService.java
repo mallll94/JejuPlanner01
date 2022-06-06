@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.dto.DiaryLineDTO;
 
 
 public interface DiaryService {
@@ -24,7 +25,7 @@ public interface DiaryService {
 	/**
 	 * 다이어리 상세 조회
 	 * */
-	Diary selectById(Long diaryId);
+	List<DiaryLineDTO> selectById(Long diaryId);
 	
 	/**
 	 * 다이어리 생성
