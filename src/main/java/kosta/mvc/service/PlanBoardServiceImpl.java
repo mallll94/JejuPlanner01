@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,12 +25,22 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 
 	private final FileStore fileStore;
 
+	/**전체조회*/
 	@Override
 	public List<PlanBoard> selectAll() {
 
 		return planBoardRep.findAll();
 	}
 
+	/**전체조회 - 페이지처리*/
+	@Override
+	public Page<PlanBoard> selectAll(Pageable pageable) {
+
+		return planBoardRep.findAll(pageable);
+	}
+
+
+	/**상세보기*/
 	@Override
 	public PlanBoard selectById(Long pboardId) {
 		PlanBoard planBoard = planBoardRep.findById(pboardId)
@@ -43,6 +55,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		return null;
 	}
 
+	/**등록하기*/
 	@Override
 	public void insertPlanBoard(PlanBoard planBoard, String uploadpath) {
 		PlanBoard savePlan = planBoardRep.save(planBoard);
@@ -64,6 +77,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 
 	}
 
+	/**수정하기*/
 	@Override
 	public PlanBoard updatePlanBoard(PlanBoard planBoard, String uploadpath) {
 
@@ -92,6 +106,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 
 	}
 
+	/**삭제하기*/
 	@Override
 	public void deletePlanBoard(Long pboardId) {
 		PlanBoard dbPlan = planBoardRep.findById(pboardId).orElse(null);

@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,16 +29,25 @@ public class AskController {
 
 	private final AskBoardService askBoardService;
 	
+	private final static int PAGE_COUNT=5;
+	private final static int BLOCK_COUNT=3;
+	
 	
 	/**전체검색 - board에서*/
 	@RequestMapping("/board/AskList") 
-	public void askList(Model model , @PageableDefault(size=5, sort="AskId", direction = Sort.Direction.DESC)Pageable pageable) {
-		System.out.println("asklist test");
+	public void askList(Model model , @RequestParam(defaultValue="1") int nowPage) {
+	
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "AskId");
+		Page<AskBoard> pageList = askBoardService.getAllAskBoards(pageable); 
 		
-		Page<AskBoard> list = askBoardService.getAllAskBoards(pageable); 
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
 		
-		model.addAttribute("list",list);
-
+		model.addAttribute("pageList",pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+		
 	}
 	
 	

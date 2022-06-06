@@ -4,11 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.PlanBoard;
@@ -21,8 +26,29 @@ public class PlanBoardController {
 	
 	private final PlanBoardService planBoardService;
 	
+	private final static int PAGE_COUNT=6;
+	private final static int BLOCK_COUNT=3;
+	
+	
 	/**전체검색*/
 	@RequestMapping("/board/PlanboardList")
+	public void planList(Model model, @RequestParam(defaultValue="1") int nowPage) {
+		
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "pboardId");
+		Page<PlanBoard> pageList = planBoardService.selectAll(pageable);
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		model.addAttribute("pageList", pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+	}
+	
+	
+	/**전체검색*/
+	/*@RequestMapping("/board/PlanboardList")
 	public void planList(Model model) {
 		List<PlanBoard> list = planBoardService.selectAll();
 		
@@ -30,7 +56,7 @@ public class PlanBoardController {
 		System.out.println("planlist");
 		
 		model.addAttribute("list", list);
-	}
+	}*/
 	
 	/**전체검색 - 관리자*/
 	@RequestMapping("/admin/Planboard_Admin")

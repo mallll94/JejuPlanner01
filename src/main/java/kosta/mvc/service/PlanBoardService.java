@@ -2,6 +2,8 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import kosta.mvc.domain.PlanBoard;
 
 public interface PlanBoardService {
@@ -10,6 +12,10 @@ public interface PlanBoardService {
 	 * 플래너게시판 목록 조회
 	 * */
 	List<PlanBoard> selectAll();
+	
+	/**플래너게시판 페이징처리*/
+	Page<PlanBoard> selectAll(Pageable pageable);
+	
 	
 	/**
 	 * 플래너게시판 상세 조회
@@ -37,4 +43,6 @@ public interface PlanBoardService {
 	 * 플래너게시판 삭제
 	 * */
 	void deletePlanBoard(Long pboardId);
+
+	
 }
