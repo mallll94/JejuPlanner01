@@ -44,7 +44,6 @@ public class DiaryServiceImpl implements DiaryService {
 		QDiary diary = QDiary.diary;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(diary.user.userId.eq(loginUser));
-		
 		Page<Diary> pageList = diaryRep.findAll(builder,pageable);
 		
 		return pageList;

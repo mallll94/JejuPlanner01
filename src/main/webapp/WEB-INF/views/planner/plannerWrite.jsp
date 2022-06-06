@@ -90,48 +90,21 @@ pageEncoding="UTF-8"%>
 			/*googleMap*/
 			var markers =[];
 			//위치 위도 경도
-			var targets =[
-			{ lat: 33.4582 ,lng: 126.9425 },
-			{ lat: 33.4351 ,lng: 126.9231 },
-			{ lat: 33.4242 ,lng: 126.9311 }
-			];
+			var targets =[{ lat: 33.3893 ,lng: 126.5362 }];
 			var mymap;
+			var line;
+			var lineArr=[];
 
 			//지도 조회
 			function initMap() {  
 				const mapDiv= document.getElementById("googleMap");
 				mymap = new google.maps.Map(mapDiv,{
 					center: targets[0],
-					zoom: 13,
+					zoom: 11,
 					mapId: "a0f291588508440c",
 					streetViewControl: false
 				})
 
-				//마커표시
-				/*
-				for(let i=0;i<targets.length;i++){
-					var position = targets[i];
-					alert(position)
-					let marker = new google.maps.Marker({
-					position: position,
-					map: mymap,
-					//animation: google.maps.Animation.Drop
-					})
-					//마커 배열 저장
-					markers.push(marker);
-				}
-				
-				
-				//선잇기
-				var line = new google.maps.Polyline({
-					path : targets,
-					geodesic:true,
-					strokeColor: "#ff841f",
-					strokeOpacity:1.0,
-					strokeWeight:5
-				})
-				line.setMap(mymap);
-				*/
 				addMarker(targets);
 				addLine(targets);
 			}
@@ -151,12 +124,47 @@ pageEncoding="UTF-8"%>
 				}
 			}
 
+			//마커삭제
+			function deleteMarkers() {
+				for (var i = 0; i < markers.length; i++) {
+					markers[i].setMap(null);
+				}
+			}
+			
+			//선삭제
+			function removeRoute(){
+				if(typeof line !== 'undefined'){
+				line.setMap(null);
+				}
+			}
+
+			//선 색 설정
+			function getLineColor(day){	
+				if(day="1"){
+					return "#00C3FF";
+				}else if(day="2"){
+					return "#FFDD00";
+				}else if(day="3"){
+					return "#7C8C91";
+				}else if(day="4"){
+					return "#FF0000";
+				}else if(day="5"){
+					return "#5100FF";
+				}else if(day="6"){
+					return "#FF841F";
+				}else if(day="7"){
+					return "#E9F086";
+				}
+			}
+
+
 			//선잇기
-			function addLine(targets){
+			function addLine(lineArr, lineColor){
 				var line = new google.maps.Polyline({
-					path : targets,
+					path : lineArr,
 					geodesic:true,
-					strokeColor: "#ff841f",
+					//strokeColor: "#ff841f",
+					strokeColor: lineColor,
 					strokeOpacity:1.0,
 					strokeWeight:5
 				})
@@ -176,7 +184,7 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽 사이드바 - 플래너 일정 정보 조회
 				function selectPlaceByMyPlanner(){
-					//alert("플래너 일정 정보 조회")
+					alert("플래너 일정 정보 조회")
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/selectPlannerPlace",
 						type: "post",
@@ -189,32 +197,94 @@ pageEncoding="UTF-8"%>
 							$("#plan-placeList").html("")
 							$("#plan-hotelList").html("")
 
+							//마커 초기화
+							targets =[];
+							lineArr=[];
+
+							//마커를 지우고 다시찍자 
+							//deleteLine(targets);
+							deleteMarkers();
+							removeRoute();
+
+							// let lineDay=plannerplace.plannerPlaceDate;
+							// for(var i=1;i<=Dday+1;i++){
+
+							// }
+							let lineDay="1";
 							$.each(result.plist, function(index,plannerplace){
-								let str="";
-								str+=`<li class='add-plan-card' ppDate="${'${plannerplace.plannerPlaceDate}'}">`
-									str+=`<div class="add-plan-info">`
-									str+=`<div><select class='add-plan-setday' plannerPlaceId="${'${plannerplace.plannerPlaceId}'}" >`
-										for(var i=1;i<=Dday+1;i++){
-											if(plannerplace.plannerPlaceDate!=i){
-												str+=`<option value=${'${i}'}>\${i} 일차</option>`
-											}else{
-												str+=`<option value=${'${i}'} selected>\${i} 일차</option>`
-											}
-										}
-									str+=`</select></div>`
-									str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-									str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
-									str+=`</div>`
-								str+=`</li>`
-								if(plannerplace.placeCategory==="장소"){
-									$("#plan-placeList").append(str);
-								}else if(plannerplace.placeCategory==="숙소"){
-									$("#plan-hotelList").append(str);
+
+								if(plannerplace.plannerPlaceDate==lineDay){
+									let str="";
+										str+=`<li class='add-plan-card' ppDate="${'${plannerplace.plannerPlaceDate}'}">`
+											str+=`<div class="add-plan-info">`
+											str+=`<div><select class='add-plan-setday' plannerPlaceId="${'${plannerplace.plannerPlaceId}'}" >`
+												for(var i=1;i<=Dday+1;i++){
+													if(plannerplace.plannerPlaceDate!=i){
+														str+=`<option value=${'${i}'}>\${i} 일차</option>`
+													}else{
+														str+=`<option value=${'${i}'} selected>\${i} 일차</option>`
+													}
+												}
+											str+=`</select></div>`
+											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`</div>`
+										str+=`</li>`
+									if(plannerplace.placeCategory==="장소"){
+										$("#plan-placeList").append(str);
+									}else if(plannerplace.placeCategory==="숙소"){
+										$("#plan-hotelList").append(str);
+									}
+									//마커찍을 배열저장
+									targets.push({ lat: plannerplace.placeLatitude*=1 ,lng: plannerplace.placeLongitude*=1 })
+									lineArr.push({ lat: plannerplace.placeLatitude*=1 ,lng: plannerplace.placeLongitude*=1 })
+									//마커 찍기
+									addMarker(targets);	
+									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
+									console.log(plannerplace.plannerPlaceDate)
+								}else{
+									lineArr=[];
+									lineDay=plannerplace.plannerPlaceDate
+
+									let str="";
+										str+=`<li class='add-plan-card' ppDate="${'${plannerplace.plannerPlaceDate}'}">`
+											str+=`<div class="add-plan-info">`
+											str+=`<div><select class='add-plan-setday' plannerPlaceId="${'${plannerplace.plannerPlaceId}'}" >`
+												for(var i=1;i<=Dday+1;i++){
+													if(plannerplace.plannerPlaceDate!=i){
+														str+=`<option value=${'${i}'}>\${i} 일차</option>`
+													}else{
+														str+=`<option value=${'${i}'} selected>\${i} 일차</option>`
+													}
+												}
+											str+=`</select></div>`
+											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`</div>`
+										str+=`</li>`
+									if(plannerplace.placeCategory==="장소"){
+										$("#plan-placeList").append(str);
+									}else if(plannerplace.placeCategory==="숙소"){
+										$("#plan-hotelList").append(str);
+									}
+									//마커찍을 배열저장
+									targets.push({ lat: plannerplace.placeLatitude*=1 ,lng: plannerplace.placeLongitude*=1 })
+									lineArr.push({ lat: plannerplace.placeLatitude*=1 ,lng: plannerplace.placeLongitude*=1 })
+									//마커 찍기
+									addMarker(targets);	
+									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
+									console.log(plannerplace.plannerPlaceDate)
+
 								}
+								
+								
 							})
 							$(".planner-plan-hotelList").hide();
 							$(".planner-plan-placeList").show();
 
+							
+							
+							
 						},
 						error: function(error){
 							alert("장소 정보를 불러오지 못했습니다.")
@@ -298,6 +368,8 @@ pageEncoding="UTF-8"%>
 							var Dday = result.Dday;
 							$("#planner-dayset-day").html(Dday+1);
 							$("#plannerId").val(result.planner.plannerId);
+							targetPlannerId= result.planner.plannerId
+							
 						},
 						error: function(error){
 							alert("플래너를 생성하지 못 했습니다.")
@@ -347,7 +419,7 @@ pageEncoding="UTF-8"%>
 					var category =$(this).val();
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/recommend",
-						type:"post",
+						type:"get",
 						dataType:"json",
 						data:{category: category},
 						success: function(result){
@@ -372,9 +444,7 @@ pageEncoding="UTF-8"%>
 						}
 					})
 				})
-
-				//오른쪽 사이드바 - 검색하기
-
+			
 				
 
 				//오른쪽 사이드바 - 모달 정보 ajax
@@ -403,6 +473,7 @@ pageEncoding="UTF-8"%>
 
 				//오른쪽 사이드바 - 장소 추가하기 버튼동작
 				$(document).on("click","#plan-add-bnt",function addPlaceToPlanner(){
+					//alert(targetDate)
 					let targetPlaceId = $(this).attr("placeId")
 					let targetPlaceCategory = $(this).attr("category")
 
@@ -414,11 +485,14 @@ pageEncoding="UTF-8"%>
 					
 					if(targetDate==null){
 						var targetDate="1"
+						alert(targetDate)
+						alert(targetPlannerId)
+						//alert(targetPlaceId)
 					}
 
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
-						alert("우선 여행 날짜를 선택해주세요.22222222");
+						alert("우선 여행 날짜를 선택해주세요.");
 						return;
 					}
 
@@ -439,6 +513,7 @@ pageEncoding="UTF-8"%>
 					})
 					
 				})
+
 				//왼쪽 사이드바 - 장소/숙소 버튼
 				$("#planner-hotel-bnt").on("click",function(){
 					$(".planner-plan-placeList").hide();
@@ -498,13 +573,57 @@ pageEncoding="UTF-8"%>
 
 				})
 
+				//왼쪽사이드바 - 작업완료
+				$(document).on("click","#finish-wirte-bnt", function(){
+					//두 날짜가 비어있으면 함수 빠져나가기
+					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
+						alert("우선 여행 날짜를 선택해주세요.");
+						return;
+					}else{
+						let url = "${pageContext.request.contextPath}/planner/plannerIndex2?plannerId="+ targetPlannerId
+						location.replace(url)
+					}
+				})
+
 
 				getplannerInfo();
 				
 			})
 
+			function getSearchList(){
+				//alert("검색하기")
+				let serchKeyword = $("#searchPlaceKeyWord").val()
+				let nowPage =1;
+				alert(serchKeyword)
+				$.ajax({
+					url: "${pageContext.request.contextPath}/planner/searchPlace",
+					type: "post",
+					dataType: "json",
+					data:{keyword: serchKeyword, nowPage: nowPage} ,
+					success: function(result){
+						alert("검색success")
+						alert("totalPages"+result.totalPages)
+						let str="";
+						$.each(result.pageList,function(index,place){
+							str+="<il class='spot-card'>"
+							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
+								str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+								str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
+									str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+									str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
+							str+=`</div>`
+							str+="</il>"
+						})
+						$("#spotList").html("");
+						$("#spotList").append(str);
 
-			
+					},
+					error: function(error){
+						alert("정보를 불러올 수 없습니다.")
+					}
+				})
+			}
+
 		</script>
 		
 
@@ -560,12 +679,14 @@ pageEncoding="UTF-8"%>
 							</div>
 						</div>
 					</div>
+					<!--완료버튼(좌측 하단)-->
 					<div class="planner-save-area">
-						<form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
+						<!-- <form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
 							<input type="hidden" name="plannerId" value="">
 							<input type="submit" value="작업 완료">
-						</form>
+						</form> -->
 						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
+						<a href="#" id="finish-wirte-bnt" class="btn btn-primary">작업완료</a>
 						
 					</div>
 				</div>
@@ -581,10 +702,10 @@ pageEncoding="UTF-8"%>
 					<div class="search-container">
 						<div class="search-place-keyword-wrapper">
 							<div class="search-place-keyword">
-								<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off"/>
-								<button class="search-place-button" id="searchPlaceButton" onclick="searchPlaceButton()" type="button">
-									<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
-								</button>
+									<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off" onKeyDown="javascript:if (event.keyCode == 13) getSearchList();"/>
+									<button class="search-place-button" id="searchPlaceButton" type="button" onclick="getSearchList()">
+										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
+									</button>
 							</div>
 						</div>
 						<div class="search-place-category">
@@ -656,13 +777,6 @@ pageEncoding="UTF-8"%>
 								</div>
                             </div>
                         </div>
-
-
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"
-                                onclick="dayMealInsert()">등록</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                        </div> -->
                     </div>
 
                 </div>

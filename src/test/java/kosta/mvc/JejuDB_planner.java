@@ -1,6 +1,7 @@
 package kosta.mvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -196,6 +197,19 @@ public class JejuDB_planner {
 		//diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
 		//diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
 	}
+	
+	@Test
+	public void selectBydiaryId() {
+		List<DiaryLine> dlist =diarylineRep.findAllByDiary(1L);
+		System.out.println("dlistSize = " + dlist.size());
+		for (DiaryLine dl : dlist) {
+			PlannerPlace pp = dl.getPlannerPlace();
+			System.out.println("plannerPlaceId" + pp.getPlannerPlaceId());
+			System.out.println("PlaceId" + pp.getPlace().getPlaceName());
+			System.out.println("======================================================================================");
+		}
+	}
+	
 	
 	/**플래너 공유게시판*/
 	//onetomany null처리

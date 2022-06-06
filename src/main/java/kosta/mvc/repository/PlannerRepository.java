@@ -13,4 +13,5 @@ public interface PlannerRepository extends JpaRepository<Planner, Long> {
 	/**userID에 해당하는 레코드 검색*/
 	@Query("select p from Planner p where p.user.userId =?1 order by p.plannerStart asc")
 	List<Planner> selectByUserID(String userId);
+	
 }

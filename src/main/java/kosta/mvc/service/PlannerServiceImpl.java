@@ -76,9 +76,18 @@ public class PlannerServiceImpl implements PlannerService {
 		return null;
 	}
 	
-	/**카테고리별 플래너 일정 조회*/
+	/**플래너 상세 일정 조회*/
 	@Override
-	public List<PlannerPlaceDTO> selectPlaceByPlanner(List<PlannerPlace> list) {
+	public List<PlannerPlaceDTO> selectPlaceByPlanner(Long plannerId) {
+		
+		Planner dbplanner =plannerRep.findById(plannerId)
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		
+		//List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(Long.toString(plannerId));
+
+		
+		//PlannerPlaceDTO
+		List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
 		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
 		
 		for(PlannerPlace x :list) {

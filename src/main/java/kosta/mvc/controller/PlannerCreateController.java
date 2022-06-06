@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +41,9 @@ public class PlannerCreateController {
 	private final PlaceService placeService;
 	private final UserService userService;
 	
-	private final static int PLACE_BLOCK_COUNT=4;
 	private final static int PLACE_PAGE_COUNT=10;
+	private final static int PLACE_BLOCK_COUNT=3;
+	
 	
 	
 	@RequestMapping("/{url}")
@@ -84,14 +88,12 @@ public class PlannerCreateController {
 	@ResponseBody
 	public Map<String, Object> selectPlannerPlace(Long plannerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		Planner dbplanner =plannerService.selectBy(plannerId);
 		
+		Planner dbplanner =plannerService.selectBy(plannerId);
 		//D-day
 		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
 		
-		//PlannerPlaceDTO
-		List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
-		List<PlannerPlaceDTO> plist = plannerService.selectPlaceByPlanner(list);
+		List<PlannerPlaceDTO> plist = plannerService.selectPlaceByPlanner(plannerId);
 
 		map.put("Dday", period.getDays());
 		map.put("plist", plist);
@@ -208,17 +210,22 @@ public class PlannerCreateController {
 	@RequestMapping("/searchPlace")
 	@ResponseBody
 	public Map<String, Object> searchPlace(String keyword, @RequestParam(defaultValue = "1")int nowPage){
+		System.out.println(keyword+" 페이지는 "+nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
-		Page<Place> pageList =placeService.selectByKeyword(keyword, nowPage, PLACE_PAGE_COUNT);
+		Pageable pageable = PageRequest.of((nowPage-1), PLACE_PAGE_COUNT, Direction.DESC, "placeSave");
+		Page<Place> pList =placeService.selectByKeyword(pageable,keyword);
+		List<Place> pageList = pList.getContent();
+		
+		System.out.println(keyword);
 		
 		int temp =(nowPage-1)%PLACE_BLOCK_COUNT;
 		int startPage = nowPage-temp;
 		
 		map.put("pageList", pageList);
-		map.put("totalPages", pageList.getTotalPages());
-		map.put("nowPage", nowPage);
+		map.put("totalPages", pList.getTotalPages());
 		map.put("blockCount", PLACE_BLOCK_COUNT);
 		map.put("startPage", startPage);
+		map.put("nowPage", nowPage);
 		
 		return map;
 	}
