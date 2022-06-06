@@ -81,13 +81,10 @@ public class DiaryController {
 	
 	/**다이어리 상세 조회하기*/
 	@RequestMapping("/diaryRead/{diaryId}")
-	public Map<String, Object> selectByDiaryId(@PathVariable Long diaryId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		Diary diary =diaryservice.selectById(diaryId);
-		List<DiaryLine> dlist = diary.getDiaryLineList();
-		//List<DiaryLineDTO> diarylineList = dlist.
-		return map;
+	public void selectByDiaryId(Model model,@PathVariable Long diaryId) {
+		//Map<String, Object> map = new HashMap<String, Object>();	
+		List<DiaryLineDTO> diaryline =diaryservice.selectById(diaryId);
+		model.addAttribute("diaryline", diaryline);
 	}
 	
 	

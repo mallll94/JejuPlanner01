@@ -1,6 +1,7 @@
 package kosta.mvc.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -16,8 +17,11 @@ import com.querydsl.core.BooleanBuilder;
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QDiary;
 import kosta.mvc.domain.QPlace;
+import kosta.mvc.dto.DiaryLineDTO;
+import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.util.FileStore;
@@ -49,13 +53,26 @@ public class DiaryServiceImpl implements DiaryService {
 		return pageList;
 	}
 	
+	/**다이어리별 다이어리 내용 조회*/
 	@Override
-	public Diary selectById(Long diaryId) {
+	public List<DiaryLineDTO> selectById(Long diaryId) {
 		Diary diary = diaryRep.getById(diaryId);
-		return diary;
+		List<DiaryLine> diaryLinelist =diaryLineRep.findAllByDiary(diaryId);
+		List<DiaryLineDTO> result = new ArrayList<DiaryLineDTO>();
+		
+		for(DiaryLine x :diaryLinelist) {
+			result.add(new DiaryLineDTO(x.getDiaryLineId(), x.getDiary().getDiaryId(), x.getPlannerPlace().getPlannerPlaceId(), x.getDiaryLineContent(),
+					x.getDiaryLinePhoto(), x.getDiaryLinePrice(),x.getPlannerPlace().getPlace().getPlaceId(),  x.getPlannerPlace().getPlace().getPlaceName(),
+					x.getPlannerPlace().getPlace().getPlaceAddr(), x.getPlannerPlace().getPlace().getPlaceContent(),
+					x.getPlannerPlace().getPlace().getPlacePhoto(), x.getPlannerPlace().getPlace().getPlaceUrl()));
+		}
+		
+		return result;
 	}
 	
-	/**다이어리별 다이어리 내용 조회*/
+	
+	
+	
 	
 
 	@Override
