@@ -67,11 +67,9 @@ pageEncoding="UTF-8"%>
                 <div class="row">
                     <c:choose>
                         <c:when test="${empty requestScope.pageList}">
-                        <tr>
-                            <td colspan="5">
-                                <p align="center"><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
-                            </td>
-                        </tr>
+                            <div>
+                                <p><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <c:forEach items="${requestScope.pageList.content}" var="diary"></c:forEach>
@@ -95,6 +93,25 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
+
+        <div class="latest-news mt-150 mb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-latest-news">
+                            <a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
+                            <div class="news-text-box">
+                                <h3><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></h3>
+                                <p class="blog-meta">
+                                    <span class="author"><i class="fas fa-user"></i> Admin</span>
+                                    <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
+                                </p>
+                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
+                                <a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
             
         
 

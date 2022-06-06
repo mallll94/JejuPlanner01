@@ -65,8 +65,7 @@ public class DiaryController {
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
-		
-		
+
 		/**
 		 * List<Diary> dList=pageList.getContent(); 이니까
 		 * view에서  {requestScope.pageList.content}로 content를 붙여야한다!
