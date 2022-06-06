@@ -21,7 +21,10 @@ public class GoodsController {
 
 	private final PlaceService placeService;
 
+	@RequestMapping("/test")
+	public void init() {}
 	/**
+	 * 
 	 * 관리자
 	 * TODO: admin controller로 이동할것
 	 */

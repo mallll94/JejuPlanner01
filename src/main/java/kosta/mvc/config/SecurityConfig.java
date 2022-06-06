@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.loginProcessingUrl("/loginCheck")
 		.usernameParameter("id")//<input type="text" name="id">  input의 name과 usernameParameter의 값이 같아야함
 		.passwordParameter("pwd")//<input type="text" name="pwd"> 
-		.defaultSuccessUrl("/admin/list")//로그인 성공하면 가는 url주소
+		.defaultSuccessUrl("/")//로그인 성공하면 가는 url주소
 		.failureForwardUrl("/user/loginForm?error")
 		.and()
 		.logout()
