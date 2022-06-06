@@ -22,28 +22,26 @@
 	                   <table class="table">
 	                      <thead>
 	                         <tr>
-	                            <th>순서</th>
+	                            <th>카테고리</th>
 	                            <th>제목</th>
 	                            <th>등록일</th>
-	                            <th>수정일</th>
-	                            <th>완료여부</th>
+	                            <th>조회수</th>
 	                         </tr>
 	                      </thead>
-	           			  <c:forEach items="${requestScope.list.content}" var="crewboard">   
+	           			  <c:forEach items="${requestScope.list.content}" var="freeboard">   
 		                      <tbody>
 		                      	<tr>
 		                         	<td>${crewboard.crewId}</td>
-		                            <td> <span><a href="${pageContext.request.contextPath}/board/crew_Detail/${crewboard.crewId}">${crewboard.crewTitle}</a></span></td>
-		                            <td>${crewboard.crewRegdate}</td>  
-		                            <td>${crewboard.crewUpdate}</td>  
-		                            <td>${crewboard.crewState}</td>  
+		                            <td> <span><a href="${pageContext.request.contextPath}/board/freeBoard_Detail/${freeboard.freeId}">${freeboard.freeTitle}</a></span></td>
+		                            <td>${freeboard.freeRegdate}</td>  		                    
+		                            <td>${freeboard.freeReadnum}</td>  
 		                         </tr>
 		                      </tbody>
 		                  </c:forEach>
 	                   </table>
 	                </div>
 	             </div>
-             <button onclick="location='./crew_Write'">작성</button>
+             <button onclick="location='./feeBoard_Write'">작성</button>
           </div>
        </div>
        
@@ -57,7 +55,7 @@
 					<c:if test="${(startPage-blockCount) > 0}">
 						<!-- (-2) > 0  -->
 						<a class="pagination-newer"
-							href="${pageContext.request.contextPath}/board/crew?nowPage=${startPage-1}">PREV</a>
+							href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage-1}">PREV</a>
 					</c:if>
 		
 					<span class="pagination-inner"> <c:forEach var='i'
@@ -69,14 +67,14 @@
 		
 							<c:if test="${not doneLoop}">
 								<a class="${i==nowPage?'pagination-active':page}"
-									href="${pageContext.request.contextPath}/board/crew?nowPage=${i}">${i}</a>
+									href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${i}">${i}</a>
 							</c:if>
 		
 						</c:forEach>
 					</span>
 					<c:if test="${(startPage+blockCount)<=list.getTotalPages()}">
 						<a class="pagination-older"
-							href="${pageContext.request.contextPath}/board/crew?nowPage=${startPage+blockCount}">NEXT</a>
+							href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage+blockCount}">NEXT</a>
 					</c:if>
 		
 				</div>

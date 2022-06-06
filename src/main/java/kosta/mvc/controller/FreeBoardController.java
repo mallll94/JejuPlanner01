@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.service.FreeBoardService;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +30,12 @@ public class FreeBoardController {
 	 * 전체검색
 	**/
 	
-	@RequestMapping("/board/freeBoard")
+//	@RequestMapping("/board/freeBoard")
 	public void list(Model model) {
 		
 		List<FreeBoard> list = freeBoardService.getAllFreeBoards();
 		
-		model.addAllAttributes(list);
+		model.addAttribute("list" , list);
 			
 	} 
 	
@@ -48,7 +47,7 @@ public class FreeBoardController {
 		
 	    List<FreeBoard> list = freeBoardService.getAllFreeBoards();
 		
-		model.addAllAttributes(list);
+		model.addAttribute("list" , list);
 	}
 	
 	/**
@@ -82,7 +81,7 @@ public class FreeBoardController {
 	/**
 	 * 글 등록
 	 **/
-	@RequestMapping(value = "/board/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/freeBoard_Insert", method = RequestMethod.POST)
 	public String insert(FreeBoard freeBoard, HttpSession session) {
 		
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
