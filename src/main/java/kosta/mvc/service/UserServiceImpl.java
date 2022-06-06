@@ -44,21 +44,69 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void selectbyIdandEmail(String userId, String email) {
-		// TODO Auto-generated method stub
+	public String selectbyIdandEmail(Users user) {
+		String id="";
 		
+		QUsers users = QUsers.users;
+		BooleanBuilder builder = new BooleanBuilder();
+		if((user.getUserName()==null ||user.getUserName().equals(""))) {
+			System.out.println("값없는 오류");
+			new RuntimeException("오류가 발생했습니다.");
+		}else {
+			builder.and(users.userName.eq(user.getUserName()));
+			builder.and(users.userPhone.eq(user.getUserPhone()));
+			builder.and(users.userEmail.eq(user.getUserEmail()));
+			System.out.println("111");
+			String userId = userRep.findOne(builder).get().getUserId();			
+			//userId 뒤에 ** 표시 해주는과정
+			int length = userId.length();
+			userId =userId.substring(0,length-2);
+			id = userId+"**";
+		
+		}
+
+		System.out.println("id : "+id);
+		
+		if(id==null || id=="") {
+			id="해당하는 정보가 없습니다.";
+		}
+		return id;
 	}
 
 	
 	@Override
-	public int findPwdCheck(Users users) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String findPwdCheck(Users user) {
+		String id="";
+		
+		QUsers users = QUsers.users;
+		BooleanBuilder builder = new BooleanBuilder();
+		if((user.getUserName()==null ||user.getUserName().equals(""))) {
+			System.out.println("값없는 오류");
+			new RuntimeException("오류가 발생했습니다.");
+			
+		}else {
+			builder.and(users.userName.eq(user.getUserName()));
+			builder.and(users.userPhone.eq(user.getUserPhone()));
+			builder.and(users.userEmail.eq(user.getUserEmail()));
+			builder.and(users.userId.eq(user.getUserId()));
+			System.out.println("111");
+			id = userRep.findOne(builder).get().getUserId();			
+		
+		}
+
+		System.out.println("id : "+id);
+		
+		if(id==null || id=="") {
+			id="해당하는 정보가 없습니다.";
+		}
+		return id;
 	}
 
 	@Override
-	public void findUpdatePwd(String userId, String userPassword) {
-		// TODO Auto-generated method stub
+	public void findUpdatePwd(Users user) {
+		Users result = userRep.findById(user.getUserId()).orElse(user);
+		result.setUserPassword(user.getUserPassword());
+		
 
 	}
 

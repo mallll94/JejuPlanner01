@@ -32,7 +32,7 @@ public interface UserService {
 	/**
 	 * ID찾기
 	 * */
-	void selectbyIdandEmail(String userId, String email);
+	String selectbyIdandEmail(Users user);
 	
 	
 	/**
@@ -40,12 +40,12 @@ public interface UserService {
 	 * 일단은 이렇게 썻는데 아마 바껴야할수도 있다. 그이유는 이메일인증방식때문에
 	 *
 	 * */
-	int findPwdCheck(Users users);
+	String findPwdCheck(Users users);
 	
 	/**
 	 * Pwd 찾고 비번 변경
 	 * */
-	void findUpdatePwd(String userId,String userPassword);
+	void findUpdatePwd(Users user);
 	
 	/**
 	 * 회원탈퇴 - state변경하는거
