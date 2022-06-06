@@ -45,7 +45,15 @@ public class GoodsController {
 	public ModelAndView getGoodsMainView(Model model) {
 		return new ModelAndView("goods/goods_Main");
 	}
-
+	
+	@GetMapping("/view/goods_View/{goodsId}")
+	public ModelAndView getGoodsMainView(@PathVariable("goodsId") Long goodsId, Model model) throws Exception {
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
+		model.addAttribute("goods", goods);
+		return new ModelAndView("goods/goods_View");
+		
+		
+	}
 	@PostMapping("")
 	public void addGoods(Goods goods) {
 		goodsService.addGoods(goods);
