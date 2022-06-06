@@ -58,7 +58,7 @@
                 <div class="contact-form">
                     <div id="success"></div>
                     
-                    <form name="AskBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/insert" onSubmit='return checkValid()' enctype="multipart/form-data">
+                    <form name="AskBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/Askinsert" onSubmit='return checkValid()' enctype="multipart/form-data">
                         
                        <div class="control-group">
                          상담유형 <select name="askCategory" class="form-select" aria-label="Default select example">
