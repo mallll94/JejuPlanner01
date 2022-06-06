@@ -83,7 +83,7 @@
 	 <c:forEach items="${requestScope.list}" var="notice">   
       <div class="card accordion-item active">
         <h2 class="accordion-header" id="headingOne">
-          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
+          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne${notice.noticeId}" aria-expanded="true" aria-controls="accordionOne">
             ${notice.noticeTitle}
           </button>
         </h2>

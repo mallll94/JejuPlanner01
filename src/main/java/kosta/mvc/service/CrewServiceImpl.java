@@ -36,7 +36,7 @@ public class CrewServiceImpl implements CrewService {
 	@Override
 	public Page<CrewBoard> selectAll(Pageable pageable) {
 		
-		return null;
+		return crewBoardRep.findAll(pageable);
 	}
 	
 	

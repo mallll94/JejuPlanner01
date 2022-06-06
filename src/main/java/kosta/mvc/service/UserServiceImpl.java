@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService {
 
 	private final PasswordEncoder passwordEncoder;
 	
+	
+	
 	@Override
 	public Users loginCheck(String userId) {
 		// TODO Auto-generated method stub
@@ -34,7 +36,9 @@ public class UserServiceImpl implements UserService {
 		System.out.println(encodedPassword);
 		users.setUserPassword(encodedPassword);
 		userRep.save(users);
-
+		
+		
+		
 	}
 
 	@Override

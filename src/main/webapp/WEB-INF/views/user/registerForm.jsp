@@ -66,7 +66,8 @@ $(function(){
 			alert("휴대폰 번호를 입력하세요");				
 			return false;
 		}	
-		if(checkResultId==""){
+		if($("#iddou").val()==0){
+			alert(checkResultId);
 			alert("아이디 중복확인을 하세요");
 			return false;
 		}		
@@ -86,10 +87,10 @@ $(function(){
 			success:function(data){						
 				if(data=="fail"){
 					$("#idCheckView").html("중복").css("color","red");
-					checkResultId=="";
+					$("#iddou").val(0);
 				}else{						
 					$("#idCheckView").html("사용가능").css("color","blue");
-					checkResultId==1;
+					$("#iddou").val(1)
 				}
 			}//callback			
 		});//ajax
@@ -252,6 +253,7 @@ $(function(){
                </div>
       </div>
       <div class="modal-footer">
+      	<input type="hidden" id="iddou" value="0"/>
         <button id="codeCheck" type="button" class="btn btn-primary">확인</button>
         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
