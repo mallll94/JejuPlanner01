@@ -84,7 +84,7 @@
                   <th>답변여부</th>
                 </tr>
              </thead>
-             <c:forEach items="${requestScope.list}" var="askboard"> 
+             <c:forEach items="${requestScope.list.content}" var="askboard"> 
                <tbody>
                  <tr>
                    <td>${askboard.askId}</td>
@@ -110,7 +110,51 @@
        </div>                    
      </div>
    </div>
-    
+
+<p></p>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+     <c:choose>
+       <c:when test="${list.first}">
+        <li class="page-item disabled">
+        <a class="page-link" href="?page=${list.number-1}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span></a></li> 
+       </c:when>
+       <c:otherwise>
+        <li class="page-item">
+        <a class="page-link" href="?page=${list.number-1}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span></a></li>
+       </c:otherwise>
+     </c:choose>
+     
+     <c:choose>
+       <c:when test="${list.last}">
+        <li class="page-item disabled">
+        <a class="page-link" href="?page=${list.number+1}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span></a></li>
+       </c:when>
+       <c:otherwise>
+        <li class="page-item">
+        <a class="page-link" href="?page=${list.number+1}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span></a></li>
+       </c:otherwise>
+     </c:choose>
+     
+  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  </ul>
+</nav>
+
+
 
 </body>
 </html>

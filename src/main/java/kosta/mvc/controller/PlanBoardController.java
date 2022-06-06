@@ -32,6 +32,17 @@ public class PlanBoardController {
 		model.addAttribute("list", list);
 	}
 	
+	/**전체검색 - 관리자*/
+	@RequestMapping("/admin/Planboard_Admin")
+	public void planListAdmin(Model model) {
+		List<PlanBoard> list = planBoardService.selectAll();
+		
+		System.out.println("list" + list.size());
+		System.out.println("planlist");
+		
+		model.addAttribute("list", list);
+	}
+	
 	
 	/**플래너게시판 마이페이지 작성한 글 목록 조회*/
 	

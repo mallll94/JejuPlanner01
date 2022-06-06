@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,11 +25,19 @@ public class AskBoardServiceImpl implements AskBoardService {
 	
 	private final FileStore fileStore;
 	
+	
 	/**전체조회*/
 	@Override
 	public List<AskBoard> getAllAskBoards() {
 		
 		return askBoardRep.findAll(Sort.by(Sort.Direction.DESC, "AskId"));
+	}
+	
+	/**전체조회 - 페이지처리*/
+	@Override
+	public Page<AskBoard> getAllAskBoards(Pageable pageable) {
+		
+		return askBoardRep.findAll(pageable);
 	}
 
 
@@ -76,4 +86,7 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 	}
 
+
+
+	
 }

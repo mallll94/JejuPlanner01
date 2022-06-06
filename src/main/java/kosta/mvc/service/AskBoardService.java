@@ -2,6 +2,9 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import kosta.mvc.domain.AskBoard;
 
 public interface AskBoardService {
@@ -9,6 +12,9 @@ public interface AskBoardService {
 	
 	/**등록하기*/
 	public void addAskBoard(AskBoard askBoard, String uploadpath);
+	
+	/**전체검색 - page처리*/
+	Page<AskBoard> getAllAskBoards(Pageable pageable);
 	
 	
 	/**
@@ -26,6 +32,9 @@ public interface AskBoardService {
 	 * 1:1문의 삭제하기 (askBoardId를 이용해)
 	 */
 	public void deleteAskBoard(Long askId);
+
+
+	
 
 
 	

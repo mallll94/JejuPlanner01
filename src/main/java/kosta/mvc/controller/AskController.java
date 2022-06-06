@@ -2,39 +2,57 @@ package kosta.mvc.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
 import kosta.mvc.service.AskBoardService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AskController {
 
 	private final AskBoardService askBoardService;
-
+	
+	
 	/**전체검색 - board에서*/
 	@RequestMapping("/board/AskList") 
+	public void askList(Model model , @PageableDefault(size=5, sort="AskId", direction = Sort.Direction.DESC)Pageable pageable) {
+		System.out.println("asklist test");
+		
+		Page<AskBoard> list = askBoardService.getAllAskBoards(pageable); 
+		
+		model.addAttribute("list",list);
+
+	}
+	
+	
+	/**전체검색 - board에서*/
+	/*@RequestMapping("/board/AskList") 
 	public void askList(Model model) {
 		System.out.println("asklist test");
 
 		List<AskBoard> list = askBoardService.getAllAskBoards();
-
+		
 		model.addAttribute("list",list);
 
-	}
+	}*/
 
 
 	/**전체검색 - admin에서*/
