@@ -36,7 +36,6 @@ public class NoticeServiceImpl implements NoticeService {
 	/**
 	 * 상세보기
 	 **/
-
 	@Override
 	public Notice selectById(Long noticeId) {
 		
@@ -45,11 +44,10 @@ public class NoticeServiceImpl implements NoticeService {
 	   return notice;
 	   
 	}
-    
+	
 	/**
      * 등록하기
      **/
-	
 	@Override
 	public void insert(Notice notice, String uploadPath) {
 		
@@ -76,7 +74,6 @@ public class NoticeServiceImpl implements NoticeService {
 	/**
 	 * 수정하기
 	 **/
-	
 	@Override
 	public Notice update(Notice notice, String uploadPath) {
 		
@@ -105,7 +102,6 @@ public class NoticeServiceImpl implements NoticeService {
 	/**
 	 * 삭제하기
 	 **/
-	
 	@Override
 	public void delete(Long noticeId) {
 		

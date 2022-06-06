@@ -59,6 +59,8 @@ public class PlaceServiceImpl implements PlaceService {
 		
 		builder.and(place.placeName.contains(placeName));
 		
+		
+		
 		Optional<Place> selectPlace = placeRep.findOne(builder);
 		
 		
@@ -112,6 +114,19 @@ public class PlaceServiceImpl implements PlaceService {
 
 		return result;
 	}
+	
+	
+	@Override
+	public Page<Place> selectByKeyword(String keyword, int nowPage, int PageCount) {
+		QPlace place = QPlace.place;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(place.placeName.contains(keyword));
+
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC);
+		Page<Place> result = placeRep.findAll(builder, pageable);
+
+		return result;
+	}
 
 	@Override
 	public List<PlaceDTO> selectByPlanner(List<PlannerPlace> list) {
@@ -129,6 +144,7 @@ public class PlaceServiceImpl implements PlaceService {
 		
 		return result;
 	}
+	
 
 	
 	

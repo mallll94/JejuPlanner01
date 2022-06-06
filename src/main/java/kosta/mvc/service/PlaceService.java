@@ -33,6 +33,12 @@ public interface PlaceService {
 	 * */
 	Page<Place> selectByCata(String cataNo, String placeCategory,int nowPage,int PageCount);
 	
+	
+	/**
+	 * 장소 검색하기
+	 * */
+	Page<Place> selectByKeyword(String keyword, int nowPage,int PageCount);
+	
 	/**
 	 * 장소 등록하기
 	 * */
@@ -53,4 +59,5 @@ public interface PlaceService {
 	 * */
 	List<PlaceDTO> selectByPlanner(List<PlannerPlace> list);
 
+	
 }

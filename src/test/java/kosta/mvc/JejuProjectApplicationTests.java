@@ -88,7 +88,7 @@ class JejuProjectApplicationTests {
 		
 	}
 	
-	
+	/*
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 		@Test
 		void userinsert() {
@@ -99,11 +99,11 @@ class JejuProjectApplicationTests {
 			userRep.save(new Users("ddd", "감자", "112233", 01011112222, "2222@gmail.com", null, null, "M"));
 			userRep.save(new Users("eee", "제주도좋아", "55555", 01055550000, "3333@gmail.com", null, null, "F"));
 			userRep.save(new Users("admin", "관리자", "admin", 000000000000, "Jeju@gmail.com", null, null, "admin"));
-			
+		
 			
 		    //
 			
-		}
+		}*/	
 		//공지사항
 		@Test
 		void noticeinsert() {
@@ -134,7 +134,7 @@ class JejuProjectApplicationTests {
 		@Test
 		void askboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
-			askboardRep.save(new AskBoard(null, user1, "회원가입", "문의드립니다", "회원 수정 시 오류가 떠서 문의드립니다", "사진", "N", null, null) );
+			askboardRep.save(new AskBoard(null, user1, "회원가입", "문의드립니다", "회원 수정 시 오류가 떠서 문의드립니다", "사진", "N", null, null, null) );
 		}
 		*/
 		/**1:1문의 댓글*/

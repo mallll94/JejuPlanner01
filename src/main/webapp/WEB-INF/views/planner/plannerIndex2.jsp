@@ -51,88 +51,19 @@
 	<!-- main js -->
 	<script src="${pageContext.request.contextPath}/js/planner2/main.js"></script>
 	
-
+<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 <script type="text/javascript">
-	/* 
-	function markerLine(data,day){//data = List<PlaceDTO>위도 경도,  숫자 1,2,3,  - > day = List<PlannerPlace>
-		
-		var i;
-		var color;
-		
-		
-		box1=[];
-		box2=[];
-		box3=[];
-		box4=[];
-		box5=[];
-		box6=[];
-		box7=[];
-		box8=[];
-		for(var j =0;j<data.length;j++){
-			addr[j]=[data[j].placeLatitude , data[j].placeLongitude];
-		}
-		
+	var mymap;
+	var markers=[];
+	var line;
+	var targets=[];
 
-		
-		
-		for(i =0;i<data.length;i++){ //List<PlaceDTO> 길만큼 잠
-			
-			var marker = new google.maps.Marker({
-				position: new google.maps.LatLng(addr[i][0], addr[i][1]),
-				map: map,
-				icon:{
-					path:google.maps.SymbolPath.CIRCLE,
-					strokeWeight:0,
-					fillOpacity:1,
-					fillColor:color,
-					scale:10
-				}
-			 });
-			markers.push(marker);
-
-			color = getColor(data[i],day[i]);
-			
-			var title = data[i].placeName;
-			var infowindow = new google.maps.InfoWindow();
-			google.maps.event.addListener(marker, 'click', (function(marker, title) {
-        		return function() {
-					infowindow.setContent(title);
-          			infowindow.open(map, marker);
-        		}
-      		})(marker, title));
-			
-			
-			
-			for(let a=1 ; a<=data.length ; a++){
-				let b = eval("box"+a);
-				
-				if(day[i].plannerPlaceDate==a){
-					
-					b.push(new google.maps.LatLng(addr[i][0], addr[i][1]));	
-					break;
-				}
-				
-			}
-			 
-		};
-		
-		for(let c=1; c<=data.length ; c++){
-			
-		    let obj= eval("box"+c);
-			addLine(markers , getLineColor(c));
-		}
-		
-		
-		
-		
-	} */
-	
-
-	
-
-	
 	$(function(){
+		
+		alert("${param.plannerId}")
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -141,17 +72,21 @@
 		/////이름수정 모달//일정수정
 		$("#option").change(function(){
 			if($(this).val()=="placeName"){
+				// console.log("Ddd",${param.plannerId});
 				$('#NameUpdateModal').modal('show');
 			}else if($(this).val()=="dateUpdate"){
-				 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerWrite/1");//${plannerId}
+					
+				 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerWrite");//${plannerId}
 				 $("#UpdateModalForm").submit();
 			}else if($(this).val()=="placeDelete"){
 				$('#DeleteModal').modal('show');
 			}else if($(this).val()=="share"){
 				$('#shareModal').modal('show');
 			}
-			
+
 		});
+
+		
 		//이름수정
 		$("#update").click(function(){
 			 $("#UpdateModalForm").attr("action", "${pageContext.request.contextPath}/planner/nameUpdate");
@@ -162,8 +97,18 @@
 			 $("#DeleteModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerDelete");
 			 $("#DeleteModalForm").submit();	
 		})
-		$("#share").click(function(){	 
-			 $("#ShareModalForm").submit();	
+		$("#share").click(function(){	
+			if($("#shareSelect").val()=="kakao"){
+				
+			}else if($("#shareSelect").val()=="pdf"){
+				pdfPrint();
+			}else{
+				$("#ShareModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerShareBoard");
+				$("#ShareModalForm").submit();
+			}
+			
+			
+			
 		})
 		
 
@@ -174,6 +119,7 @@
 				dataType: "json",
 				data: {plannerId: '1' ,DayPlanner : no},
 				success: function(result){
+					
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
@@ -214,20 +160,25 @@
 						
 					}
 
-					test=`${'${result.place}'}`
-					$("#test").val(test);
-					ajaxData(result.place);
+					
+					//마커를 지우고 다시찍자 
+					//deleteLine(targets);
+					deleteMarkers();
+					removeRoute();
 					
 					
-					if(no==0){
-						
-						//markerLine(result.place,result.plannerPlaces);
-					}else{
-						
-						//markerLine(result.place,result.plannerPlaces);
+					console.log("after",line);
+					//deleteLine();
+					targets =[];
+					////////////////////
+					for(let v =0;v<result.place.length;v++){		
+						targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
 					}
+					addMarker(targets);	
+					addLine(targets,getLineColor);		
 					
 					
+					console.log("before",line);
 					$("#days").empty();
 					$("#days").append(dayNoLi);
 					$("#days").val(no);
@@ -243,51 +194,46 @@
 				}
 			})
 		}
+		
 		selectAll(0);
 		
-		$('#savePdf').click(function() { // pdf저장 button id
-			
-		    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
-			
-		    // 캔버스를 이미지로 변환
-		    var imgData = canvas.toDataURL('image/png');
-			     
-		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
-		    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
-		    var imgHeight = canvas.height * imgWidth / canvas.width;
-		    var heightLeft = imgHeight;
-		    var margin = 10; // 출력 페이지 여백설정
-		    var doc = new jsPDF('p', 'mm');
-		    var position = 0;
-		       
-		    // 첫 페이지 출력
-		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
-		    heightLeft -= pageHeight;
-		         
-		    // 한 페이지 이상일 경우 루프 돌면서 출력
-		    while (heightLeft >= 20) {
-		        position = heightLeft - imgHeight;
-		        doc.addPage();
-		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-		        heightLeft -= pageHeight;
-		    }
-		 
-		    // 파일 저장
-		    doc.save('file-name.pdf');
+		function pdfPrint(){
+			 // pdf저장 button id	
+			    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
+				
+			    // 캔버스를 이미지로 변환
+			    var imgData = canvas.toDataURL('image/png');
+				     
+			    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+			    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+			    var imgHeight = canvas.height * imgWidth / canvas.width;
+			    var heightLeft = imgHeight;
+			    var margin = 10; // 출력 페이지 여백설정
+			    var doc = new jsPDF('p', 'mm');
+			    var position = 0;
+			       
+			    // 첫 페이지 출력
+			    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+			    heightLeft -= pageHeight;
+			         
+			    // 한 페이지 이상일 경우 루프 돌면서 출력
+			    while (heightLeft >= 20) {
+			        position = heightLeft - imgHeight;
+			        doc.addPage();
+			        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+			        heightLeft -= pageHeight;
+			    }
+			 
+			    // 파일 저장
+			    doc.save('file-name.pdf');
 
-			  
-			});
+				  
+				});
 
-		});
+		}
 	})
 //////////////////////////////////////////
-	var mymap;
-	var markers=[];
-	
-	var targets=[];
-	
-	
-	
+
 	function getColor(place,plannerPlace){
 		if(place.placeCategory =='장소'){
 			if(plannerPlace.plannerPlaceDate==1){
@@ -324,44 +270,21 @@
 				return "#E9F086";
 			}
 	}
-	
-	
-	var box1=[];
-	var box2=[];
-	var box3=[];
-	var box4=[];
-	var box5=[];
-	var box6=[];
-	var box7=[];
-	var box8=[];
-	
-	
-	function initMap(){//지도생성
+	//지도생성
+	function initMap(){
 		const mapDiv= document.getElementById("googleMap");
 		mymap = new google.maps.Map(mapDiv,{
 			center:new google.maps.LatLng(33.3893, 126.5362),
 			zoom:11,
 			mapId: "a0f291588508440c",
 			streetViewControl: false
-		})
-		
-		addMarker(targets,);
-		addLine(targets,getLineColor);
-		
+		})	
 	};
 	
-	function ajaxData(addrs){
-		//var data=document.getElementById("test").value;
-		//console.log(data[1])
-		/* for(var j =0;j<addrs.length;j++){
-			targets[j]=[addrs[j].placeLatitude , addrs[j].placeLongitude];
-		} */
-		
-	}
+
 	//마커표시
 	function addMarker(targets){
 		for(let i=0;i<targets.length;i++){
-			
 			var position = targets[i];
 			//alert(position)
 			let marker = new google.maps.Marker({
@@ -373,10 +296,8 @@
 			markers.push(marker);
 		}
 	}
-	
-	//선 폴리선 잇는법
-	function addLine(targets,lineColor){
-		
+	//선 폴리선 생성
+	function addLine(targets,lineColor){ 
 		
 	    line = new google.maps.Polyline({
 	      path : targets,
@@ -388,30 +309,30 @@
 	    
 	    line.setMap(mymap); 
 	}
+
+	//마커삭제
+	function deleteMarkers() {
+		   for (var i = 0; i < markers.length; i++) {
+		     markers[i].setMap(null);
+		   }
+	}
 	
-	
-	
-	
+	function removeRoute(){
+		 if(typeof line !== 'undefined'){
+		  line.setMap(null);
+		 }
+	}
+/////////////////////////////////////////////////////////////////////	
 
 </script>
-<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 
 
 
 <body>
-<button id="savePdf">출력</button>
-<div id="pdfDiv">
-
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<span id="name"></span>
-				
+				<span id="name"></span>	
 				<select id="option">
 						<option value='none'>관리</option>
 						<option value='dateUpdate' >일정 수정</option>
@@ -419,26 +340,18 @@
 						<option value='share'>공유하기</option>
 						<option value='placeName'>플래너 이름수정</option>
 				</select>
-				
-				
-				<select id="days">
-						
-						
-				</select>
+				<select id="days"></select>
 			</div>
 		</div>
 	</div>
 	<div id="googleMap" style="width: 100%;height: 600px;"></div>
+	<div id="pdfDiv">
 	<div class="latest-news mt-100 mb-150">
 		<div class="container" id="card">
 	
 		</div>
 	</div>
-</div>
-
-
-
-
+	</div>
 <!-- Modal 이름 수정-->
 <div class="modal fade" id="NameUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -462,7 +375,7 @@
                           <label class="col-sm-4 col-form-label" for="basic-default-name">변경할 이름</label>
                           
                          <div class="col-sm-10">
-                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="1"/>
+                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="${param.plannerId}"/>
                          	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="plannerName"/>
                           </div>
                        </div>
@@ -523,7 +436,7 @@
 <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/shareUpdate">	
+      <form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/PlannerShareBoard">	
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">플래너 공유하기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -538,10 +451,10 @@
               <div class="card-body">
                 
                  <div class="row mb-3">
-                 	<select id="shareSelect">
+                 	<select id="shareSelect" name="shareSelect">
                  		<option value="kakao">카카오톡공유</option>
-                 		<option value="kakao">pdf 출력</option>
-                 		<option value="kakao">게시물 공유</option>       	
+                 		<option value="pdf">pdf 출력</option>
+                 		<option value="board">게시물 공유</option>       	
                  	</select>
                                    
                    <div class="col-sm-10">

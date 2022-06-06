@@ -170,11 +170,11 @@ public class JejuDB_planner {
 		Planner planner21 = plannerRep.findById(3L).orElse(null);
 		Planner planner22 = plannerRep.findById(4L).orElse(null);
 		Planner planner31 = plannerRep.findById(5L).orElse(null);
-		diaryRep.save(new Diary(null, user1, planner11, null, planner11.getPlannerName(), planner11.getPlannerType(), planner11.getPlannerCount()));
-		diaryRep.save(new Diary(null, user1, planner12, null, planner12.getPlannerName(), planner12.getPlannerType(), planner12.getPlannerCount()));
-		diaryRep.save(new Diary(null, user2, planner21, null, planner21.getPlannerName(), planner21.getPlannerType(), planner21.getPlannerCount()));
-		diaryRep.save(new Diary(null, user2, planner22, null, planner22.getPlannerName(), planner22.getPlannerType(), planner22.getPlannerCount()));
-		diaryRep.save(new Diary(null, user3, planner31, null, planner31.getPlannerName(), null, planner31.getPlannerCount()));
+		//diaryRep.save(new Diary(null, user1, planner11, null, planner11.getPlannerName(), planner11.getPlannerType(), planner11.getPlannerCount()));
+		//diaryRep.save(new Diary(null, user1, planner12, null, planner12.getPlannerName(), planner12.getPlannerType(), planner12.getPlannerCount()));
+		//diaryRep.save(new Diary(null, user2, planner21, null, planner21.getPlannerName(), planner21.getPlannerType(), planner21.getPlannerCount()));
+		//diaryRep.save(new Diary(null, user2, planner22, null, planner22.getPlannerName(), planner22.getPlannerType(), planner22.getPlannerCount()));
+		//diaryRep.save(new Diary(null, user3, planner31, null, planner31.getPlannerName(), null, planner31.getPlannerCount()));
 	}
 	
 	/**다이어리 내용*/
@@ -191,10 +191,10 @@ public class JejuDB_planner {
 		PlannerPlace pp3 = plannerplaceRep.findById(3L).orElse(null);
 		PlannerPlace pp4 = plannerplaceRep.findById(4L).orElse(null);
 		
-		diarylineRep.save(new DiaryLine(null, diary1, pp1, "신나는 여행~", null, 10000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp2, "신나는 여행~", null, 210000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
-		diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp1, "신나는 여행~", null, 10000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp2, "신나는 여행~", null, 210000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp3, "신나는 여행~", null, 52000));
+		//diarylineRep.save(new DiaryLine(null, diary1, pp4, "신나는 여행~", null, 210000));
 	}
 	
 	/**플래너 공유게시판*/
@@ -210,8 +210,8 @@ public class JejuDB_planner {
 		Planner planner22 = plannerRep.findById(4L).orElse(null);
 		Planner planner31 = plannerRep.findById(5L).orElse(null);
 		
-		planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null, 0));
-		planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null, 0));
+		//planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null, 0 ,null));
+		//planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null, 0 ,null));
 		
 	}
 	

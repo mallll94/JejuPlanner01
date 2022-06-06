@@ -47,6 +47,6 @@ public class Diary {
 	private int diaryCount;
 
 	/** 다이어리 상세 */
-	//@OneToMany(mappedBy = "diary")
-	//private List<DiaryLine> diaryLineList;
+	@OneToMany(mappedBy = "diary")
+	private List<DiaryLine> diaryLineList;
 }
