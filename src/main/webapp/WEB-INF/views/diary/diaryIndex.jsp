@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${requestScope.pageList.content}" var="diary"></c:forEach>
+                            <c:forEach items="${requestScope.pageList.content}" var="diary">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="single-latest-news">
                                         <a href="#"><div class="latest-news-bg diary-bg-1"></div></a>
