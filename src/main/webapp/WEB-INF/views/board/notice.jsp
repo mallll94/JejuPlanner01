@@ -87,7 +87,7 @@
             ${notice.noticeTitle}
           </button>
         </h2>
-        <div id="accordionOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="accordionOne${notice.noticeId}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
           <div class="accordion-body">
           	<div>
           		<img alt="첨부 이미지" src="/images/notice/${notice.noticeAttach}" width="300" height="300">

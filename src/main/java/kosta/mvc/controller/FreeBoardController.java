@@ -1,13 +1,8 @@
 package kosta.mvc.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,54 +21,71 @@ public class FreeBoardController {
 
 	private final FreeBoardService freeBoardService;
 	
+	private final static int PAGE_COUNT=5;
+	private final static int BLOCK_COUNT=10;
+	
 	/**
 	 * 전체검색
 	**/
 	
-//	@RequestMapping("/board/freeBoard")
-	public void list(Model model) {
+	@RequestMapping("/board/freeBoard")
+	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
 		
-		List<FreeBoard> list = freeBoardService.getAllFreeBoards();
+		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
 		
-		model.addAttribute("list" , list);
-			
-	} 
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		model.addAttribute("pageList", pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("freeCategory",freeCategory);
+
+	}
 	
 	/**
 	 * 전체검색 관리자
 	 **/
 	@RequestMapping("/admin/freeBoard_Admin") 
-	public void listForAdmin(Model model) {
+	public void listForAdmin(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
 		
-	    List<FreeBoard> list = freeBoardService.getAllFreeBoards();
+        Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
 		
-		model.addAttribute("list" , list);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		model.addAttribute("pageList", pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("freeCategory",freeCategory);
+
 	}
 	
 	/**
 	 *  페이징처리
 	 **/
-	@RequestMapping("/board/freeBoard")
-	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage) {
-		
-		// 페이징 처리
-		Pageable page = PageRequest.of(nowPage - 1, 10, Direction.DESC, "freeId");
-		Page<FreeBoard> list = freeBoardService.getAllFreeBoards(page);
-		
-		model.addAttribute("list", list);
-		
-		int blockCount = 5;
-		int temp = (nowPage - 1) % blockCount;
-		int startPage = nowPage - temp;
-		
-		model.addAttribute("blockCount", blockCount);
-		model.addAttribute("startPage", startPage);
-	}
+	/*
+	 * @RequestMapping("/board/freeBoard") public void list(Model
+	 * model, @RequestParam(defaultValue = "1") int nowPage) {
+	 * 
+	 * // 페이징 처리 Pageable page = PageRequest.of(nowPage - 1, 10, Direction.DESC,
+	 * "freeId"); Page<FreeBoard> list = freeBoardService.getAllFreeBoards(page);
+	 * 
+	 * model.addAttribute("list", list);
+	 * 
+	 * int blockCount = 5; int temp = (nowPage - 1) % blockCount; int startPage =
+	 * nowPage - temp;
+	 * 
+	 * model.addAttribute("blockCount", blockCount); model.addAttribute("startPage",
+	 * startPage); }
+	 */
 	
 	/**
 	  * 글 등록폼
 	  **/
-	@RequestMapping("/board/feeBoard_Write")
+	@RequestMapping("/board/freeBoard_Write")
 	public void write() {
 		
 	}
@@ -95,7 +107,7 @@ public class FreeBoardController {
 	 * 상세보기
 	 **/
 	@RequestMapping("board/freeBoard_Detail/{freeId}")
-	public ModelAndView read(@PathVariable Long freeId) {
+	public ModelAndView read(@PathVariable Long freeId) {	
 		FreeBoard freeBoard = freeBoardService.getFreeBoard(freeId, true);
 		return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
 	}
@@ -128,7 +140,6 @@ public class FreeBoardController {
     @RequestMapping("/board/freeBoard_delete/{freeId}")
 	 public String delete(@PathVariable Long freeId) {
 		 freeBoardService.deleteFreeBoard(freeId);		 
-		 
 		 return "redirect:/board/freeBoard"; 
 	 
 	 }

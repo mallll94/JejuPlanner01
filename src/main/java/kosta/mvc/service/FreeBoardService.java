@@ -28,17 +28,22 @@ public interface FreeBoardService {
 	/**
 	 * 소통게시판 조회하기
 	 */
-	public FreeBoard getFreeBoard(Long freeBoardId, boolean state);
+	public FreeBoard getFreeBoard(Long freeId, boolean state);
 	
 	/**
 	 * 소통게시판 삭제하기
 	 */
-	public void deleteFreeBoard(Long freeBoardId);
+	public void deleteFreeBoard(Long freeId);
 
 	/**
 	 * 소통게시판 Page 처리
 	 **/
 	Page<FreeBoard> getAllFreeBoards(Pageable pageable);
+	
+	/**
+	 * 카테고리별 조회하기
+	 **/
+	Page<FreeBoard> selectByCate(String freeCategory, int nowPage, int PageCount);
 
 
 }

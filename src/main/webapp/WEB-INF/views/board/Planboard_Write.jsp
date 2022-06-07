@@ -90,7 +90,7 @@
 	                </div> 
 
                         <div align="right">
-                            <button onclick="location = '${pageContext.request.contextPath}/board/PlanboardList'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">등록하기</button>
+                            <button onclick="location = '/board/PlanboardList'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">등록하기</button>
                         </div>
                     
                     </form>

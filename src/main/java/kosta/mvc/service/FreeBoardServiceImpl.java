@@ -6,13 +6,17 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kosta.mvc.domain.CrewBoard;
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.FreeBoard;
+import kosta.mvc.domain.QFreeBoard;
 import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +34,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 * 소통게시판 등록하기
 	 */
 	@Override
-	public void addFreeBoard(FreeBoard freeBoard, String uloadPath) {
+	public void addFreeBoard(FreeBoard freeBoard, String uploadPath) {
 		
 		FreeBoard saveFreeBoard = freeBoardRep.save(freeBoard);
 		
@@ -40,9 +44,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 				throw new RuntimeException("올바른 이미지형식이 아닙니다.");
 			}
 			try {
-				String storeFIleName = fileStore.storeFile(uloadPath, file);
+				String storeFIleName = fileStore.storeFile(uploadPath, file);
 				saveFreeBoard.setFreeAttach(storeFIleName);
 			}catch(IOException e) {
+				e.printStackTrace();
 				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
 			}
 		}
@@ -105,14 +110,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 * 소통게시판 조회하기
 	 */
 	@Override
-	public FreeBoard getFreeBoard(Long freeBoardId, boolean state) {
+	public FreeBoard getFreeBoard(Long freeId, boolean state) {
 		
 		if(state) {
 			//조회수 여부
-			freeBoardRep.updateReadNum(freeBoardId);
+			freeBoardRep.updateReadNum(freeId);
 		}
 		
-		FreeBoard freeBoard = freeBoardRep.findById(freeBoardId).orElse(null);
+		FreeBoard freeBoard = freeBoardRep.findById(freeId).orElse(null);
+		System.out.println("freeId" +freeBoard.getFreeId());
+		System.out.println("freeTitle" +freeBoard.getFreeTitle());
+		System.out.println("freeContent" +freeBoard.getFreeContent());
 		if(freeBoard==null) new RuntimeException("상세보기에 오류가 발생했습니다.");
 		return freeBoard;
 	}
@@ -131,7 +139,29 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		
 		freeBoardRep.deleteById(freeBoardId);
 		
-
 	}
-
+	
+	/**
+	 * 카테고리별 조회
+	 **/
+    @Override
+	public Page<FreeBoard> selectByCate(String freeCategory, int nowPage, int PAGE_COUNT){
+		QFreeBoard free = QFreeBoard.freeBoard;
+		BooleanBuilder builder = new BooleanBuilder();
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC , "freeId");
+		
+		
+		Page<FreeBoard> result = null;
+		
+		if(freeCategory == null){
+			 result = freeBoardRep.findAll(pageable);
+		}else{
+			builder.and(free.freeCategory.contains(freeCategory));
+			
+			result = freeBoardRep.findAll(builder, pageable);
+		}
+		
+		
+		return result;
+	}
 }
