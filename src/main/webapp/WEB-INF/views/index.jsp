@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-내용
+${pageContext.request.userPrincipal.name}
 </body>
 </html>

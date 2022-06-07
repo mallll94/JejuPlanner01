@@ -62,14 +62,15 @@
 							<li><a href="">관리자 페이지</a></li>
 							<li><a href="">로그아웃</a></li>
 						</c:when>
-						<c:when test="${sessionScope.loginUser == null}">
-							<li><a href="">로그인</a></li>
-							<li><a href="">회원가입</a></li>
+						<c:when test="${empty pageContext.request.userPrincipal}">
+							<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
+							<li><a href="${pageContext.request.contextPath}/user/registerForm">회원가입</a></li>
 							<li><a href="">장바구니</a></li>
 						</c:when>
 						<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/cart/cartList">장바구니</a></li>
 							<li><a href="">마이페이지</a></li>
-							<li><a href="">로그아웃</a></li>
+							<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
 						</c:otherwise>
 					</c:choose>
 						<li>

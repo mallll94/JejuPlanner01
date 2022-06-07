@@ -1,6 +1,7 @@
 package kosta.mvc.service;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,12 @@ public interface PlanBoardService {
 	 * 플래너게시판 삭제
 	 * */
 	void deletePlanBoard(Long pboardId);
+
+	
+	/**카테고리별 조회하기*/
+	Page<PlanBoard> selectByCate(String pboarCategory, int nowPage, int PageCount);
+
+	
 
 	
 }

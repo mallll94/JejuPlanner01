@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <script type="text/javascript">
 
@@ -154,18 +157,17 @@ $(function(){
 		$("#requestForm").submit();
 	}) 
  }) 
-
-
+     
 </script>
+
+
 
 
 </head>
 
-
 <body>
 
 
- 
 	<div class="container-fluid pt-5">
   		<div class="text-center mb-4">
       		<h2 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h2> 
@@ -175,6 +177,24 @@ $(function(){
       <div class="col-lg-7 mb-5">
           <div class="contact-form">
               <div id="success"></div>
+              
+              <!-- 하트 -->
+              <div align="right">
+                <i class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i> 좋아요
+                <script>
+                 var i = 0;
+                 $('i').on('click',function(){
+                    if(i==0){
+                       $(this).attr('class','bi-heart-fill');
+                       i++;
+                    }else if(i==1){
+                       $(this).attr('class','bi-heart');
+                       i--;
+                    }
+                 });
+               </script> 
+			 </div>	
+			   
 
  		<div class="control-group">
          	카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
@@ -224,7 +244,7 @@ $(function(){
             </div>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
             <input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
-            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" >댓글 등록하기</button>
+            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
     	</form>
     </div>
 </div>

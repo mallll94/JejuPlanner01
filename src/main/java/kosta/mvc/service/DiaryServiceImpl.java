@@ -1,7 +1,10 @@
 package kosta.mvc.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +19,11 @@ import com.querydsl.core.BooleanBuilder;
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QDiary;
 import kosta.mvc.domain.QPlace;
+import kosta.mvc.dto.DiaryLineDTO;
+import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.util.FileStore;
@@ -44,19 +50,35 @@ public class DiaryServiceImpl implements DiaryService {
 		QDiary diary = QDiary.diary;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(diary.user.userId.eq(loginUser));
-		
 		Page<Diary> pageList = diaryRep.findAll(builder,pageable);
 		
 		return pageList;
 	}
 	
+	/**다이어리별 다이어리 내용 조회*/
 	@Override
-	public Diary selectById(Long diaryId) {
-		Diary diary = diaryRep.getById(diaryId);
-		return diary;
+	public Map<String, Object> selectById(Long diaryId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Diary dbDiary = diaryRep.findById(diaryId)
+				.orElseThrow(() -> new RuntimeException("해당 다이어리를 찾을 수 없습니다."));
+		List<DiaryLine> diaryLinelist =diaryLineRep.findAllByDiary(dbDiary.getDiaryId());
+		List<DiaryLineDTO> result = new ArrayList<DiaryLineDTO>();
+		
+		for(DiaryLine x :diaryLinelist) {
+			result.add(new DiaryLineDTO(x.getDiaryLineId(), x.getDiary().getDiaryId(), x.getPlannerPlace().getPlannerPlaceId(), x.getDiaryLineContent(),
+					x.getDiaryLinePhoto(), x.getDiaryLinePrice(),x.getPlannerPlace().getPlace().getPlaceId(),  x.getPlannerPlace().getPlace().getPlaceName(),
+					x.getPlannerPlace().getPlace().getPlaceAddr(), x.getPlannerPlace().getPlace().getPlaceContent(),
+					x.getPlannerPlace().getPlace().getPlacePhoto(), x.getPlannerPlace().getPlace().getPlaceUrl()));
+		}
+
+		map.put("diary", dbDiary);
+		map.put("diaryline", result);
+		return map;
 	}
 	
-	/**다이어리별 다이어리 내용 조회*/
+	
+	
+	
 	
 
 	@Override

@@ -15,9 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -57,6 +60,9 @@ public class FreeBoard {
 	
 	@UpdateTimestamp
 	private LocalDateTime freeUpdate;
+	
+	@Transient
+	private MultipartFile file;
 	
 	/** 댓글 */
 	//@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)

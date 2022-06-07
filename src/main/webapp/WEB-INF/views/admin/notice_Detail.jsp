@@ -78,8 +78,7 @@
     
 <script type="text/javascript">
         
-        $(function() {
-		 alert(1)	
+        $(function() {	
 	
         $("button[value=수정]").click(function() {
         	$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/notice_updateForm");

@@ -34,7 +34,7 @@ public class DiaryController {
 	private final DiaryService diaryservice;
 	private final UserService userService;
 	
-	private final static int PAGE_COUNT=1;
+	private final static int PAGE_COUNT=6;
 	private final static int BLOCK_COUNT=3;
 	
 	@RequestMapping("/{url}")
@@ -65,8 +65,7 @@ public class DiaryController {
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
-		
-		
+
 		/**
 		 * List<Diary> dList=pageList.getContent(); 이니까
 		 * view에서  {requestScope.pageList.content}로 content를 붙여야한다!
@@ -81,13 +80,12 @@ public class DiaryController {
 	
 	/**다이어리 상세 조회하기*/
 	@RequestMapping("/diaryRead/{diaryId}")
-	public Map<String, Object> selectByDiaryId(@PathVariable Long diaryId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		Diary diary =diaryservice.selectById(diaryId);
-		List<DiaryLine> dlist = diary.getDiaryLineList();
-		//List<DiaryLineDTO> diarylineList = dlist.
-		return map;
+	public String selectByDiaryId(Model model,@PathVariable Long diaryId) {
+		//Map<String, Object> map = new HashMap<String, Object>();	
+		Map<String, Object> map =diaryservice.selectById(diaryId);
+		model.addAttribute("diary", map.get("diary"));
+		model.addAttribute("diaryline", map.get("diaryline"));
+		return "/diary/diaryRead";
 	}
 	
 	
