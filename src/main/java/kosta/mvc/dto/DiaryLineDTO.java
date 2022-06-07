@@ -26,6 +26,7 @@ public class DiaryLineDTO {
 	private String placeContent;
 	private String placePhoto;
 	private String placeUrl;
+	private int plannerPlaceDate;
 	
 //	private String diaryTitle;
 //	private String diaryType;

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Diary;
 import kosta.mvc.domain.DiaryLine;
+import kosta.mvc.dto.DiaryDTO;
 import kosta.mvc.dto.DiaryLineDTO;
 
 
@@ -23,10 +24,11 @@ public interface DiaryService {
 	 * */
 	Page<Diary> selectAllPageing(Pageable pageable, String loginUser);
 	
+	
 	/**
 	 * 다이어리 상세 조회
 	 * */
-	Map<String, Object> selectById(Long diaryId);
+	DiaryDTO selectDiaryLineByDiaryId(Long diaryId);
 	
 	/**
 	 * 다이어리 생성
