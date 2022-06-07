@@ -1,6 +1,8 @@
 package kosta.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,13 @@ import kosta.mvc.domain.Cart;
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.GoodsDTO;
 import kosta.mvc.dto.GoodsLineDTO;
 import kosta.mvc.dto.UsersDTO;
 import kosta.mvc.service.CartService;
 import kosta.mvc.service.GoodsLineService;
 import kosta.mvc.service.GoodsService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -38,19 +42,30 @@ public class CartController {
 	@RequestMapping("/select")
 	@ResponseBody
 	public Map<String, Object> selectAll(){
-		Map<String, Object> map = new HashMap<String, Object>();
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Cart cart=cartService.select(users);
-		/*
-		UsersDTO usersDTO = new UsersDTO(cart.getUser().getUserId(), cart.getUser().getUserName(), 
-				cart.getUser().getUserPassword(), cart.getUser().getUserPhone(), cart.getUser().getUserEmail(),
-				cart.getUser().getJoinDate(), cart.getUser().getUserState(), cart.getUser().getUserGender(), cart.getUser().getRole());
-		*/
-		GoodsLineDTO goodsLineDTO = new GoodsLineDTO(cart.getGoodsLine().getGoodsLineId(), cart.getGoodsLine().getGoods(),cart.getGoodsLine().getGoodsLineAmount(), cart.getGoodsLine().getGoodsLineDate());
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<GoodsDTO> goodsDTOList = new ArrayList<GoodsDTO>();
+		List<GoodsLineDTO> goodsLineDTOList= new ArrayList<GoodsLineDTO>();
+		List<Cart> cart=cartService.select(users);
+		
+
+		for(Cart x : cart) {
+			goodsDTOList.add(new GoodsDTO(x.getGoodsLine().getGoods().getGoodsId(),
+					x.getGoodsLine().getGoods().getPlace(), x.getGoodsLine().getGoods().getGoodsLocalCategory(), x.getGoodsLine().getGoods().getGoodsCategory(),
+					x.getGoodsLine().getGoods().getGoodsName(), x.getGoodsLine().getGoods().getGoodsPrice(),
+					x.getGoodsLine().getGoods().getGoodsContent(), x.getGoodsLine().getGoods().getGoodsPhoto(), x.getGoodsLine().getGoods().getGoodsAddr()));
+			
+			goodsLineDTOList.add(new GoodsLineDTO(x.getGoodsLine().getGoodsLineId(), null, x.getGoodsLine().getGoodsLineAmount(), x.getGoodsLine().getGoodsLineDate()));
+			
+		}
+		System.out.println(goodsLineDTOList.get(0).getGoodsLineAmount());
+		
 		map.put("cart", cart);
-		map.put("goodsLine",goodsLineDTO);
+		map.put("goods",goodsDTOList);
+		map.put("goodsLine",goodsLineDTOList);
 		return map;
 	}
+	
 	
 	
 	@RequestMapping("/cartInsert")
@@ -61,5 +76,13 @@ public class CartController {
 		cartService.addCart(goodsLine,user);
 		
 		return "/goods/test";
+	}
+	
+	@RequestMapping("/cartDelete")
+	@ResponseBody
+	public void delete(Long [] deleteBox) throws Exception {//goodsId ,count ,date는 productDetail 생성후 이름값 비교해서 변경해줘야함	
+		for(Long x : deleteBox) {
+			cartService.deleteCart(x);
+		}
 	}
 }

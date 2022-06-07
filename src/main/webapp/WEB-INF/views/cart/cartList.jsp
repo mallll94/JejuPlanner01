@@ -42,16 +42,55 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		
-		//수량 변경-
-		$("#minus").click(function(){
-			alert(2);
+		var deleteBox = [];
+		//수량 변경- // 총가격 변경
+		$(document).on("click","#minus",function(){	
+			var id = "#goodsLineAmount"+$(this).val();
+			var price = "#price"+$(this).val();
+			var totalprice = "#totalprice"+$(this).val();
+			if($(id).val()>1){	
+				$(id).val(parseInt($(id).val())-1)
+				$(totalprice).html(parseInt($(price).html())*parseInt($(id).val()));
+			}
+		})	
+		//수량 변경+ // 총가격 변경
+		$(document).on("click","#plus",function(){
+			var id = "#goodsLineAmount"+$(this).val()
+			var price = "#price"+$(this).val();
+			var totalprice = "#totalprice"+$(this).val();	
+			$(id).val(parseInt($(id).val())+1)
+			$(totalprice).html(parseInt($(price).html())*parseInt($(id).val()));
 		})
 		
-		//수량 변경+
-		$("#check").click(function(){
-			alert(2);
+		//전체 선택 해제
+		$(document).on('click','#allCheck',function(){     
+			if($("#allCheck").val()==0){        
+				$('.form-check-input').prop('checked',true);
+				$("#allCheck").val(1);
+		    }
+			else{        
+				$('.form-check-input').prop('checked',false);    
+				$("#allCheck").val(0);
+			} 
+		});
+		
+		
+		//선택된거 삭제
+		$(document).on('click','#pointDelete',function(){ 
+			var selectLength =$("[name=checkboxNoLabel]").length;
+			//alert(selectLength);
+			deleteBox = [];
+			for (var i=0; i<selectLength; i++) {
+					if ($("[name=checkboxNoLabel]")[i].checked == true) {
+					deleteBox.push($("[name=checkboxNoLabel]")[i].value); 
+				}
+			}
+			
+			CheckDelete(deleteBox);
 		})
+
+		
+		
 		
 		//장바구니 뿌려주는
 		function selectAll(){
@@ -59,22 +98,82 @@
 			$.ajax({
 				url:"${pageContext.request.contextPath}/cart/select", //서버요청주소
 				type:"post", // 요청방식(get, post)
+				//traditional: true,
 				dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-				data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' },
 				success: function(result){
+					
+						var data="";
+						
+					$.each(result.goods, function(index, item){
+						
+						var no = `${'${result.goodsLine[index].goodsLineAmount}'}`;
+						var price = `${'${item.goodsPrice}'}`;
+						var total = no*price;
+						data+=`<tr class='table_row'><td class='column-1'>`;
+						data+=`<input class='form-check-input' type='checkbox' id='checkboxNoLabel' name='checkboxNoLabel' checked value=${"${result.cart[index].cartId}"}>`;
+						data+=`<div class='how-itemcart1'><img src='../img/bottom_logo.png' alt='IMG'></div>`;
+						data+=`</td>`;
+						data+=`<td class='column-2'>${'${item.goodsName}'}</td>`;	
+						data+=`<td class='column-3'><span id='price${"${index}"}'>${'${item.goodsPrice}'}</span></td>`;		
+						data+=`<td class='column-6'>${'${result.goodsLine[index].goodsLineDate}'}<input type='hidden' name='goodsLineDate'/></td>`;	
+						data+=`<td class='column-4'>`;
+						data+=`<div class='wrap-num-product flex-w m-l-auto m-r-0'>`;
+						data+=`<button type='button' id='minus' value=${"${index}"}>`;
+						data+=`<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>`;
+						data+=`<i class='fs-16 zmdi zmdi-minus'></i></div></button>`;
+						data+=`<input class='mtext-104 cl3 txt-center num-product' min='0' type='number' id='goodsLineAmount${"${index}"}' value=${'${result.goodsLine[index].goodsLineAmount}'}>`;	
+						data+=`<button type='button' id='plus' value=${"${index}"}>`;		
+						data+=`<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m' >`;		
+						data+=`<i class='fs-16 zmdi zmdi-plus'></i></div></button></div></td>`;		
+						data+=`<td class='column-5'><span id='totalprice${"${index}"}'>${'${total}'}</span></td></tr>`;	
+
+					})
+					$("#cartTable tr:gt(0)").remove();
+					$("#cartTable tr:eq(0)").after(data);
+					
 					//alert(result.cart.cartId);
-					
-					
-					
-					
-					
-					
+						
+
 				},
 				error: function(err){
 					alert(err);
 				}	
 			});//ajax
 		}//selectAll
+		
+		function CheckDelete(box){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/cart/cartDelete", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				traditional: true,
+				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				data: { '${_csrf.parameterName}' : '${_csrf.token}',deleteBox : box},
+				success: function(result){
+					selectAll();
+						
+
+				},
+				error: function(err){
+					alert("delete 오류");
+				}	
+			});//ajax
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		selectAll();
 	});//jquery
 	
@@ -91,16 +190,17 @@
 						<div >
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 m-r-10 pointer m-tb-5">
-									<button type="button">전체선택</button>
+									<button type="button" id="allCheck" value='1'>전체선택</button>
 								</div>	
 									
 								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-									<button type="button">선택한 상품 삭제</button>
+									<button type="button" id="pointDelete">선택한 상품 삭제</button>
 								</div>
 							</div>	
 						</div>
+						
 						<div class="wrap-table-shopping-cart">
-							<table class="table-shopping-cart">
+							<table class="table-shopping-cart" id="cartTable">
 								<tr class="table_head">
 									<th class="column-1">Product</th>
 									<th class="column-2"></th>
@@ -109,38 +209,6 @@
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
 								</tr>
-
-								<tr class="table_row">
-									
-									<td class="column-1">
-										<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" checked>
-										<div class="how-itemcart1">
-											<img src="../img/bottom_logo.png" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">Fresh Strawberries</td>
-									<td class="column-3">$ 36.00</td>
-									<td class="column-6">2022/02/22<input type="hidden" name="goodsLineDate"/></td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<button type="button" id="minus">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-											</button>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="goodsLineAmount" value="1">
-											
-											<button type="button" id="plus">
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" >
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-											</button>
-										</div>
-									</td>
-									<td class="column-5">$ 36.00</td>
-								</tr>
-
 							</table>
 						</div>
 
@@ -175,9 +243,6 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		
 	</form>
 </body>
 	
