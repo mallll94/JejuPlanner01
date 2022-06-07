@@ -42,7 +42,7 @@
 
     <script>
         function showDetail(goodsId) {
-            window.location.href = '${path}/front?key=goods&methodName=goodsView&goodsId=' + goodsId;
+            window.location.href = '${path}/goods/view/goods_View/' + goodsId;
         }
     </script>
 
