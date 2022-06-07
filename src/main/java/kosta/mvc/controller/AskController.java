@@ -50,9 +50,29 @@ public class AskController {
 		
 	}
 	
+	/**전체검색 - admin에서*/
+	@RequestMapping("/admin/AskList_Admin")
+	public void askListAdmin(Model model , @RequestParam(defaultValue= "1") int nowPage) {
+		
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT , Direction.DESC , "AskId");
+		Page<AskBoard> pageList = askBoardService.getAllAskBoards(pageable);
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		System.out.println("adminList test");
+		
+		//List<AskBoard> list = askBoardService.getAllAskBoards();
+			
+		model.addAttribute("pageList",pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+	}
 	
-	/**전체검색 - board에서*/
-	/*@RequestMapping("/board/AskList") 
+	
+	/**전체검색*/
+	/*@RequestMapping("/admin/AskList_Admin") 
 	public void askList(Model model) {
 		System.out.println("asklist test");
 
@@ -63,17 +83,6 @@ public class AskController {
 	}*/
 
 
-	/**전체검색 - admin에서*/
-	@RequestMapping("/admin/AskList_Admin")
-	public void askListAdmin(Model model) {
-		System.out.println("adminList test");
-		
-		List<AskBoard> list = askBoardService.getAllAskBoards();
-			
-		model.addAttribute("list",list);
-	}
-
-	
 	/**글 등록폼*/
 	@RequestMapping("/board/AskBoard")
 	public void write() {
