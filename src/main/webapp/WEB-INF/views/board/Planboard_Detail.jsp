@@ -157,6 +157,57 @@ $(function(){
 		$("#requestForm").submit();
 	}) 
  }) 
+ 
+$(document).ready(function(){
+	const boardId = "${planBoard.pboardId}"
+	const userId = "aaa"
+	let likeVal = "${likes}"
+	alert(likeVal)
+	if(likeVal > 0 ){
+		$("#liked-heart").attr('class','bi-heart-fill');
+	}else{
+		$("#liked-heart").attr('class','bi-heart');
+	}
+	
+	//좋아요 버튼 클릭시 실행 
+	$("#liked-heart").on("click", function(){
+		$.ajax({
+			url: "/like",
+			type: "POST",
+			data:{pboardId : pboardId , userId : userId},
+			succecss: function(data){
+				if(data == 1){
+					$("#liked-heart").attr('class','bi-heart-fill');
+					location.href="board/Planboard_Detail/" + pboardId;
+				}else{
+					$("#liked-heart").attr('class','bi-heart');
+					location.href="board/Planboard_Detail/" + pboardId;
+				}
+			}, error : function(){
+				alert("오류가 났습니다.")
+			}
+			
+		})
+		
+	})
+	
+	
+})
+/*  var i = 0;
+ $('i').on('click',function(){
+    if(i==0){
+       $(this).attr('class','bi-heart-fill');
+       i++;
+    }else if(i==1){
+       $(this).attr('class','bi-heart');
+       i--;
+    }
+ }); */
+ 
+ 
+ 
+ 
+ 
      
 </script>
 
@@ -180,19 +231,8 @@ $(function(){
               
               <!-- 하트 -->
               <div align="right">
-                <i class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i> 좋아요
-                <script>
-                 var i = 0;
-                 $('i').on('click',function(){
-                    if(i==0){
-                       $(this).attr('class','bi-heart-fill');
-                       i++;
-                    }else if(i==1){
-                       $(this).attr('class','bi-heart');
-                       i--;
-                    }
-                 });
-               </script> 
+                <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
+                좋아요 ${planBoard.pboardGood}            
 			 </div>	
 			   
 

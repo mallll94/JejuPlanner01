@@ -1,7 +1,9 @@
 package kosta.mvc.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +27,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -71,7 +71,7 @@ public class PlanBoard {
 	private List<PlanReply> planReply;
 	
 	/**좋아요*/
-	@OneToMany(mappedBy = "planBoard")
-	private List<Likes> likeList;
+	@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
+	Set<Likes> likes = new HashSet<>();
 
 }

@@ -14,9 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.querydsl.core.BooleanBuilder;
 
+import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.QPlanBoard;
+import kosta.mvc.domain.Users;
+import kosta.mvc.repository.LikesRepository;
 import kosta.mvc.repository.PlanBoardRepository;
+import kosta.mvc.repository.UserRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +32,10 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	private final PlanBoardRepository planBoardRep;
 
 	private final FileStore fileStore;
+	
+	private final LikesRepository likesRep;
+	
+	private final UserRepository userRep;
 
 	/**전체조회*/
 	@Override
@@ -51,6 +59,14 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 				.orElseThrow(() -> new RuntimeException("상세보기에 오류가 발생하였습니다."));
 
 		return planBoard;
+	}
+	
+	/**좋아요 조회*/
+	@Override
+	public Likes selectByBoardId(Long pboardId, String userId) {
+		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
+		
+		return likes;
 	}
 
 	@Override
@@ -147,6 +163,31 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		
 		return result;
 	}
+
+	@Override
+	public int saveLikes(Long pboardId, String userId) {
+		PlanBoard planBoard = planBoardRep.findById(pboardId)
+				.orElseThrow(() -> new RuntimeException("게시글이 조회되지 않습니다."));
+		
+		Users user = userRep.findById(userId)
+				.orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
+	
+		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
+		
+		if(likes==null) {
+			likesRep.save(new Likes(null, user, planBoard) );
+	        
+			return 1;
+		}else {
+			likesRep.deleteById(likes.getLikeId());
+			
+			return 0;
+		}
+		
+		
+	}
+
+
 
 	
 
