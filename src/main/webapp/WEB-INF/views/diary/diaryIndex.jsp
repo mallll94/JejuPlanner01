@@ -54,65 +54,54 @@ pageEncoding="UTF-8"%>
         <script src="${pageContext.request.contextPath}/js/diary/main.js"></script>
 
         <style>
-            .diary-bg-1 {
-                background-image: url(../../../img/diary-default.jpg);
-            }
+            .diary-bg-1 {background-image: url(../../../img/diary-default.jpg);}
+            .when-empty-message{text-align: center;}
         </style>
         
 	</head>
 	<body>
-        <!-- latest news -->
-        <div class="latest-news mt-150 mb-150">
-            <div class="container">
-                <div class="row">
-                    <c:choose>
-                        <c:when test="${empty requestScope.pageList}">
+        <c:choose>
+            <c:when test="${ empty requestScope.diaryList}">
+                <div>
+                    <div class="latest-news mt-150 mb-150">
+                        <div class="container">
                             <div>
-                                <p><b><span style="font-size:9pt;">등록된 게시물이 없습니다.</span></b></p>
+                                <h5 class="when-empty-message">등록된 다이어리가 없습니다.<br> 플래너를 만들면 다이어리가 생성됩니다.
+                                </h5>
                             </div>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach items="${requestScope.pageList.content}" var="diary"></c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <!-- latest news -->
+                <div class="latest-news mt-150 mb-150">
+                    <div class="container">
+                        <div class="row">
+                            <c:forEach items="${requestScope.diaryList}" var="diary">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="single-latest-news">
-                                        <a href="#"><div class="latest-news-bg diary-bg-1"></div></a>
+                                        <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}"><div class="latest-news-bg diary-bg-1"></div></a>
                                         <div class="news-text-box">
-                                            <h3><a href="#">${diary.diaryTitle}</a></h3>
+                                            <h3><a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}">${diary.diaryTitle}</a></h3>
                                             <p class="blog-meta">
-                                                <span class="author"><i class="fas fa-user"></i> ${diary.diaryType}</span>
-                                                <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
+                                                <span class="author"><i class="fas fa-user"></i>${diary.diaryCount}</span>
+                                                <span class="date"><i class="fas fa-calendar"></i>${diary.diaryType}</span>
+                                                <span class="days"><i class="fas fa-calendar"></i>(${diary.planDays} DAY)</span>
                                             </p>
-                                            <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
+                                            <p class="excerpt">${diary.plannerStart} ~ ${diary.plannerEnd}</p>
                                             <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}" class="read-more-btn">다이어리 작성하기 <i class="fas fa-angle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
-        </div>
-
-        <div class="latest-news mt-150 mb-150">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-latest-news">
-                            <a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
-                            <div class="news-text-box">
-                                <h3><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></h3>
-                                <p class="blog-meta">
-                                    <span class="author"><i class="fas fa-user"></i> Admin</span>
-                                    <span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-                                </p>
-                                <p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laborum autem, dolores inventore, beatae nam.</p>
-                                <a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-                            </div>
+                            </c:forEach>  
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-            
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+      
         
 
         <div class="row">
@@ -133,8 +122,6 @@ pageEncoding="UTF-8"%>
                                         <li><a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=${i}">${i}</a></li>
                                     </c:if>
                                 </c:forEach>
-                                <!-- <li><a class="active" href="#">2</a></li>
-                                <li><a href="#">3</a></li> -->
                                 <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
                                     <li><a href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=${startPage+blockCount}">Next</a></li>
                                 </c:if>

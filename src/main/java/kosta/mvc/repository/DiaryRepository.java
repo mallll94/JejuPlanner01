@@ -12,7 +12,7 @@ import kosta.mvc.domain.Place;
 public interface DiaryRepository extends JpaRepository<Diary, Long>, QuerydslPredicateExecutor<Diary>  {
 
 	/**userId에 해당하는 다이어리 검색*/
-	@Query("select d from Diary d where d.user.userId= ?1 order by d.diaryId asc")
+	@Query("select d from Diary d where d.user.userId= ?1 order by d.diaryId desc")
 	List<Diary> findByUserId(String userId);
 	
 }

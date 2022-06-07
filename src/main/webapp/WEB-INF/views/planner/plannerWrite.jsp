@@ -338,16 +338,18 @@ pageEncoding="UTF-8"%>
 
 				//여행 일자 수정
 				function showDays(){
-					startDay= $('#plan-startday').datepicker('getDate'); //Mon Aug 15 2022 00:00:00 GMT+0900 (한국 표준시)
-					endDay = $('#plan-endday').datepicker('getDate');
+					var startDateInput = new Date();
+					var endDateInput = new Date();
+					startDateInput= $('#plan-startday').datepicker('getDate'); //Mon Aug 15 2022 00:00:00 GMT+0900 (한국 표준시)
+					endDateInput = $('#plan-endday').datepicker('getDate');
 
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
 						return;
 					}
 					//alert("showDays()!"+startDay)
-					let StartDate = startDay.toLocaleDateString('en-US'); //8/15/2022
-					let EndDate = endDay.toLocaleDateString('en-US'); //8/15/2022
+					let StartDate = $.datepicker.formatDate("yy-mm-dd",startDateInput);
+					let EndDate =$.datepicker.formatDate("yy-mm-dd",endDateInput);
 
 					//기존에 생성된 플래너라면 날짜만 변경
 					if(targetPlanner){
@@ -366,6 +368,7 @@ pageEncoding="UTF-8"%>
 							}
 						})
 					}else{//플래너 새로 생성하기
+						alert("플래너를 새로 생성")
 						$.ajax({
 						url: "${pageContext.request.contextPath}/planner/insert",
 						type:"post",
@@ -374,10 +377,11 @@ pageEncoding="UTF-8"%>
 						success: function(result){
 							var dbplannerPlace = result.plannerPlace;
 							var Dday = result.Dday;
-							$("#planner-dayset-day").html(Dday+1);
-							$("#plannerId").val(result.planner.plannerId);
+							targetPlanner= result.planner
 							targetPlannerId= result.planner.plannerId
-							
+							let targetPlanStartDay =new Date(result.planner.plannerId.plannerStart)
+							let targetPlanEndDay =new Date(result.planner.plannerIdplannerEnd)
+							selectPlaceByMyPlanner()
 						},
 						error: function(error){
 							alert("플래너를 생성하지 못 했습니다.")
@@ -745,7 +749,7 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 		
-		<!--모달2-->
+		<!--장소 정보 모달-->
 		<div id="placeInfoModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->

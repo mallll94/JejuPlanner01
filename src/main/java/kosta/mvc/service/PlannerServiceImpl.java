@@ -34,6 +34,8 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlaceRepository placeRep;
 	private final DiaryRepository diaryRep;
 	
+	private final static String DIARY_DEFAULT_NAME = "제주도";
+	
 	
 	@Override
 	public List<Planner> selectAll(String userId) {
@@ -99,18 +101,29 @@ public class PlannerServiceImpl implements PlannerService {
 	
 	@Override
 	public void insertPlan(Planner planner) {
+		//planner insert
 		plannerRep.save(planner);
-		diaryRep.save(new Diary(null, planner.getUser(), planner, null, planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount(),null));
+
+		//diary insert
+		if(planner.getPlannerName()==null) {
+			diaryRep.save(new Diary(null, planner.getUser(), planner, null, DIARY_DEFAULT_NAME, planner.getPlannerType(), planner.getPlannerCount(),null));
+		}else {
+			diaryRep.save(new Diary(null, planner.getUser(), planner, null, planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount(),null));
+		}
+		
+		System.out.println("diary save완료");
 	}
 
 	@Override
 	public void insertPlanPlace(PlannerPlace plannerPlace) {
-		//담은수 증가
+		//place 담은수 증가
 		Place place = placeRep.findById(plannerPlace.getPlace().getPlaceId())
 				.orElseThrow( ()-> new RuntimeException("존재하지 않는 장소 정보입니다."));
 		place.setPlaceSave(place.getPlaceSave()+1);
 		
+		//plannerplace insert
 		plannerPlaceRep.save(plannerPlace);
+		
 
 	}
 

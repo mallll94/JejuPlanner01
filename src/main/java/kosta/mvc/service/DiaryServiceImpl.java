@@ -1,6 +1,8 @@
 package kosta.mvc.service;
 
 import java.io.IOException;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ import kosta.mvc.domain.Place;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QDiary;
 import kosta.mvc.domain.QPlace;
+import kosta.mvc.dto.DiaryDTO;
 import kosta.mvc.dto.DiaryLineDTO;
 import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.DiaryLineRepository;
@@ -52,15 +55,18 @@ public class DiaryServiceImpl implements DiaryService {
 		builder.and(diary.user.userId.eq(loginUser));
 		Page<Diary> pageList = diaryRep.findAll(builder,pageable);
 		
+		
 		return pageList;
 	}
 	
+	
 	/**다이어리별 다이어리 내용 조회*/
 	@Override
-	public Map<String, Object> selectById(Long diaryId) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public DiaryDTO selectDiaryLineByDiaryId(Long diaryId) {
 		Diary dbDiary = diaryRep.findById(diaryId)
 				.orElseThrow(() -> new RuntimeException("해당 다이어리를 찾을 수 없습니다."));
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
+		Period period =Period.between(dbDiary.getPlanner().getPlannerStart(), dbDiary.getPlanner().getPlannerEnd());
 		List<DiaryLine> diaryLinelist =diaryLineRep.findAllByDiary(dbDiary.getDiaryId());
 		List<DiaryLineDTO> result = new ArrayList<DiaryLineDTO>();
 		
@@ -68,12 +74,13 @@ public class DiaryServiceImpl implements DiaryService {
 			result.add(new DiaryLineDTO(x.getDiaryLineId(), x.getDiary().getDiaryId(), x.getPlannerPlace().getPlannerPlaceId(), x.getDiaryLineContent(),
 					x.getDiaryLinePhoto(), x.getDiaryLinePrice(),x.getPlannerPlace().getPlace().getPlaceId(),  x.getPlannerPlace().getPlace().getPlaceName(),
 					x.getPlannerPlace().getPlace().getPlaceAddr(), x.getPlannerPlace().getPlace().getPlaceContent(),
-					x.getPlannerPlace().getPlace().getPlacePhoto(), x.getPlannerPlace().getPlace().getPlaceUrl()));
+					x.getPlannerPlace().getPlace().getPlacePhoto(), x.getPlannerPlace().getPlace().getPlaceUrl(),x.getPlannerPlace().getPlannerPlaceDate()));
 		}
+		
+		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryId(), dbDiary.getDiaryPhoto(), dbDiary.getDiaryTitle(),dbDiary.getDiaryType(), dbDiary.getDiaryCount(),
+				dbDiary.getPlanner().getPlannerId(),(dbDiary.getPlanner().getPlannerStart()).format(format),(dbDiary.getPlanner().getPlannerEnd()).format(format),period.getDays()+1, result);
 
-		map.put("diary", dbDiary);
-		map.put("diaryline", result);
-		return map;
+		return diary;
 	}
 	
 	
