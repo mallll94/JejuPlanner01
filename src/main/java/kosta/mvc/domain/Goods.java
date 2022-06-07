@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,7 @@ public class Goods {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "place_fk")
+	@JsonIgnore
 	private Place place; //장소데이터 번호
 	
 	//마이리얼트립 참고>> 애월, 제주시, 함덕/구좌, 성산/우도, 표선, 서귀포, 중문, 한림/협재

@@ -36,14 +36,31 @@ public class GoodsController {
 		model.addAttribute("placeList", placeList);
 		return new ModelAndView("admin/goods_Admin");
 	}
-
-	@GetMapping("/view/goods_List")
-	public ModelAndView getGoodsListView(@RequestParam("category") String category, Model model) {
+	/**
+	 * 카테고리별 검색
+	 * @param category
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/view/goods_List/category")
+	public ModelAndView getGoodsListViewCategory(@RequestParam("category") String category, Model model) {
 		List<Goods> goodsList = goodsService.getAllGoodsByCategory(category);
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_List");
 	}
-
+	/**
+	 * 지역별 검색
+	 * @param localCategory
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/view/goods_List/localCategory")
+	public ModelAndView getGoodsListViewLocalCategory(@RequestParam("localCategory") String localCategory, Model model) {
+		List<Goods> goodsList = goodsService.getAllGoodsByLocalCategory(localCategory);
+		model.addAttribute("goodsList", goodsList);
+		return new ModelAndView("goods/goods_List");
+	}
+	
 	@GetMapping("/view/goods_Main")
 	public ModelAndView getGoodsMainView(Model model) {
 		return new ModelAndView("goods/goods_Main");

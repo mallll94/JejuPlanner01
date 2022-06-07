@@ -51,6 +51,26 @@ public class PlanBoardController {
 
 	}
 	
+	/**전체검색 & 카테고리 & 페이징 - 관리자*/
+	@RequestMapping("/admin/Planboard_Admin")
+	public void planListAdmin(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
+		
+		System.out.println("category????" + pboardCategory);
+		
+		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		model.addAttribute("pageList", pageList);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("pboardCategory",pboardCategory);
+
+	}
+	
+	
 	/**카테고리별*/
 //	@RequestMapping("/board/PlanboardList")
 //	public void selectByCate(Model model, String pboardCategory, @RequestParam(defaultValue="1") int nowPage) {

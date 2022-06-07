@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 
@@ -40,18 +41,19 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart select(Users user) {
-		System.out.println("cart select 안"+user.getUserId());
+	public List<Cart> select(Users user) {	
 		QCart cart = QCart.cart;
 		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(cart.user.userId.equalsIgnoreCase(user.getUserId()));
+		Iterable<Cart> afterResult=cartRep.findAll(builder);
+		List<Cart> result = Lists.newArrayList(afterResult);
 		
-		builder.and(cart.user.userId.containsIgnoreCase(user.getUserId()));
-		
-		Optional<Cart> result =cartRep.findOne(builder);
-		
-		System.out.println("cart 결과 값"+result.get().getCartId());
-		
-		return result.get();
+		return result;
+	}
+
+	@Override
+	public void deleteCart(Long id) {			
+		cartRep.deleteById(id);
 	}
 
 }

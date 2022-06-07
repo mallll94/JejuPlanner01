@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +36,7 @@ public class GoodsLine {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "goods_fk")
+	@JsonIgnore
 	private Goods goods; //상품번호
     
 	private int goodsLineAmount;

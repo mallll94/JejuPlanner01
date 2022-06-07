@@ -177,11 +177,10 @@
                 </div>
                 <div class="row" style="padding: 30px">
                     <div class="col-sm-6">
-                        <div class="goodsphoto">
-                            <img id="goodsPhoto" class="goods-photo-image top-image">
+                        <div class="goodsphoto" ${goods.goodsPhoto}>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class=" col-sm-6">
                         <div class="goodscontent">
                             <h1 class="goodsname" id="goodsname"></h1>
                             <p class="goodscontent" id="goodscontent"></p>
