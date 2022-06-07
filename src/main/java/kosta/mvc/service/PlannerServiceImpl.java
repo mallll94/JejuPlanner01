@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Diary;
+import kosta.mvc.domain.DiaryLine;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 //import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
+import kosta.mvc.repository.DiaryLineRepository;
 import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
@@ -33,6 +35,7 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlannerPlaceRepository plannerPlaceRep;
 	private final PlaceRepository placeRep;
 	private final DiaryRepository diaryRep;
+	private final DiaryLineRepository diaryLineRep;
 	
 	private final static String DIARY_DEFAULT_NAME = "제주도";
 	
@@ -113,20 +116,7 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		System.out.println("diary save완료");
 	}
-
-	@Override
-	public void insertPlanPlace(PlannerPlace plannerPlace) {
-		//place 담은수 증가
-		Place place = placeRep.findById(plannerPlace.getPlace().getPlaceId())
-				.orElseThrow( ()-> new RuntimeException("존재하지 않는 장소 정보입니다."));
-		place.setPlaceSave(place.getPlaceSave()+1);
-		
-		//plannerplace insert
-		plannerPlaceRep.save(plannerPlace);
-		
-
-	}
-
+	
 	@Override
 	public void updatePlan(Planner planner) {
 		Planner dbPlanner = plannerRep.findById(planner.getPlannerId())
@@ -139,13 +129,45 @@ public class PlannerServiceImpl implements PlannerService {
 		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
 		dbPlanner.setPlannerState(planner.getPlannerState());
 	}
+	
+	@Override
+	public void deletePlan(Long plannerId) {
+		
+		plannerRep.deleteById(plannerId);
+		
+
+	}
 
 	@Override
-	public void updatePlanPlace(PlannerPlace PlannerPlace) {
-		PlannerPlace dbplan = plannerPlaceRep.findById(PlannerPlace.getPlannerPlaceId())
-				.orElseThrow( ()-> new RuntimeException("플래너 일정을 찾을 수 없습니다."));
-		dbplan.setPlannerPlaceDate(PlannerPlace.getPlannerPlaceDate());
+	public void insertPlanPlace(PlannerPlace plannerPlace) {
+		//place 담은수 증가
+		Place place = placeRep.findById(plannerPlace.getPlace().getPlaceId())
+				.orElseThrow( ()-> new RuntimeException("존재하지 않는 장소 정보입니다."));
+		place.setPlaceSave(place.getPlaceSave()+1);
+		
+		//plannerplace insert
+		plannerPlaceRep.save(plannerPlace);
+		
+		//diary검색
+		Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
+		//diaryline insert
+		diaryLineRep.save(new DiaryLine(null, dbDiary, plannerPlace, null, null, 0, null));
 
+	}
+
+	
+
+	@Override
+	public void updatePlanPlace(PlannerPlace plannerPlace) {
+		PlannerPlace dbplan = plannerPlaceRep.findById(plannerPlace.getPlannerPlaceId())
+				.orElseThrow( ()-> new RuntimeException("플래너 일정을 찾을 수 없습니다."));
+		dbplan.setPlannerPlaceDate(plannerPlace.getPlannerPlaceDate());
+		
+		//diary검색
+		Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
+		//diaryline update
+		//DiaryLine dbDiaryLine = diaryLineRep.findById(diaryLine.getDiaryLineId())
+				//.orElseThrow(() -> new RuntimeException("다이어리 상세 내용을 찾을 수 없습니다."));
 	}
 	
 	@Override
@@ -159,15 +181,11 @@ public class PlannerServiceImpl implements PlannerService {
 		place.setPlaceSave(place.getPlaceSave()-1);
 		
 		plannerPlaceRep.deleteById(plannerPlaceId);
+		
+		//diaryline delete
 	}
 
-	@Override
-	public void deletePlan(Long plannerId) {
-		
-		plannerRep.deleteById(plannerId);
-		
-
-	}
+	
 
 	@Override
 	public void PlannerShareBoard(Long placeId) {

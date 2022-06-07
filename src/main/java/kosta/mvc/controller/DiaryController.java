@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Diary;
@@ -111,7 +112,14 @@ public class DiaryController {
 		return "/diary/diaryRead";
 	}
 	/**다이어리 상세조회하기*/
-	
+	@RequestMapping("/selectAllDiaryLine")
+	@ResponseBody
+	public List<DiaryLineDTO> selectAllDiaryLine(Long diaryId){
+		//diary 내용
+		DiaryDTO diary =diaryService.selectDiaryLineByDiaryId(diaryId);
+		List<DiaryLineDTO> diarylinelist = diary.getDiarylinelist();
+		return diarylinelist;
+	}
 	
 	/**다이어리 삭제하기*/
 	

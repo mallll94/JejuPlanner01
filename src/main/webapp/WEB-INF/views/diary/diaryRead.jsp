@@ -51,10 +51,22 @@ pageEncoding="UTF-8"%>
 				//다이어리 내용조회 ajax
 				function selectAllDiryLine(){
 					$.ajax({
-						url:"",
+						url:"${pageContext.request.contextPath}/diary/selectAllDiaryLine",
 						type:"post",
 						dataType: "json",
-						data: {}
+						data: {diaryId: DiaryId},
+						success: function(result){
+							//alert(result)
+							let str="";
+							$.each(result,function(index,diaryline){
+								if(diaryline.diaryLineContent){}
+							})
+						
+
+						},
+						error: function(error){
+							alert("항목을 불러오지 못했습니다.")
+						}
 					})
 				}
 				//다이어리 등록 ajax
