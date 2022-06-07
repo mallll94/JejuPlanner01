@@ -19,7 +19,7 @@
       <!-- color css -->
       <link rel="stylesheet" href="../css/ask/color_2.css" />
       <!-- select bootstrap -->
-      <!--  <link rel="stylesheet" href="../css/ask/bootstrap-select.css" /> -->
+      <link rel="stylesheet" href="../css/ask/bootstrap-select.css" /> 
       <!-- scrollbar css -->
       <link rel="stylesheet" href="../css/ask/perfect-scrollbar.css" />
       <!-- custom css -->

@@ -29,7 +29,7 @@ public class AskReplyController {
 	    model.addAttribute("list",list);
 	}
 	
-		
+
 	/**댓글 폼*/
 	@RequestMapping("/reply/AskReply_Write")
 	public String write(Long askId, Model model) {

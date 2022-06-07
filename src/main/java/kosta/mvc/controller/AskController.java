@@ -119,7 +119,7 @@ public class AskController {
 				
 	}
 	
-	/**상세보기 - admin*/
+	/**상세보기 답변달기 - admin*/
 	@RequestMapping("/reply/AskReply_Write/{askId}")
 	public ModelAndView read2(@PathVariable Long askId) {
 		System.out.println("askboardId test");
