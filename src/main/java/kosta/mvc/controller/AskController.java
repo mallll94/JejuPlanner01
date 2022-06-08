@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -95,8 +94,13 @@ public class AskController {
 		System.out.println("askboardId test");
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
-
+        List<AskReply> replylist = askBoard.getAskReplyList();
+		
+        System.out.println("rrrr");
+        System.out.println(replylist.size());
+        
 		model.addAttribute("askboard",askBoard);
+		model.addAttribute("replylist",replylist);
 
 		return "/board/Ask_Detail";
 				

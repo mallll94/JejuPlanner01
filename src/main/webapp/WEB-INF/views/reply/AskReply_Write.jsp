@@ -78,7 +78,7 @@
                         </div>
 
 						<div align="right">
-							<button onclick="location = '/board/Ask_Detail'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">등록하기</button>
+							<button  class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">등록하기</button>
 						</div>
 						
 					</form>
@@ -89,24 +89,6 @@
         </div>
     </div>
     <!-- Contact End -->
-
-<%-- <div class="control-group">
-답변 
-<c:forEach items="${replylist}" var="reply">
-<div>
-  <textarea readonly class="form-control" rows="6" id="askReplyContent" name="askReplyContent">
-	${reply.askReplyContent}
-  </textarea>
- </div> 
- <div align="right">  
-   <span>
-     <a href="${pageContext.request.contextPath}/reply/delete/${reply.askReplyId}/${askboard.askId}">삭제하기</a>
-   </span>
-</div>
-</c:forEach>     
-</div> --%>
-
-    
-    
+  
 </body>
 </html>

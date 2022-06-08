@@ -67,7 +67,7 @@ public class AskBoard {
 	private MultipartFile file;
 	
 	/** 댓글 */
-	//@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
-	//private List<AskReply> askReplyList;
+	@OneToMany(mappedBy = "askBoard", cascade = CascadeType.ALL)
+	private List<AskReply> askReplyList;
 
 }

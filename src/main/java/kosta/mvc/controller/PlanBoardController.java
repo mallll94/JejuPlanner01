@@ -50,7 +50,7 @@ public class PlanBoardController {
    }
 
    /**전체검색 & 카테고리 & 페이징 - 관리자*/
-   //@RequestMapping("/admin/Planboard_Admin")
+   @RequestMapping("/admin/Planboard_Admin")
    public void planListAdmin(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 
       System.out.println("category????" + pboardCategory);
@@ -67,21 +67,6 @@ public class PlanBoardController {
       model.addAttribute("pboardCategory",pboardCategory);
 
    }
-
-
-   
-   /**상세보기*/
-   @RequestMapping("/board/Planboard_Detail/{pboardId}")
-   public ModelAndView read(@PathVariable Long pboardId) {
-
-      PlanBoard planBoard = planBoardService.selectById(pboardId);
-      
-      System.out.println("나와라");
-
-      return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
-
-   }
-
 
 
    /**상세보기 + 좋아요*/
@@ -101,8 +86,6 @@ public class PlanBoardController {
       model.addAttribute("planBoard" , planBoard);
 
       System.out.println("나와라");
-
-      //return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
 
       return "/board/Planboard_Detail";
 
