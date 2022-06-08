@@ -185,7 +185,17 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public void PlannerShareBoard(Long placeId) {
 		
+		
+		
+	}
 
+	@Override
+	public void plannerTypeUpdate(String type,Long plannerId) {
+		Planner planner =plannerRep.findById(plannerId)
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		planner.setPlannerType(type);
+		
+		System.out.println("성공 "+planner.getPlannerType());
 		
 	}
 

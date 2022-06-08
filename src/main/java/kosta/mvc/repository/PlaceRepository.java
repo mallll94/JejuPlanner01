@@ -10,7 +10,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.Place;
 
-public interface PlaceRepository extends JpaRepository<Place, Long>/* , QuerydslPredicateExecutor<Place> */  {
+public interface PlaceRepository extends JpaRepository<Place, Long> , QuerydslPredicateExecutor<Place>  {
 
 
 }

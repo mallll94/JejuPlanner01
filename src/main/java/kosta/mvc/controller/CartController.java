@@ -51,7 +51,7 @@ public class CartController {
 
 		for(Cart x : cart) {
 			goodsDTOList.add(new GoodsDTO(x.getGoodsLine().getGoods().getGoodsId(),
-					x.getGoodsLine().getGoods().getPlace(), x.getGoodsLine().getGoods().getGoodsLocalCategory(), x.getGoodsLine().getGoods().getGoodsCategory(),
+					null, x.getGoodsLine().getGoods().getGoodsLocalCategory(), x.getGoodsLine().getGoods().getGoodsCategory(),
 					x.getGoodsLine().getGoods().getGoodsName(), x.getGoodsLine().getGoods().getGoodsPrice(),
 					x.getGoodsLine().getGoods().getGoodsContent(), x.getGoodsLine().getGoods().getGoodsPhoto(), x.getGoodsLine().getGoods().getGoodsAddr()));
 			

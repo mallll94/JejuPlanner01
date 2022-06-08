@@ -7,7 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import kosta.mvc.domain.PlanBoard;
 
 public interface PlanBoardRepository
-		extends JpaRepository<PlanBoard, Long>/* , QuerydslPredicateExecutor<PlanBoard> */ {
+		extends JpaRepository<PlanBoard, Long> , QuerydslPredicateExecutor<PlanBoard>  {
 
 	
 

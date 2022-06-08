@@ -8,7 +8,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Users;
 
-public interface UserRepository extends JpaRepository<Users, String>/* , QuerydslPredicateExecutor<Users> */ {
+public interface UserRepository extends JpaRepository<Users, String> , QuerydslPredicateExecutor<Users>  {
 
 	@Query("select u from Users u where u.userId =?1")
 	Users selectUsersById(String id);
