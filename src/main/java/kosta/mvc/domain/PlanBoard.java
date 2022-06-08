@@ -60,18 +60,18 @@ public class PlanBoard {
 	@CreationTimestamp
 	private LocalDateTime pboardRegdate;
 	
-	private int pboardGood;
+	//private int pboardGood;
 	
 	@Transient
 	private MultipartFile file;
 	
 	
 	/**댓글*/
-	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
-	private List<PlanReply> planReply;
+	//@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
+	//private List<PlanReply> planReply;
 	
 	/**좋아요*/
-	@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
-	Set<Likes> likes = new HashSet<>();
+	//@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
+	//Set<Likes> likes = new HashSet<>();
 
 }

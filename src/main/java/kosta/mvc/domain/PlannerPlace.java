@@ -1,5 +1,8 @@
 package kosta.mvc.domain;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,5 +56,18 @@ public class PlannerPlace {
 	private Place place; //장소데이터 번호
 	
 	private int plannerPlaceDate; //1DAY ,2DAY....1, 2,
+	
+	@Column(length = 2000)
+	private String diaryLineContent;
+	private String diaryLinePhoto;
+	private int diaryLinePrice;
+	
+	@CreationTimestamp
+	private LocalDateTime insertDate;
+	@UpdateTimestamp
+	private LocalDateTime updateDate;
+	
+	@Transient
+	private MultipartFile file;
 	
 }

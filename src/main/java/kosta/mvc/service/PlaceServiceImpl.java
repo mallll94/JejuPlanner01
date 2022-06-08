@@ -17,7 +17,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.PlannerPlace;
-import kosta.mvc.domain.QPlace;
+//import kosta.mvc.domain.QPlace;
 import kosta.mvc.dto.PlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.util.FileStore;
@@ -57,10 +57,10 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public Optional<Place> selectByName(String placeName) {
 		
-		QPlace place = QPlace.place;
+		//QPlace place = QPlace.place;
 		BooleanBuilder builder = new BooleanBuilder();
 		
-		builder.and(place.placeName.contains(placeName));
+		//builder.and(place.placeName.contains(placeName));
 		
 		
 		
@@ -113,7 +113,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override//Sort.by(Sort.Order.asc(filter))
 	public Page<Place> selectByCata(String filter, String placeCategory, int nowPage,int PageCount) {
-		QPlace place = QPlace.place;
+		//QPlace place = QPlace.place;
 		BooleanBuilder builder = new BooleanBuilder();
 		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, filter);
 		
@@ -126,25 +126,27 @@ public class PlaceServiceImpl implements PlaceService {
 		
 
 		if(!placeCategory.equals("selectAll")) {
-			builder.and(place.placeCategory.contains(placeCategory));
+			//builder.and(place.placeCategory.contains(placeCategory));
 		}
 
-		Page<Place> result = placeRep.findAll(builder, pageable);
+		//Page<Place> result = placeRep.findAll(builder, pageable);
 
-		return result;
+		//return result;
+		return null;
 	}
 	
 	
 	@Override
 	public Page<Place> selectByKeyword(Pageable pageable, String keyword) {
 		//keyword로 검색
-		QPlace place = QPlace.place;
+		//QPlace place = QPlace.place;
 		BooleanBuilder builder = new BooleanBuilder();
-		builder.and(place.placeName.contains(keyword));
+		//builder.and(place.placeName.contains(keyword));
 
-		Page<Place> result = placeRep.findAll(builder, pageable);
+		//Page<Place> result = placeRep.findAll(builder, pageable);
 
-		return result;
+		//return result;
+		return null;
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class PlanReplyController {
 		
 	    PlanBoard planboard = planBoardService.selectById(Long.valueOf(pboardId));
 		
-		List<PlanReply> dblist = planboard.getPlanReply();
+		/*List<PlanReply> dblist = planboard.getPlanReply();
 		
 		System.out.println(dblist.size());
 		
@@ -44,11 +44,12 @@ public class PlanReplyController {
 		for(PlanReply x : dblist) {
 			list.add(new PlanReplyDTO(x.getPboardReplyId(), x.getPlanBoard().getPboardId(), 
 					x.getUserPlan().getPlannerId(), x.getUser().getUserId(), x.getPboardReplyContent()));
-		}
+		}*/
 		
 		System.out.println("planreply");
 		
-		return list;
+		//return list;
+		return null;
 	}
 	
 	
@@ -61,14 +62,15 @@ public class PlanReplyController {
 		PlanBoard plan = planBoardService.selectById(Long.valueOf(pboardId));
 		Users user = userService.selectById("aaa");
 		
-	    PlanReply reply = new PlanReply(null, plan, plan.getUserPlan(), user, replyContent, null);
+	    /*PlanReply reply = new PlanReply(null, plan, plan.getUserPlan(), user, replyContent, null);
 
 		planReplyService.insert(plan.getPboardId(), reply);
 		
 		System.out.println("insertreply");
 		
-		return reply;
-	
+		return reply;*/
+		
+		return null;
 	}
 	
 

@@ -16,7 +16,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
-import kosta.mvc.domain.QPlanBoard;
+//import kosta.mvc.domain.QPlanBoard;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.LikesRepository;
 import kosta.mvc.repository.PlanBoardRepository;
@@ -140,7 +140,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	
 	@Override
 	public Page<PlanBoard> selectByCate(String pboardCategory, int nowPage, int PAGE_COUNT){
-		QPlanBoard plan = QPlanBoard.planBoard;
+		//QPlanBoard plan = QPlanBoard.planBoard;
 		BooleanBuilder builder = new BooleanBuilder();
 		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC , "pboardId");
 		
@@ -150,7 +150,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		if(pboardCategory == null){
 			 result = planBoardRep.findAll(pageable);
 		}else{
-			builder.and(plan.pboardCategory.contains(pboardCategory));
+			//builder.and(plan.pboardCategory.contains(pboardCategory));
 			
 			result = planBoardRep.findAll(builder, pageable);
 		}
