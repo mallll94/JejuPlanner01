@@ -108,7 +108,7 @@ public class PlannerCreateController {
 	@ResponseBody
 	public Map<String, Object> updateDate(Long plannerId,String plannerStart,String plannerEnd){
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("M/dd/yyyy");
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
 		
@@ -116,13 +116,13 @@ public class PlannerCreateController {
 			planner.setPlannerStart(startDate);
 			planner.setPlannerEnd(endDate);
 		plannerService.updatePlan(planner);
-		
+		System.out.println(" === updateDate plannerStart"+plannerStart);
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-		List<PlannerPlace> placelist= planner.getPlannerPlaceList();
+		//List<PlannerPlace> placelist= planner.getPlannerPlaceList();
 		map.put("planner", planner);
 		map.put("Dday", period.getDays());
-		map.put("plannerPlace", placelist);
+		//map.put("plannerPlace", placelist);
 		return map;
 	}
 	
@@ -130,27 +130,28 @@ public class PlannerCreateController {
 	@RequestMapping("/insert")
 	@ResponseBody
 	public Map<String, Object> insert(String plannerStart,String plannerEnd, HttpSession session) {
-		
+		System.out.println(" === insert plannerStart"+plannerStart);
 		//임시 테스트 아이디
-		String userId ="aaa";
+		String userId ="rlawjdgus53";
 		Users loginUser =userService.selectById(userId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("M/dd/yyyy");
+		////2022. 8. 15.
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
-			
-		Planner newplanner = new Planner(loginUser);
-			newplanner.setPlannerStart(startDate);
-			newplanner.setPlannerEnd(endDate);
-		plannerService.insertPlan(newplanner);
+		System.out.println(" === plannerInsert startDay = "+startDate);
+		//Planner newplanner = new Planner(loginUser);
+			//newplanner.setPlannerStart(startDate);
+			//newplanner.setPlannerEnd(endDate);
+		//plannerService.insertPlan(newplanner);
 		
 		//D-day
-		Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
-		List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
-		map.put("planner", newplanner);
-		map.put("Dday", period.getDays());
-		map.put("plannerPlace", placelist);
+		//Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
+		//List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
+		//map.put("planner", newplanner);
+		//map.put("Dday", period.getDays());
+		//map.put("plannerPlace", placelist);
 		
 		return map;
 		
@@ -161,7 +162,7 @@ public class PlannerCreateController {
 	@ResponseBody
 	public void updatePlanPlace(Long plannerplaceId, String date) {
 		System.out.println(date);
-		plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
+		//plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
 	}
 	
 	/**왼쪽사이드바 일정 삭제하기*/
@@ -190,10 +191,10 @@ public class PlannerCreateController {
 		int  plannerPlaceDate = Integer.parseInt(inputDate);
 		System.out.println("addPlace::"+placeId);
 			//임시 테스트 아이디
-			String userId ="aaa";
+			String userId ="rlawjdgus53";
 			Users loginUser =userService.selectById(userId);
 		
-		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
+		//plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
 		return dbplace;
 	}
 	

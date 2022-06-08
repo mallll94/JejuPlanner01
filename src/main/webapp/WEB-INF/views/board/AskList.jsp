@@ -105,6 +105,12 @@
             .diary-bg-1 {
                 background-image: url(../../../img/diary-default.jpg);
             }
+            
+            .table {
+                text-align: center; 
+                margin: auto;
+                  
+            }
         </style>
        
        
@@ -113,13 +119,13 @@
 <body>
     
 <!-- row -->
-<div class="row">
+<div class="row" >
 <!-- table section -->
  <div class="col-md-6">
    <div class="white_shd full margin_bottom_30">
       <div class="full graph_head">
          <div class="heading1 margin_0">
-            <h2 align="center">1:1 문의 목록</h2><p></p>
+            <h2 align="center">1:1 문의</h2><p></p>
          </div>
       </div> 
     <div class="table_section padding_infor_info">

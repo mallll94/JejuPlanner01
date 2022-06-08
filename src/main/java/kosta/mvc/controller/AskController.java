@@ -111,15 +111,15 @@ public class AskController {
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
 		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
 		//return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
-		List<AskReply> replylist = askBoard.getAskReplyList();
+		//List<AskReply> replylist = askBoard.getAskReplyList();
 		model.addAttribute("askboard",askBoard);
-		model.addAttribute("replylist",replylist);
+		//model.addAttribute("replylist",replylist);
 		
 		return "/board/Ask_Detail";
 				
 	}
 	
-	/**상세보기 - admin*/
+	/**상세보기 답변달기 - admin*/
 	@RequestMapping("/reply/AskReply_Write/{askId}")
 	public ModelAndView read2(@PathVariable Long askId) {
 		System.out.println("askboardId test");

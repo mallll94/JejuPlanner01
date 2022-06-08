@@ -61,4 +61,10 @@ public interface UserService {
 	 * 회원 상세 조회 -회원, 관리자
 	 * */
 	Users selectById(String userId);
+	
+	
+	/**
+	 * 카카오로그인
+	 * */
+	String kakaoGetAccessToken(String auth);
 }

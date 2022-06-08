@@ -6,6 +6,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import kosta.mvc.domain.Cart;
 import kosta.mvc.domain.Place;
 
-public interface CartRepository extends JpaRepository<Cart, Long>, QuerydslPredicateExecutor<Cart> {
+public interface CartRepository extends JpaRepository<Cart, Long>, QuerydslPredicateExecutor<Cart>  {
 
 }

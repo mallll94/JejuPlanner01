@@ -15,6 +15,7 @@ import kosta.mvc.domain.Cart;
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.QCart;
+//import kosta.mvc.domain.QCart;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CartRepository;
 import kosta.mvc.repository.GoodsLineRepository;
@@ -44,8 +45,11 @@ public class CartServiceImpl implements CartService {
 	public List<Cart> select(Users user) {	
 		QCart cart = QCart.cart;
 		BooleanBuilder builder = new BooleanBuilder();
+		
 		builder.and(cart.user.userId.equalsIgnoreCase(user.getUserId()));
+		
 		Iterable<Cart> afterResult=cartRep.findAll(builder);
+		
 		List<Cart> result = Lists.newArrayList(afterResult);
 		
 		return result;

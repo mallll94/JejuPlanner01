@@ -17,6 +17,7 @@ import com.querydsl.core.BooleanBuilder;
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.QPlanBoard;
+//import kosta.mvc.domain.QPlanBoard;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.LikesRepository;
 import kosta.mvc.repository.PlanBoardRepository;

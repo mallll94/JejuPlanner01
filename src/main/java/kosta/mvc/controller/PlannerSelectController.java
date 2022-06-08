@@ -98,7 +98,12 @@ public class PlannerSelectController {
 	}
 	
 	
-	
+	@RequestMapping("/typeUpdate")
+	@ResponseBody
+	public void typeUpdate(String type, Long plannerId) {
+		
+		plannerService.plannerTypeUpdate(type,plannerId);
+	}
 	
 	
 	

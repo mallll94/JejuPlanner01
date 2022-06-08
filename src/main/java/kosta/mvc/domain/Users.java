@@ -27,11 +27,14 @@ public class Users {
 	@Id
 	private String userId;
 	
+	//front에서 회원가입폼에서 유효성체크하는지도 같이 확인하고 설정 넣기
+	@Column(nullable = false)
 	private String userName;
+	@Column(nullable = false)
 	private String userPassword;
 	private int userPhone;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String userEmail;
 	
 	@CreationTimestamp
@@ -41,9 +44,11 @@ public class Users {
 	private String userState; //U=활성유저, X=비활성,탈퇴유저
 	private String userGender;
 	
-
 	//NOTNULL 해야함!!!
+	@Column(nullable = false)
 	private String role;
+	
+	private String kakaoId;
 
 	
 }

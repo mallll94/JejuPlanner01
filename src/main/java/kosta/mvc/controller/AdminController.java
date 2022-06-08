@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +53,7 @@ public class AdminController {
 		
 		
 		Page<Place> pageList = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
-	
+		System.out.println(pageList);
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
 		
@@ -68,30 +69,15 @@ public class AdminController {
 	}
 
 	
-	@RequestMapping("/placeInsert")
+	@RequestMapping(value ="/placeInsert", method = RequestMethod.POST)
 	public String insert(Place place, HttpSession session){
-		System.out.println("dd");
-		/*
-		MultipartFile mfile = place.getFile();
-		System.out.println(mfile.getOriginalFilename());
-		String path = session.getServletContext().getRealPath("/WEB-INF/img");
-		if(mfile.getSize()>0) {//첨부된 파일에 용량이 있따면
-			try {
-				mfile.transferTo(new File(path+"/"+mfile.getOriginalFilename()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			
-			place.setPlacePhoto(mfile.getOriginalFilename());
-			
-		}
-		*/
-		
-		placeService.insertPlace(place);
+		System.out.println("1번문제");
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/place/";
+		System.out.println("2번문제");
+		placeService.insertPlace(place,uploadPath);
 		
 		
-		return "admin/list";
+		return "redirect:/admin/list";
 	}
 	
 	@RequestMapping("/modalSelect")

@@ -17,6 +17,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.QFreeBoard;
+//import kosta.mvc.domain.QFreeBoard;
 import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;

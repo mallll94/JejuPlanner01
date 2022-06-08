@@ -63,7 +63,33 @@
 
 	$(function(){
 		
-		alert("${param.plannerId}")
+		
+		// 타입 수정
+		$("#plannerType").change(function(){	
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/planner/typeUpdate",
+				type: "post",
+				dataType: "text",
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , type:$(this).val(),plannerId: '1'},
+				success: function(result){	
+				},
+				error: function(error){
+					alert("장소 정보를 불러오지 못했습니다.")
+				}
+			})
+		
+		})
+		
+		// 인원수 수정
+		$("#plannerType").click(function(){	
+			
+			alert(1);
+		
+		})
+		
+		
+		//alert("${param.plannerId}")
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -117,9 +143,9 @@
 				url: "${pageContext.request.contextPath}/planner/select",
 				type: "post",
 				dataType: "json",
-				data: {plannerId: '1' ,DayPlanner : no},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: '1' ,DayPlanner : no},
 				success: function(result){
-					
+					$("#plannerType").val(result.planner.plannerType);
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
@@ -341,10 +367,20 @@
 						<option value='placeName'>플래너 이름수정</option>
 				</select>
 				<select id="days"></select>
+				
+				<select id="plannerType">
+					<option value='연인' >연인</option>
+					<option value='나홀로'>나홀로</option>
+					<option value='가족/부모님'>가족/부모님</option>
+					<option value='친구'>친구</option>
+				</select>
+				<a href="" style="text-decoration: none; text-shadow: none;" >1명</a>
 			</div>
 		</div>
 	</div>
+	
 	<div id="googleMap" style="width: 100%;height: 600px;"></div>
+	
 	<div id="pdfDiv">
 	<div class="latest-news mt-100 mb-150">
 		<div class="container" id="card">

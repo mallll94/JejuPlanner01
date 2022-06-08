@@ -1,5 +1,7 @@
 package kosta.mvc.service;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.QUsers;
+//import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -142,6 +145,21 @@ public class UserServiceImpl implements UserService {
 		System.out.println(count);
 		return (count==0L) ? "ok":"fail";
 
+	}
+	
+	@Override
+	public String kakaoGetAccessToken(String auth) {
+		String access_Token ="";
+		String refresh_Token="";
+		String reqURL ="https://kauth.kakao.com/oauth/token";
+		
+//		try {
+//			URL url = new URL(reqURL);
+//			//HttpURLConnection conn = 
+//		}
+		
+		return null;
+		
 	}
 
 }

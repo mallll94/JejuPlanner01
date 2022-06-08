@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,12 +41,13 @@ public class PlanReply {
 	@JoinColumn(name = "palnboard_fk")
 	private PlanBoard planBoard; //플래너공유게시판 글번호
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userplan_fk")
-	private Planner userPlan; //사용자플래너 번호
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "userplan_fk")
+	//private Planner userPlan; //사용자플래너 번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	@Column(length = 500)
