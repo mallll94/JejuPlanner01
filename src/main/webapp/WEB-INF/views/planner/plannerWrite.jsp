@@ -359,8 +359,8 @@ pageEncoding="UTF-8"%>
 						dataType:"json",
 						data:{plannerId: targetPlannerId, plannerStart: StartDate, plannerEnd: EndDate},
 							success: function(result){
-								var dbplannerPlace = result.plannerPlace;
-								var Dday = result.Dday;
+								//var dbplannerPlace = result.plannerPlace;
+								var Dday = result;
 								$("#planner-dayset-day").html(Dday+1);
 							},
 							error: function(error){

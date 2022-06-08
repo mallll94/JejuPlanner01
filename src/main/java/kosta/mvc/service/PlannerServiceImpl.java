@@ -69,10 +69,7 @@ public class PlannerServiceImpl implements PlannerService {
 
 	@Override//일자별 플래너 검색
 	public Planner selectByDay(Long plannerId, int day) {
-		
-		
-		
-		
+	
 		return null;
 	}
 	
@@ -117,6 +114,7 @@ public class PlannerServiceImpl implements PlannerService {
 		Planner dbPlanner = plannerRep.findById(planner.getPlannerId())
 				.orElseThrow( ()-> new RuntimeException("플래너를 찾을 수 없습니다."));
 
+		
 		dbPlanner.setPlannerName(planner.getPlannerName());
 		dbPlanner.setPlannerType(planner.getPlannerType());
 		dbPlanner.setPlannerCount(planner.getPlannerCount());
@@ -139,15 +137,9 @@ public class PlannerServiceImpl implements PlannerService {
 		Place place = placeRep.findById(plannerPlace.getPlace().getPlaceId())
 				.orElseThrow( ()-> new RuntimeException("존재하지 않는 장소 정보입니다."));
 		place.setPlaceSave(place.getPlaceSave()+1);
-		
-		//plannerplace insert
+
 		plannerPlaceRep.save(plannerPlace);
 		
-		//diary검색
-		//Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
-		//diaryline insert
-		//diaryLineRep.save(new DiaryLine(null, dbDiary, plannerPlace, null, null, 0, null));
-
 	}
 
 	
@@ -157,12 +149,6 @@ public class PlannerServiceImpl implements PlannerService {
 		PlannerPlace dbplan = plannerPlaceRep.findById(plannerPlace.getPlannerPlaceId())
 				.orElseThrow( ()-> new RuntimeException("플래너 일정을 찾을 수 없습니다."));
 		dbplan.setPlannerPlaceDate(plannerPlace.getPlannerPlaceDate());
-		
-		//diary검색
-		//Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
-		//diaryline update
-		//DiaryLine dbDiaryLine = diaryLineRep.findById(diaryLine.getDiaryLineId())
-				//.orElseThrow(() -> new RuntimeException("다이어리 상세 내용을 찾을 수 없습니다."));
 	}
 	
 	@Override
@@ -176,8 +162,7 @@ public class PlannerServiceImpl implements PlannerService {
 		place.setPlaceSave(place.getPlaceSave()-1);
 		
 		plannerPlaceRep.deleteById(plannerPlaceId);
-		
-		//diaryline delete
+
 	}
 
 	
