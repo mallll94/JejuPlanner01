@@ -112,8 +112,11 @@ class JejuProjectApplicationTests {
 		void freeboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
 			Users user2 =  userRep.findById("ddd").orElse(null);
-			freeboardRep.save(new FreeBoard(null, user1, "장소추천", "새별오름 추천해요", "추천합니다", null, 0, null, null, null) );
-			freeboardRep.save(new FreeBoard(null, user2, "여행추천", "오랜만에 제주도 다녀왔어요", "바다도 보고 오랜만에 좋았습니다", null, 0, null, null,null) );
+			/*
+			 * freeboardRep.save(new FreeBoard(null, user1, "장소추천", "새별오름 추천해요", "추천합니다",
+			 * null, 0, null, null, null) ); freeboardRep.save(new FreeBoard(null, user2,
+			 * "여행추천", "오랜만에 제주도 다녀왔어요", "바다도 보고 오랜만에 좋았습니다", null, 0, null, null,null) );
+			 */
 			
 		}
 		

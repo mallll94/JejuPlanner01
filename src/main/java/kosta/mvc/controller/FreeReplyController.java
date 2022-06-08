@@ -52,7 +52,7 @@ public class FreeReplyController {
 	 **/
 	@RequestMapping("/reply/freeBoard_Insert")
 	@ResponseBody
-	public FreeReply insert(String replyContent, String freeId) {
+	public void insert(String replyContent, String freeId) {
 		
 		//FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeId), false);
 	
@@ -61,8 +61,7 @@ public class FreeReplyController {
 		FreeReply reply = new FreeReply(null, null, users, replyContent, null); //물어보기
 		
 		freeReplyService.addFreeReply(Long.valueOf(freeId), reply);
-	
-		return reply;
+			
 	}
 	
 	
