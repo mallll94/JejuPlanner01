@@ -71,10 +71,6 @@ public class PlanBoardController {
 	}
 
 
-	/**플래너게시판 마이페이지 작성한 글 목록 조회*/
-	
-	
-	
 	
 	/**상세보기*/
 	@RequestMapping("/board/Planboard_Detail/{pboardId}")
@@ -192,47 +188,5 @@ public class PlanBoardController {
 		return "redirect:/admin/Planboard_Admin";		
 	}
 
-
-	/**카테고리별*/
-	/*@RequestMapping("/board/PlanboardList")
-	public void selectByCate(Model model, String pboardCategory, @RequestParam(defaultValue="1") int nowPage) {
-
-		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "pboardId");
-		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory, nowPage, PAGE_COUNT);
-
-		int temp = (nowPage-1)%BLOCK_COUNT;
-		int startPage = nowPage - temp;
-
-		model.addAttribute("pageList", pageList);
-        model.addAttribute("blockCount", BLOCK_COUNT);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("nowPage", nowPage);
-
-	}*/
-
-
-	/**전체검색*/
-	/*@RequestMapping("/board/PlanboardList")
-    public void planList(Model model) {
-	List<PlanBoard> list = planBoardService.selectAll();
-
-	System.out.println("list" + list.size());
-	System.out.println("planlist");
-
-	model.addAttribute("list", list);
-    
-    }*/
-
-	/**전체검색 - 관리자*/
-	/*@RequestMapping("/admin/Planboard_Admin") 
-    public void planListAdmin(Model model) { 
-
-	List<PlanBoard> list = planBoardService.selectAll();
-
-	System.out.println("list" + list.size()); System.out.println("planlist");
-
-	model.addAttribute("list", list); 
-
-   }*/
 
 }

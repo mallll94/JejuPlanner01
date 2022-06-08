@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kosta.mvc.domain.AskBoard;
+import kosta.mvc.domain.Users;
 import kosta.mvc.repository.AskBoardRepository;
+import kosta.mvc.repository.UserRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
@@ -22,8 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class AskBoardServiceImpl implements AskBoardService {
 	
 	private final AskBoardRepository askBoardRep;
-	
 	private final FileStore fileStore;
+	private final UserRepository userRep;
 	
 	
 	/**전체조회*/
@@ -88,5 +90,4 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 
 
-	
 }

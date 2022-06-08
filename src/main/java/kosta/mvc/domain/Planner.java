@@ -74,7 +74,7 @@ public class Planner {
 	private LocalDateTime updateDate;
 	
 	/** 사용자 플래너 장소 */
-	//@OneToMany(fetch = FetchType.LAZY,  mappedBy = "planner" , cascade = CascadeType.REMOVE  , orphanRemoval = true   )
-	//@JsonIgnore
-	//private List<PlannerPlace> plannerPlaceList;
+	@OneToMany(fetch = FetchType.LAZY,  mappedBy = "planner" , cascade = CascadeType.REMOVE  , orphanRemoval = true   )
+	@JsonIgnore
+	private List<PlannerPlace> plannerPlaceList;
 }

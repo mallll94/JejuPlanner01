@@ -16,6 +16,7 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
+import kosta.mvc.domain.QPlanBoard;
 //import kosta.mvc.domain.QPlanBoard;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.LikesRepository;
@@ -69,11 +70,6 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		return likes;
 	}
 
-	@Override
-	public List<PlanBoard> selectByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**등록하기*/
 	@Override
@@ -140,7 +136,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	
 	@Override
 	public Page<PlanBoard> selectByCate(String pboardCategory, int nowPage, int PAGE_COUNT){
-		//QPlanBoard plan = QPlanBoard.planBoard;
+		QPlanBoard plan = QPlanBoard.planBoard;
 		BooleanBuilder builder = new BooleanBuilder();
 		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC , "pboardId");
 		
@@ -150,16 +146,11 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		if(pboardCategory == null){
 			 result = planBoardRep.findAll(pageable);
 		}else{
-			//builder.and(plan.pboardCategory.contains(pboardCategory));
+			builder.and(plan.pboardCategory.contains(pboardCategory));
 			
 			result = planBoardRep.findAll(builder, pageable);
 		}
 		
-		/*
-		 * if( (filter.equals("none")|| filter == null )) { pageable = PageRequest.of(
-		 * (nowPage-1), PageCount); }else if(filter.equals("pboardCategory")) { pageable
-		 * = PageRequest.of( (nowPage-1), PageCount, Direction.DESC, filter); }
-		 */
 		
 		return result;
 	}

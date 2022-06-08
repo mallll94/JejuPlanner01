@@ -63,4 +63,9 @@ public interface PlannerService {
 	 * 공유하기
 	 * */
 	void PlannerShareBoard(Long placeId);
+	
+	/**
+	 * 플래너 type 수정
+	 * */
+	void plannerTypeUpdate(String type, Long plannerId);
 }

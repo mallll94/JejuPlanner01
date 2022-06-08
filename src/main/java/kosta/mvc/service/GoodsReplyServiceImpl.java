@@ -1,10 +1,14 @@
 package kosta.mvc.service;
 
+import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsReply;
 import kosta.mvc.repository.GoodsReplyRepository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class GoodsReplyServiceImpl implements GoodsReplyService {
 	private GoodsReplyRepository goodsReplyRepository;
 
@@ -27,4 +31,14 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 	public List<GoodsReply> getAllGoodsReply() {
 		return goodsReplyRepository.findAll();
 	}
+
+	@Override
+	public List<GoodsReply> getGoodsReplyByGoodsId(Long goodsId) {
+		// TODO Auto-generated method stub
+		Goods goods = new Goods();
+		goods.setGoodsId(goodsId);
+		return goodsReplyRepository.findGoodsReplyByGoods(goods);
+	}
+	
+	
 }

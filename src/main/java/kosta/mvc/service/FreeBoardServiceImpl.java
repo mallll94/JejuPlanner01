@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.FreeBoard;
+import kosta.mvc.domain.QFreeBoard;
 //import kosta.mvc.domain.QFreeBoard;
 import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.util.FileStore;
@@ -144,7 +145,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 **/
     @Override
 	public Page<FreeBoard> selectByCate(String freeCategory, int nowPage, int PAGE_COUNT){
-		//QFreeBoard free = QFreeBoard.freeBoard;
+		QFreeBoard free = QFreeBoard.freeBoard;
 		BooleanBuilder builder = new BooleanBuilder();
 		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC , "freeId");
 		
@@ -154,9 +155,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		if(freeCategory == null){
 			 result = freeBoardRep.findAll(pageable);
 		}else{
-			//builder.and(free.freeCategory.contains(freeCategory));
+			builder.and(free.freeCategory.contains(freeCategory));
 			
-			//result = freeBoardRep.findAll(builder, pageable);
+			result = freeBoardRep.findAll(builder, pageable);
 		}
 		
 		

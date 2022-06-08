@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -31,10 +32,12 @@ public class Likes {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "planboard_fk")
+	@JsonIgnore
 	private PlanBoard planBoard;
 	
 //	public static Likes toLikes(Users user , PlanBoard planBoard) {

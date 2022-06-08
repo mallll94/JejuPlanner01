@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,10 +39,12 @@ public class GoodsReply{
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "goods_fk")
+	@JsonIgnore
 	private Goods goods; //상품번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	@Column(length = 2000)

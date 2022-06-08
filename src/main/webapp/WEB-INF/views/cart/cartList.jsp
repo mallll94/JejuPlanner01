@@ -45,15 +45,14 @@
 		var deleteBox = [];
 		//수량 변경- // 가격 변경
 		$(document).on("click","#minus",function(){	
-			//alert($(this).val())
-			//alert($("[name=checkboxNoLabel]")[$(this).val()].checked)
+			
 			if($("[name=checkboxNoLabel]")[$(this).val()].checked){
 			var id = "#goodsLineAmount"+$(this).val();
 			var price = "#price"+$(this).val();
 			var totalprice = "#totalprice"+$(this).val();
 			var check = "#checkboxNoLabel"+$(this).val();
 			var sumtotalprint = 0;
-			//alert(parseInt($(price).html())*parseInt($(id).val()));
+		
 			sumtotalprint = parseInt($("#totalPrint").html())-parseInt($(price).html())*parseInt($(id).val());
 			 // 모든 상품 총가격 표시하는 친구
 			if($(id).val()>1){	
@@ -114,10 +113,12 @@
 		
 		
 		//전체 선택 해제
-		$(document).on('click','#allCheck',function(){     
+		$(document).on('click','#allCheck',function(){
+			var sum = $("#totalPrint").html(); 
 			if($("#allCheck").val()==0){        
 				$('.form-check-input').prop('checked',true);
 				$("#allCheck").val(1);
+				$("")
 		    }
 			else{        
 				$('.form-check-input').prop('checked',false);    

@@ -25,4 +25,9 @@ public interface GoodsReplyService {
 	 * 후기 전체 조회하기
 	 */
 	public List<GoodsReply> getAllGoodsReply();
+	
+	/**
+	 * goodsId로 후기 조회하기
+	 */
+	public List<GoodsReply> getGoodsReplyByGoodsId(Long goodsId);
 }

@@ -61,27 +61,13 @@ public class AskController {
 		int startPage = nowPage - temp;
 		
 		System.out.println("adminList test");
-		
-		//List<AskBoard> list = askBoardService.getAllAskBoards();
-			
+					
 		model.addAttribute("pageList",pageList);
         model.addAttribute("blockCount", BLOCK_COUNT);
         model.addAttribute("startPage", startPage);
         model.addAttribute("nowPage", nowPage);
 	}
 	
-	
-	/**전체검색*/
-	/*@RequestMapping("/admin/AskList_Admin") 
-	public void askList(Model model) {
-		System.out.println("asklist test");
-
-		List<AskBoard> list = askBoardService.getAllAskBoards();
-		
-		model.addAttribute("list",list);
-
-	}*/
-
 
 	/**글 등록폼*/
 	@RequestMapping("/board/AskBoard")
@@ -109,12 +95,9 @@ public class AskController {
 		System.out.println("askboardId test");
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
-		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
-		//return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
-		//List<AskReply> replylist = askBoard.getAskReplyList();
+
 		model.addAttribute("askboard",askBoard);
-		//model.addAttribute("replylist",replylist);
-		
+
 		return "/board/Ask_Detail";
 				
 	}
@@ -125,7 +108,7 @@ public class AskController {
 		System.out.println("askboardId test");
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
-		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
+
 		return new ModelAndView("reply/AskReply_Write", "askboard", askBoard);
 		
 	}
@@ -143,6 +126,6 @@ public class AskController {
 		
 		return "redirect:/board/AskList";
 	}
-
+	
 
 }

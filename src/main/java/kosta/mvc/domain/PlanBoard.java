@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -44,10 +45,12 @@ public class PlanBoard {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userplan_fk")
+	@JsonIgnore
 	private Planner userPlan; //사용자플래너번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_fk")
+	@JsonIgnore
 	private Users user;
 	
 	private String pboardCategory;
@@ -59,9 +62,7 @@ public class PlanBoard {
 	
 	@CreationTimestamp
 	private LocalDateTime pboardRegdate;
-	
-	//private int pboardGood;
-	
+		
 	@Transient
 	private MultipartFile file;
 	

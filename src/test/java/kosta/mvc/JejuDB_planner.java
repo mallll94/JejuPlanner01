@@ -71,7 +71,7 @@ public class JejuDB_planner {
 		
 		
 	}
-	
+	/*
 	@Test
 	public void placeisert() {
 		placeRep.save(new Place(null, "장소", "성산일출봉", "제주 서귀포시 성산읍 성산리 1", "높이 180m. 제주특별자치도 동쪽에 돌출한 성산반도 끝머리에 있다.", 
@@ -85,10 +85,10 @@ public class JejuDB_planner {
 		placeRep.save(new Place(null, "숙소", "그랜드 하얏트 제주", "제주 제주시 노연로 12 그랜드 하얏트 제주 | 제주 드림타워 복합리조트", "제주 도심에 위치한 제주 드림타워 복합 리조트는 제주 국제공항, 국제 크루즈 터미널에서 자동차로 10분 이내에 닿을 수 있는 거리에 있습니다.", 
 				null, "https://www.hyatt.com/en-US/hotel/south-korea/grand-hyatt-jeju/cjugh","33.4853", "126.4814",  0));
 		
-	}
+	}*/
 	/**플래너 등록*/
 	//onetomany null처리
-	
+	/*
 	@Test
 	public void plannerinsert() {
 		
@@ -113,7 +113,7 @@ public class JejuDB_planner {
 		LocalDate p5end = LocalDate.of(2020, 01, 15);
 		plannerRep.save(new Planner(null, user3, "제주도", null, 1, p5start, p5end, null,"제주도",null,null,null));	
 	}
-	
+	*/
 	/**플래너 세부 내용 등록*/
 	@Test
 	public void plannerplaceinsert() {

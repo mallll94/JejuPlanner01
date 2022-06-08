@@ -38,4 +38,9 @@ public interface GoodsRepository extends JpaRepository<Goods, Long>, QuerydslPre
 	 */
 	@Query("select goods from Goods goods where goods.goodsLocalCategory = ?1")
 	List<Goods> findAllGoodsByLocalCategory(String localCategory);
+	
+	
+	/**
+	 * 상품 이름으로 상품 검색
+	 */
 }

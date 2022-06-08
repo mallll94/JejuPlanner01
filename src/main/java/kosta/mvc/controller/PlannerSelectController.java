@@ -37,7 +37,7 @@ public class PlannerSelectController {
 		List<PlannerPlace> boxList = new ArrayList<>();
 		
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-/*
+
 		if(DayPlanner==0) {
 			list = planner.getPlannerPlaceList();
 			
@@ -49,7 +49,7 @@ public class PlannerSelectController {
 			}
 			
 			list = boxList;
-		}*/
+		}
 		//D-day
 		
 		List<PlaceDTO> place=placeService.selectByPlanner(list);
@@ -98,7 +98,12 @@ public class PlannerSelectController {
 	}
 	
 	
-	
+	@RequestMapping("/typeUpdate")
+	@ResponseBody
+	public void typeUpdate(String type, Long plannerId) {
+		
+		plannerService.plannerTypeUpdate(type,plannerId);
+	}
 	
 	
 	
