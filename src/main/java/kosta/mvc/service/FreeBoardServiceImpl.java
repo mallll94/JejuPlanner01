@@ -93,7 +93,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 */
 	@Override
 	public List<FreeBoard> getAllFreeBoards() {
-		
+		 
 		return freeBoardRep.findAll(Sort.by(Sort.Direction.DESC, "freeId"));
 	}
 	
@@ -118,9 +118,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		}
 		
 		FreeBoard freeBoard = freeBoardRep.findById(freeId).orElse(null);
-		System.out.println("freeId" +freeBoard.getFreeId());
-		System.out.println("freeTitle" +freeBoard.getFreeTitle());
-		System.out.println("freeContent" +freeBoard.getFreeContent());
+
 		if(freeBoard==null) new RuntimeException("상세보기에 오류가 발생했습니다.");
 		return freeBoard;
 	}

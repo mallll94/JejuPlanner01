@@ -31,16 +31,16 @@ public class FreeReplyController {
 	 **/
 	@RequestMapping("/reply/freeBoard_Detail")
 	@ResponseBody
-	public List<FreeReplyDTO> freeReplyList(String freeBoardId) {
+	public List<FreeReplyDTO> freeReplyList(String freeId) {
 		
-		FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeBoardId), true);
+		FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeId), true);
 		
 		List<FreeReply> dblist = freeBoard.getFreeReply();
 		
 		List<FreeReplyDTO> list = new ArrayList<FreeReplyDTO>();
 		for(FreeReply x : dblist) {
 			list.add(new FreeReplyDTO(x.getFreeReplyId(), x.getFreeBoard().getFreeId(), 
-					 x.getUser().getUserId(), x.getFreeReplyContent()));
+					 x.getUser().getUserId(), x.getFreeReplyContent())); //이부분
 		}
 				
 		return list;
@@ -52,15 +52,16 @@ public class FreeReplyController {
 	 **/
 	@RequestMapping("/reply/freeBoard_Insert")
 	@ResponseBody
-	public FreeReply insert(String freeReplyContent, String freeBoardId) {
+	public FreeReply insert(String replyContent, String freeId) {
 		
-		FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeBoardId), true);
-		Users user = userService.selectById("ddd"); 
+		//FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeId), false);
+	
+		Users users = userService.selectById("ddd"); 
 		
-		FreeReply reply = new FreeReply(null, freeBoard, user, freeReplyContent, null); //물어보기
+		FreeReply reply = new FreeReply(null, null, users, replyContent, null); //물어보기
 		
-		freeReplyService.addFreeReply(freeBoard.getFreeId(), reply);
-		
+		freeReplyService.addFreeReply(Long.valueOf(freeId), reply);
+	
 		return reply;
 	}
 	

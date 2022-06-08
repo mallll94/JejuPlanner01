@@ -25,7 +25,8 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 	 * 전체 조회(필요한가?)
 	 **/
 	@Override
-	public List<FreeReply> getFreeRepliesByFreeBoardId(Long freeBoardId) {
+	public List<FreeReply> getFreeRepliesByFreeBoardId(Long freeId) {
+		
 
 		return null;
 	}
@@ -37,7 +38,6 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 	public void addFreeReply(Long freeId, FreeReply freeReply) {
 		FreeBoard freeBoard = freeBoardRep.findById(freeId)
 				.orElseThrow(() -> new RuntimeException("해당하는 글을 찾을수 없습니다."));
-		
 		freeReply.setFreeBoard(freeBoard);
 		freeReplyRep.save(freeReply);
 		

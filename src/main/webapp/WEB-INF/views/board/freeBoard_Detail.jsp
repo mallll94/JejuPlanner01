@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 $(function(){
-    var target ='${planBoard.pboardId}'
+    var target ='${freeBoard.freeId}'
     //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
     var loginUser='ddd'
@@ -27,7 +27,7 @@ $(function(){
 		url: "${pageContext.request.contextPath}/reply/freeBoard_Detail" , //서버요청주소
 		type: "post" , //요청방식 (get,post...)
 		dataType: "json" , //서버가 보내온 데이터(응답)type(text | html | xml | json)
-		data: {freeBoardId: target} , //서버에게 보낼 데이터정보(parameter정보)
+		data: {freeId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
 			alert("검색성공~")
@@ -88,8 +88,8 @@ $(function(){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/freeBoard_Insert" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
-                datatype: "json",
-                data: {replyContent : replyContent , freeBoardId : target} , //서버에게 보낼 데이터정보(parameter정보)
+                dataType: "json",
+                data: {replyContent : replyContent , freeId : target} , //서버에게 보낼 데이터정보(parameter정보)
                 
                 success: function(result){
                     alert("댓글등록성공~")
@@ -97,10 +97,9 @@ $(function(){
                         //textarea부분 지우고 
                         $("textarea.form-control").val("")
                         //화면갱신한다
-                        selectAllReply();
+                        selectAllReply(); 
                     
                 },
-
                 error: function(err){//실패했을 때 콜백함수
                 alert("오류가 발생했습니다.")
                 } 
@@ -212,7 +211,7 @@ $(function(){
                 <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}">
             </div>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
-            <input type="hidden" name="freeBoardId" value="${freeBoard.freeBoardId}">
+            <input type="hidden" name="freeId" value="${freeBoard.freeId}">
             <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
     	</form>
     </div>
