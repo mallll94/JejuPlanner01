@@ -7,7 +7,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import kosta.mvc.domain.FreeBoard;
 
-public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, QuerydslPredicateExecutor<FreeBoard> {
+public interface FreeBoardRepository
+		extends JpaRepository<FreeBoard, Long>/* , QuerydslPredicateExecutor<FreeBoard> */ {
 	
 	/**
 	 *  조회수 증가하는 메소드 

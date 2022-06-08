@@ -10,16 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
-import kosta.mvc.domain.Diary;
-import kosta.mvc.domain.DiaryLine;
+
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 //import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
-import kosta.mvc.repository.DiaryLineRepository;
-import kosta.mvc.repository.DiaryRepository;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
@@ -34,8 +31,6 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlannerRepository plannerRep;
 	private final PlannerPlaceRepository plannerPlaceRep;
 	private final PlaceRepository placeRep;
-	private final DiaryRepository diaryRep;
-	private final DiaryLineRepository diaryLineRep;
 	
 	private final static String DIARY_DEFAULT_NAME = "제주도";
 	
@@ -108,11 +103,11 @@ public class PlannerServiceImpl implements PlannerService {
 		plannerRep.save(planner);
 
 		//diary insert
-		if(planner.getPlannerName()==null) {
+		/*if(planner.getPlannerName()==null) {
 			diaryRep.save(new Diary(null, planner.getUser(), planner, null, DIARY_DEFAULT_NAME, planner.getPlannerType(), planner.getPlannerCount(),null));
 		}else {
 			diaryRep.save(new Diary(null, planner.getUser(), planner, null, planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount(),null));
-		}
+		}*/
 		
 		System.out.println("diary save완료");
 	}
@@ -149,9 +144,9 @@ public class PlannerServiceImpl implements PlannerService {
 		plannerPlaceRep.save(plannerPlace);
 		
 		//diary검색
-		Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
+		//Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
 		//diaryline insert
-		diaryLineRep.save(new DiaryLine(null, dbDiary, plannerPlace, null, null, 0, null));
+		//diaryLineRep.save(new DiaryLine(null, dbDiary, plannerPlace, null, null, 0, null));
 
 	}
 
@@ -164,7 +159,7 @@ public class PlannerServiceImpl implements PlannerService {
 		dbplan.setPlannerPlaceDate(plannerPlace.getPlannerPlaceDate());
 		
 		//diary검색
-		Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
+		//Diary dbDiary =diaryRep.findByPlannerId(plannerPlace.getPlanner().getPlannerId());
 		//diaryline update
 		//DiaryLine dbDiaryLine = diaryLineRep.findById(diaryLine.getDiaryLineId())
 				//.orElseThrow(() -> new RuntimeException("다이어리 상세 내용을 찾을 수 없습니다."));

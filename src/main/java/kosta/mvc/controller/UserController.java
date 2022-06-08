@@ -1,12 +1,18 @@
 package kosta.mvc.controller;
 
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.mvc.domain.Users;
@@ -90,4 +96,19 @@ public class UserController {
 		return "user/loginForm";
 	}
 	
+	
+	@RequestMapping(value = "/kakao/callback" , method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam String code, HttpSession session) {
+		System.out.println("::카카오 로그인 인증::"+code);
+		
+		//접속토큰 Get
+		String kakaoToken = userService.kakaoGetAccessToken(code);
+		
+		//접속자 정보 Get
+		//Map<String, Object> result = userService.getUserInfo(kakaoToken);
+		//String kakaoId = (String)result.get("id");
+		
+		
+		return "redirect:/";
+	}
 }

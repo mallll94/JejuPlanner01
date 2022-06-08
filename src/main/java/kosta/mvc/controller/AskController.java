@@ -111,9 +111,9 @@ public class AskController {
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
 		//log.info("askReply={}", askBoard.getAskReplyList().get(0).getAskReplyContent());
 		//return new ModelAndView("board/Ask_Detail", "askboard", askBoard);
-		List<AskReply> replylist = askBoard.getAskReplyList();
+		//List<AskReply> replylist = askBoard.getAskReplyList();
 		model.addAttribute("askboard",askBoard);
-		model.addAttribute("replylist",replylist);
+		//model.addAttribute("replylist",replylist);
 		
 		return "/board/Ask_Detail";
 				
