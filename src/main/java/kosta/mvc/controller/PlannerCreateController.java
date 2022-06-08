@@ -119,10 +119,10 @@ public class PlannerCreateController {
 		System.out.println(" === updateDate plannerStart"+plannerStart);
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-		List<PlannerPlace> placelist= planner.getPlannerPlaceList();
+		//List<PlannerPlace> placelist= planner.getPlannerPlaceList();
 		map.put("planner", planner);
 		map.put("Dday", period.getDays());
-		map.put("plannerPlace", placelist);
+		//map.put("plannerPlace", placelist);
 		return map;
 	}
 	
@@ -141,17 +141,17 @@ public class PlannerCreateController {
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
 		System.out.println(" === plannerInsert startDay = "+startDate);
-		Planner newplanner = new Planner(loginUser);
-			newplanner.setPlannerStart(startDate);
-			newplanner.setPlannerEnd(endDate);
-		plannerService.insertPlan(newplanner);
+		//Planner newplanner = new Planner(loginUser);
+			//newplanner.setPlannerStart(startDate);
+			//newplanner.setPlannerEnd(endDate);
+		//plannerService.insertPlan(newplanner);
 		
 		//D-day
-		Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
-		List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
-		map.put("planner", newplanner);
-		map.put("Dday", period.getDays());
-		map.put("plannerPlace", placelist);
+		//Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
+		//List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
+		//map.put("planner", newplanner);
+		//map.put("Dday", period.getDays());
+		//map.put("plannerPlace", placelist);
 		
 		return map;
 		
@@ -162,7 +162,7 @@ public class PlannerCreateController {
 	@ResponseBody
 	public void updatePlanPlace(Long plannerplaceId, String date) {
 		System.out.println(date);
-		plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
+		//plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
 	}
 	
 	/**왼쪽사이드바 일정 삭제하기*/
@@ -194,7 +194,7 @@ public class PlannerCreateController {
 			String userId ="aaa";
 			Users loginUser =userService.selectById(userId);
 		
-		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
+		//plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
 		return dbplace;
 	}
 	
