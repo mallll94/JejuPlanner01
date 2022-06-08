@@ -52,7 +52,7 @@ public class PlanBoardController {
 	}
 	
 	/**전체검색 & 카테고리 & 페이징 - 관리자*/
-	@RequestMapping("/admin/Planboard_Admin")
+	//@RequestMapping("/admin/Planboard_Admin")
 	public void planListAdmin(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 		
 		System.out.println("category????" + pboardCategory);

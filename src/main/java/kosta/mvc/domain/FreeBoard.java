@@ -65,8 +65,8 @@ public class FreeBoard {
 	private MultipartFile file;
 	
 	/** 댓글 */
-	//@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)
-	//private List<FreeReply> freeReplyList;
+	@OneToMany(mappedBy = "freeBoard", cascade = CascadeType.ALL)
+	private List<FreeReply> freeReply;
 
 	
 

@@ -26,7 +26,7 @@ public interface FreeBoardService {
 	public List<FreeBoard> getAllFreeBoards();
 	
 	/**
-	 * 소통게시판 조회하기
+	 * 소통게시판 상세 조회하기
 	 */
 	public FreeBoard getFreeBoard(Long freeId, boolean state);
 	
