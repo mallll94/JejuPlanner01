@@ -17,10 +17,6 @@ public interface PlanReplyService {
 	 * */
 	void insert(Long pboardId, PlanReply planReply);
 	
-	/**
-	 * 댓글 수정
-	 * */
-	//void update(PlanReply planReply);
 	
 	/**
 	 * 댓글 삭제

@@ -28,12 +28,7 @@ public interface PlanBoardService {
 	/**좋아요 조회*/
 	Likes selectByBoardId(Long pboardId , String userId);
 	
-		
-	/**
-	 * 플래너게시판 마이페이지 작성한 글 목록 조회
-	 * */
-	List<PlanBoard> selectByUserId(String userId);
-	
+			
 	/**
 	 * 플래너게시판 등록
 	 * */

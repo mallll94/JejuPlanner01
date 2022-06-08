@@ -62,9 +62,7 @@ public class PlanBoard {
 	
 	@CreationTimestamp
 	private LocalDateTime pboardRegdate;
-	
-	//private int pboardGood;
-	
+		
 	@Transient
 	private MultipartFile file;
 	

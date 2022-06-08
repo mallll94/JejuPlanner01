@@ -23,9 +23,7 @@ public class AskReplyController {
 	public void askReplyList(Model model) {
 		
 		List<AskReply> list = askReplyService.getAskRepliesByAskBoardId(null);
-		
-		//System.out.println("replylist" + list.size());
-		
+				
 	    model.addAttribute("list",list);
 	}
 	

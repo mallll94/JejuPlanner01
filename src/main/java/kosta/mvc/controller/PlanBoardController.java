@@ -188,11 +188,5 @@ public class PlanBoardController {
 		return "redirect:/admin/Planboard_Admin";		
 	}
 
-	/**플래너게시판 마이페이지 작성한 글 목록 조회*/
-	@RequestMapping("/myPage/pblist")
-	public void pblist(Model model, String userId) {
-		//List<PlanBoard> list = planBoardService.selectByUserId(userId);
-		
-		//model.addAttribute(list);
-	}
+
 }

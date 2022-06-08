@@ -70,13 +70,6 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		return likes;
 	}
 
-	@Override
-	public List<PlanBoard> selectByUserId(String userId) {
-		/*Users user = userRep.findById(userId)
-		.orElseThrow(() -> new RuntimeException("글 목록 조회 오류가 발생하였습니다."));
-       */
-		return null;
-	}
 
 	/**등록하기*/
 	@Override
