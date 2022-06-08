@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -18,6 +20,7 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QPlace;
 import kosta.mvc.dto.PlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
+import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
 
@@ -28,7 +31,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	
 	private final PlaceRepository placeRep;
-	
+	private final FileStore fileStore;
 	@Override
 	public List<Place> selectAll() {
 		
@@ -68,9 +71,25 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 	
 	@Override
-	public void insertPlace(Place place) {
-		placeRep.save(place);
-
+	public void insertPlace(Place place, String uploadPath) {
+		System.out.println("3번문제");
+		Place savePlace = placeRep.save(place);
+		System.out.println("4번문제");
+		MultipartFile file = place.getFile();
+		
+		if (!file.isEmpty()) {
+			if (file.getContentType().startsWith("image") == false) {
+				throw new RuntimeException("이미지형식이 아닙니다.");
+			}
+			
+			try {
+				System.out.println("5번문제");
+				String storeFIleName = fileStore.storeFile(uploadPath, file);
+				savePlace.setPlacePhoto(storeFIleName);
+			} catch (IOException e) {
+				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
+			}
+		}
 	}
 
 	@Override

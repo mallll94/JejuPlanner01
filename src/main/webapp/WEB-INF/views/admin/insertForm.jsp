@@ -67,7 +67,7 @@ $(function(){
 </head>
 <body>
 <h1>플래너데이터 - 등록</h1>
-		<form method="post" action="${pageContext.request.contextPath}/admin/placeInsert" >
+		<form method="post" action="${pageContext.request.contextPath}/admin/placeInsert"  enctype="multipart/form-data">
 			<div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -132,7 +132,7 @@ $(function(){
                           <label class="col-sm-2 col-form-label" for="basic-default-phone">첨부 사진</label>
                           <div class="col-sm-10">
                           
-                          	<input type="file" id="ss" name="file"/>
+                          	<input type="file" id="ss" name="file"  accept=".png, .jpg]" />
                           	<img style="width: 500px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
                           </div>
  

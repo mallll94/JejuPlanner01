@@ -42,7 +42,7 @@ public interface PlaceService {
 	/**
 	 * 장소 등록하기
 	 * */
-	void insertPlace(Place place);
+	void insertPlace(Place place, String uploadPath);
 	
 	/**
 	 * 장소 수정하기

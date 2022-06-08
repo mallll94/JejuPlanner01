@@ -63,7 +63,7 @@
 
 	$(function(){
 		
-		alert("${param.plannerId}")
+		//alert("${param.plannerId}")
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -345,6 +345,7 @@
 		</div>
 	</div>
 	<div id="googleMap" style="width: 100%;height: 600px;"></div>
+	<div onclick="toggleSelectTripWith();"  style="position:absolute;top:10px;left:10px;cursor:pointer;margin-left:10px;background:#fff;border:1px solid #efefef;text-align:center;width:60px;padding-top:5px;padding-bottom:5px"><div >fasdfwae</div><div style="font-size:8pt;"><span id="tripwith_txt"></span></div></div>
 	<div id="pdfDiv">
 	<div class="latest-news mt-100 mb-150">
 		<div class="container" id="card">

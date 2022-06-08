@@ -2,14 +2,17 @@ package kosta.mvc.repository;
 
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.PlannerPlace;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface GoodsRepository extends JpaRepository<Goods, Long> {
+public interface GoodsRepository extends JpaRepository<Goods, Long>, QuerydslPredicateExecutor<Goods> {
 
 	/**
 	 * 플래너 기반 상품 검색

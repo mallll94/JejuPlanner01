@@ -107,6 +107,13 @@
     		  location.replace(url)		  
     	  })
       })
+      
+      $(function(){
+         $("button[value=삭제]").click(function() {
+    	  $("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/deleteAdmin");
+		  $("#requestForm").submit();
+	}) 
+ }) 
 
     </script> 
 
@@ -134,6 +141,7 @@
 		 <div class="single-latest-news">
 			<div class="latest-news-bg news-bg-1"></div>
 				<div class="news-text-box">
+				  <div align="right">${planboard.pboardCategory}</div>
 				   <h3><a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">
 				   ${planboard.pboardTitle}
 				   </a></h3>
@@ -147,7 +155,14 @@
 					 </p>
 
 					<p class="excerpt">${planboard.user.userId}</p>
-					<button type="button" class="btn btn-primary" value="삭제">삭제</button>
+				
+				<form name="requestForm" method = "post" id="requestForm">
+                  <input type="hidden" name="pboardId" value="${planboard.pboardId}">
+				   <div align="right">	
+					<button type="button" class="delete-btn btn-primary py-2 px-4" value="삭제">삭제</button>
+		           </div>
+		        </form>  
+		           
 		    </div>
 		 </div>
 	   </div>
