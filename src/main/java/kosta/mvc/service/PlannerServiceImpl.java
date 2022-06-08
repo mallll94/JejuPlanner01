@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
-
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
-//import kosta.mvc.domain.QPlanner;
+import kosta.mvc.domain.QPlanner;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
@@ -32,14 +34,19 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlannerPlaceRepository plannerPlaceRep;
 	private final PlaceRepository placeRep;
 	
-	private final static String DIARY_DEFAULT_NAME = "제주도";
+	
+	//private final static String DIARY_DEFAULT_NAME = "제주도";
 	
 	
 	@Override
-	public List<Planner> selectAll(String userId) {
-			List<Planner> plist = plannerRep.selectByUserID(userId);
+	public Page<Planner> selectAllByUserIdPageing(Pageable pageable,String userId) {
+		//userId별 검색
+		QPlanner planner = QPlanner.planner;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(planner.user.userId.eq(userId));
+		Page<Planner> plist = plannerRep.findAll(builder,pageable);
 			
-			return plist;
+		return plist;
 	}
 
 	/*@Override

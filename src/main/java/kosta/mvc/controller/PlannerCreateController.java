@@ -41,8 +41,12 @@ public class PlannerCreateController {
 	private final PlaceService placeService;
 	private final UserService userService;
 	
+	
+	private final static int INDEX_PAGE_COUNT=4;
+	private final static int INDEX_BLOCK_COUNT=3;
 	private final static int PLACE_PAGE_COUNT=10;
 	private final static int PLACE_BLOCK_COUNT=3;
+	
 	
 	
 	
@@ -52,14 +56,24 @@ public class PlannerCreateController {
 	}
 	/**플래너 전체조회하기*/
 	@RequestMapping("/plannerIndex")
-	public void selectAllByUserID(Model model, HttpSession session){
+	public void selectAllByUserID(Model model, HttpSession session, @RequestParam(defaultValue = "1") int nowPage){
 		//임시 테스트 아이디
 		String userId ="aaa";
 		Users loginUser =userService.selectById(userId);
 		
-		List<Planner> plist = plannerService.selectAll(loginUser.getUserId());
+		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.DESC, "updateDate");
+		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,loginUser.getUserId());
+		List<Planner> plist = new ArrayList<Planner>();
+		
+		int temp = (nowPage-1)%INDEX_BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
 		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("pageList", pagelist);
 		model.addAttribute("plannerList",plist);
+		model.addAttribute("blockCount",INDEX_BLOCK_COUNT);
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("nowPage",nowPage);
 		
 	}
 	
