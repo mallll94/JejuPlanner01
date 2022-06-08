@@ -144,5 +144,13 @@ public class AskController {
 		return "redirect:/board/AskList";
 	}
 
+	
+	/**1:1게시판 마이페이지 작성한 글 목록 조회*/
+	@RequestMapping("/myPage/alist")
+	public void alist(Model model, String userId) {
+		//List<AskBoard> list = askBoardService.selectByUserId(userId);
+		
+		//model.addAttribute(list);
+	}
 
 }

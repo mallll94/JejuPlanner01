@@ -34,6 +34,8 @@ public interface AskBoardService {
 	public void deleteAskBoard(Long askId);
 
 
+
+
 	
 
 

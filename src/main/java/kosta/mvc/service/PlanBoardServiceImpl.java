@@ -71,8 +71,10 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	}
 
 	@Override
-	public List<PlanBoard> selectByUserId(Long userId) {
-		// TODO Auto-generated method stub
+	public List<PlanBoard> selectByUserId(String userId) {
+		/*Users user = userRep.findById(userId)
+		.orElseThrow(() -> new RuntimeException("글 목록 조회 오류가 발생하였습니다."));
+       */
 		return null;
 	}
 
@@ -156,11 +158,6 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 			result = planBoardRep.findAll(builder, pageable);
 		}
 		
-		/*
-		 * if( (filter.equals("none")|| filter == null )) { pageable = PageRequest.of(
-		 * (nowPage-1), PageCount); }else if(filter.equals("pboardCategory")) { pageable
-		 * = PageRequest.of( (nowPage-1), PageCount, Direction.DESC, filter); }
-		 */
 		
 		return result;
 	}
