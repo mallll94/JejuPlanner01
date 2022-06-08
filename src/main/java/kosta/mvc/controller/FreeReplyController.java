@@ -55,9 +55,9 @@ public class FreeReplyController {
 	public FreeReply insert(String freeReplyContent, String freeBoardId) {
 		
 		FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeBoardId), true);
-		Users users = userService.selectById("ddd"); //?? 질문하기
+		Users user = userService.selectById("ddd"); 
 		
-		FreeReply reply = new FreeReply(); //물어보기
+		FreeReply reply = new FreeReply(null, freeBoard, user, freeReplyContent, null); //물어보기
 		
 		freeReplyService.addFreeReply(freeBoard.getFreeId(), reply);
 		

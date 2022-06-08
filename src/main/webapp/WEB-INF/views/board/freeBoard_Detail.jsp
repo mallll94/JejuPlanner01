@@ -212,7 +212,7 @@ $(function(){
                 <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}">
             </div>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
-            <input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
+            <input type="hidden" name="freeBoardId" value="${freeBoard.freeBoardId}">
             <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
     	</form>
     </div>
