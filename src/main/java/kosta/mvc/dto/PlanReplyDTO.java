@@ -13,7 +13,6 @@ public class PlanReplyDTO {
 
 	private Long pboardReplyId;
 	private Long planBoardId;
-	private Long userPlanId;
 	private String userId;
 	private String pboardReplyContent;
 

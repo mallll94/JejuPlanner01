@@ -68,11 +68,11 @@ public class PlanBoard {
 	
 	
 	/**댓글*/
-	//@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
-	//private List<PlanReply> planReply;
+	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
+	private List<PlanReply> planReply;
 	
 	/**좋아요*/
-	//@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
-	//Set<Likes> likes = new HashSet<>();
+	@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
+	Set<Likes> likes = new HashSet<>();
 
 }

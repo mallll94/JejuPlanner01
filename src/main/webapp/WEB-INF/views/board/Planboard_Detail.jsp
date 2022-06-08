@@ -69,7 +69,6 @@ $(function(){
     $("#reply-insert-btn").click(function(){
         let status =true;
         let replyContent = $('textarea[name=replyContent]').val()
-        alert(replyContent)
         //댓글 유효성체크
         if(!loginUser){
             alert("댓글 기능은 회원만 가능합니다.")
@@ -88,11 +87,11 @@ $(function(){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/planinsert" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
-                datatype: "json",
+                datatype: "text",
                 data: {replyContent : replyContent , pboardId : target} , //서버에게 보낼 데이터정보(parameter정보)
                 
-                success: function(result){
-                    alert("댓글등록성공~")
+                success: function(){
+                    
         
                         //textarea부분 지우고 
                         $("textarea.form-control").val("")
@@ -193,22 +192,8 @@ $(document).ready(function(){
 	
 	
 })
-/*  var i = 0;
- $('i').on('click',function(){
-    if(i==0){
-       $(this).attr('class','bi-heart-fill');
-       i++;
-    }else if(i==1){
-       $(this).attr('class','bi-heart');
-       i--;
-    }
- }); */
+
  
- 
- 
- 
- 
-     
 </script>
 
 
@@ -232,7 +217,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요 ${planBoard.pboardGood}            
+                좋아요             
 			 </div>	
 			   
 

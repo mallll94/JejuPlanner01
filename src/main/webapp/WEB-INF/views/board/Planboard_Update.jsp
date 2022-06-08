@@ -61,7 +61,7 @@
      <form name="planBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/pupdate" onSubmit='return checkValid()' enctype="multipart/form-data">
     <input type="hidden" value="${planBoard.pboardId}" id="pboardId" name="pboardId">                
     <div class="control-group">
-      카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
+      카테고리 <input type="text"  class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
     <p class="help-block text-danger"></p></div>
     <div class="control-group">
       제목 <input type="text"  class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
