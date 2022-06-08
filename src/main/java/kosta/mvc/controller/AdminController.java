@@ -53,7 +53,7 @@ public class AdminController {
 		
 		
 		Page<Place> pageList = placeService.selectByCata(filter, name,nowPage,PAGE_COUNT);
-	
+		System.out.println(pageList);
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage =nowPage-temp;
 		

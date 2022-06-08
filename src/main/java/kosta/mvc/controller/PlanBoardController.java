@@ -39,7 +39,7 @@ public class PlanBoardController {
 		System.out.println("category????" + pboardCategory);
 
 		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
-
+		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 
