@@ -27,4 +27,12 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 	public List<GoodsReply> getAllGoodsReply() {
 		return goodsReplyRepository.findAll();
 	}
+
+	@Override
+	public List<GoodsReply> getGoodsReplyByGoodsId(Long goodsId) {
+		// TODO Auto-generated method stub
+		return goodsReplyRepository.findGoodsReplyByGoodsId(goodsId);
+	}
+	
+	
 }
