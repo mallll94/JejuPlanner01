@@ -41,8 +41,12 @@ public class PlannerCreateController {
 	private final PlaceService placeService;
 	private final UserService userService;
 	
+	
+	private final static int INDEX_PAGE_COUNT=4;
+	private final static int INDEX_BLOCK_COUNT=3;
 	private final static int PLACE_PAGE_COUNT=10;
 	private final static int PLACE_BLOCK_COUNT=3;
+	
 	
 	
 	
@@ -52,14 +56,24 @@ public class PlannerCreateController {
 	}
 	/**플래너 전체조회하기*/
 	@RequestMapping("/plannerIndex")
-	public void selectAllByUserID(Model model, HttpSession session){
+	public void selectAllByUserID(Model model, HttpSession session, @RequestParam(defaultValue = "1") int nowPage){
 		//임시 테스트 아이디
 		String userId ="aaa";
 		Users loginUser =userService.selectById(userId);
 		
-		List<Planner> plist = plannerService.selectAll(loginUser.getUserId());
+		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.DESC, "updateDate");
+		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,loginUser.getUserId());
+		List<Planner> plist = new ArrayList<Planner>();
+		
+		int temp = (nowPage-1)%INDEX_BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
 		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("pageList", pagelist);
 		model.addAttribute("plannerList",plist);
+		model.addAttribute("blockCount",INDEX_BLOCK_COUNT);
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("nowPage",nowPage);
 		
 	}
 	
@@ -106,8 +120,8 @@ public class PlannerCreateController {
 	/**기존플래너 날짜 수정*/
 	@RequestMapping("updateDate")
 	@ResponseBody
-	public Map<String, Object> updateDate(Long plannerId,String plannerStart,String plannerEnd){
-		Map<String, Object> map = new HashMap<String, Object>();
+	public int updateDate(Long plannerId,String plannerStart,String plannerEnd){
+		//Map<String, Object> map = new HashMap<String, Object>();
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
@@ -119,20 +133,21 @@ public class PlannerCreateController {
 		System.out.println(" === updateDate plannerStart"+plannerStart);
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
+		
 		//List<PlannerPlace> placelist= planner.getPlannerPlaceList();
-		map.put("planner", planner);
-		map.put("Dday", period.getDays());
+		//map.put("planner", planner);
+		//map.put("Dday", period.getDays());
 		//map.put("plannerPlace", placelist);
-		return map;
+		return period.getDays();
 	}
 	
 	/**새로운 플래너 생성하기*/ //service에서 다이어리도 생성해야함
 	@RequestMapping("/insert")
 	@ResponseBody
 	public Map<String, Object> insert(String plannerStart,String plannerEnd, HttpSession session) {
-		System.out.println(" === insert plannerStart"+plannerStart);
+			System.out.println(" === insert plannerStart"+plannerStart);
 		//임시 테스트 아이디
-		String userId ="rlawjdgus53";
+		String userId ="aaa";
 		Users loginUser =userService.selectById(userId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -140,18 +155,18 @@ public class PlannerCreateController {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
-		System.out.println(" === plannerInsert startDay = "+startDate);
-		//Planner newplanner = new Planner(loginUser);
-			//newplanner.setPlannerStart(startDate);
-			//newplanner.setPlannerEnd(endDate);
-		//plannerService.insertPlan(newplanner);
+			System.out.println(" === plannerInsert startDay = "+startDate);
+		Planner newplanner = new Planner(loginUser);
+			newplanner.setPlannerStart(startDate);
+			newplanner.setPlannerEnd(endDate);
+		plannerService.insertPlan(newplanner);
 		
 		//D-day
-		//Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
-		//List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
-		//map.put("planner", newplanner);
-		//map.put("Dday", period.getDays());
-		//map.put("plannerPlace", placelist);
+		Period period = Period.between(newplanner.getPlannerStart(), newplanner.getPlannerEnd());
+		List<PlannerPlace> placelist= newplanner.getPlannerPlaceList();
+		map.put("planner", newplanner);
+		map.put("Dday", period.getDays());
+		map.put("plannerPlace", placelist);
 		
 		return map;
 		
@@ -162,7 +177,8 @@ public class PlannerCreateController {
 	@ResponseBody
 	public void updatePlanPlace(Long plannerplaceId, String date) {
 		System.out.println(date);
-		//plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date)));
+		plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date), null, null, 0, null, null, null));
+		
 	}
 	
 	/**왼쪽사이드바 일정 삭제하기*/
@@ -191,10 +207,10 @@ public class PlannerCreateController {
 		int  plannerPlaceDate = Integer.parseInt(inputDate);
 		System.out.println("addPlace::"+placeId);
 			//임시 테스트 아이디
-			String userId ="rlawjdgus53";
+			String userId ="aaa";
 			Users loginUser =userService.selectById(userId);
 		
-		//plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));
+		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate, null, null, 0, null, null, null));
 		return dbplace;
 	}
 	
@@ -212,13 +228,13 @@ public class PlannerCreateController {
 	@RequestMapping("/searchPlace")
 	@ResponseBody
 	public Map<String, Object> searchPlace(String keyword, @RequestParam(defaultValue = "1")int nowPage){
-		System.out.println(keyword+" 페이지는 "+nowPage);
+			System.out.println(keyword+" 페이지는 "+nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Pageable pageable = PageRequest.of((nowPage-1), PLACE_PAGE_COUNT, Direction.DESC, "placeSave");
 		Page<Place> pList =placeService.selectByKeyword(pageable,keyword);
 		List<Place> pageList = pList.getContent();
 		
-		System.out.println(keyword);
+			System.out.println(keyword);
 		
 		int temp =(nowPage-1)%PLACE_BLOCK_COUNT;
 		int startPage = nowPage-temp;
