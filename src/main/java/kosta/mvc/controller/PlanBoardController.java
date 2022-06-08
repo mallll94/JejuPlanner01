@@ -1,7 +1,5 @@
 package kosta.mvc.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
@@ -25,168 +23,168 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PlanBoardController {
 
-	private final PlanBoardService planBoardService;
-	private final UserService userService;
+   private final PlanBoardService planBoardService;
+   private final UserService userService;
 
-	private final static int PAGE_COUNT=6;
-	private final static int BLOCK_COUNT=3;
-
-
-	/**전체검색 & 카테고리 & 페이징*/
-	@RequestMapping("/board/PlanboardList")
-	public void planList(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
-
-		System.out.println("category????" + pboardCategory);
-
-		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
-		
-		int temp = (nowPage-1)%BLOCK_COUNT;
-		int startPage = nowPage - temp;
-
-		model.addAttribute("pageList", pageList);
-		model.addAttribute("blockCount", BLOCK_COUNT);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("pboardCategory",pboardCategory);
-
-	}
-
-	/**전체검색 & 카테고리 & 페이징 - 관리자*/
-	//@RequestMapping("/admin/Planboard_Admin")
-	public void planListAdmin(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
-
-		System.out.println("category????" + pboardCategory);
-
-		Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
-
-		int temp = (nowPage-1)%BLOCK_COUNT;
-		int startPage = nowPage - temp;
-
-		model.addAttribute("pageList", pageList);
-		model.addAttribute("blockCount", BLOCK_COUNT);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("pboardCategory",pboardCategory);
-
-	}
+   private final static int PAGE_COUNT=6;
+   private final static int BLOCK_COUNT=3;
 
 
-	
-	/**상세보기*/
-	@RequestMapping("/board/Planboard_Detail/{pboardId}")
-	public ModelAndView read(@PathVariable Long pboardId) {
+   /**전체검색 & 카테고리 & 페이징*/
+   @RequestMapping("/board/PlanboardList")
+   public void planList(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 
-		PlanBoard planBoard = planBoardService.selectById(pboardId);
-		
-		System.out.println("나와라");
+      System.out.println("category????" + pboardCategory);
 
-		return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
+      Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
+      
+      int temp = (nowPage-1)%BLOCK_COUNT;
+      int startPage = nowPage - temp;
 
-	}
+      model.addAttribute("pageList", pageList);
+      model.addAttribute("blockCount", BLOCK_COUNT);
+      model.addAttribute("startPage", startPage);
+      model.addAttribute("nowPage", nowPage);
+      model.addAttribute("pboardCategory",pboardCategory);
 
+   }
 
+   /**전체검색 & 카테고리 & 페이징 - 관리자*/
+   //@RequestMapping("/admin/Planboard_Admin")
+   public void planListAdmin(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 
-	/**상세보기 + 좋아요*/
-	/*@RequestMapping("/board/Planboard_Detail/{pboardId}")
-	public String read(@PathVariable Long pboardId , Model model, HttpSession session) {
+      System.out.println("category????" + pboardCategory);
 
-		//Users loginUser =(Users)session.getAttribute("loginUser");
-		//임시 테스트 아이디
-		String userId ="aaa";
-		Users loginUser =userService.selectById(userId);
+      Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
 
-		PlanBoard planBoard = planBoardService.selectById(pboardId);
-		Likes likes = planBoardService.selectByBoardId(pboardId, userId);
+      int temp = (nowPage-1)%BLOCK_COUNT;
+      int startPage = nowPage - temp;
 
-		model.addAttribute("likes", likes);		   
+      model.addAttribute("pageList", pageList);
+      model.addAttribute("blockCount", BLOCK_COUNT);
+      model.addAttribute("startPage", startPage);
+      model.addAttribute("nowPage", nowPage);
+      model.addAttribute("pboardCategory",pboardCategory);
 
-		model.addAttribute("planBoard" , planBoard);
-
-		System.out.println("나와라");
-
-		//return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
-
-		return "/board/Planboard_Detail";
-
-	}*/
-
-	/**좋아요*/
-	/*@RequestMapping("/like")
-	public @ResponseBody int likes(Long pboardId, String userId) {
-		int result = planBoardService.saveLikes(pboardId, userId);
-		return result;
-	}*/
-	
+   }
 
 
-	/**등록 폼*/
-	@RequestMapping("/board/Planboard_Write")
-	public void write() {
-		System.out.println("write");
-	}
+   
+   /**상세보기*/
+   @RequestMapping("/board/Planboard_Detail/{pboardId}")
+   public ModelAndView read(@PathVariable Long pboardId) {
 
-	/**등록하기*/
-	@RequestMapping(value= "/board/pinsert", method = RequestMethod.POST)
-	public String insert(PlanBoard planBoard , HttpSession session) {
+      PlanBoard planBoard = planBoardService.selectById(pboardId);
+      
+      System.out.println("나와라");
 
-		String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
-		planBoardService.insertPlanBoard(planBoard, uploadpath);
+      return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
 
-		System.out.println("pboardinsert");
-
-		return "redirect:/board/PlanboardList";
-
-	}
-
-	/**수정 폼*/
-	@RequestMapping("/board/pupdateForm")
-	public ModelAndView updateForm (Long pboardId) {
-		PlanBoard planBoard = planBoardService.selectById(pboardId);
-
-		System.out.println("update");
-
-		return new ModelAndView("/board/Planboard_Update", "planBoard" , planBoard);
-	}
-
-	/**수정하기*/
-	@RequestMapping(value = "/board/pupdate" , method = RequestMethod.POST)
-	public String update(PlanBoard planBoard , HttpSession session) {
-		System.out.println("pboardupdate00");
-		String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
-		PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
-
-		System.out.println("pboardupdate");
-
-		return "redirect:/board/Planboard_Detail/" + dbBoard.getPboardId();
-
-	}
-
-	/**삭제하기*/
-	@RequestMapping("/board/pdelete")
-	public String delete(Long pboardId) {
-
-		System.out.println("삭제1");
-
-		planBoardService.deletePlanBoard(pboardId);
-
-		System.out.println("삭제2");
-
-		return "redirect:/board/PlanboardList";		
-	}
+   }
 
 
-	/**삭제하기 - Admin*/
-	@RequestMapping("/admin/deleteAdmin")
-	public String deleteAdmin(Long pboardId) {
 
-		System.out.println("삭제1");
+   /**상세보기 + 좋아요*/
+   @RequestMapping("/board/Planboard_Detail/{pboardId}")
+   public String read(@PathVariable Long pboardId , Model model, HttpSession session) {
 
-		planBoardService.deletePlanBoard(pboardId);
+      //Users loginUser =(Users)session.getAttribute("loginUser");
+      //임시 테스트 아이디
+      String userId ="aaa";
+      Users loginUser =userService.selectById(userId);
 
-		System.out.println("삭제2");
+      PlanBoard planBoard = planBoardService.selectById(pboardId);
+      Likes likes = planBoardService.selectByBoardId(pboardId, userId);
 
-		return "redirect:/admin/Planboard_Admin";		
-	}
+      model.addAttribute("likes", likes);         
+
+      model.addAttribute("planBoard" , planBoard);
+
+      System.out.println("나와라");
+
+      //return new ModelAndView("board/Planboard_Detail","planBoard", planBoard);
+
+      return "/board/Planboard_Detail";
+
+   }
+
+   /**좋아요*/
+   @RequestMapping("/like")
+   public @ResponseBody int likes(Long pboardId, String userId) {
+      int result = planBoardService.saveLikes(pboardId, userId);
+      return result;
+   }
+   
+
+
+   /**등록 폼*/
+   @RequestMapping("/board/Planboard_Write")
+   public void write() {
+      System.out.println("write");
+   }
+
+   /**등록하기*/
+   @RequestMapping(value= "/board/pinsert", method = RequestMethod.POST)
+   public String insert(PlanBoard planBoard , HttpSession session) {
+
+      String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
+      planBoardService.insertPlanBoard(planBoard, uploadpath);
+
+      System.out.println("pboardinsert");
+
+      return "redirect:/board/PlanboardList";
+
+   }
+
+   /**수정 폼*/
+   @RequestMapping("/board/pupdateForm")
+   public ModelAndView updateForm (Long pboardId) {
+      PlanBoard planBoard = planBoardService.selectById(pboardId);
+
+      System.out.println("update");
+
+      return new ModelAndView("/board/Planboard_Update", "planBoard" , planBoard);
+   }
+
+   /**수정하기*/
+   @RequestMapping(value = "/board/pupdate" , method = RequestMethod.POST)
+   public String update(PlanBoard planBoard , HttpSession session) {
+      System.out.println("pboardupdate00");
+      String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
+      PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
+
+      System.out.println("pboardupdate");
+
+      return "redirect:/board/Planboard_Detail/" + dbBoard.getPboardId();
+
+   }
+
+   /**삭제하기*/
+   @RequestMapping("/board/pdelete")
+   public String delete(Long pboardId) {
+
+      System.out.println("삭제1");
+
+      planBoardService.deletePlanBoard(pboardId);
+
+      System.out.println("삭제2");
+
+      return "redirect:/board/PlanboardList";      
+   }
+
+
+   /**삭제하기 - Admin*/
+   @RequestMapping("/admin/deleteAdmin")
+   public String deleteAdmin(Long pboardId) {
+
+      System.out.println("삭제1");
+
+      planBoardService.deletePlanBoard(pboardId);
+
+      System.out.println("삭제2");
+
+      return "redirect:/admin/Planboard_Admin";      
+   }
 
 
 }

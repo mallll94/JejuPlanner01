@@ -30,9 +30,9 @@ public class PlanReplyController {
 	public List<PlanReplyDTO> planReplyList(String pboardId) {
 		System.out.println("pboardId" + pboardId);
 		
-	    PlanBoard planBoard = planBoardService.selectById(Long.valueOf(pboardId));
+	    PlanBoard planboard = planBoardService.selectById(Long.valueOf(pboardId));
 		
-		List<PlanReply> dblist = planBoard.getPlanReply();
+		List<PlanReply> dblist = planboard.getPlanReply();
 		
 		System.out.println(dblist.size());
 		
