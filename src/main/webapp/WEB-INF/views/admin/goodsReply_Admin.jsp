@@ -202,7 +202,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${requestScope.goodsReplyList}" var="goods">
+                                <c:forEach items="${requestScope.goodsReplyList}" var="goodsReply">
                                     <tr>
                                         <td>${goodsReply.goodsReplyId}</td>
                                         <td>${goodsReply.goodsReplyContent}</td>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsReply;
 
 public interface GoodsReplyRepository extends JpaRepository<GoodsReply, Long> {
@@ -13,6 +14,6 @@ public interface GoodsReplyRepository extends JpaRepository<GoodsReply, Long> {
 	 * @param goodsId
 	 * @return
 	 */
-	List<GoodsReply> findGoodsReplyByGoodsId(Long goodsId);
+	List<GoodsReply> findGoodsReplyByGoods(Goods goods);
 
 }

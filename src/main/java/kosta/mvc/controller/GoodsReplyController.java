@@ -27,12 +27,17 @@ public class GoodsReplyController {
 	@RequestMapping("/admin/goodsReply_Admin")
 	public ModelAndView listForAdmin(Model model) {
 		List<GoodsReply> goodsReplyList = goodsReplyService.getAllGoodsReply();
+		System.out.println("test");
 		List<Goods> goodsList = goodsService.getAllGoods();
+		System.out.println("test");
 		List<Users> usersList = userService.selectAll();
+		System.out.println("test");
 		model.addAttribute("goodsReplyList", goodsReplyList);
+		System.out.println("test");
 		model.addAttribute("goodsList", goodsList);
+		System.out.println("test");
 		
-		return new ModelAndView("admin/goods_Reply");
+		return new ModelAndView("admin/goodsReply_Admin");
 	}
 			
 }
