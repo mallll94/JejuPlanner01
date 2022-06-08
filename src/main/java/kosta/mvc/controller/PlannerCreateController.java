@@ -132,7 +132,7 @@ public class PlannerCreateController {
 	public Map<String, Object> insert(String plannerStart,String plannerEnd, HttpSession session) {
 		System.out.println(" === insert plannerStart"+plannerStart);
 		//임시 테스트 아이디
-		String userId ="aaa";
+		String userId ="rlawjdgus53";
 		Users loginUser =userService.selectById(userId);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -191,7 +191,7 @@ public class PlannerCreateController {
 		int  plannerPlaceDate = Integer.parseInt(inputDate);
 		System.out.println("addPlace::"+placeId);
 			//임시 테스트 아이디
-			String userId ="aaa";
+			String userId ="rlawjdgus53";
 			Users loginUser =userService.selectById(userId);
 		
 		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate));

@@ -45,7 +45,9 @@
 		var deleteBox = [];
 		//수량 변경- // 가격 변경
 		$(document).on("click","#minus",function(){	
-			if(checkboxNoLabel[$(this).val()].checked){
+			//alert($(this).val())
+			//alert($("[name=checkboxNoLabel]")[$(this).val()].checked)
+			if($("[name=checkboxNoLabel]")[$(this).val()].checked){
 			var id = "#goodsLineAmount"+$(this).val();
 			var price = "#price"+$(this).val();
 			var totalprice = "#totalprice"+$(this).val();
@@ -68,7 +70,7 @@
 		})	
 		//수량 변경+ // 가격 변경
 		$(document).on("click","#plus",function(){
-			if(checkboxNoLabel[$(this).val()].checked){
+			if($("[name=checkboxNoLabel]")[$(this).val()].checked){
 			var id = "#goodsLineAmount"+$(this).val()
 			var price = "#price"+$(this).val();
 			var totalprice = "#totalprice"+$(this).val();	
@@ -94,7 +96,7 @@
 			var totalprice = "#totalprice"+$(this).attr("mal")	
 			var sumtotalprint = 0;
 			
-			if(checkboxNoLabel[$(this).attr("mal")].checked){
+			if($("[name=checkboxNoLabel]")[$(this).attr("mal")].checked){
 				sumtotalprint = parseInt($("#totalPrint").html())+parseInt($(price).html())*parseInt($(id).val());
 			}else{
 				sumtotalprint = parseInt($("#totalPrint").html())-parseInt($(price).html())*parseInt($(id).val());
@@ -273,7 +275,7 @@
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="order">
 							결재 하기
 						</button>
 					</div>
