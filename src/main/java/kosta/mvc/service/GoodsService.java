@@ -29,9 +29,14 @@ public interface GoodsService {
 	public void deleteGoods(Long goodsId);
 
 	/**
-	 * 상품 이름으로 상품 조회하기
+	 * 상품 ID로 상품 조회하기
 	 */
 	public Goods getGoodsByGoodsId(Long goodsId) throws Exception;
+	
+	/**
+	 * 상품 이름으로 상품 조회하기
+	 */
+	public List<Goods> getGoodsByGoodsName(String goodsName) throws Exception;
 
 	/**
 	 * 상품 판매량 순으로 조회하기

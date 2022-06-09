@@ -17,26 +17,7 @@ public class AskReplyController {
 	
 	private final AskReplyService askReplyService;
 	
-	/**댓글 조회 - board*/
-	/*@RequestMapping("/board/Ask_Detail")
-	public void askReplyList(Model model, Long askId) {
-		
-		List<AskReply> list = askReplyService.getAskRepliesByAskBoardId(askId);
-		
-		System.out.println("????");
-				
-	    model.addAttribute("list",list);
-	}*/
-	
 
-	/**댓글 폼*/
-	/*@RequestMapping("/reply/AskReply_Write")
-	public String write(Long askId, Model model) {
-		model.addAttribute("askId", askId);
-		
-		return "reply/AskReply_Write";
-	}*/
-	
 	
 	/**댓글 등록*/
 	@RequestMapping("/reply/insert")

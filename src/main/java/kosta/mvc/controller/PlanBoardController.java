@@ -93,8 +93,10 @@ public class PlanBoardController {
 
    /**좋아요*/
    @RequestMapping("/like")
-   public @ResponseBody int likes(Long pboardId, String userId) {
-      int result = planBoardService.saveLikes(pboardId, userId);
+   @ResponseBody
+   public int likes(Long pboardId, String userId) {
+	  int result = planBoardService.saveLikes(pboardId, userId);
+      System.out.println(result);
       return result;
    }
    

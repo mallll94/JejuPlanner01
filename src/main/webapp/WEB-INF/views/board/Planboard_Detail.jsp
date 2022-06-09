@@ -46,9 +46,8 @@ $(function(){
 
                     str+=`</div>`;
                     str+=`<div class="reply-content">`;
-                        str+=`<span class="reply-content-text">\${reply.pboardReplyContent}</span>`
-                        
-                        str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span>`
+                    str+=`<span class="reply-content-text">\${reply.pboardReplyContent}</span>`
+                    str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span>`
                     str+=`</div>`;
     				str += "</div>"
     				count++;
@@ -158,7 +157,7 @@ $(function(){
  }) 
  
 $(document).ready(function(){
-	const boardId = "${planBoard.pboardId}"
+	const pboardId = "${planBoard.pboardId}"
 	const userId = "aaa"
 	let likeVal = "${likes}"
 	alert(likeVal)
@@ -171,18 +170,18 @@ $(document).ready(function(){
 	//좋아요 버튼 클릭시 실행 
 	$("#liked-heart").on("click", function(){
 		$.ajax({
-			url: "/like",
-			type: "POST",
+			url: "${pageContext.request.contextPath}/like",
+			type: "post",
 			data:{pboardId : pboardId , userId : userId},
-			succecss: function(data){
-				if(data == 1){
+			dataType: "text",
+			success: function(result){
+				alert(result);
+				if(result == 1){
 					$("#liked-heart").attr('class','bi-heart-fill');
-					location.href="board/Planboard_Detail/" + pboardId;
 				}else{
 					$("#liked-heart").attr('class','bi-heart');
-					location.href="board/Planboard_Detail/" + pboardId;
 				}
-			}, error : function(){
+			}, error : function(err){
 				alert("오류가 났습니다.")
 			}
 			
@@ -191,16 +190,25 @@ $(document).ready(function(){
 	})
 	
 	
-})
+}) 
+
+/*   var i = 0;
+ $('i').on('click',function(){
+    if(i==0){
+       $(this).attr('class','bi-heart-fill');
+       i++;
+    }else if(i==1){
+       $(this).attr('class','bi-heart');
+       i--;
+    }
+ });  */
+
+
+
 
  
 </script>
-
-
-
-
 </head>
-
 <body>
 
 
@@ -249,7 +257,7 @@ $(document).ready(function(){
 	      <button type="button" class="btn btn-primary" value="삭제">삭제</button>
        </form>  
       </div>
-     	 <!-- <button type="button" class="btn btn-primary" value="삭제">삭제</button> -->
+     	 
      </div>            
   </div>
 </div>

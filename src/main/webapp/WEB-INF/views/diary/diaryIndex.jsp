@@ -81,16 +81,16 @@ pageEncoding="UTF-8"%>
                             <c:forEach items="${requestScope.diaryList}" var="diary">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="single-latest-news">
-                                        <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}"><div class="latest-news-bg diary-bg-1"></div></a>
+                                        <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.plannerId}"><div class="latest-news-bg diary-bg-1"></div></a>
                                         <div class="news-text-box">
-                                            <h3><a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}">${diary.diaryTitle}</a></h3>
+                                            <h3><a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.plannerId}">${diary.diaryTitle}</a></h3>
                                             <p class="blog-meta">
                                                 <span class="author"><i class="fas fa-user"></i>${diary.diaryCount}</span>
                                                 <span class="date"><i class="fas fa-calendar"></i>${diary.diaryType}</span>
                                                 <span class="days"><i class="fas fa-calendar"></i>(${diary.planDays} DAY)</span>
                                             </p>
                                             <p class="excerpt">${diary.plannerStart} ~ ${diary.plannerEnd}</p>
-                                            <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.diaryId}" class="read-more-btn">다이어리 작성하기 <i class="fas fa-angle-right"></i></a>
+                                            <a href="${pageContext.request.contextPath}/diary/diaryRead/${diary.plannerId}" class="read-more-btn">다이어리 작성하기 <i class="fas fa-angle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
         </c:choose>
 
       
-        
+        <!-- paging -->
 
         <div class="row">
             <div class="container">
@@ -132,7 +132,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
                 
-        <!-- end latest news -->
+        
 
         
 		
