@@ -213,7 +213,30 @@
 				}	
 			});//ajax
 		}
-
+		
+		
+		$("#kakao").click(function(){
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/order/kakao", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				data: { '${_csrf.parameterName}' : '${_csrf.token}'},
+				success: function(result){
+					//alert(result.tid)
+					var box =result.next_redirect_pc_url;
+					window.open(box);
+				},
+				error: function(err){
+					alert("카카오 오류");
+				}	
+			});//ajax
+			
+			
+		})
+		
+		
 		selectAll();
 	});//jquery
 	
@@ -284,6 +307,9 @@
 			</div>
 		</div>
 	</form>
+	<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="kakao">
+							kakao
+	</button>
 	<input type="hidden" id="sumtotalcheck" value = "1">
 	<input type="hidden" id="sumtotalcount" value ="1">
 </body>

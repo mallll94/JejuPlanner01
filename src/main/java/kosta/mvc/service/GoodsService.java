@@ -2,6 +2,7 @@ package kosta.mvc.service;
 
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.Users;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public interface GoodsService {
 	/**
 	 * 플래너 기반 상품 조회
 	 */
-	public List<Goods> getAllGoodsByPlanner(Place place);
+	public List<Goods> getAllGoodsByPlanner(Users users);
 
 	/**
 	 * 카테고리 기반 상품 조회

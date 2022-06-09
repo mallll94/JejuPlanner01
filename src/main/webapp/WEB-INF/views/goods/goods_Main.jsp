@@ -62,14 +62,17 @@
                         onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=함덕_구좌'">함덕/구좌</button>
                 </div>
             </div>
+       
             <div class="container-fluid text-center">
                 <h5>나의 플래너 기반 검색하기</h5>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary"
-                        onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List?category=전체보기'">나의 플래너 상품</button>
-    
+                	<form method="POST" action="${pageContext.request.contextPath}/goods/view/goods_List/plannerCategory">
+                		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+                    	<button type="submit" class="btn btn-outline-primary" >나의 플래너 상품</button>
+    				</form>
                 </div>
             </div>
+            
         </body>
 
         </html>

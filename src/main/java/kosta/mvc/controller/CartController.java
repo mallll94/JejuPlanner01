@@ -75,7 +75,7 @@ public class CartController {
 		goodsLine.setGoods(goods);
 		cartService.addCart(goodsLine,user);
 		
-		return "/goods/test";
+		return "/cart/cartList";
 	}
 	
 	@RequestMapping("/cartDelete")

@@ -2,9 +2,12 @@ package kosta.mvc.controller;
 
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.Users;
 import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.PlaceService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +62,16 @@ public class GoodsController {
 		List<Goods> goodsList = goodsService.getAllGoodsByLocalCategory(localCategory);
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_List");
+	}
+	
+	
+	@PostMapping("/view/goods_List/plannerCategory")
+	public ModelAndView getGoodsListViewPlannerCategory() {
+		
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Goods> goodsList = goodsService.getAllGoodsByPlanner(users);
+
+		return new ModelAndView("goods/goods_List","goodsList", goodsList);
 	}
 	
 	@GetMapping("/view/goods_Main")
