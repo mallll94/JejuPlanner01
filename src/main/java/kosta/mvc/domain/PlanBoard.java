@@ -72,7 +72,7 @@ public class PlanBoard {
 	private List<PlanReply> planReply;
 	
 	/**좋아요*/
-	//@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
-	//Set<Likes> likes = new HashSet<>();
+	@OneToMany(mappedBy = "planBoard" , cascade = CascadeType.ALL)
+	Set<Likes> likes = new HashSet<>();
 
 }

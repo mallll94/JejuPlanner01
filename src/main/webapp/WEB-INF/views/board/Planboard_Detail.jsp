@@ -46,9 +46,8 @@ $(function(){
 
                     str+=`</div>`;
                     str+=`<div class="reply-content">`;
-                        str+=`<span class="reply-content-text">\${reply.pboardReplyContent}</span>`
-                        
-                        str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span>`
+                    str+=`<span class="reply-content-text">\${reply.pboardReplyContent}</span>`
+                    str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span>`
                     str+=`</div>`;
     				str += "</div>"
     				count++;
@@ -172,7 +171,7 @@ $(document).ready(function(){
 	$("#liked-heart").on("click", function(){
 		$.ajax({
 			url: "/like",
-			type: "POST",
+			type: "post",
 			data:{pboardId : pboardId , userId : userId},
 			succecss: function(data){
 				if(data == 1){
@@ -191,16 +190,14 @@ $(document).ready(function(){
 	})
 	
 	
-})
+}) 
+
+
+
 
  
 </script>
-
-
-
-
 </head>
-
 <body>
 
 
