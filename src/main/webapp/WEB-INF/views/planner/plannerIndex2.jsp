@@ -71,7 +71,7 @@
 				url: "${pageContext.request.contextPath}/planner/typeUpdate",
 				type: "post",
 				dataType: "text",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' , type:$(this).val(),plannerId: '1'},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , type:$(this).val(),plannerId: '2'},
 				success: function(result){	
 				},
 				error: function(error){
@@ -82,12 +82,24 @@
 		})
 		
 		// 인원수 수정
-		$("#plannerType").click(function(){	
+		$("#countPlan").click(function(){	
 			
-			alert(1);
-		
+			$('#countUpdateModal').modal('show');
 		})
-		
+		$("#updateCount").click(function(){	
+			alert($("#plannerCount").val())
+			$.ajax({
+				url: "${pageContext.request.contextPath}/planner/updateCount",
+				type: "post",
+				dataType: "text",
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , count:$("#plannerCount").val(),plannerId: '1'},
+				success: function(result){	
+				},
+				error: function(error){
+					alert("장소 정보를 불러오지 못했습니다.")
+				}
+			})
+		})
 		
 		//alert("${param.plannerId}")
 		$(document).on("change","#days", function(){
@@ -143,9 +155,9 @@
 				url: "${pageContext.request.contextPath}/planner/select",
 				type: "post",
 				dataType: "json",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: '1' ,DayPlanner : no},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: '2' ,DayPlanner : no},
 				success: function(result){
-					$("#plannerType").val(result.planner.plannerType);
+					
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
@@ -193,7 +205,7 @@
 					removeRoute();
 					
 					
-					console.log("after",line);
+				
 					//deleteLine();
 					targets =[];
 					////////////////////
@@ -374,7 +386,7 @@
 					<option value='가족/부모님'>가족/부모님</option>
 					<option value='친구'>친구</option>
 				</select>
-				<a href="" style="text-decoration: none; text-shadow: none;" >1명</a>
+				<button type="button" class ="btn btn-link "  id="countPlan">1명</button>
 			</div>
 		</div>
 	</div>
@@ -510,8 +522,48 @@
     </div>
   </div>
 </div>
+
+<!-- Modal 공유 하기 모달-->
+<div class="modal fade" id="countUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">플래너 이름 수정</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        	<form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/PlannerShareBoard">
+	 		<div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0">플래너 인원수 수정</h5>
+                      <small class="text-muted float-end">Default label</small>
+                    </div>
+                    <div class="card-body">
+                      
+                       <div class="row mb-3">
+                          <label class="col-sm-4 col-form-label" for="basic-default-name">변경할 인원수</label>     
+                       	  <div class="col-sm-10">
+                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="${param.plannerId}"/>
+                         	<input type="text" id="plannerCount" class="form-control placeCategory-mask" name="plannerCount"/>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+   	  </div>
+      <div class="modal-footer">
+        <button id="updateCount" type="button" class="btn btn-primary">수정하기</button>
+        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 	
 </body>
-
 </html>
 	

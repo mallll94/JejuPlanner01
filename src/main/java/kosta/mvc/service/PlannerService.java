@@ -71,4 +71,5 @@ public interface PlannerService {
 	 * 플래너 type 수정
 	 * */
 	void plannerTypeUpdate(String type, Long plannerId);
+	void plannerCountUpdate(int count, Long plannerId);
 }

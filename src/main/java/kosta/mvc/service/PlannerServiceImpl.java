@@ -120,20 +120,14 @@ public class PlannerServiceImpl implements PlannerService {
 	public void updatePlan(Planner planner) {
 		Planner dbPlanner = plannerRep.findById(planner.getPlannerId())
 				.orElseThrow( ()-> new RuntimeException("플래너를 찾을 수 없습니다."));
-
-		
 		dbPlanner.setPlannerName(planner.getPlannerName());
-		dbPlanner.setPlannerType(planner.getPlannerType());
-		dbPlanner.setPlannerCount(planner.getPlannerCount());
-		dbPlanner.setPlannerStart(planner.getPlannerStart());
-		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
-		dbPlanner.setPlannerState(planner.getPlannerState());
 	}
 	
 	@Override
 	public void deletePlan(Long plannerId) {
-		
-		plannerRep.deleteById(plannerId);
+		Planner planner =plannerRep.findById(plannerId)
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		planner.setPlannerState("X");
 		
 
 	}
@@ -192,4 +186,12 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 
 
+	 @Override 
+	 public void plannerCountUpdate(int count, Long plannerId) {
+		Planner planner =plannerRep.findById(plannerId)
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		planner.setPlannerCount(count);
+
+	 }
+	 
 }
