@@ -20,19 +20,19 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public List<ChatBoard> selectAll(ChatBoard chatBoard) {
-		
-		return chatBoardRep.findAll();
+	
+		return null;
 	}
 
 	@Override
 	public List<ChatBoard> selectById(ChatBoard chatBoard) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public int sendMessage(ChatBoard chatBoard) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
