@@ -7,7 +7,12 @@ pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="UTF-8">
         <title>plannerIndex</title>
+
+		 <!-- main style -->
+		 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
+
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+		
 		<script>
 			$(function(){
 				

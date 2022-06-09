@@ -48,12 +48,13 @@ public class DiaryController {
 			String userId ="aaa";
 			Users loginUser =userService.selectById(userId);
 			
-		Pageable pageable = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "diaryId");
+		Pageable pageable = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "insertDate");
 		Page<Planner> pageList =plannerService.selectAllByUserIdPageing(pageable, loginUser.getUserId());
+		List<Planner> plannerlist = pageList.getContent();
 		List<DiaryDTO> diaryList = new ArrayList<DiaryDTO>();
 		
 		Period period = null;
-		for(Planner d :pageList) {
+		for(Planner d :plannerlist) {
 			period =Period.between(d.getPlannerStart(), d.getPlannerEnd());
 			diaryList.add(new DiaryDTO( d.getDiaryTitle(), d.getDiaryPhoto(),d.getPlannerType(),d.getPlannerCount(),
 					d.getPlannerId(),(d.getPlannerStart()).format(format),(d.getPlannerEnd()).format(format),period.getDays()+1));
@@ -74,11 +75,15 @@ public class DiaryController {
 	}
 	
 	/**다이어리 상세페이지로 이동*/
-	@RequestMapping("/diaryRead/{diaryId}")
+	@RequestMapping("/diaryRead/{plannerId}")
 	public String selectByDiaryId(Model model,@PathVariable Long plannerId) {
-		Planner diary =plannerService.selectBy(plannerId);
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
+		Planner dbDiary =plannerService.selectBy(plannerId);
+		Period period =Period.between(dbDiary.getPlannerStart(), dbDiary.getPlannerEnd());
+		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryTitle(), dbDiary.getDiaryPhoto(), dbDiary.getPlannerType(), dbDiary.getPlannerCount(),
+				dbDiary.getPlannerId(), (dbDiary.getPlannerStart()).format(format),(dbDiary.getPlannerEnd()).format(format),period.getDays()+1);
 		model.addAttribute("diary", diary);
-		return "/diary/diaryRead";
+		return "diary/diaryRead";
 	}
 	
 	/**다이어리 상세조회하기*/

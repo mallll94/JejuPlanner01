@@ -45,7 +45,7 @@ public class PlannerServiceImpl implements PlannerService {
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(planner.user.userId.eq(userId));
 		Page<Planner> plist = plannerRep.findAll(builder,pageable);
-			
+		System.out.println("servie :: "+ plist.getSize());
 		return plist;
 	}
 
