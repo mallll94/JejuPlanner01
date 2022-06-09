@@ -3,7 +3,9 @@ package kosta.mvc.controller;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -77,28 +80,76 @@ public class DiaryController {
 	/**다이어리 상세페이지로 이동*/
 	@RequestMapping("/diaryRead/{plannerId}")
 	public String selectByDiaryId(Model model,@PathVariable Long plannerId) {
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
-		Planner dbDiary =plannerService.selectBy(plannerId);
+		/*DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
+		
+		//다이어리info
+		Planner dbDiary = plannerService.selectBy(plannerId);
 		Period period =Period.between(dbDiary.getPlannerStart(), dbDiary.getPlannerEnd());
 		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryTitle(), dbDiary.getDiaryPhoto(), dbDiary.getPlannerType(), dbDiary.getPlannerCount(),
 				dbDiary.getPlannerId(), (dbDiary.getPlannerStart()).format(format),(dbDiary.getPlannerEnd()).format(format),period.getDays()+1);
+		
+		//다이어리 내용
+		List<PlannerPlace> pplist = dbDiary.getPlannerPlaceList();
+			//System.out.println("컨트롤러 pplist :: "+pplist.size() );
+		List<DiaryLineDTO> diarylinelist = new ArrayList<DiaryLineDTO>();
+		for(PlannerPlace p:pplist) {
+		diarylinelist.add(new DiaryLineDTO(p.getPlannerPlaceId(), p.getPlanner().getPlannerId(), p.getPlace().getPlaceId(),
+				p.getPlace().getPlaceName(), p.getPlace().getPlaceAddr(), p.getPlace().getPlaceContent(), p.getPlace().getPlacePhoto(), p.getPlace().getPlaceUrl(),
+				p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
+			//System.out.println("컨트롤러 diarylinelist 다이어리 경비:: "+p.getDiaryLinePrice());
+		}
+		String curPage =(String)model.getAttribute("nowPage");
+		System.out.println("::현재 페이지::"+curPage);
+
 		model.addAttribute("diary", diary);
-		return "diary/diaryRead";
+		model.addAttribute("diarylinelist", diarylinelist);
+		
+		*/
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
+		
+		//다이어리info
+		Planner dbDiary = plannerService.selectBy(plannerId);
+		Period period =Period.between(dbDiary.getPlannerStart(), dbDiary.getPlannerEnd());
+		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryTitle(), dbDiary.getDiaryPhoto(), dbDiary.getPlannerType(), dbDiary.getPlannerCount(),
+				dbDiary.getPlannerId(), (dbDiary.getPlannerStart()).format(format),(dbDiary.getPlannerEnd()).format(format),period.getDays()+1);
+		String curPage = (String)model.getAttribute("nowPage");
+		System.err.println("::현재페이지::"+curPage);
+		model.addAttribute("diary", diary);
+		model.addAttribute("nowPage",curPage);
+		
+		
+		return "diary/diaryRead2";
 	}
 	
 	/**다이어리 상세조회하기*/
-	@RequestMapping("/selectAllDiaryLine")
+	@RequestMapping("/DiaryTitle")
 	@ResponseBody
-	public List<DiaryLineDTO> selectAllDiaryLine(Long plannerId){
-		Planner planner =plannerService.selectBy(plannerId);
-		List<PlannerPlace> pplist = planner.getPlannerPlaceList();
+	public Map<String, Object> selectAllDiaryLine(Long plannerId){
+		System.out.println("오나?"+plannerId);
+		Map<String, Object> map = new HashMap<String, Object>();
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
+		//Long.valueOf(plannerId)
+		//다이어리info
+		Planner dbDiary = plannerService.selectBy(plannerId);
+		Period period =Period.between(dbDiary.getPlannerStart(), dbDiary.getPlannerEnd());
+		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryTitle(), dbDiary.getDiaryPhoto(), dbDiary.getPlannerType(), dbDiary.getPlannerCount(),
+				dbDiary.getPlannerId(), (dbDiary.getPlannerStart()).format(format),(dbDiary.getPlannerEnd()).format(format),period.getDays()+1);
+		
+		//다이어리 내용
+		List<PlannerPlace> pplist = dbDiary.getPlannerPlaceList();
+			//System.out.println("컨트롤러 pplist :: "+pplist.size() );
 		List<DiaryLineDTO> diarylinelist = new ArrayList<DiaryLineDTO>();
 		for(PlannerPlace p:pplist) {
-			diarylinelist.add(new DiaryLineDTO(p.getPlannerPlaceId(), p.getPlanner().getPlannerId(), p.getPlace().getPlaceId(),
-					p.getPlace().getPlaceName(), p.getPlace().getPlaceAddr(), p.getPlace().getPlaceContent(), p.getPlace().getPlacePhoto(), p.getPlace().getPlaceUrl(),
-					p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
+		diarylinelist.add(new DiaryLineDTO(p.getPlannerPlaceId(), p.getPlanner().getPlannerId(), p.getPlace().getPlaceId(),
+				p.getPlace().getPlaceName(), p.getPlace().getPlaceAddr(), p.getPlace().getPlaceContent(), p.getPlace().getPlacePhoto(), p.getPlace().getPlaceUrl(),
+				p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
+			//System.out.println("컨트롤러 diarylinelist 다이어리 경비:: "+p.getDiaryLinePrice());
 		}
-		return diarylinelist;
+		map.put("diary", diary);
+		map.put("diarylinelist", diarylinelist);
+		System.out.println("여긴?");
+
+		return map;
 	}
 	
 	
@@ -106,8 +157,49 @@ public class DiaryController {
 	
 	
 	/**다이어리 내용 등록하기*/
+	@RequestMapping("/insertDiaryLine")
+	public String insertDiaryLine(PlannerPlace diaryLine, HttpSession session) {
+			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
+		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+	}
+	
+//	@RequestMapping(value = "/diaryInsertAjax", method = RequestMethod.POST)
+//	public PlannerPlace insertDiaryAjax(HttpSession session, PlannerPlace diaryLine) {
+//			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
+//		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
+//		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
+//		
+//		return diaryLine;
+//	}
 	
 	/**다이어리 내용 수정하기*/
+	@RequestMapping("/updateDiaryForm")
+	@ResponseBody
+	public PlannerPlace updateForm(Long diaryLineId) {
+		System.out.println("수정하기::"+diaryLineId);
+		PlannerPlace plannerPlace =plannerService.selectPPbyPPId(diaryLineId);
+		return plannerPlace;
+	}
+	
+	@RequestMapping("/updateDiaryLine")
+	public String updateDiaryLine(PlannerPlace diaryLine, HttpSession session) {
+			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
+		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+	}
+	
 	
 	/**다이어리 내용 삭제하기*/
+	@RequestMapping("/deleteDiaryLine")
+	public String deleteDiaryLine(Long diaryLineId, HttpSession session) {
+		PlannerPlace plannerpalce = new PlannerPlace();
+			plannerpalce.setPlannerPlaceId(diaryLineId);
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
+		Planner dbplanner =plannerService.updateDiaryLine(plannerpalce, uploadPath);
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+	}
+	
 }

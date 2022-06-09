@@ -1,27 +1,26 @@
 package kosta.mvc.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QPlanner;
-import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
 import kosta.mvc.repository.PlannerRepository;
+import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
 
@@ -33,6 +32,7 @@ public class PlannerServiceImpl implements PlannerService {
 	private final PlannerRepository plannerRep;
 	private final PlannerPlaceRepository plannerPlaceRep;
 	private final PlaceRepository placeRep;
+	private final FileStore fileStore;
 	
 	
 	//private final static String DIARY_DEFAULT_NAME = "제주도";
@@ -66,10 +66,10 @@ public class PlannerServiceImpl implements PlannerService {
 	
 	@Override
 	public Planner selectBy(Long plannerId) {
-		Planner planner = plannerRep.findById(plannerId).orElse(null);
+		Planner planner = plannerRep.findById(plannerId)
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
 		System.out.println("planner = "+ planner);
 		System.out.println("------------------------");
-		if(planner==null) throw new RuntimeException("해당 플래너 정보가 없습니다.");
 		
 		return planner;
 	}
@@ -117,10 +117,26 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 	
 	@Override
+	public PlannerPlace selectPPbyPPId(Long plannerplaceId) {
+		PlannerPlace dbPlannerPlace = plannerPlaceRep.findById(plannerplaceId)
+				.orElseThrow(()-> new RuntimeException("플래너를 찾을 수 없습니다."));
+		return dbPlannerPlace;
+	}
+	
+	@Override
 	public void updatePlan(Planner planner) {
 		Planner dbPlanner = plannerRep.findById(planner.getPlannerId())
 				.orElseThrow( ()-> new RuntimeException("플래너를 찾을 수 없습니다."));
 		dbPlanner.setPlannerName(planner.getPlannerName());
+	}
+	
+	@Override
+	public void updatePlanStartdateAndEnddate(Planner planner) {
+		Planner dbPlanner = plannerRep.findById(planner.getPlannerId())
+				.orElseThrow( ()-> new RuntimeException("플래너를 찾을 수 없습니다."));
+		dbPlanner.setPlannerStart(planner.getPlannerStart());
+		dbPlanner.setPlannerEnd(planner.getPlannerEnd());
+		
 	}
 	
 	@Override
@@ -142,8 +158,6 @@ public class PlannerServiceImpl implements PlannerService {
 		plannerPlaceRep.save(plannerPlace);
 		
 	}
-
-	
 
 	@Override
 	public void updatePlanPlace(PlannerPlace plannerPlace) {
@@ -194,4 +208,81 @@ public class PlannerServiceImpl implements PlannerService {
 
 	 }
 	 
+	 @Override
+	public void updateDiary(Planner diary) {
+		// TODO Auto-generated method stub
+		
+	}
+	 @Override
+	public Planner insertDiaryLine(PlannerPlace diaryLine, String uploadPath) {
+		 
+		 PlannerPlace dbPlannerPlace =plannerPlaceRep.findById(diaryLine.getPlannerPlaceId())
+					.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		 
+		 MultipartFile file = diaryLine.getFile();
+			if(!file.isEmpty()) {
+				if(file.getContentType().startsWith("image")==false) {
+					throw new RuntimeException("이미지형식이 아닙니다.");
+				}
+				try {
+					String storeFileName = fileStore.storeFile(uploadPath, file);
+					dbPlannerPlace.setDiaryLinePhoto(storeFileName);
+				}catch(IOException e) {
+					throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+				}
+			}
+			System.out.println("service 다이어리 내용 등록");
+		 
+		 dbPlannerPlace.setDiaryLineContent(diaryLine.getDiaryLineContent());
+		 dbPlannerPlace.setDiaryLinePrice(diaryLine.getDiaryLinePrice());
+		 
+		 return dbPlannerPlace.getPlanner();
+		
+	}
+	 @Override
+	public Planner updateDiaryLine(PlannerPlace diaryLine, String uploadPath) {
+		 PlannerPlace dbPlannerPlace = plannerPlaceRep.findById(diaryLine.getPlannerPlaceId())
+					.orElseThrow( ()-> new RuntimeException("플래너 일정을 찾을 수 없습니다."));
+		
+		 System.out.println("::파일::"+diaryLine.getFile()+"======");
+		//파일이 없다면 null로 입력
+		 if(diaryLine.getFile()==null) {
+			 dbPlannerPlace.setDiaryLinePhoto(null);
+		 }else {
+			 MultipartFile file = diaryLine.getFile();
+				
+			 	//파일이 있다면 예전에 첨부한 파일삭제? 어떻게??
+				if(!file.isEmpty()) {
+					if(file.getContentType().startsWith("image")==false) {
+						throw new RuntimeException("이미지형식이 아닙니다.");
+					}
+					try {
+						String storeFileName = fileStore.storeFile(uploadPath, file);
+						dbPlannerPlace.setDiaryLinePhoto(storeFileName);
+					}catch(IOException e) {
+						throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+					}
+				} 
+		 }
+		 
+			
+			
+		 dbPlannerPlace.setDiaryLineContent(diaryLine.getDiaryLineContent());
+		 dbPlannerPlace.setDiaryLinePrice(diaryLine.getDiaryLinePrice());
+		 return dbPlannerPlace.getPlanner();
+		
+	}
+	
+	 @Override
+	public Planner DeleteDiaryLine(Long diaryLineId) {
+		return null;
+		
+	}
+	 
+	 @Override
+	public void deleteDiary(Long plannerId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
