@@ -102,6 +102,7 @@
             </style>
 
             <script type="text/javascript">
+            
                 function calcTotalPrice() {
                     price = $("#goodsprice").text();
                     quantity = $("input[name=cartQty]").val();
@@ -185,11 +186,11 @@
                             <h1 class="goodsname" id="goodsname"></h1>
                             <p class="goodscontent" id="goodscontent"></p>
                         </div>
-                        <form action="${path}/front?key=cart&methodName=viewOrderForm&mode=D" method="post">
+                        <form action="${pageContext.request.contextPath}/order/detailOrder" method="post">
                             <input type="hidden" name="goodPhoto">
                             <input type="hidden" name="goodsName">
                             <input type="hidden" name="goodsPrice">
-                            <input type="hidden" name="goodsId">
+                            <input type="hidden" name="goodsId" value="${goods.goodsId}">
                             <table class="table option-table table-borderless">
                                 <tr>
                                     <td>${goods.goodsName}</td>

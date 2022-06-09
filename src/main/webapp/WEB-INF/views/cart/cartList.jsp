@@ -43,6 +43,8 @@
 	
 	$(function(){
 		var deleteBox = [];
+		var orderBox = [];
+		var countBox = [];
 		//수량 변경- // 가격 변경
 		$(document).on("click","#minus",function(){	
 			
@@ -141,6 +143,44 @@
 			CheckDelete(deleteBox);
 		})
 
+		//선택된거 주문페이지로 가게하는 함수
+		$(document).on('click','#cartOrder',function(){ 
+			var selectLength =$("[name=checkboxNoLabel]").length;
+			//alert(selectLength);
+			orderBox = [];
+			for (var i=0; i<selectLength; i++) {
+					
+					if ($("[name=checkboxNoLabel]")[i].checked == true) {
+					orderBox.push($("[name=checkboxNoLabel]")[i].value);
+					countBox.push($("#goodsLineAmount"+i).val());
+				}
+			}
+			
+			$("#cartId").val(orderBox);
+			$("#countCart").val(countBox);
+			
+			$("#cartForm").submit();
+			//CheckOrder(orderBox,countBox);
+		})
+		
+		//선택 상품 주문
+		function CheckDelete(box,count){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/cart/??", //서버요청주소
+				type:"post", // 요청방식(get, post)
+				traditional: true,
+				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+				data: { '${_csrf.parameterName}' : '${_csrf.token}',orderBox : box ,countBox :count},
+				success: function(result){
+					
+				},
+				error: function(err){
+					alert("delete 오류");
+				}	
+			});//ajax
+		}
+		
 		
 		//장바구니 뿌려주는
 		function selectAll(){
@@ -158,7 +198,7 @@
 						var sumtotal = 0;
 					$.each(result.goods, function(index, item){
 						
-						var no = `${'${result.goodsLine[index].goodsLineAmount}'}`;
+						var no = `${'${result.cart[index].cartAmount}'}`;
 						var price = `${'${item.goodsPrice}'}`;
 						var total = no*price;
 						data+=`<tr class='table_row'><td class='column-1'>`;
@@ -173,7 +213,7 @@
 						data+=`<button type='button' id='minus' value=${"${index}"}>`;
 						data+=`<div class='btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m'>`;
 						data+=`<i class='fs-16 zmdi zmdi-minus'></i></div></button>`;
-						data+=`<input class='mtext-104 cl3 txt-center num-product' min='0' type='number' id='goodsLineAmount${"${index}"}' value=${'${result.goodsLine[index].goodsLineAmount}'}>`;	
+						data+=`<input class='mtext-104 cl3 txt-center num-product' min='0' type='number' id='goodsLineAmount${"${index}"}' value=${'${result.cart[index].cartAmount}'}>`;	
 						data+=`<button type='button' id='plus' value=${"${index}"}>`;		
 						data+=`<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m' >`;		
 						data+=`<i class='fs-16 zmdi zmdi-plus'></i></div></button></div></td>`;		
@@ -232,11 +272,10 @@
 					alert("카카오 오류");
 				}	
 			});//ajax
-			
-			
 		})
 		
 		
+
 		selectAll();
 	});//jquery
 	
@@ -244,7 +283,7 @@
 	</script>
 <body >
 <!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" id="cartForm">
+	<form method="post" class="bg0 p-t-75 p-b-85" id="cartForm" action="${pageContext.request.contextPath}/cart/cartOrder">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -299,17 +338,22 @@
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="order">
+						<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="cartOrder">
 							결재 하기
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
+	
+		<input type="hidden" name="cartId" id="cartId">
+		<input type="hidden" name="countCart" id="countCart">
 	</form>
 	<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="kakao">
 							kakao
 	</button>
+	
+	
 	<input type="hidden" id="sumtotalcheck" value = "1">
 	<input type="hidden" id="sumtotalcount" value ="1">
 </body>

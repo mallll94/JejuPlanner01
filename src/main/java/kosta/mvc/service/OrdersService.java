@@ -2,14 +2,16 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.Orders;
+import kosta.mvc.domain.Users;
 
 public interface OrdersService {
 
 	/**
 	 * 주문 등록하기
 	 */
-	public void addOrders(Orders orders);
+	public void addOrders(List<GoodsLine> list,String name, String email, String phone,int totalPrice,Users users,String text,String type );
 	
 	/**
 	 * 주문 취소하기

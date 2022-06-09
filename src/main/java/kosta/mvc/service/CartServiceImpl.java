@@ -1,5 +1,6 @@
 package kosta.mvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import kosta.mvc.domain.Cart;
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.QCart;
+import kosta.mvc.domain.QGoods;
 //import kosta.mvc.domain.QCart;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CartRepository;
@@ -58,6 +60,35 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void deleteCart(Long id) {			
 		cartRep.deleteById(id);
+	}
+
+	@Override
+	public void updateCart(Long [] cartId , int [] countCart) {
+		for(int i = 0 ; i < cartId.length;i++) {
+			Cart cart =cartRep.findById(cartId[i]).orElse(null);
+			cart.setCartAmount(countCart[i]);
+		}
+		
+	}
+
+	@Override
+	public List<GoodsLine> selectByCartId(Long[] cartId) {
+		List<GoodsLine> list = new ArrayList<GoodsLine>();
+		
+		for(int i = 0 ; i < cartId.length; i ++) {
+			GoodsLine goodsLine = cartRep.findById(cartId[i]).get().getGoodsLine();
+			
+			goodsLine.setGoodsLineAmount(cartRep.findById(cartId[i]).get().getCartAmount());
+			
+			list.add(goodsLine);
+		}
+		
+		for(GoodsLine j : list) {
+			System.out.println(j.getGoods().getGoodsName());
+		}
+		
+		
+		return list;
 	}
 
 }

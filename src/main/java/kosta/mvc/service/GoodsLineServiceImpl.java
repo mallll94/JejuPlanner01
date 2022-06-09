@@ -16,9 +16,9 @@ public class GoodsLineServiceImpl implements GoodsLineService {
 	private final GoodsLineRepository goodsLineRep;
 	
 	@Override
-	public void goodsLineCart(GoodsLine goodsLine) {
+	public GoodsLine goodsLineCart(GoodsLine goodsLine) {
 		
-		goodsLineRep.save(goodsLine);
+		return goodsLineRep.save(goodsLine);
 		
 	}
 

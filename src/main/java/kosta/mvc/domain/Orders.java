@@ -59,8 +59,9 @@ public class Orders {
 	private LocalDate ordersDate;
 	
 	/** 주문상세 */
-	//@OneToMany(mappedBy = "order")
-	//private List<OrderLine> ordersLineList;
+	@OneToMany(mappedBy = "order")
+	@JsonIgnore
+	private List<OrderLine> ordersLineList;
 	
 	
 	/** 핫딜상세 */
