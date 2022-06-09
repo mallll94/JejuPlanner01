@@ -13,12 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DiaryLineDTO {
 
-	private Long diaryLineId;
-	private Long diaryId;
 	private Long plannerPlaceId;
-	private String diaryLineContent;
-	private String diaryLinePhoto;
-	private int diaryLinePrice;
+	private Long plannerId;
 	
 	private Long placeId;
 	private String placeName;
@@ -26,6 +22,10 @@ public class DiaryLineDTO {
 	private String placeContent;
 	private String placePhoto;
 	private String placeUrl;
+	
+	private String diaryLineContent;
+	private String diaryLinePhoto;
+	private int diaryLinePrice;
 	private int plannerPlaceDate;
 	
 }

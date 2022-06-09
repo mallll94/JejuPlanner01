@@ -22,6 +22,7 @@ import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.DiaryDTO;
+import kosta.mvc.dto.DiaryLineDTO;
 import kosta.mvc.service.PlannerService;
 import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -83,9 +84,15 @@ public class DiaryController {
 	/**다이어리 상세조회하기*/
 	@RequestMapping("/selectAllDiaryLine")
 	@ResponseBody
-	public List<PlannerPlace> selectAllDiaryLine(Long plannerId){
+	public List<DiaryLineDTO> selectAllDiaryLine(Long plannerId){
 		Planner planner =plannerService.selectBy(plannerId);
-		List<PlannerPlace> diarylinelist = planner.getPlannerPlaceList();
+		List<PlannerPlace> pplist = planner.getPlannerPlaceList();
+		List<DiaryLineDTO> diarylinelist = new ArrayList<DiaryLineDTO>();
+		for(PlannerPlace p:pplist) {
+			diarylinelist.add(new DiaryLineDTO(p.getPlannerPlaceId(), p.getPlanner().getPlannerId(), p.getPlace().getPlaceId(),
+					p.getPlace().getPlaceName(), p.getPlace().getPlaceAddr(), p.getPlace().getPlaceContent(), p.getPlace().getPlacePhoto(), p.getPlace().getPlaceUrl(),
+					p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
+		}
 		return diarylinelist;
 	}
 	

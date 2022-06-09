@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
         </c:choose>
 
       
-        
+        <!-- paging -->
 
         <div class="row">
             <div class="container">
@@ -132,7 +132,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
                 
-        <!-- end latest news -->
+        
 
         
 		
