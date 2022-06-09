@@ -60,6 +60,15 @@ public class GoodsServiceImpl implements GoodsService {
 		Optional<Goods> goods = goodsRepository.findById(goodsId);
 		return goods.get();
 	}
+	/**
+	 * goods이름으로 상품 조회
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<Goods> getGoodsByGoodsName(String goodsName) throws Exception {
+		List<Goods> goodsList = goodsRepository.findAllGoodsByGoodsName(goodsName);
+		return goodsList;
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -109,5 +118,7 @@ public class GoodsServiceImpl implements GoodsService {
 		List<Goods> goodsList = goodsRepository.findAllGoodsByLocalCategory(localCategory);
 		return goodsList;
 	}
+
+
 
 }
