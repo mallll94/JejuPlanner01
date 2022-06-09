@@ -63,7 +63,7 @@ public class PlannerCreateController {
 		
 		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.DESC, "updateDate");
 		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,loginUser.getUserId());
-		List<Planner> plist = new ArrayList<Planner>();
+		List<Planner> plist = pagelist.getContent();
 		
 		int temp = (nowPage-1)%INDEX_BLOCK_COUNT;
 		int startPage =nowPage-temp;
@@ -85,7 +85,7 @@ public class PlannerCreateController {
 			Planner planner = plannerService.selectBy(plannerId);
 			model.addAttribute("planner", planner);
 		}
-		return "/planner/plannerWrite";
+		return "planner/plannerWrite";
 	}
 	
 	/**플래너 상세 조회하기*/
