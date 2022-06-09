@@ -31,11 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class PlanBoardServiceImpl implements PlanBoardService {
 
 	private final PlanBoardRepository planBoardRep;
-
 	private final FileStore fileStore;
-	
 	private final LikesRepository likesRep;
-	
 	private final UserRepository userRep;
 
 	/**전체조회*/
@@ -164,14 +161,14 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 				.orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
 	
 		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
-		
+		System.out.println(likes);
 		if(likes==null) {
 			likesRep.save(new Likes(null, user, planBoard) );
-	        
+	        System.out.println(1);
 			return 1;
 		}else {
 			likesRep.deleteById(likes.getLikeId());
-			
+			System.out.println(0);
 			return 0;
 		}
 		
