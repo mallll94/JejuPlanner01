@@ -218,8 +218,8 @@ public class JejuDB_planner {
 		Planner planner22 = plannerRep.findById(4L).orElse(null);
 		Planner planner31 = plannerRep.findById(5L).orElse(null);
 		
-		planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null,null));
-		planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null,null));
+		//planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null,null));
+		//planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null,null));
 		
 	}
 	

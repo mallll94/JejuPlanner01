@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.QUsers;
@@ -159,7 +157,7 @@ public class UserServiceImpl implements UserService {
 		String access_Token ="";
 		String refresh_Token="";
 		String reqURL ="https://kauth.kakao.com/oauth/token";
-		
+		/*
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn =  (HttpURLConnection)url.openConnection();
@@ -201,7 +199,7 @@ public class UserServiceImpl implements UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
         return access_Token;
 		
 	}
