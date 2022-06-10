@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -44,13 +45,13 @@ public class ChatBoard {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="receiver_fk")
-	private Users receiverUser; //수신자
+	private Users receiverUser; //수신자 ----
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="sender_fk")
 	private Users senderUser; //발신자  
 	
-	private int chatRoom; //방번호
+	private int chatRoom; //방번호 ----
 	
 	@CreationTimestamp
 	private LocalDateTime chatSend; //보낸시간
@@ -62,4 +63,14 @@ public class ChatBoard {
 	
 	@Column(columnDefinition = "varchar2(20) default '0'")
 	private int chatCheck; //메세지읽기체크 , 읽으면 1 안읽으면 0
+	
+	@Transient
+	private String sender;
+	
+	@Transient
+	private MessageType type;
+	
+	public enum MessageType{
+		CHAT, LEAVE, JOIN
+	};
 }

@@ -50,5 +50,10 @@ public class Users {
 	
 	private String kakaoId;
 
+
+
+	
+	
+	
 	
 }

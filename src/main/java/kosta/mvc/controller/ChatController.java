@@ -1,26 +1,50 @@
 package kosta.mvc.controller;
 
-import java.util.List;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import kosta.mvc.domain.ChatBoard;
-import kosta.mvc.service.ChatService;
-import lombok.RequiredArgsConstructor;
+//import org.springframework.messaging.handler.annotation.MessageMapping;
+//import org.springframework.messaging.handler.annotation.Payload;
+//import org.springframework.messaging.handler.annotation.SendTo;
+//import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//
+//import kosta.mvc.domain.ChatBoard;
+//import lombok.RequiredArgsConstructor;
 
-@Controller
-@RequiredArgsConstructor
-public class ChatController {
+//@Controller
+//@RequiredArgsConstructor
+/*public class ChatController {
 	
-	private final ChatService chatService;
-	
+
 	@RequestMapping("/chat")
 	public String chat() {
 		
-		return "chat";
+		return "chat/chat";
+		
 	}
-
 	
-}
+	@MessageMapping("/chat.register")
+	@SendTo("/queue/public")
+	public ChatBoard register(@Payload ChatBoard chat,
+			SimpMessageHeaderAccessor headerAccessor) {
+		 
+		//누가 보냈는지 정보 담기
+		headerAccessor.getSessionAttributes().put("userId", chat.getSender());
+		
+		return chat;
+		
+	}
+	
+	@MessageMapping("/chat.send")
+	@SendTo("/queue/public")
+	public ChatBoard sendMessage(@Payload ChatBoard chat) {
+		// 채팅방 번호 꺼내서
+		// DB SAVE
+		// ~~~.("/topic/" + boardId + "/" + chatRoomId, chat);
+		return chat;
+	}
+		
+	
+	
+}*/

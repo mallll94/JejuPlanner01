@@ -96,7 +96,7 @@
 	                
                    </form> 
                    
-                   <form name="requestForm" method = "post" id="requestForm">
+                   <form name="requestForm" method = "post" id="requestForm" >
                      <input type="hidden" name="askId" value="${askboard.askId}">
                        <div align="right">
                          <button type="button" class="btn btn-primary py-2 px-4" value="삭제">삭제하기</button>
@@ -115,17 +115,20 @@
 답변 
 <c:forEach items="${replylist}" var="reply">
 <div>
-  <textarea readonly class="form-control" rows="6" id="askReplyContent" name="askReplyContent">
+  <textarea readonly class="form-control" rows="4" id="askReplyContent" name="askReplyContent">
 	${reply.askReplyContent}
   </textarea>
- </div> 
- <div align="right">  
+</div>
+
+<div align="right">  
    <span>
      <a href="${pageContext.request.contextPath}/reply/delete/${reply.askReplyId}/${askboard.askId}">삭제하기</a>
    </span>
 </div>
-</c:forEach>     
+</c:forEach> 
 </div>
+
+
 
 
 </body>

@@ -17,11 +17,6 @@ public interface GoodsReplyService {
 	public void deleteGoodsReply(Long goodsReplyId);
 
 	/**
-	 * 후기 수정하기
-	 */
-	public void updateGoodsReply(GoodsReply goodsReply);
-
-	/**
 	 * 후기 전체 조회하기
 	 */
 	public List<GoodsReply> getAllGoodsReply();
@@ -30,4 +25,5 @@ public interface GoodsReplyService {
 	 * goodsId로 후기 조회하기
 	 */
 	public List<GoodsReply> getGoodsReplyByGoodsId(Long goodsId);
+	
 }

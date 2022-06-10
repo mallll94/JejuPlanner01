@@ -18,20 +18,22 @@ import lombok.RequiredArgsConstructor;
 public class AskReplyServiceImpl implements AskReplyService {
 
 	private final AskReplyRepository askReplyRep;
-	
+
 	private final AskBoardRepository askBoardRep;
-	
+
 	@Override
 	public List<AskReply> getAskRepliesByAskBoardId(Long askId) {
-		// TODO Auto-generated method stub
+		AskBoard ask = new AskBoard();
+		ask.setAskId(askId);
+		
 		return null;
 	}
-	
+
 	@Override
 	public void addAskReply(Long askId, AskReply askReply) {
 		AskBoard ask = askBoardRep.findById(askId)
 				.orElseThrow(() -> new RuntimeException("글을 찾을 수 없습니다."));
-		
+
 		askReply.setAskBoard(ask);
 		askReplyRep.save(askReply);
 	}

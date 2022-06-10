@@ -6,6 +6,7 @@ public interface GoodsLineService {
 
 	/**
 	 * 상품상세 등록 
+	 * @return 
 	 * */
-	void goodsLineCart(GoodsLine goodsLine);
+	GoodsLine goodsLineCart(GoodsLine goodsLine);
 }

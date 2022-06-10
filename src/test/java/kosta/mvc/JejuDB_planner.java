@@ -218,12 +218,9 @@ public class JejuDB_planner {
 		Planner planner22 = plannerRep.findById(4L).orElse(null);
 		Planner planner31 = plannerRep.findById(5L).orElse(null);
 		
-		/*
-		 * planBRep.save(new PlanBoard(null, planner11, user1,
-		 * planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null,null));
-		 * planBRep.save(new PlanBoard(null, planner21, user2,
-		 * planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null,null));
-		 */
+		//planBRep.save(new PlanBoard(null, planner11, user1, planner11.getPlannerType(), "여행공유합니다~", "어떤가요~....", null, null,null));
+		//planBRep.save(new PlanBoard(null, planner21, user2, planner21.getPlannerType(), "이런 제주여행", "즐거웠습니다^^", null, null,null));
+
 		
 	}
 	
@@ -252,9 +249,9 @@ public class JejuDB_planner {
 		Users user2  = userRep.findById("bbb").orElse(null);
 		Users user3  = userRep.findById("abc123").orElse(null);
 		
-		orderRep.save(new Orders(null, user1, "카드", 30000, user1.getUserName(), user1.getUserEmail(), user1.getUserPhone(), "픽업요청합니다.", null));
-		orderRep.save(new Orders(null, user2, "카카오페이", 45000, user2.getUserName(), user2.getUserEmail(), user2.getUserPhone(), null, null));
-		orderRep.save(new Orders(null, user3, "계좌이체", 5500, user3.getUserName(), user3.getUserEmail(), user3.getUserPhone(), "연락주세요", null));
+		//orderRep.save(new Orders(null, user1, "카드", 30000, user1.getUserName(), user1.getUserEmail(), user1.getUserPhone(), "픽업요청합니다.", null));
+		//orderRep.save(new Orders(null, user2, "카카오페이", 45000, user2.getUserName(), user2.getUserEmail(), user2.getUserPhone(), null, null));
+		//orderRep.save(new Orders(null, user3, "계좌이체", 5500, user3.getUserName(), user3.getUserEmail(), user3.getUserPhone(), "연락주세요", null));
 		
 	}
 	

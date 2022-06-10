@@ -14,6 +14,6 @@ public interface PlannerPlaceRepository extends JpaRepository<PlannerPlace, Long
 	@Query("SELECT pp "+
 			"FROM PlannerPlace pp "+
 			"WHERE pp.planner.id = :plannerId "+
-			"ORDER BY pp.plannerPlaceDate ASC")
+			"ORDER BY pp.plannerPlaceDate ASC , pp.insertDate ASC")
 	List<PlannerPlace> findAllByPlannerIdByPlannerPlaceDateAsc(Long plannerId);
 }

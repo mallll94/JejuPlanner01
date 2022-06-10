@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -75,7 +76,7 @@ public class CartController {
 		goodsLine.setGoods(goods);
 		cartService.addCart(goodsLine,user);
 		
-		return "/goods/test";
+		return "cart/cartList";
 	}
 	
 	@RequestMapping("/cartDelete")
@@ -84,5 +85,21 @@ public class CartController {
 		for(Long x : deleteBox) {
 			cartService.deleteCart(x);
 		}
+	}
+	
+	
+	@RequestMapping("/cartOrder")
+	public String cartOrder(Long [] cartId , int [] countCart,Model model) {
+
+		cartService.updateCart(cartId,countCart);
+		List<Integer> list = new ArrayList<Integer>();
+		for(Long i: cartId) {
+			list.add(i.intValue());
+			System.out.println("장바구니 결재"+i.intValue());
+		}
+		 
+		model.addAttribute("goods", list);
+		
+		return "order/order";
 	}
 }

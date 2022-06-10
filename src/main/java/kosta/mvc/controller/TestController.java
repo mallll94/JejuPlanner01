@@ -9,7 +9,7 @@ public class TestController {
 	@RequestMapping("/test")
 	public String index() {
 		System.out.println("test...............");
-		return "admin/mapTest";
+		return "index";
 	}
 	
    @RequestMapping("/adminTest")

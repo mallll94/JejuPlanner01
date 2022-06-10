@@ -43,4 +43,6 @@ public interface GoodsRepository extends JpaRepository<Goods, Long>, QuerydslPre
 	/**
 	 * 상품 이름으로 상품 검색
 	 */
+	@Query("select goods from Goods goods where goods.goodsName =?1")
+	List<Goods> findAllGoodsByGoodsName (String GoodsName);
 }

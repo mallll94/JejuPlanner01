@@ -69,9 +69,10 @@ public class AskBoardServiceImpl implements AskBoardService {
 	/**askboardId 이용해서 조회*/
 	@Override
 	public AskBoard getAskBoard(Long askId) {
+		System.out.println("askId = "+askId);
 		AskBoard askBoard = askBoardRep.findById(askId)
 				.orElseThrow(() -> new RuntimeException("상세보기에 오류가 발생하였습니다."));
-		
+		System.out.println(askBoard.getAskTitle()+" 댓글:: "+askBoard.getAskReplyList().size()+" :: ");
 		return askBoard;
 	}
 
