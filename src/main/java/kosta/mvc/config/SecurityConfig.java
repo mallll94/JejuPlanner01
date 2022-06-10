@@ -30,6 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.authorizeRequests() 
 		.anyRequest().permitAll()
+		//.antMatchers(HttpMethod.OPTIONS).permitAll() // preflight 대응
+        //.antMatchers("/auth/**").permitAll() // /auth/**에 대한 접근을 인증 절차 없이 허용(로그인 관련 url)
+        // 특정 권한을 가진 사용자만 접근을 허용해야 할 경우, 하기 항목을 통해 가능
+        //.antMatchers("/admin/**").hasAnyRole("ADMIN")
+        //.anyRequest().authenticated()--------------------------------------------------------------------------------------------------
+		
 		//.antMatchers("/","/user/**").permitAll()// "/","/user/**"제외
 		//.hasAnyRole("USER","ADMIN")//권한 User , admin의 권한이 있어야한다
 		//.antMatchers("/member/**")//member/** 아래는 무조건 인증되어야한다는 의미
