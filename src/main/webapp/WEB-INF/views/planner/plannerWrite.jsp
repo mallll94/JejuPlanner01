@@ -22,70 +22,15 @@ pageEncoding="UTF-8"%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
 
+		<!-- Css Styles -->
+		<link rel="stylesheet" href="/css/planner/map.css" type="text/css">
 
         <!-- <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
-		<style>
-			.body-main{
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				height: 100%;
-			}
-			div{
-				box-sizing: inherit;
-			}
-			div.jeju-sidebar-left{
-				flex-basis: 350px;
-				flex-shrink: 0;
-				background-color: gainsboro;
-				height: 100%;
-				order: 0;
-				text-align: center;
-			}
-			div.planner-plan-addList{
-				overflow: auto;
-			}
-			div.jeju-sidebar-right{
-				flex-basis: 250px;
-				flex-shrink: 0;
-				background-color: gainsboro;
-				height: 100%;
-				order: 2;
-				text-align: center;
-			}
-			div.sidebar-spot-wrapper{
-				overflow: auto;
-			}
-			div.jeju-googleMap{ 
-				flex-basis: 100%;
-				height: 100%;
-				order: 1;
-			}
-			div.sidebar-left-area, div.sidebar-right-area{
-				display: inline-block;
-			}
-			/* Always set the map height explicitly to define the size of the div
-			* element that contains the map. */
-			#googleMap {height: 100%;}
-			/* Optional: Makes the sample page fill the window. */
-			html, body {height: 100%;margin: 0;padding: 0;}
-			.search-place-keyword{float: left;}
-			input[ class="category-input"]{display: none;}
-			.ul-spot{padding: 0px;margin: 0px;}
-			.spot-card{padding: 1px;}
-			.spot-info{width: 200px;height: 60px;border: 1px solid gray;margin:2px;}
-			.spot-info-photo{box-sizing: inherit;float: left;width: 65px;height: 100%;background-color: antiquewhite;}
-			.spot-info-detail{box-sizing: inherit;float: left;width:135px;height: 100%;}
-			.set-datepicker{width: 200px; font-size: 15px; text-align: center;}
-			p{margin:0px;}
-			ul,li{list-style-type: none;}
-			#placeContent{word-wrap: break-word;font-size: small;padding-bottom: 5px;}
-			#placeAddr{font-size: small;}
-		</style>
+		
 		<script>
 			/*googleMap*/
 			var markers =[];
@@ -618,12 +563,112 @@ pageEncoding="UTF-8"%>
 			}
 
 		</script>
-		
+		<style>
+			.header-section .nav-logo .h-container .h-row{box-sizing: border-box; height: 100px;}
+			.h-container{padding-right: 15px; padding-left: 15px; margin-right: auto;margin-left: auto; text-align: left;}
+			.h-row{display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; height: fit-content; padding-left: 20px; padding-right: 20px;}
+			.col-lg-3{float: left;flex: 0 0 25%; max-width: 25%; position: relative ; width: 100%; padding-right: 30px; padding-left: 30px; box-sizing: border-box;height: 100%;}
+			.logo{padding: 10px 0; box-sizing: border-box; display: inline-block;}
+			.nav-logoImg{height: 70px;padding: 5px;}
+			.col-lg-9{float: left;flex: 0 0 25%;max-width: 75%;position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;height: 100%;}
+			.nav-logo-right{text-align: right; box-sizing: border-box;}
+			.nav-ul{ list-style: none;box-sizing: border-box;}
+			.nav-logo .nav-logo-right ul li{display: inline-block; box-sizing: border-box; }
+			.body-main{box-shadow: 10px 10px 10px 10px gray;}
+			/**왼쪽*/
+			.sidebar-left-area {
+				padding-top: 30px;
+				padding-bottom: 30px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+			}
+			div.jeju-sidebar-left{
+				flex-basis: 350px;
+				flex-shrink: 0;
+				background-color: rgba(255, 255, 255, 0.89);
+				height: 100%;
+				order: 0;
+				text-align: center;
+				
+			}
 
-		
+			/**오른쪽*/
+			.sidebar-right-area{
+				padding-top: 30px;
+				padding-bottom: 30px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				
+			}
+			div.jeju-sidebar-right{
+				flex-basis: 250px;
+				flex-shrink: 0;
+				background-color: white;
+				height: 100%;
+				order: 2;
+				text-align: center;
+				
+			}
+
+			/**지도*/
+			div.jeju-googleMap{ 
+				flex-basis: 100%;
+				height: 100%;
+				order: 1;
+				
+			}
+			.planner-name{text-align: center; font-size: xx-large; font-weight: bold; color: rgb(254 159 41);}
+			.plan-showdays{text-align: center; font-size: x-large; color: rgb(136, 136, 136);}
+			input.datepicker{
+				width: 150px;
+				color:rgb(136, 136, 136); 
+				font-size: medium; 
+				word-spacing: 1px; 
+				letter-spacing: -1px;
+				outline: none;
+				border-top: none;
+				border-right: none;
+				border-left: none;
+				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
+			}
+			.planner-calender{font-size: x-large; color: rgb(136, 136, 136);}
+			
+			
+    
+		</style>
 
 	</head>
 	<body>
+		<header class="header-section">
+			<div class="nav-logo">
+				<div class="h-container">
+					<div class="h-row">
+						<div class="col-lg-3">
+							<div class="logo">
+								<a href="#"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
+							</div>
+						</div>
+						<div class="col-lg-9"></div>
+						<div class="col-lg-9"></div>
+						<div class="col-lg-9">
+							<div class="nav-logo-right">
+								<ul class="nav-ul">
+									<li class="nav-li">
+										<i class="icon_phone"></i>
+										<div class="info-text">
+											<p>(+12) 345 6789</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
 		<div class="body-main">
 			<!-- 메인 구글지도 -->
 			<div class="jeju-googleMap">
@@ -653,7 +698,7 @@ pageEncoding="UTF-8"%>
 							</div>
 							<div class="planner-calender">
 								<input type="text" id="plan-startday" class="datepicker set-datepicker" readonly="readonly">
-								~<input type="text" id="plan-endday" class="datepicker set-datepicker" readonly="readonly">
+								<span> ~ </span><input type="text" id="plan-endday" class="datepicker set-datepicker" readonly="readonly">
 							</div>
 						</div>
 					</div>
@@ -776,7 +821,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
 
-
+	
 
 		
 	</body>
