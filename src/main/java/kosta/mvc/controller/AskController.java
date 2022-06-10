@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
+import kosta.mvc.domain.Users;
 import kosta.mvc.service.AskBoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -131,5 +132,15 @@ public class AskController {
 		return "redirect:/board/AskList";
 	}
 	
-
+   
+	/**마이페이지에서 내가 쓴 글 목록 조회*/
+	@RequestMapping("/mypage/myask")
+	public void mylist(Model model, String userId) {
+		
+		List<AskBoard> myList = askBoardService.selectByUserId(userId);
+		
+		model.addAttribute("myList" , myList);
+	}
+	
+	
 }

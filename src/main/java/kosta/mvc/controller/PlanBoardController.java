@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
@@ -169,6 +171,16 @@ public class PlanBoardController {
       System.out.println("삭제2");
 
       return "redirect:/admin/Planboard_Admin";      
+   }
+   
+   
+   /**마이페이지에서 내가 쓴 글 목록 조회*/
+   @RequestMapping("/mypage/myplan")
+   public void mylist(Model model, String userId) {
+	   List<PlanBoard> myList = planBoardService.selectByUserId(userId);
+   
+	   model.addAttribute("myList", myList);
+   
    }
 
 

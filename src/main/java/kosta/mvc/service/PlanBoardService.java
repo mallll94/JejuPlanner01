@@ -52,6 +52,10 @@ public interface PlanBoardService {
 
 	/**좋아요*/
 	int saveLikes(Long pboardId, String userId);
+	
+	
+	/**마이페이지에서 내가 쓴 글 목록 조회*/
+	List<PlanBoard> selectByUserId(String userId);
 
 	
 

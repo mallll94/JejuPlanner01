@@ -89,6 +89,15 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 	}
 
+	/**내가 쓴 글 목록 조회하기*/
+	@Override
+	public List<AskBoard> selectByUserId(String userId) {
+				
+		List<AskBoard> askList = askBoardRep.findAll();
+		
+		return askList;
+	}
+
 
 
 }

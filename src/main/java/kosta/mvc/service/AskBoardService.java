@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.AskBoard;
+import kosta.mvc.domain.PlanBoard;
 
 public interface AskBoardService {
 	
@@ -32,6 +33,9 @@ public interface AskBoardService {
 	 * 1:1문의 삭제하기 (askBoardId를 이용해)
 	 */
 	public void deleteAskBoard(Long askId);
+	
+	/**마이페이지에서 내가 쓴 글 목록 조회*/
+	List<AskBoard> selectByUserId(String userId);
 
 
 
