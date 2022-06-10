@@ -100,6 +100,16 @@ public interface PlannerService {
 	Planner updateDiaryLine(PlannerPlace diaryLine, String uploadPath);
 	
 	/**
+	 * 다이어리 이름 변경
+	 * */
+	Planner updateDiaryName(Planner diary);
+		
+	/**
+	 * 다이어리 인원, 타입 변경
+	 * */
+	Planner updateCountAndType(Planner diary);
+	
+	/**
 	 * 다이어리 내용 삭제
 	 * */
 	Planner DeleteDiaryLine(Long diaryLineId);
@@ -108,4 +118,5 @@ public interface PlannerService {
 	 * 다이어리 삭제
 	 * */
 	void deleteDiary(Long plannerId);
+	
 }

@@ -272,6 +272,23 @@ public class PlannerServiceImpl implements PlannerService {
 		 return dbPlannerPlace.getPlanner();
 		
 	}
+	 
+	@Override
+	public Planner updateDiaryName(Planner diary) {
+		Planner planner =plannerRep.findById(diary.getPlannerId())
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		planner.setDiaryTitle(diary.getDiaryTitle());
+		return planner;
+	}
+	
+	@Override
+	public Planner updateCountAndType(Planner diary) {
+		Planner planner =plannerRep.findById(diary.getPlannerId())
+				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
+		planner.setPlannerCount(diary.getPlannerCount());
+		planner.setPlannerType(diary.getPlannerType());
+		return planner;
+	}
 	
 	 @Override
 	public Planner DeleteDiaryLine(Long diaryLineId) {
@@ -281,7 +298,7 @@ public class PlannerServiceImpl implements PlannerService {
 	 
 	 @Override
 	public void deleteDiary(Long plannerId) {
-		// TODO Auto-generated method stub
+		plannerRep.deleteById(plannerId);
 		
 	}
 	

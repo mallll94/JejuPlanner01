@@ -46,8 +46,11 @@ pageEncoding="UTF-8"%>
 			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
 			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
 			a{text-decoration: none;}
+			.update-col{width: 50%;}
 			textarea:focus{outline: 1px solid gray;}
-
+			#delete-check-message{text-align: center;}
+			#update-diaryName{width: 100%;}
+			#update-diaryCount{width: 100%}
 			#insert-diaryPhoto, #update-diary-diaryPhoto{display: none;}
 		</style>
 		<script>
@@ -69,7 +72,15 @@ pageEncoding="UTF-8"%>
 							let str="";
 							str+=`<h1>\${result.diary.diaryTitle}</h1>`;
 							str+=`<h4>\${result.diary.plannerStart} ~ \${result.diary.plannerEnd}  (\${result.diary.planDays} DAY)</h4>`
-							str+=`<div><span>\${result.diary.diaryType}</span><span>\${result.diary.diaryCount}명</span></div>`
+							str+=`<div>`
+								str+=`<span>\${result.diary.diaryType}</span><span>\${result.diary.diaryCount}명</span>`
+								str+=`<span id="setting"><select id="setting-select">`
+									str+=`<option value='none'>관리</option>`
+									str+=`<option value='updateTitle' >다이어리 이름 변경</option>`
+									str+=`<option value='updateInfo' >다이어리 정보 수정</option>`
+									str+=`<option value='deleteDiary' >다이어리 삭제</option>`
+								str+=`</select></span>`
+							str+=`</div>`
 							$("#diary-titleview").html("");
 							$("#diary-titleview").append(str)
 
@@ -206,7 +217,22 @@ pageEncoding="UTF-8"%>
 					modalUpdateDiary($(this).attr('plannerPlaceId'))
 					
 				})
+
+				/////이름수정 모달//일정수정
+				$(document).on("change","#setting-select",function(){
+					console.log("모달 선택")
+					if($(this).val()=="updateTitle"){
+						$('#NameUpdateModal').modal('show');
+					}else if($(this).val()=="updateInfo"){
+						$("#updateCountAndTypeModal").modal('show');
+					}else if($(this).val()=="deleteDiary"){
+						$('#deleteDiaryModal').modal('show');
+					}
+				})
 				
+
+				
+						
 
 				selectDiaryTitle();
 			})
@@ -216,11 +242,22 @@ pageEncoding="UTF-8"%>
 
 			//다이어리 등록 폼 유효성 체크
 			function checkValid(){
+
 				//경비가 null값이면 0으로 submit
 				if($('[name=diaryLinePrice]').val()==''){
 					$('[name=diaryLinePrice]').val('0')
 				}	
 				
+			}
+
+			//이름 변경 유효성 체크
+			function checkValidName(){
+
+			}
+
+			//인원,타입 변경 유효성체크
+			function checkValidCandT(){
+
 			}
 
 			
@@ -316,7 +353,7 @@ pageEncoding="UTF-8"%>
         </div>
 
 
-		<!--다이어리 작성하기 모달-->
+		<!--Modal 다이어리 내용 작성하기-->
 		<div id="DiaryFormModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
@@ -388,7 +425,7 @@ pageEncoding="UTF-8"%>
         </div>
 
 
-		<!--다이어리 수정하기 모달-->
+		<!--Modal 다이어리 내용 수정하기-->
 		<div id="DiaryUpdateFormModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <!-- Modal content-->
@@ -459,15 +496,95 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
 
-	
+		<!-- Modal 다이어리 이름 수정-->
+		<div id="NameUpdateModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="NameUpdateModal-Title">다이어리 이름 변경</h4>
+                    </div>
+					<form name="updateNameForm" method="post" action="${pageContext.request.contextPath}/diary/updateName" onSubmit='return checkValidName()' enctype="multipart/form-data" >
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-12">
+									<input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+									name="diaryTitle" id="update-diaryName" type="text"  placeholder="변경할 다이어리 이름을 작성하세요.">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="update-diaryName-bnt" class='btn btn-default' name="plannerId" value="${requestScope.diary.plannerId}"> 변경 </button>
+								<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
+							</div>
+                        </div>
+					</form>
+                </div>
+            </div>
+        </div>
 
+		<!-- Modal 다이어리 인원,타입 수정-->
+		<div id="updateCountAndTypeModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="updateCountAndTypeModal-Title">다이어리 정보 수정</h4>
+                    </div>
+					<form name="updateCandTForm" method="post" action="${pageContext.request.contextPath}/diary/updateCountAndType" onSubmit='return checkValidCandT()' enctype="multipart/form-data" >
+						<div class="modal-body">
+							<div class="row">
+								<div class="update-col">
+									<p><label class="" for="update-diaryType">타입</label></p>
+									<p><select id="select-type" name="plannerType">
+										<option value='none'>타입 설정</option>
+										<option value='연인' >연인</option>
+										<option value='나홀로'>나홀로</option>
+										<option value='가족/부모님'>가족/부모님</option>
+										<option value='친구'>친구</option>
+									</select></p>
+								</div>
+								<div class="update-col">
+									<p><label class="" for="update-diaryCount">인원</label></p>
+									<input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500"
+									name="plannerCount" id="update-diaryCount" type="number"  placeholder="0">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="update-diaryCandT-bnt" class='btn btn-default' name="plannerId" value="${param.diary.plannerId}"> 변경 </button>
+								<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
+							</div>
+                        </div>
+					</form>
+                </div>
+            </div>
+        </div>
 
+		<!-- Modal 다이어리 삭제 모달-->
+		<div id="deleteDiaryModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="NameUpdateModal-Title">다이어리 삭제</h4>
+                    </div>
+					<form name="deleteForm" method="post" action="${pageContext.request.contextPath}/diary/delete" >
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-12">
+									<p id="delete-check-message">삭제된 다이어리는 복구할 수 없습니다.<br>정말로 삭제하시겠습니까?</p>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="delete-bnt" class='btn btn-default' name="plannerId"> 삭제 </button>
+								<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
+							</div>
+                        </div>
+					</form>
+                </div>
+            </div>
+        </div>
 		
-
-
-
-
-
+	
 
 
 		

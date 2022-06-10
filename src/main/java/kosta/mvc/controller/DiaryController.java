@@ -153,7 +153,7 @@ public class DiaryController {
 	}
 	
 	
-	/**다이어리 삭제하기*/
+	
 	
 	
 	/**다이어리 내용 등록하기*/
@@ -192,6 +192,23 @@ public class DiaryController {
 	}
 	
 	
+	@RequestMapping("/updateName")
+	public String updateName(Planner planner) {
+		System.out.println("변경할 plannerID::"+planner.getPlannerId());
+		System.out.println("변경할 이름::"+planner.getDiaryTitle());
+		Planner dbplanner =plannerService.updateDiaryName(planner);
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+	}
+	
+	@RequestMapping("/updateCountAndType")
+	public String updateCountAndType(Planner planner) {
+		System.out.println("변경할 plannerID::"+planner.getPlannerId());
+		System.out.println("변경할 타입::"+planner.getPlannerType()+", 인원:: "+planner.getPlannerCount());
+		Planner dbplanner = plannerService.updateCountAndType(planner);		
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+	}
+	
+	
 	/**다이어리 내용 삭제하기*/
 	@RequestMapping("/deleteDiaryLine")
 	public String deleteDiaryLine(Long diaryLineId, HttpSession session) {
@@ -202,4 +219,11 @@ public class DiaryController {
 		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
 	}
 	
+	/**다이어리 삭제하기*/
+	@RequestMapping("/delete")
+	public String deleteDiary(Long diaryId) {
+		System.out.println("다이어리 삭제!!!!!!");
+		plannerService.deleteDiary(diaryId);
+		return "redirect:/diary/diaryIndex";	
+	}
 }
