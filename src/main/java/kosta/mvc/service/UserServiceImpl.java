@@ -9,15 +9,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
+import kosta.mvc.domain.Orders;
+import kosta.mvc.domain.Place;
+import kosta.mvc.domain.QGoods;
+import kosta.mvc.domain.QOrders;
 import kosta.mvc.domain.QUsers;
 //import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.Users;
+import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	private final PasswordEncoder passwordEncoder;
 	
-	
+	private final OrdersRepository ordersRep;
 	
 	@Override
 	public Users loginCheck(String userId) {
@@ -202,6 +211,44 @@ public class UserServiceImpl implements UserService {
 */
         return access_Token;
 		
+	}
+
+	@Override
+	public Page<Users> selectByCata(String filter, int nowPage, int PageCount) {
+		
+		QUsers users = QUsers.users;
+		QGoods goods = QGoods.goods;
+		QOrders orders = QOrders.orders;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, "userId");
+		
+		Page<Users> result = null;
+		
+		if(filter == null){
+			 result =  userRep.findAll(pageable);
+		}else{
+			
+			result = userRep.findAll(builder, pageable);
+			//List<Orders> list= (List<Orders>) orderRep.findAll(builder);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		return result;
 	}
 
 }

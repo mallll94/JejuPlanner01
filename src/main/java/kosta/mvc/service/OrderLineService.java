@@ -5,6 +5,7 @@ import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderLineService {
 	
@@ -22,4 +23,9 @@ public interface OrderLineService {
 	 * 주문 전체 조회하기
 	 */
 	public List<OrderLine> getAllOrderLines();
+	
+	/**
+	 * 카테고리별 조회
+	 * */
+	public Map<String, Object> cataOrderLines(String cata);
 }

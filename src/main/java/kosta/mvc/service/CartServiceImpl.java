@@ -74,7 +74,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<GoodsLine> selectByCartId(Long[] cartId) {
 		List<GoodsLine> list = new ArrayList<GoodsLine>();
-		
+		System.out.println("2222222222222222222222222+\\\\\\"+cartId.length);
 		for(int i = 0 ; i < cartId.length; i ++) {
 			GoodsLine goodsLine = cartRep.findById(cartId[i]).get().getGoodsLine();
 			
@@ -86,7 +86,7 @@ public class CartServiceImpl implements CartService {
 		for(GoodsLine j : list) {
 			System.out.println(j.getGoods().getGoodsName());
 		}
-		
+		System.out.println("3333333333333333333333333333");
 		
 		return list;
 	}

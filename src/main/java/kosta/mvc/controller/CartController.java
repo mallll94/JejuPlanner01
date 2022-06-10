@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,12 +72,14 @@ public class CartController {
 	
 	
 	@RequestMapping("/cartInsert")
-	public String insert(GoodsLine goodsLine,Long goodsId) throws Exception {//goodsId ,count ,date는 productDetail 생성후 이름값 비교해서 변경해줘야함
+	public String insert(String goodsLineDate, int cartQty,Long goodsId) throws Exception {//goodsId ,count ,date는 productDetail 생성후 이름값 비교해서 변경해줘야함
 		Users user=(Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
-		goodsLine.setGoods(goods);
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate startDate = LocalDate.parse(goodsLineDate,format);		
+		GoodsLine goodsLine = new GoodsLine(goodsId, goods, cartQty, startDate);
+
 		cartService.addCart(goodsLine,user);
-		
 		return "cart/cartList";
 	}
 	

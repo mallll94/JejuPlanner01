@@ -9,4 +9,10 @@ public interface GoodsLineService {
 	 * @return 
 	 * */
 	GoodsLine goodsLineCart(GoodsLine goodsLine);
+	
+	/**
+	 * 상품상세 검색
+	 * 
+	 * */
+	GoodsLine goodsLineSelect(Long id);
 }

@@ -37,7 +37,6 @@
 
             <script type="text/javascript">
                 function fillUpdateModal(goodsId, goodsAddr, goodsCategory, goodsContent, goodsLocalCategory, goodsName, goodsPhoto, goodsPrice, placeFk) {
-
                     $('#updateGoodsId').text(goodsId)
                     $('#updateGoodAddr').val(goodsAddr)
                     $('#updateGoodsCategory').val(goodsCategory)
@@ -136,7 +135,6 @@
                             goodsName: goodsName,
                             goodsPhoto: goodsPhoto,
                             goodsPrice: goodsPrice
-
                         },
                         success: function (result) {
                             //console.log('들어오냐')
@@ -207,10 +205,10 @@
                                         <td>${goodsReply.goodsReplyId}</td>
                                         <td>${goodsReply.goodsReplyContent}</td>
                                         <td>${goodsReply.goodsReplyPhoto}</td>
-                                        <td>${goodsReply.goodReplyRegdate}</td>
+                                        <td>${goodsReply.goodsReplyRegdate}</td>
                                         <td>${goodsReply.goodsReplyStart}</td>
-                                        <td>${goodsReply.goods}</td>
-                                        <td>${goodsReply.user}</td>
+                                        <td>${goodsReply.goods.goodsId}</td>
+                                        <td>${goodsReply.user.userId}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

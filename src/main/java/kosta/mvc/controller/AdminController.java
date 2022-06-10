@@ -1,6 +1,10 @@
 package kosta.mvc.controller;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kosta.mvc.domain.OrderLine;
+import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.Users;
+import kosta.mvc.service.OrdersService;
 import kosta.mvc.service.PlaceService;
+import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -33,6 +43,8 @@ public class AdminController {
 	
 	
 	private final PlaceService placeService;
+	private final UserService userService;
+	private final OrdersService ordersService;
 	
 	private final static int PAGE_COUNT=2;
 	private final static int BLOCK_COUNT=4;
@@ -105,13 +117,132 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("/userAdmin")
+	@ResponseBody
+	public Map<String, Object> userAdmin(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		Page<Users> userList = userService.selectByCata(filter, nowPage, PAGE_COUNT);
+		System.out.println("1231");
+		System.out.println(userList);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		map.put("pageList", userList);
+		map.put("totalPages", userList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		
+		
+		/*
+		System.out.println(pageList);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		map.put("pageList", pageList);
+		map.put("totalPages", pageList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		*/
+		
+		return map;
+		
+	}
 	
 	
+	@RequestMapping("/totalData")
+	@ResponseBody
+	public Map<String, Object> totalData(String goodsCategory){
+		int totalSum = 0;
+		int monthSum = 0;
+		int cataSum =0;
+
+		Map<String,  Object> map = new HashMap<String, Object>();
+		Month month=LocalDate.now().getMonth();
+		List<Integer> chart = new ArrayList<Integer>();
+		
+		List<Orders> orderList = ordersService.getOrders();
+		List<OrderLine> orderCataList=ordersService.getOrdersByCatagory(goodsCategory);
+		
+		
+		List<OrderLine> orderCataList1=ordersService.getOrdersByCatagory("대여");
+		List<OrderLine> orderCataList2=ordersService.getOrdersByCatagory("입장권");
+		List<OrderLine> orderCataList3=ordersService.getOrdersByCatagory("액티비티");
+		List<OrderLine> orderCataList4=ordersService.getOrdersByCatagory("스파/힐링");
+		int sum1 = 0;
+		int sum2 = 0;
+		int sum3 = 0;
+		int sum4 = 0;
+		
+		for(Orders or : orderList) {
+			totalSum +=or.getOrdersPrice();	
+			if(or.getOrdersDate().getMonth() ==month) {
+				monthSum += or.getOrdersPrice();
+			}
+		}
+		for(OrderLine o : orderCataList) {	
+			cataSum+=o.getOrderLinePrice();
+		}
+		
+		for(OrderLine o : orderCataList1) {	
+			sum1+=o.getOrderLinePrice();
+		}
+		for(OrderLine o : orderCataList2) {	
+			sum2+=o.getOrderLinePrice();
+		}
+		for(OrderLine o : orderCataList3) {	
+			sum3+=o.getOrderLinePrice();
+		}
+		for(OrderLine o : orderCataList4) {	
+			sum4+=o.getOrderLinePrice();
+		}
+	
+		System.out.println(totalSum +" | "+monthSum+" | "+cataSum);
+		
+		map.put("rentSum", sum1);
+		map.put("inSum", sum2);
+		map.put("actSum", sum3);
+		map.put("spaSum", sum4);
+		
+		map.put("chartMonth", chart);
+		map.put("cataSum",cataSum);
+		map.put("totalSum", totalSum);
+		map.put("monthSum", monthSum);
+		return map;
+	}
 	
 	
-	
-	
-	
+	@RequestMapping("/orderUserAdmin")
+	@ResponseBody
+	public Map<String, Object> orderUserAdmin(String name,@RequestParam(defaultValue = "1")int nowPage) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		Page<Orders> userList = ordersService.selectByCata(null, nowPage, PAGE_COUNT);
+
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		map.put("pageList", userList);
+		map.put("totalPages", userList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		
+		
+
+		
+		return map;
+		
+	}
 	
 	
 	

@@ -1,12 +1,15 @@
 package kosta.mvc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
+import kosta.mvc.dto.DiaryDTO;
+import kosta.mvc.dto.DiaryLineDTO;
 import kosta.mvc.dto.PlannerPlaceDTO;
 
 
@@ -43,12 +46,17 @@ public interface PlannerService {
 	void insertPlanPlace(PlannerPlace PlannerPlace);
 	
 	/**
-	 * 플래너 수정 - 사용자 플래너 (인원 ,타입 , 플래너 이름 수정)
+	 * 플래너 수정 -  플래너 이름 수정
 	 * */
 	void updatePlan(Planner planner);
 	
 	/**
-	 * 플래너 일정 수정
+	 * 플래너 수정 -  플래너 기간 수정
+	 * */
+	void updatePlanStartdateAndEnddate(Planner planner);
+	
+	/**
+	 * 플래너 장소별 일정 수정
 	 * */
 	void updatePlanPlace(PlannerPlace PlannerPlace);
 	
@@ -72,4 +80,43 @@ public interface PlannerService {
 	 * */
 	void plannerTypeUpdate(String type, Long plannerId);
 	void plannerCountUpdate(int count, Long plannerId);
+	
+	/**
+	 * 다이어리 수정-타입/인원/제목/사진
+	 * */
+	void updateDiary(Planner diary);
+/**
+	 * 다이어리 내용 추가
+	 * */
+	Planner insertDiaryLine(PlannerPlace diaryLine, String uploadPath);
+	
+	/**
+	 * 다이어리 내용 조회
+	 * */
+	PlannerPlace selectPPbyPPId(Long plannerplaceId);
+	/**
+	 * 다이어리 내용 수정
+	 * */
+	Planner updateDiaryLine(PlannerPlace diaryLine, String uploadPath);
+	
+	/**
+	 * 다이어리 이름 변경
+	 * */
+	Planner updateDiaryName(Planner diary);
+		
+	/**
+	 * 다이어리 인원, 타입 변경
+	 * */
+	Planner updateCountAndType(Planner diary);
+	
+	/**
+	 * 다이어리 내용 삭제
+	 * */
+	Planner DeleteDiaryLine(Long diaryLineId);
+	
+	/**
+	 * 다이어리 삭제
+	 * */
+	void deleteDiary(Long plannerId);
+	
 }

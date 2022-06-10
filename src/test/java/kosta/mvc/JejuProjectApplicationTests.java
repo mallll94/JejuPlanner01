@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 
+import com.google.common.base.Predicate;
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
 import kosta.mvc.domain.ChatBoard;
@@ -20,6 +23,8 @@ import kosta.mvc.domain.FreeReply;
 import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Planner;
+import kosta.mvc.domain.QOrders;
+import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.TimeDeal;
 import kosta.mvc.domain.TimeOrderLine;
 import kosta.mvc.domain.Users;
@@ -75,10 +80,18 @@ class JejuProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
-	
+		QOrders orders = QOrders.orders;
+		QUsers user = QUsers.users;
 		
-		   
-		   
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.or(orders.user.isNotNull());
+		builder.or(user.isNotNull());
+		
+		List<Orders> list= (List<Orders>) orderRep.findAll(builder);
+		List<Users> us = (List<Users>) userRep.findAll(builder);
+		list.forEach(b->System.out.println(b.getUser().getUserName()+" | "+b.getUser().getUserId()+" | "+b.getOrdersLineList().get(0).getGoodsLine().getGoods().getGoodsName() ));
+		
 		//System.out.println(plannerRep.findById(1L).orElse(null).getPlannerPlaceList());
 		
 		
@@ -149,7 +162,7 @@ class JejuProjectApplicationTests {
 		@Test
 		void crewboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
-			crewboardRep.save(new CrewBoard(null, user1, "동행구합니다", "6월달에 제주도 가실 분 구해요!", "N", null, null) );
+			//crewboardRep.save(new CrewBoard(null, user1, "동행구합니다", "6월달에 제주도 가실 분 구해요!", "N", null, null) );
 		}
 		
 		/**동행구하기-채팅*/
@@ -158,8 +171,8 @@ class JejuProjectApplicationTests {
 			Users user1 = userRep.findById("ccc").orElse(null);
 			Users user2 = userRep.findById("ddd").orElse(null);
 			CrewBoard board =crewboardRep.findById(2L).orElse(null);
-			chatboardRep.save(new ChatBoard(null, board, user1, user2, 0, null, null, "ddd님,동행구하셨나요?", 0) );
-			chatboardRep.save(new ChatBoard(null, board, user2, user1, 0, null, null, "ccc님,아직구하지못하였습니다. 제주도 가시는 날짜가 언제인가요?", 0) );
+			//chatboardRep.save(new ChatBoard(null, board, user1, user2, 0, null, null, "ddd님,동행구하셨나요?", 0) );
+			//chatboardRep.save(new ChatBoard(null, board, user2, user1, 0, null, null, "ccc님,아직구하지못하였습니다. 제주도 가시는 날짜가 언제인가요?", 0) );
 		}
 		
 		/**핫딜*/

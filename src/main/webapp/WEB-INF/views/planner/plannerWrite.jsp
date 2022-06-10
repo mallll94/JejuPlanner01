@@ -113,11 +113,9 @@ pageEncoding="UTF-8"%>
 			function addMarker(targets){
 				for(let i=0;i<targets.length;i++){
 					var position = targets[i];
-					//alert(position)
 					let marker = new google.maps.Marker({
 					position: position,
 					map: mymap,
-					//animation: google.maps.Animation.Drop
 					})
 					//마커 배열 저장
 					markers.push(marker);
@@ -168,12 +166,6 @@ pageEncoding="UTF-8"%>
 
 			//선삭제
 			function removeRoute(){
-				alert("선삭제하기")
-				//if(typeof line !== 'undefined'){
-				// for (i=0; i<lineArr.length; i++) { 
-				// 	//lineArr[i].setMap(null);
-				// 	lineArr[i].setVisible(false);
-				// }
 				lineArr=[];
 				line.setMap(null)
 			}
@@ -190,14 +182,13 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽 사이드바 - 플래너 일정 정보 조회
 				function selectPlaceByMyPlanner(){
-					alert("플래너 일정 정보 조회")
+					console.log("플래너 일정 정보 조회")
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/selectPlannerPlace",
 						type: "post",
 						dataType: "json",
 						data: {plannerId: targetPlannerId},
 						success: function(result){
-							//alert("db저장된 일정::"+result.plist)
 							var Dday = result.Dday;
 							$("#plannerId").val(targetPlannerId)
 							$("#plan-placeList").html("")
@@ -347,7 +338,6 @@ pageEncoding="UTF-8"%>
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
 						return;
 					}
-					//alert("showDays()!"+startDay)
 					let StartDate = $.datepicker.formatDate("yy-mm-dd",startDateInput);
 					let EndDate =$.datepicker.formatDate("yy-mm-dd",endDateInput);
 
@@ -368,7 +358,7 @@ pageEncoding="UTF-8"%>
 							}
 						})
 					}else{//플래너 새로 생성하기
-						alert("플래너를 새로 생성")
+						console.log("플래너를 새로 생성")
 						$.ajax({
 						url: "${pageContext.request.contextPath}/planner/insert",
 						type:"post",
@@ -381,6 +371,7 @@ pageEncoding="UTF-8"%>
 							targetPlannerId= result.planner.plannerId
 							let targetPlanStartDay =new Date(result.planner.plannerId.plannerStart)
 							let targetPlanEndDay =new Date(result.planner.plannerIdplannerEnd)
+							$("#planner-dayset-day").html(Dday+1);
 							selectPlaceByMyPlanner()
 						},
 						error: function(error){
@@ -435,7 +426,6 @@ pageEncoding="UTF-8"%>
 						dataType:"json",
 						data:{category: category},
 						success: function(result){
-							//alert(result)
 							let str="";
 							$.each(result,function(index,place){
 								str+="<il class='spot-card'>"
@@ -485,7 +475,6 @@ pageEncoding="UTF-8"%>
 
 				//오른쪽 사이드바 - 장소 추가하기 버튼동작
 				$(document).on("click","#plan-add-bnt",function addPlaceToPlanner(){
-					//alert(targetDate)
 					let targetPlaceId = $(this).attr("placeId")
 					let targetPlaceCategory = $(this).attr("category")
 
@@ -497,14 +486,11 @@ pageEncoding="UTF-8"%>
 					
 					if(targetDate==null){
 						var targetDate="1"
-						alert(targetDate)
-						alert(targetPlannerId)
-						//alert(targetPlaceId)
 					}
 
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
-						alert("우선 여행 날짜를 선택해주세요.");
+						alert("여행기간을 먼저 정해주십시오.");
 						return;
 					}
 
@@ -538,7 +524,6 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽사이드바 - 일정 Day변경
 				$(document).on("change","select",function(){
-					//alert("Day변경!")
 					let targetUpdatePlan=$(this).attr('plannerPlaceId')
 					let updatetargetDay =$(this).val();
 					$.ajax({
@@ -557,7 +542,6 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽 사이드바 - 장소/숙소 삭제 버튼
 				$(document).on("click","#delete-plan-bnt",function(){
-					//alert("삭제하기!")
 					let targetDeletePlan=$(this).attr('plannerPlaceId')
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/deletePlan",
@@ -589,7 +573,7 @@ pageEncoding="UTF-8"%>
 				$(document).on("click","#finish-wirte-bnt", function(){
 					//두 날짜가 비어있으면 함수 빠져나가기
 					if($('#plan-startday').val()=="" || $('#plan-endday').val()=="" ){
-						alert("우선 여행 날짜를 선택해주세요.");
+						alert("여행기간 설정은 필수 항목입니다.");
 						return;
 					}else{
 						let url = "${pageContext.request.contextPath}/planner/plannerIndex2?plannerId="+ targetPlannerId
@@ -603,18 +587,15 @@ pageEncoding="UTF-8"%>
 			})
 
 			function getSearchList(){
-				//alert("검색하기")
 				let serchKeyword = $("#searchPlaceKeyWord").val()
 				let nowPage =1;
-				alert(serchKeyword)
 				$.ajax({
 					url: "${pageContext.request.contextPath}/planner/searchPlace",
 					type: "post",
 					dataType: "json",
 					data:{keyword: serchKeyword, nowPage: nowPage} ,
 					success: function(result){
-						alert("검색success")
-						alert("totalPages"+result.totalPages)
+						console.log("totalPages"+result.totalPages)
 						let str="";
 						$.each(result.pageList,function(index,place){
 							str+="<il class='spot-card'>"
@@ -694,7 +675,7 @@ pageEncoding="UTF-8"%>
 					<!--완료버튼(좌측 하단)-->
 					<div class="planner-save-area">
 						<!-- <form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
-							<input type="hidden" name="plannerId" value="">
+							<input type="hidden" name="plannerId" value="">finish-wirte-bnt
 							<input type="submit" value="작업 완료">
 						</form> -->
 						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->

@@ -1,6 +1,9 @@
 package kosta.mvc.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.RequiredArgsConstructor;
 
 //import org.springframework.messaging.handler.annotation.MessageMapping;
 //import org.springframework.messaging.handler.annotation.Payload;
@@ -12,18 +15,19 @@ package kosta.mvc.controller;
 //import kosta.mvc.domain.ChatBoard;
 //import lombok.RequiredArgsConstructor;
 
-//@Controller
-//@RequiredArgsConstructor
-/*public class ChatController {
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/chat")
+public class ChatController {
 	
 
-	@RequestMapping("/chat")
+	@RequestMapping("/list")
 	public String chat() {
 		
-		return "chat/chat";
+		return "chat/chat_List";
 		
 	}
-	
+	/*
 	@MessageMapping("/chat.register")
 	@SendTo("/queue/public")
 	public ChatBoard register(@Payload ChatBoard chat,
@@ -45,6 +49,6 @@ package kosta.mvc.controller;
 		return chat;
 	}
 		
+	*/
 	
-	
-}*/
+}
