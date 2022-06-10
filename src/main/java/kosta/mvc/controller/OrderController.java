@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,23 +55,34 @@ public class OrderController {
 	@RequestMapping("select")
 	@ResponseBody
 	public Map<String, Object> selectAll(Long [] goods){
-		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<GoodsDTO> goodsDTOs = new ArrayList<GoodsDTO>();
 		List<GoodsLineDTO> goodsLineDTOs = new ArrayList<GoodsLineDTO>();
+		List<GoodsLine> list = null;
 		
-		List<GoodsLine> list =cartService.selectByCartId(goods);
-		
-		for(GoodsLine x : list ) {
-			GoodsLineDTO dto = new GoodsLineDTO(x.getGoodsLineId(), null, x.getGoodsLineAmount(), x.getGoodsLineDate());
+		if(goods.length!=1) {
+			list =cartService.selectByCartId(goods);
+			
+			for(GoodsLine x : list ) {
+				GoodsLineDTO dto = new GoodsLineDTO(x.getGoodsLineId(), null, x.getGoodsLineAmount(), x.getGoodsLineDate());
+				goodsLineDTOs.add(dto);
+				
+				GoodsDTO dto2 = new GoodsDTO(x.getGoods().getGoodsId(), null, null, null, x.getGoods().getGoodsName(), x.getGoods().getGoodsPrice(), x.getGoods().getGoodsContent(), x.getGoods().getGoodsPhoto(), x.getGoods().getGoodsAddr());
+				goodsDTOs.add(dto2);
+			}
+		}else {
+			
+			
+			GoodsLine goodsLine=goodsLineService.goodsLineSelect(goods[0]);
+			
+			GoodsLineDTO dto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());
 			goodsLineDTOs.add(dto);
 			
-			GoodsDTO dto2 = new GoodsDTO(x.getGoods().getGoodsId(), null, null, null, x.getGoods().getGoodsName(), x.getGoods().getGoodsPrice(), x.getGoods().getGoodsContent(), x.getGoods().getGoodsPhoto(), x.getGoods().getGoodsAddr());
+			GoodsDTO dto2 = new GoodsDTO(goodsLine.getGoods().getGoodsId(), null, null, null, goodsLine.getGoods().getGoodsName(), goodsLine.getGoods().getGoodsPrice(), goodsLine.getGoods().getGoodsContent(), goodsLine.getGoods().getGoodsPhoto(), goodsLine.getGoods().getGoodsAddr());
 			goodsDTOs.add(dto2);
 		}
-		
-		
+
 		map.put("goodsLine" , goodsLineDTOs);
 		map.put("goods" , goodsDTOs);
 		map.put("user", users);
@@ -148,13 +160,14 @@ public class OrderController {
 	
 	
 	@RequestMapping("/detailOrder")
-	public String goodsOrder(Long goodsId, String cartQty, LocalDate cartStart,Model model) throws Exception{
-		
+	public String goodsOrder(Long goodsId, String cartQty, String goodsLineDate,Model model) throws Exception{	
 		int amountResult = Integer.parseInt(cartQty);
-		System.out.println(goodsId+" | "+cartQty+" | "+cartStart);
-	
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate startDate = LocalDate.parse(goodsLineDate,format);
+		
+		
 		Goods goods= goodsService.getGoodsByGoodsId(goodsId);
-		GoodsLine goodsLine = new GoodsLine(null, goods, amountResult	, cartStart);
+		GoodsLine goodsLine = new GoodsLine(null, goods, amountResult	, startDate);
 		
 		model.addAttribute("goods", goodsLineService.goodsLineCart(goodsLine).getGoodsLineId());
 		

@@ -22,4 +22,10 @@ public class GoodsLineServiceImpl implements GoodsLineService {
 		
 	}
 
+	@Override
+	public GoodsLine goodsLineSelect(Long id) {
+		
+		return goodsLineRep.getById(id);
+	}
+
 }
