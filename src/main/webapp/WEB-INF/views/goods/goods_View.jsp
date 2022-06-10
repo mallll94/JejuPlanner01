@@ -7,18 +7,18 @@
             <meta charset="UTF-8">
             <title>상품 상세보기</title>
 
-            <link rel="stylesheet" href="${path}/css/datepicker.css">
+           <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepicker.css"> --%>
             <!-- CSS only -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
                 crossorigin="anonymous">
             <!-- jQuery -->
-            <script type="text/javascript" src="${path}/util/js/jquery-3.6.0.min.js"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
             <!-- JavaScript Bundle with Popper -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="${path}/css/header.css">
+            <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css"> --%>
             <!-- jQuery ui -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
                 integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
@@ -28,7 +28,7 @@
                 integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
             <style type="text/css" src=""></style>
-            <link rel="stylesheet" href="${path}/css/datepicker.css">
+            <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepicker.css"> --%>
             <style>
                 .goods-view {
                     position: relative;
@@ -102,62 +102,71 @@
             </style>
 
             <script type="text/javascript">
-            
-                function calcTotalPrice() {
-                    price = $("#goodsprice").text();
-                    quantity = $("input[name=cartQty]").val();
-                    cartPeriod = parseInt($("select[name=cartPeriod]").val());
-                    cartWeekday = 0;
-                    if ($("select[name=cartWeekDay]").val() == "T") {
-                        cartWeekday = 3 / 5;
-                    } else {
-                        cartWeekday = 1;
-                    }
+            $(function(){
+            	 function calcTotalPrice() {
+                     price = $("#goodsprice").text();
+                     quantity = $("input[name=cartQty]").val();
+                     cartPeriod = parseInt($("select[name=cartPeriod]").val());
+                     cartWeekday = 0;
+                     if ($("select[name=cartWeekDay]").val() == "T") {
+                         cartWeekday = 3 / 5;
+                     } else {
+                         cartWeekday = 1;
+                     }
 
-                    $("#goodstotalprice").text(price * quantity * cartWeekday * cartPeriod);
-                }
-
-
-                // datepicker 설정
-                $.datepicker.setDefaults({
-                    dateFormat: 'yy-mm-dd',
-                    prevText: '이전 달',
-                    nextText: '다음 달',
-                    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-                    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-                    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-                    showMonthAfterYear: true,
-                    yearSuffix: '년'
-                });
-
-                $("#datePicker").datepicker();
-
-                // 수량 감소 시 DB 업데이트
-                $(document).on("click", "button[name=minus]", function () {
-                    let updateNum = parseInt($(this).next().val()) - 1;
-                    if (updateNum <= 0) {
-                        alert("수량을 하나 이상 입력해주세요.");
-                        updateNum = 1;
-                    }
-                    $(this).next().val(updateNum);
-                    calcTotalPrice();
-                }); // 수량 감소 업데이트 종료
-
-                // 수량 증가 시 DB 업데이트
-                $(document).on("click", "button[name=plus]", function () {
-                    let updateNum = parseInt($(this).prev().val()) + 1;
-                    $(this).prev().val(updateNum);
-                    calcTotalPrice();
-                }); // 수량 증가 업데이트 종료
+                     $("#goodstotalprice").text(price * quantity * cartWeekday * cartPeriod);
+                 }
 
 
-                $(".selectpicker").click(function () {
-                    calcTotalPrice();
-                });
+                 // datepicker 설정
+                 $.datepicker.setDefaults({
+                     dateFormat: 'yy-mm-dd',
+                     prevText: '이전 달',
+                     nextText: '다음 달',
+                     monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                     monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                     dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+                     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+                     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+                     showMonthAfterYear: true,
+                     yearSuffix: '년'
+                 });
 
-                selectByGoodsId();
+                 $("#datePicker").datepicker();
+
+                 // 수량 감소 시 DB 업데이트
+                 $(document).on("click", "button[name=minus]", function () {
+                     let updateNum = parseInt($(this).next().val()) - 1;
+                     if (updateNum <= 0) {
+                         alert("수량을 하나 이상 입력해주세요.");
+                         updateNum = 1;
+                     }
+                     $(this).next().val(updateNum);
+                     calcTotalPrice();
+                 }); // 수량 감소 업데이트 종료
+
+                 // 수량 증가 시 DB 업데이트
+                 $(document).on("click", "button[name=plus]", function () {
+                     let updateNum = parseInt($(this).prev().val()) + 1;
+                     $(this).prev().val(updateNum);
+                     calcTotalPrice();
+                 }); // 수량 증가 업데이트 종료
+
+
+                 $(".selectpicker").click(function () {
+                     calcTotalPrice();
+                 });
+            	
+            	$("#cart").click(function(){
+            		$("#goodsViewForm").attr("action","${pageContext.request.contextPath}/cart/cartInsert");
+            		$("#goodsViewForm").submit();
+            	})
+            	
+            	
+            })
+               
+
+               
 
 
             </script>
@@ -186,7 +195,7 @@
                             <h1 class="goodsname" id="goodsname"></h1>
                             <p class="goodscontent" id="goodscontent"></p>
                         </div>
-                        <form action="${pageContext.request.contextPath}/order/detailOrder" method="post">
+                        <form id="goodsViewForm" action="${pageContext.request.contextPath}/order/detailOrder" method="post">
                             <input type="hidden" name="goodPhoto">
                             <input type="hidden" name="goodsName">
                             <input type="hidden" name="goodsPrice">
@@ -204,8 +213,10 @@
                                             티켓 날짜 선택
                                         </td>
                                         <td>
-                                            <input type="text" id="datePicker" name="cartStart" class="form-control"
-                                                placeholder="날짜 입력하기" readonly="readonly" required>
+
+                                            <input type="text" id="datePicker" name="goodsLineDate" class="datepicker set-datepicker"
+                                                placeholder="" readonly="readonly" required>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -251,9 +262,9 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div class="btn-box">
+                            <div class="btn-box" >
                                 <button type="button" class="form-control btn btn-outline-dark shadow-none btn-lg"
-                                    id="cart">위시리스트 추가<img src="/src/main/webapp/img/heart-fill.svg" height="80"
+                                    id="cart">위시리스트 추가<img src="${pageContext.request.contextPath}/img/heart-fill.svg" height="80"
                                         width="100" /></button>
                                 <button type="submit" class="form-control btn btn-dark shadow-none btn-lg"
                                     id="order">결제하기</button>

@@ -175,6 +175,15 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		
 	}
 
+	/**내가 쓴 글 목록 조회하기*/
+	@Override
+	public List<PlanBoard> selectByUserId(String userId) {
+		
+		List<PlanBoard> planList = planBoardRep.findAll();
+		
+		return planList;
+	}
+
 
 
 	

@@ -129,7 +129,7 @@ public class PlannerCreateController {
 		Planner planner =plannerService.selectBy(plannerId);
 			planner.setPlannerStart(startDate);
 			planner.setPlannerEnd(endDate);
-		plannerService.updatePlan(planner);
+		plannerService.updatePlanStartdateAndEnddate(planner);
 		System.out.println(" === updateDate plannerStart"+plannerStart);
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());

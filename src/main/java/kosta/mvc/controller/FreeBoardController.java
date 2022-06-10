@@ -25,7 +25,7 @@ public class FreeBoardController {
 	private final static int BLOCK_COUNT=10;
 	
 	/**
-	 * 전체검색
+	 * 전체검색 (페이징 처리)
 	**/
 	
 	@RequestMapping("/board/freeBoard")

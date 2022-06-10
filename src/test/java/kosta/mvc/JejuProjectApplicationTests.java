@@ -149,7 +149,7 @@ class JejuProjectApplicationTests {
 		@Test
 		void crewboardinsert() {
 			Users user1 = userRep.findById("ccc").orElse(null);
-			crewboardRep.save(new CrewBoard(null, user1, "동행구합니다", "6월달에 제주도 가실 분 구해요!", "N", null, null) );
+			//crewboardRep.save(new CrewBoard(null, user1, "동행구합니다", "6월달에 제주도 가실 분 구해요!", "N", null, null) );
 		}
 		
 		/**동행구하기-채팅*/
@@ -158,8 +158,8 @@ class JejuProjectApplicationTests {
 			Users user1 = userRep.findById("ccc").orElse(null);
 			Users user2 = userRep.findById("ddd").orElse(null);
 			CrewBoard board =crewboardRep.findById(2L).orElse(null);
-			chatboardRep.save(new ChatBoard(null, board, user1, user2, 0, null, null, "ddd님,동행구하셨나요?", 0) );
-			chatboardRep.save(new ChatBoard(null, board, user2, user1, 0, null, null, "ccc님,아직구하지못하였습니다. 제주도 가시는 날짜가 언제인가요?", 0) );
+			//chatboardRep.save(new ChatBoard(null, board, user1, user2, 0, null, null, "ddd님,동행구하셨나요?", 0) );
+			//chatboardRep.save(new ChatBoard(null, board, user2, user1, 0, null, null, "ccc님,아직구하지못하였습니다. 제주도 가시는 날짜가 언제인가요?", 0) );
 		}
 		
 		/**핫딜*/
