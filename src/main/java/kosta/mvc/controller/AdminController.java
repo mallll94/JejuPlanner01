@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kosta.mvc.domain.Place;
+import kosta.mvc.domain.Users;
 import kosta.mvc.service.PlaceService;
+import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -33,6 +36,7 @@ public class AdminController {
 	
 	
 	private final PlaceService placeService;
+	private final UserService userService;
 	
 	private final static int PAGE_COUNT=2;
 	private final static int BLOCK_COUNT=4;
@@ -105,7 +109,42 @@ public class AdminController {
 	}
 	
 	
-	
+	@RequestMapping("/userAdmin")
+	@ResponseBody
+	public Map<String, Object> userAdmin(String filter,String name,@RequestParam(defaultValue = "1")int nowPage) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		
+		Page<Users> userList = userService.selectByCata(filter, nowPage, PAGE_COUNT);
+		System.out.println("1231");
+		System.out.println(userList);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		map.put("pageList", userList);
+		map.put("totalPages", userList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		
+		
+		/*
+		System.out.println(pageList);
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		map.put("pageList", pageList);
+		map.put("totalPages", pageList.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		*/
+		
+		return map;
+		
+	}
 	
 	
 	

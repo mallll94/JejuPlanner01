@@ -83,7 +83,7 @@
   <ul class="menu-inner py-1">
 
     <li class="menu-item active">
-      <a href="index.html" class="menu-link">
+      <a href="${pageContext.request.contextPath}/index" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">홈페이지</div>
       </a>
@@ -94,7 +94,7 @@
     <li class="menu-header small text-uppercase"><span class="menu-header-text">회원</span>
     </li>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/users_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div data-i18n="Basic">전체회원조회</div>
       </a>

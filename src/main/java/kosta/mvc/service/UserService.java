@@ -2,6 +2,8 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import kosta.mvc.domain.Users;
 
 public interface UserService {
@@ -62,6 +64,7 @@ public interface UserService {
 	 * */
 	Users selectById(String userId);
 	
+	Page<Users> selectByCata(String filter, int nowPage,int PageCount);
 	
 	/**
 	 * 카카오로그인

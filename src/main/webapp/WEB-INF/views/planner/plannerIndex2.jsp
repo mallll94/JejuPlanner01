@@ -71,7 +71,7 @@
 				url: "${pageContext.request.contextPath}/planner/typeUpdate",
 				type: "post",
 				dataType: "text",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' , type:$(this).val(),plannerId: '2'},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , type:$(this).val(),plannerId: '${param.plannerId}'},
 				success: function(result){	
 				},
 				error: function(error){
@@ -92,7 +92,7 @@
 				url: "${pageContext.request.contextPath}/planner/updateCount",
 				type: "post",
 				dataType: "text",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' , count:$("#plannerCount").val(),plannerId: '1'},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , count:$("#plannerCount").val(),plannerId: '${param.plannerId}'},
 				success: function(result){	
 				},
 				error: function(error){
@@ -150,12 +150,13 @@
 		})
 		
 
-		function selectAll(no){
+		function selectAll(no){//1
+			alert("no = "+no)
 			$.ajax({
 				url: "${pageContext.request.contextPath}/planner/select",
 				type: "post",
 				dataType: "json",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: '2' ,DayPlanner : no},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: '${param.plannerId}' ,DayPlanner : no},
 				success: function(result){
 					
 					let card = "";
@@ -173,24 +174,37 @@
 						dayNoLi+=`<option value=${'${i+1}'}>${'${i+1}'}day</option>`;
 					}
 
-					for(let j=1; j<=dayNo;j++){
+					
+					let index=0;
+					for(let j=1; j<=dayNo;j++){ //dayNo = 1 , 2 ,3 , 4 ,    no=0일때 모두 , no=1 1day, no=2 ,2day
 						
 						card+=`<div class='row row-cols-10' class='list'>`;
-						card+=`<h1>${'${j}'}Day</h1>`;
+						
+						
+						if(no==0){
+						  card+=`<h1>${'${j}'}Day</h1>`;
+						}else{
+							if(index==0){
+							 card+=`<h1>${'${no}'}Day</h1>`;
+							 index++;
+							}
+						}
+						
+						
 						$.each(result.place, function(index, item){
 							
-							if(item.day==(j)){
-							
-							card+=`<div class='col-lg-3 col-md-3'>`;
-							card+=`<div class='single-latest-news'>`;
-							card+=`<div class='latest-news-bg news-bg-1'>${'${item.placePhoto}'}</div>`;
-							card+=`<div class='news-text-box'>`;
-							card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
-							card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
-							card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${result.planner.plannerStart}'}</span>`;
-							card+=`</p><p class='excerpt'>${'${item.placeAddr}'}</p>`;
-							card+=`<a href="" class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
-							card+=`</div></div></div>`;
+							if(item.day==j){
+								
+								card+=`<div class='col-lg-3 col-md-3'>`;
+								card+=`<div class='single-latest-news'>`;
+								card+=`<div class='latest-news-bg news-bg-1'>${'${item.placePhoto}'}</div>`;
+								card+=`<div class='news-text-box'>`;
+								card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
+								card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
+								card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${result.planner.plannerStart}'}</span>`;
+								card+=`</p><p class='excerpt'>${'${item.placeAddr}'}</p>`;
+								card+=`<a href="" class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
+								card+=`</div></div></div>`;
 							}
 							
 						})
@@ -423,7 +437,7 @@
                           <label class="col-sm-4 col-form-label" for="basic-default-name">변경할 이름</label>
                           
                          <div class="col-sm-10">
-                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="${param.plannerId}"/>
+                        	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value='${param.plannerId}'/>
                          	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="plannerName"/>
                           </div>
                        </div>
@@ -463,7 +477,7 @@
 		          
 		          <h4>정말로 삭제 하시겠습니까??</h4>	          
          		  <div class="col-sm-10">
-		        	<input type="hidden" id="plannerId" class="form-control placeId-mask" name="plannerId" value="1"/>
+		        	<input type="hidden" id="plannerId" class="form-control placeId-mask" name="plannerId" value='${param.plannerId}'/>
 		          </div>
 		       </div>
 		    </div>
@@ -506,7 +520,7 @@
                  	</select>
                                    
                    <div class="col-sm-10">
-                  	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value="1"/>
+                  	<input type="hidden" id="placeId" class="form-control placeId-mask" name="plannerId" value='${param.plannerId}'/>
                     </div>
                  </div>
               </div>

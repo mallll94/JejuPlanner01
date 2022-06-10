@@ -1,0 +1,45 @@
+/*------------------------------------------------------------------
+    File Name: color_2.css
+-------------------------------------------------------------------*/
+
+.topbar .navbar {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.icon_info ul.user_profile_dd > li {
+    background: #0971b8;
+}
+
+.icon_info span.badge {
+    background: #0971b8;
+}
+
+.icon_info ul li a {
+    color: #333;
+}
+
+.user_info h6 {
+    color: #222;
+}
+
+.counter_section .counter_no p.total_no {
+    color: #fff;
+}
+
+.counter_section .counter_no p.head_couter {
+    color: rgba(255,255,255,.7);
+}
+
+.dark_bg {
+    background: #0971b8;
+}
+
+.progress.skill-bar .progress-bar {
+    background-color: #0971b8;
+}
+
+.dash_head {
+    background-color: #0971b8;
+}
