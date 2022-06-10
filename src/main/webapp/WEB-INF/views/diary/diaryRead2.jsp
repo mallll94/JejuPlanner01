@@ -37,10 +37,11 @@ pageEncoding="UTF-8"%>
 				margin-left: calc(-.5 * var(--bs-gutter-x)); */
 			}
 			.diaryline-area{background-color: rgb(231, 242, 253); float: left;}
-			.diary-row{clear: both; display: table; padding-bottom: 30px;}
+			.diary-row{clear: both; display: table; padding-bottom: 30px; height: 200px;}
+			.diaryline-card{float: left;}
 			.planner-place-area, diaryline-area{display: table-cell;}
-			
-			.diaryline-Image{ border: 1px solid gray; height: 100px;}
+			.diaryline-Image{box-sizing: border-box; width: 200px; height: 200px; border: 1px solid gray;}
+			.diarylineImg{box-sizing: border-box; width: 200px; height: 200px; object-fit: cover; }
 			.place-card{background-color: rgb(255, 248, 236); width: 170px; height: 200px;border: 1px saddlebrown solid;}
 			input[ class="icon-bnt"]{display: none;}
 			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
@@ -73,7 +74,11 @@ pageEncoding="UTF-8"%>
 							str+=`<h1>\${result.diary.diaryTitle}</h1>`;
 							str+=`<h4>\${result.diary.plannerStart} ~ \${result.diary.plannerEnd}  (\${result.diary.planDays} DAY)</h4>`
 							str+=`<div>`
-								str+=`<span>\${result.diary.diaryType}</span><span>\${result.diary.diaryCount}명</span>`
+								if(!result.diary.diaryType){
+									str+=`<span>\${result.diary.diaryCount}명</span>`
+								}else{
+									str+=`<span>\${result.diary.diaryType}</span><span>\${result.diary.diaryCount}명</span>`
+								}
 								str+=`<span id="setting"><select id="setting-select">`
 									str+=`<option value='none'>관리</option>`
 									str+=`<option value='updateTitle' >다이어리 이름 변경</option>`
@@ -112,11 +117,13 @@ pageEncoding="UTF-8"%>
 												str2+=`</div>`
 											}else{
 												str2+=`<div class="diaryline-card">`
-													str2+=`<div class="try-div-card">`
-														str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">\${diaryline.diaryLinePhoto}</div></a>`
+													str2+=`<div class="diaryImg-card">`
+														str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">
+															<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}">
+															</div></a>`
 													str2+=`</div>`
 												str2+=`</div>`
-												str2+=`<div class="diaryline-col">`
+												str2+=`<div class="diaryline-card">`
 												str2+=`<div class="single-latest-news">`
 														str2+=`<div class="diaryline-text-box">`
 															str2+=`<p class="excerpt">\${diaryline.diaryLineContent}\</p>`
@@ -142,6 +149,12 @@ pageEncoding="UTF-8"%>
 							})
 							$("#diary-main-view").html("");
 							$("#diary-main-view").append(str2);
+
+							let str3="";
+							str3+=`<p>총 경비: <strong>\${result.totalPrice}</strong>원<p>`
+							$("#diary-TotalPrice-area").html("")
+							$("#diary-TotalPrice-area").append(str3)
+
 
 							
 						},
@@ -187,12 +200,12 @@ pageEncoding="UTF-8"%>
 						success: function(result){
 							var photo = result.diaryLinePhoto;
 							$("#update-diaryLineContent").text(result.diaryLineContent);
-							$("#update-diaryLinePrice").text(result.diaryLinePrice);
+							$("#update-diaryLinePrice").val(result.diaryLinePrice*=1);
 							$("#update-diary-bnt").val(result.plannerPlaceId);
 
 							if(photo){
-								alert(photo)
-								$("#update-diary-diaryPhoto").val(result.diaryLinePhoto);
+								console.log("photo값:"+photo)
+								//$("#update-diary-diaryPhoto").val(result.diaryLinePhoto); //file 타입에 값 넣는건 보안상의문제로 안됨 
 								$("#update-diary-preview-image").attr("src", "/images/place/"+result.diaryLinePhoto )
 							}
 							
@@ -243,21 +256,39 @@ pageEncoding="UTF-8"%>
 			//다이어리 등록 폼 유효성 체크
 			function checkValid(){
 
+				console.log($('#insert-diaryLinePrice').val())
 				//경비가 null값이면 0으로 submit
-				if($('[name=diaryLinePrice]').val()==''){
-					$('[name=diaryLinePrice]').val('0')
+				if($('#insert-diaryLinePrice').val()==''){
+					$('#insert-diaryLinePrice').val('0')
 				}	
-				
+			}
+
+			//다이어리 수정 폼 유효성 체크
+			function checkValidUpdate(){
+
+				console.log("값"+$('#insert-diaryLinePrice').val())
+				//경비가 null값이면 0으로 submit
+				if($('#insert-diaryLinePrice').val()==''){
+					$('#insert-diaryLinePrice').val('0')
+				}	
 			}
 
 			//이름 변경 유효성 체크
 			function checkValidName(){
-
+				//값이 없으면 return
+				if($('[name=diaryTitle]').val()==''){
+					return false;
+				}
+				
 			}
 
 			//인원,타입 변경 유효성체크
 			function checkValidCandT(){
-
+				//인원이 null이면 0으로 submit
+				if($('[name=plannerCount]').val()==''){
+					alert("인원을 입력해주십시오.")
+					return false;
+				}
 			}
 
 			
@@ -305,7 +336,10 @@ pageEncoding="UTF-8"%>
 			</div>
 			<!--다이어리 하단-->
 			<div class="diary-footer-container">
-				<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
+				<div id="diary-TotalPrice-area" class="diary-TotalPrice-area"></div>
+				<div>
+					<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
+				</div>
 			</div>
 		</section>
 
@@ -433,7 +467,7 @@ pageEncoding="UTF-8"%>
                     <div class="modal-header">
                         <h4 class="modal-title" id="update-diaryTitleModal">다이어리 수정하기</h4>
                     </div>
-					<form name="updateForm" method="post" action="${pageContext.request.contextPath}/diary/updateDiaryLine" onSubmit='return checkValid()' enctype="multipart/form-data" >
+					<form name="updateForm" method="post" action="${pageContext.request.contextPath}/diary/updateDiaryLine" onSubmit='return checkValidUpdate()' enctype="multipart/form-data" >
 						<div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -550,7 +584,7 @@ pageEncoding="UTF-8"%>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button id="update-diaryCandT-bnt" class='btn btn-default' name="plannerId" value="${param.diary.plannerId}"> 변경 </button>
+								<button id="update-diaryCandT-bnt" class='btn btn-default' name="plannerId" value="${requestScope.diary.plannerId}"> 변경 </button>
 								<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
 							</div>
                         </div>
@@ -571,11 +605,11 @@ pageEncoding="UTF-8"%>
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-lg-12">
-									<p id="delete-check-message">삭제된 다이어리는 복구할 수 없습니다.<br>정말로 삭제하시겠습니까?</p>
+									<p id="delete-check-message">다이어리를 삭제하면 기존 플래너도 삭제됩니다.<br>정말로 삭제하시겠습니까?</p>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button id="delete-bnt" class='btn btn-default' name="plannerId"> 삭제 </button>
+								<button id="delete-bnt" class='btn btn-default' name="plannerId" value="${requestScope.diary.plannerId}"> 삭제 </button>
 								<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
 							</div>
                         </div>

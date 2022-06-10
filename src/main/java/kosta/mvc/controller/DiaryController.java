@@ -125,7 +125,6 @@ public class DiaryController {
 	@RequestMapping("/DiaryTitle")
 	@ResponseBody
 	public Map<String, Object> selectAllDiaryLine(Long plannerId){
-		System.out.println("오나?"+plannerId);
 		Map<String, Object> map = new HashMap<String, Object>();
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
 		//Long.valueOf(plannerId)
@@ -139,15 +138,17 @@ public class DiaryController {
 		List<PlannerPlace> pplist = dbDiary.getPlannerPlaceList();
 			//System.out.println("컨트롤러 pplist :: "+pplist.size() );
 		List<DiaryLineDTO> diarylinelist = new ArrayList<DiaryLineDTO>();
+		int totalPrice=0;		
 		for(PlannerPlace p:pplist) {
 		diarylinelist.add(new DiaryLineDTO(p.getPlannerPlaceId(), p.getPlanner().getPlannerId(), p.getPlace().getPlaceId(),
 				p.getPlace().getPlaceName(), p.getPlace().getPlaceAddr(), p.getPlace().getPlaceContent(), p.getPlace().getPlacePhoto(), p.getPlace().getPlaceUrl(),
 				p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
 			//System.out.println("컨트롤러 diarylinelist 다이어리 경비:: "+p.getDiaryLinePrice());
+			totalPrice+=(p.getDiaryLinePrice());
 		}
 		map.put("diary", diary);
 		map.put("diarylinelist", diarylinelist);
-		System.out.println("여긴?");
+		map.put("totalPrice", totalPrice);
 
 		return map;
 	}
@@ -185,7 +186,7 @@ public class DiaryController {
 	
 	@RequestMapping("/updateDiaryLine")
 	public String updateDiaryLine(PlannerPlace diaryLine, HttpSession session) {
-			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
+			System.out.println("작성 내용"+diaryLine.getDiaryLineContent()+", 경비::"+diaryLine.getDiaryLinePrice());
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
 		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
 		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
@@ -221,9 +222,9 @@ public class DiaryController {
 	
 	/**다이어리 삭제하기*/
 	@RequestMapping("/delete")
-	public String deleteDiary(Long diaryId) {
+	public String deleteDiary(Long plannerId) {
 		System.out.println("다이어리 삭제!!!!!!");
-		plannerService.deleteDiary(diaryId);
+		plannerService.deleteDiary(plannerId);
 		return "redirect:/diary/diaryIndex";	
 	}
 }

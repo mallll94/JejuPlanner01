@@ -37,6 +37,7 @@ public class PlannerServiceImpl implements PlannerService {
 	
 	//private final static String DIARY_DEFAULT_NAME = "제주도";
 	
+	//planner조회할때 plannerState가 Y 인것만 검색해야함 >> 메소드 추가하기
 	
 	@Override
 	public Page<Planner> selectAllByUserIdPageing(Pageable pageable,String userId) {
@@ -285,8 +286,12 @@ public class PlannerServiceImpl implements PlannerService {
 	public Planner updateCountAndType(Planner diary) {
 		Planner planner =plannerRep.findById(diary.getPlannerId())
 				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
-		planner.setPlannerCount(diary.getPlannerCount());
-		planner.setPlannerType(diary.getPlannerType());
+		if(diary.getPlannerType().equals("none")) {
+			planner.setPlannerCount(diary.getPlannerCount());
+		}else {
+			planner.setPlannerCount(diary.getPlannerCount());
+			planner.setPlannerType(diary.getPlannerType());
+		}
 		return planner;
 	}
 	
