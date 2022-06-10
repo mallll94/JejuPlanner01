@@ -42,11 +42,17 @@ pageEncoding="UTF-8"%>
 			.diary-bg-1{background-image: url(../../../img/diary-default.jpg);}
 			.diaryline-Image{background-image: url(../../../img/diary-default.jpg); border: 1px solid gray; height: 100px;}
 			.place-card{background-color: rgb(255, 248, 236); width: 170px; height: 200px;border: 1px saddlebrown solid;}
+			input[ class="icon-bnt"]{display: none;}
+			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
+			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
+			
+			textarea:focus{outline: 1px solid gray;}
+
+			#insert-diaryPhoto{display: none;}
 		</style>
 		<script>
-			const DiaryId = "${diary.plannerId}"
 			$(function(){
-				
+				const DiaryId = "${diary.plannerId}"
 
 				//다이어리 내용조회 ajax
 				function selectAllDiryLine(){
@@ -55,75 +61,12 @@ pageEncoding="UTF-8"%>
 						type:"post",
 						dataType: "json",
 						data: {diaryId: DiaryId},
-						success: function(diarylinelist){
+						success: function(result){
 							//alert(result)
 							let str="";
-							$.each(diarylinelist,function(index,diaryline){
-								
-								if(diaryline.diaryLineContent=="" && diaryline.diaryLinePhoto=="" && diaryline.diaryLinePrice==0){
-									//다이어리 내용이 없을때
-									// 장소
-									str+=`<div class="diary-row">`
-										str+=`<div class="planner-place-area">`
-											str+=`<div class="place-container">`
-												str+=`<div class="place-card">`
-												str+=`<a href="#"><div class="place-Img">장소이미지 자리 ${diaryline.placePhoto}</div></a>`
-												str+=`<div class="place-detail-box">`
-													str+=`<h3><a href="#">${diaryline.placeName}</a></h3>`
-													str+=`<p class="blog-meta">`
-													str+=`<span class="author"><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${diaryline.placeId}">i</button></span>`
-													str+=`</p>`
-												str+=`</div>`
-											str+=`</div>`
-										str+=`</div>`
-								
-									//다이어리 내용
-										str+=`<div class="diaryline-area">`
-											str+=`<div class="diaryline-card" plannerPlaceId="${diaryline.plannerPlaceId}">다이어리 내용 작성하기</div>`
-											str+=`</div>`
-										str+=`</div>`
-									str+=`</div>`
-								}else{
-									//다이어리 내용이 있을때
-									// 장소
-									str+=`<div class="diary-row">`
-										str+=`<div class="planner-place-area">`
-											str+=`<div class="place-container">`
-												str+=`<div class="place-card">`
-												str+=`<a href="#"><div class="place-Img">장소이미지 자리 \${diaryline.placePhoto}</div></a>`
-												str+=`<div class="place-detail-box">`
-													str+=`<h3><a href="#">\${diaryline.placeName}</a></h3>`
-													str+=`<p class="blog-meta">`
-													str+=`<span class="author"><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${diaryline.placeId}">i</button></span>`
-													str+=`</p>`
-												str+=`</div>`
-											str+=`</div>`
-										str+=`</div>`
-								
-									//다이어리 내용
-										str+=`<div class="diaryline-area">`
-											str+=`<div class="diaryline-card" plannerPlaceId="${diaryline.plannerPlaceId}">다이어리 내용 작성하기</div>`
-												str+=`<div class="diaryline-col">`
-													str+=`<a href="#"><div class="diaryline-Image diary-bg-1"><img src="/images/diary/${diaryline.diaryLinePhoto}"></div></a>`
-												str+=`</div>`
-											str+=`</div>`
-											str+=`<div class="diaryline-col">`
-												str+=`<div class="single-latest-news">`
-													str+=`<div class="diaryline-text-box">`
-														str+=`<p class="excerpt">\${diaryline.diaryLineContent}</p>`
-														str+=`<p>`
-															str+=`<span>경비: <fmt:formatNumber value="${diaryline.diaryLinePrice}" pattern="#,###"/> 원</span>`
-															str+=`<span><img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;" diarylineId="${diaryline.plannerPlaceId}"></span>`
-															str+=`<span><img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;" diarylineId="${diaryline.plannerPlaceId}"></span>`
-														str+=`</p>`
-													str+=`</div>`
-												str+=`</div>`
-										str+=`</div>`
-									str+=`</div>`
-								}
-								
+							$.each(result,function(index,diaryline){
+								if(diaryline.diaryLineContent){}
 							})
-							$("#diary-main-view").append(str)
 						
 
 						},
@@ -132,12 +75,34 @@ pageEncoding="UTF-8"%>
 						}
 					})
 				}
+
+
 				//다이어리 등록 ajax
+				// $("#insert-diary-bnt").click(function(){
+				// 	alert("다이어리 등록하기")
+				// 	let plannerPlaceId =$(this).val()
+				// 	let diaryLineContent = $("#insert-diaryLineContent").val()
+				// 	alert(plannerPlaceId)
+					
+				// 	$.ajax({
+				// 		url: "${pageContext.request.contextPath}/diary/insertDiaryLine",
+				// 		type: "post",
+				// 		dataType: "json",
+				// 		data: {plannerPlaceId: plannerPlaceId, content},
+				// 		success: function(result){
+							
 
-				//다이어리 
+				// 		},
+				// 		error: function(error){
+				// 			alert("정보를 불러올 수 없습니다.")
+				// 		}
+				// 	})
+					
+				// })
 
-				selectAllDiryLine();
-			})
+				
+				
+			
 
 			// 모달 정보 ajax
 			function modalInfoPlace(placeId){
@@ -159,11 +124,95 @@ pageEncoding="UTF-8"%>
 					}
 				})
 			}
-			//오른쪽 사이드바 - 장소 정보 모달 버튼동작
-			$(document).on("click","#plan-info-bnt",function(){
-				modalInfoPlace($(this).attr('placeId'));
+			
+				//장소 정보 모달 버튼동작
+				$(document).on("click","#plan-info-bnt",function(){
+					modalInfoPlace($(this).attr('placeId'));
+
+				})
+
+				
+				//다이어리 등록 폼 값 전달
+				$(document).on("click","#write-diaryline-bnt", function(){
+					let target = $(this).attr('plannerPlaceId');
+					$('#insert-diary-bnt').val(target)
+				})
+
+				//다이어리 내용 수정하기
+				$(document).on("click","#edit-diaryline-bnt",function(){
+					let target = $(this).attr('plannerPlaceId');
+					$('#insert-diary-bnt').val(target)
+					
+				})
+
+				
+
+
+				
+				
+
+				function uploadDiaryline(){
+					
+					var form = $('#writeForm')[0];
+					var formData = new FormData(form)
+					$.ajax({
+					url: "${pageContext.request.contextPath}/diary/diaryInsertAjax",
+					type: "post",
+					dataType: "json",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(diaryLine){
+						
+						str+=``
+
+					},
+					error: function(error){
+						alert("정보를 불러올 수 없습니다.")
+					}
+				})
+
+				}
+
+				// $("#insert-diary-bnt").on("click",function(){
+				// 	checkValid();
+				// 	uploadDiaryline();
+				// })
+				
+
+				//목록으로 돌아가기 버튼
+				$(document).on("click","#back-list-btn",function(){
+					console.log("만들어야함")
+					//let url = `${pageContext.request.contextPath}/diary/diaryIndex&nowPage=${pageNum}`
+					//location.replace(url);
+				})
+
+				//다이어리 내용 삭제하기
+				$("#delete-diaryline-bnt").click(function(){
+					var deletetarget = $(this).attr("plannerPlaceId");
+					alert(deletetarget)
+					let url=`${pageContext.request.contextPath}/diary/deleteDiaryLine?diaryLineId=`+deletetarget;
+					location.replace(url);
+				})
 
 			})
+			//다이어리 등록 폼 유효성 체크
+			function checkValid(){
+					
+				//경비가 null값이면 0으로 submit
+				if($('[name=diaryLinePrice]').val()==''){
+					$('[name=diaryLinePrice]').val('0')
+				}
+			}
+
+			
+			// $(document).on("click","#delete-diaryline-bnt",function(){
+			// 	var deletetarget = $(this).attr("plannerPlaceId");
+			// 	alert(deletetarget)
+			// 	let url=`${pageContext.request.contextPath}/diary/deleteDiaryLine?diaryLineId=`+deletetarget;
+			// 	location.replace(url);
+			// })
 
 			
 		</script>
@@ -171,8 +220,8 @@ pageEncoding="UTF-8"%>
 	</head>
 	<body>
 		<section class="diary-view">
+			<!--상단 제목-->
 			<div class="container">
-				<!--상단 제목-->
 				<div class="diary-titleview">
 					<h1>${diary.diaryTitle}</h1>
 					<h4>${diary.plannerStart} ~ ${diary.plannerEnd}  (${diary.planDays} DAY)</h4>
@@ -183,76 +232,78 @@ pageEncoding="UTF-8"%>
 				</div>
 			</div>
 			
-			
+			<!--본문-->
 			<div class="container">
-				<div class="diary-main-view" id="diary-main-view">
-				</div>
-			</div>
-
-					
-
-
-
-					
-					<!-- <c:forEach items="${plannerplacelist}" var="plannerplace" varStatus="status">
+				<div class="diary-main-view">
+					<!--place 내용-->
+					<c:forEach items="${diarylinelist}" var="diaryline" varStatus="status">
 						<div class="diary-row">
 							<div class="planner-place-area">
 								<div class="place-container">
 										<div class="place-card">
-											<a href="#"><div class="place-Img">장소이미지 자리 ${plannerplace.plannerPlaceDate}</div></a>
+											<a href="#"><div class="place-Img">장소이미지 자리 ${diaryline.placePhoto}</div></a>
 											<div class="place-detail-box">
-												<h3><a href="#">${plannerplace.placeName}</a></h3>
+												<h3><a href="#">${diaryline.placeName}</a></h3>
 												<p class="blog-meta">
-													<span class="author"><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${plannerplace.placeId}">i</button></span>
+													<span class="author"><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${diaryline.placeId}">i</button></span>
 												</p>
 											</div>
 										</div>
 								</div>
 							</div>
-							본문 - 다이어리 내용
+							<!--diary 내용-->
 							<div class="diaryline-area">
 								<div class="diaryline-container">
-									<div class="diaryline-card" plannerPlaceId="${plannerplace.plannerplaceId}">다이어리 내용 작성하기</div>
+									<c:choose>
+										<c:when test="${diaryline.diaryLinePrice eq 0 and empty diaryline.diaryLineContent and empty diaryline.diaryLinePhoto}">
+											<div class="diaryline-card" >
+												<a href="javascript:void(0);" id="write-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="${diaryline.plannerPlaceId}"><div>다이어리 작성하기</div></a>
+												
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="diaryline-col">
+												<div class="single-latest-news">
+													<a href="#"><div class="diaryline-Image diary-bg-1">${diaryline.diaryLinePhoto}</div></a>
+												</div>
+											</div>
+											<div class="diaryline-col">
+												<div class="single-latest-news">
+													<div class="diaryline-text-box">
+														<p class="excerpt">${diaryline.diaryLineContent} , ${diaryline.plannerPlaceId}
+														</p>	
+														<p>
+															<span>경비: <fmt:formatNumber value="${diaryline.diaryLinePrice}" pattern="#,###"/> 원</span>
+															<span>
+																<input class="icon-bnt" id="edit-diaryline-bnt" type="button" data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="${diaryline.plannerPlaceId}" />
+																<label class="icon-bnt" for="edit-diaryline-bnt" >
+																	<img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;">
+																</label>
+															</span>
+															<span>
+																<a class="icon-bnt" id="delete-diaryline-bnt" type="button" plannerPlaceId="${diaryline.plannerPlaceId}">
+																	<img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;">${diaryline.plannerPlaceId}
+																</a>
+																<label class="icon-bnt" for="delete-diaryline-bnt" >
+																	
+																</label>
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-				</div>
-					본문 - 다이어리 내용
-					<div class="diaryline-area">
-						<div class="diaryline-container">
-							<c:forEach items="${diarylinelist}" var="diaryline">
-								
-								<div class="diaryline-col">
-									<div class="single-latest-news">
-										<a href="#"><div class="diaryline-Image diary-bg-1"></div></a>
-									</div>
-								</div>
-								<div class="diaryline-col">
-									<div class="single-latest-news">
-										<div class="diaryline-text-box">
-											<p class="excerpt">${diaryline.diaryLineContent}
-											Hibernate: select diary0_.diary_id as diary_id1_5_0_, diary0_.diary_count as diary_count2_5_0_, diary0_.diary_photo as diary_photo3_5_0_, diary0_.diary_title as diary_title4_5_0_, diary0_.diary_type as diary_type5_5_0_, diary0_.planner_planner_id as planner_planner_id6_5_0_, diary0_.user_fk as user_fk7_5_0_ from diary diary0_ where diary0_.diary_id=?
-											</p>	
-											<p>
-												<span>경비: <fmt:formatNumber value="${diaryline.diaryLinePrice}" pattern="#,###"/> 원</span>
-												<span><img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;"></span>
-												<span><img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;"></span>
-											</p>
-										</div>
-									</div>
-								</div>
-									
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-			
-
-	
-					
+				</div>	
+			</div>
+			<!--다이어리 하단-->
+			<div class="container">
+				<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
+			</div>
 		</section>
 
 		<!--장소 정보 모달-->
@@ -299,6 +350,90 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
         </div>
+
+
+		<!--다이어리 작성하기 모달2-->
+		<div id="DiaryFormModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="placeInfoTitleModal">다이어리 등록하기</h4>
+                    </div>
+					<form name="writeForm" method="post" action="${pageContext.request.contextPath}/diary/insertDiaryLine" onSubmit='return checkValid()' enctype="multipart/form-data" > 
+					<!-- <form name="writeForm"> -->
+						<div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+								
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p><label class="" for="insert-diaryLineContent">내용</label></p>
+										<textarea class="form-modal-content" name="diaryLineContent" id="insert-diaryLineContent" placeholder="다이어리 내용을 입력하세요"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8" id="placeContentModal-area">
+                                        <p><label class="" for="insert-diaryLinePrice">경비</label></p>
+										<input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500"
+										name="diaryLinePrice" id="insert-diaryLinePrice" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder="0">원
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label class="input-diaryPhoto-bnt" for="insert-diaryPhoto">
+											사진첨부하기
+										</label>
+										<input id="insert-diaryPhoto" name="file" type="file" accept=".jpg, .jpeg, .png">
+										<p id="file-status"></p>
+										<img style="width: 50%;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+										<script>
+											//////////파일 사진 미리보기//////////
+												const status = document.getElementById('file-status')
+												const output = document.getElementById('preview-image')
+												// 인풋 태그에 파일이 있는 경우
+												if(window.FileList && window.File && window.FileReader){
+													document.getElementById('insert-diaryPhoto').addEventListener('change', event =>{
+														output.src='';
+														status.textContent='';
+														const file = event.target.files[0];
+														if(!file.type){
+															status.textContent = "첨부한 파일 타입이 현재 브라우저에서 지원하지 않습니다."
+															return;
+														}
+														const reader = new FileReader();
+														reader.addEventListener('load', event =>{
+															output.src = event.target.result;
+														})
+														reader.readAsDataURL(file);
+													})
+												}
+											///////////////////////////////
+										</script>
+                                    </div>
+                                </div>
+								<div class="modal-footer">
+									<button id="insert-diary-bnt" class='btn btn-default' name="plannerPlaceId"> 등록 </button>
+									<button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+					</form>
+                </div>
+            </div>
+        </div>
+
+
+
+		
+
+
+
+
+
+
+
 		
 	</body>
 </html>
