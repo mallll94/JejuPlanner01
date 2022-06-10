@@ -6,20 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>string</title>
+<title>관리자 메인</title>
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<tiles:insertAttribute name="header" />
+	<div id="container" style=" display: table;">
+		<div id="sidebar" style="width: 200px; margin:0px; display: table-cell;">
+			<tiles:insertAttribute name="sidebar" />
 		</div>
-		<div id="content">
+		<div id="content" style="width: 100%; margin:0px; padding:20px;  display: table-cell;">
 			<tiles:insertAttribute name="content" />
 		</div>
-		<div id="footer">
-			<tiles:insertAttribute name="footer" />
-		</div>
 	</div>
-
 </body>
 </html>

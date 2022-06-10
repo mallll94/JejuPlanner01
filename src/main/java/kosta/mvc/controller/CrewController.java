@@ -26,7 +26,7 @@ public class CrewController {
 	private final CrewService crewService;
 	
 	/**
-	 * 전체검색
+	 * 전체검색 (페이징 처리)
 	 * */
 //	@RequestMapping("/board/crew")
     public void list(Model model) {
@@ -38,7 +38,7 @@ public class CrewController {
     }
 	
 	/**
-	 * 전체검색 (관리자)
+	 * 전체검색 관리자 (페이징처리)
 	 * */
 	@RequestMapping("admin/crew_Admin")
     public void listForAdimin(Model model) {

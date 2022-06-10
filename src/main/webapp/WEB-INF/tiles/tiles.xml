@@ -9,22 +9,35 @@
  	<put-attribute name="content" value="/WEB-INF/views/planner/plannerWrite.jsp"/>
  </definition>
  
-
  <definition name="layout" template="/WEB-INF/tiles/layout.jsp">
    <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
    <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
  </definition>
 
+ <definition name="layout2" template="/WEB-INF/tiles/layout2.jsp">
+   <put-attribute name="sidebar" value="/WEB-INF/tiles/sideAdmin.jsp"/>
+</definition>
+ 
+ 
  
  <!-- Controller에서 리턴의하는 뷰의 정보에 따라 화면구성을 처리한다. 
        ex) 뷰의정보가 board/list, board/read , user/join ...
-            결론 : */* 인경우에...
+       결론 : */* 인경우에...
  -->
  
 
  
   <definition name="index" extends="layout">
    <put-attribute name="content" value="/WEB-INF/views/index.jsp"/>
+ </definition>
+ <definition name="admin/*" extends="layout2">
+   <put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp"/>
+ </definition>
+  <definition name="admin/*/*" extends="layout2">
+   <put-attribute name="content" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+ </definition>
+   <definition name="admin/*/*/*" extends="layout2">
+   <put-attribute name="content" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
  </definition>
  
  <definition name="*/*" extends="layout">
@@ -33,7 +46,7 @@
 <definition name="*/*/*" extends="layout">
    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
  </definition>
- 
+
 
 
 </tiles-definitions>
