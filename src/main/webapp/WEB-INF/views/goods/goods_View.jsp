@@ -205,7 +205,7 @@
                                         </td>
                                         <td>
                                             <input type="text" id="datePicker" name="cartStart" class="form-control"
-                                                placeholder="" readonly="readonly" required>
+                                                placeholder="날짜 입력하기" readonly="readonly" required>
                                         </td>
                                     </tr>
                                     <tr>

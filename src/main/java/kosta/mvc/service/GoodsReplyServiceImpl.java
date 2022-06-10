@@ -3,20 +3,31 @@ package kosta.mvc.service;
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsReply;
 import kosta.mvc.repository.GoodsReplyRepository;
+import kosta.mvc.repository.GoodsRepository;
+import kosta.mvc.repository.UserRepository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GoodsReplyServiceImpl implements GoodsReplyService {
+	
+	@Autowired
 	private GoodsReplyRepository goodsReplyRepository;
+	@Autowired
+	private GoodsRepository goodsRepository;
+	@Autowired
+	private UserRepository userRepository;
+	
 	/**
 	 * 등록하기
 	 */
 	@Override
 	public void addGoodsReply(GoodsReply goodsReply) {
+		goodsReplyRepository.save(goodsReply);
 
 	}
 	/**
@@ -36,7 +47,8 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 	 */
 	@Override
 	public List<GoodsReply> getAllGoodsReply() {
-		return goodsReplyRepository.findAll(Sort.by(Sort.Direction.DESC, "goodsReplyStart"));
+//		return goodsReplyRepository.findAll(Sort.by(Sort.Direction.DESC, "goodsReplyStart"));
+		return goodsReplyRepository.findAll();
 	}
 	/**
 	 * goodsID 후기만 보기 
