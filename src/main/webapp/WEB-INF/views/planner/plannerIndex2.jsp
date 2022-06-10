@@ -85,15 +85,17 @@
 		$("#countPlan").click(function(){	
 			
 			$('#countUpdateModal').modal('show');
+			
 		})
 		$("#updateCount").click(function(){	
-			alert($("#plannerCount").val())
+			//alert($("#plannerCount").val())
 			$.ajax({
 				url: "${pageContext.request.contextPath}/planner/updateCount",
 				type: "post",
 				dataType: "text",
-				data: { '${_csrf.parameterName}' : '${_csrf.token}' , count:$("#plannerCount").val(),plannerId: '${param.plannerId}'},
+				data: { '${_csrf.parameterName}' : '${_csrf.token}' , plannerCount:$("#plannerCount").val(),plannerId: '${param.plannerId}'},
 				success: function(result){	
+					
 				},
 				error: function(error){
 					alert("장소 정보를 불러오지 못했습니다.")
@@ -151,7 +153,7 @@
 		
 
 		function selectAll(no){//1
-			alert("no = "+no)
+			
 			$.ajax({
 				url: "${pageContext.request.contextPath}/planner/select",
 				type: "post",
@@ -239,6 +241,7 @@
 					$("#card").empty();
 					$("#card").html(card);
 					
+					$("#countPlan").html(result.planner.plannerCount+"명");
 					
 				},
 				error: function(error){
@@ -400,7 +403,7 @@
 					<option value='가족/부모님'>가족/부모님</option>
 					<option value='친구'>친구</option>
 				</select>
-				<button type="button" class ="btn btn-link "  id="countPlan">1명</button>
+				<button type="button" class ="btn btn-link "  id="countPlan"></button>
 			</div>
 		</div>
 	</div>
@@ -542,11 +545,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">플래너 이름 수정</h5>
+        <h5 class="modal-title" id="exampleModalLabel">플래너 인원수 수정</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form method="post" id="countModalForm" action="${pageContext.request.contextPath}/planner/updateCount">
       <div class="modal-body">
-        	<form method="post" id="ShareModalForm" action="${pageContext.request.contextPath}/planner/PlannerShareBoard">
+        	
 	 		<div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -565,12 +569,13 @@
                     </div>
                   </div>
                 </div>
-              </form>
+              
    	  </div>
       <div class="modal-footer">
-        <button id="updateCount" type="button" class="btn btn-primary">수정하기</button>
+        <button id="updateCount" type="submit" class="btn btn-primary">수정하기</button>
         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

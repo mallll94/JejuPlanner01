@@ -65,7 +65,7 @@ public class PlannerSelectController {
 		map.put("plannerPlaces",  list);
 		map.put("dayNo", period.getDays());
 		map.put("place", place);
-	
+		
 		return map;
 	}
 	
@@ -75,7 +75,7 @@ public class PlannerSelectController {
 		plannerService.updatePlan(planner);
 		
 		
-		return "redirect:/planner/plannerIndex2";
+		return "redirect:/planner/plannerIndex2?plannerId="+planner.getPlannerId();
 	}
 	
 	
@@ -110,11 +110,12 @@ public class PlannerSelectController {
 	}
 	
 	@RequestMapping("/updateCount")
-	@ResponseBody
-	public void countUpdate(int count, Long plannerId) {
+	public String countUpdate(int plannerCount, Long plannerId) {
 		
 		
-		plannerService.plannerCountUpdate(count,plannerId);
+		plannerService.plannerCountUpdate(plannerCount,plannerId);
+		
+		return "redirect:/planner/plannerIndex2?plannerId="+plannerId;
 	}
 	
 

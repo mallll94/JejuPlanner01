@@ -206,7 +206,7 @@ public class PlannerServiceImpl implements PlannerService {
 		Planner planner =plannerRep.findById(plannerId)
 				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
 		planner.setPlannerCount(count);
-
+		System.out.println("확인"+planner.getPlannerCount());
 	 }
 	 
 	 @Override
