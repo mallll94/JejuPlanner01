@@ -2,7 +2,10 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import kosta.mvc.domain.GoodsLine;
+import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Users;
 
@@ -39,6 +42,10 @@ public interface OrdersService {
 //	public Orders getOrdersByOrdersId();
 	
 	/**
-	 * 주문 아이디로 주문 상세 조회하기
+	 * 주문 카테고리별 검색
 	 */
+	public List<OrderLine> getOrdersByCatagory(String catagory);
+	
+	
+	public Page<Orders> selectByCata(String filter, int nowPage, int PageCount);
 }

@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 
+import com.google.common.base.Predicate;
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
 import kosta.mvc.domain.ChatBoard;
@@ -20,6 +23,8 @@ import kosta.mvc.domain.FreeReply;
 import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Planner;
+import kosta.mvc.domain.QOrders;
+import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.TimeDeal;
 import kosta.mvc.domain.TimeOrderLine;
 import kosta.mvc.domain.Users;
@@ -75,10 +80,18 @@ class JejuProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
-	
+		QOrders orders = QOrders.orders;
+		QUsers user = QUsers.users;
 		
-		   
-		   
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.or(orders.user.isNotNull());
+		builder.or(user.isNotNull());
+		
+		List<Orders> list= (List<Orders>) orderRep.findAll(builder);
+		List<Users> us = (List<Users>) userRep.findAll(builder);
+		list.forEach(b->System.out.println(b.getUser().getUserName()+" | "+b.getUser().getUserId()+" | "+b.getOrdersLineList().get(0).getGoodsLine().getGoods().getGoodsName() ));
+		
 		//System.out.println(plannerRep.findById(1L).orElse(null).getPlannerPlaceList());
 		
 		

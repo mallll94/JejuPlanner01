@@ -3,12 +3,19 @@ package kosta.mvc.service;
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
+import kosta.mvc.domain.QOrderLine;
 import kosta.mvc.repository.OrderLineRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.BooleanBuilder;
+
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -40,5 +47,21 @@ public class OrderLineServiceImpl implements OrderLineService {
 		List<OrderLine> orderLineList = orderLineRepository.findAll();
 		return orderLineList;
 	}
+
+	@Override
+	public Map<String, Object> cataOrderLines(String cata) {
+		QOrderLine orderLine = QOrderLine.orderLine;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		LocalDate now = LocalDate.now();
+		
+		builder.and(orderLine.goodsLine.goods.goodsCategory.contains(cata));
+		
+		
+		
+		return null;
+	}
+
+	
 
 }

@@ -4,12 +4,21 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+
+import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
+import kosta.mvc.domain.QOrderLine;
+import kosta.mvc.domain.QOrders;
 import kosta.mvc.domain.Users;
+import kosta.mvc.repository.OrderLineRepository;
 import kosta.mvc.repository.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class OrdersServiceImpl implements OrdersService {
 	
 	private final OrdersRepository ordersRep;
-	
+	private final OrderLineRepository orderLineRep;
 	private final OrderLineService orderLineService;
 	
 
@@ -40,8 +49,8 @@ public class OrdersServiceImpl implements OrdersService {
 
 	@Override
 	public List<Orders> getOrders() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return ordersRep.findAll();
 	}
 
 	@Override
@@ -54,6 +63,31 @@ public class OrdersServiceImpl implements OrdersService {
 	public Orders getOrdersByOrdersId() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<OrderLine> getOrdersByCatagory(String catagory) {
+		QOrders orders = QOrders.orders;
+		QOrderLine orderLine = QOrderLine.orderLine;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.and(orderLine.goodsLine.goods.goodsCategory.contains(catagory));
+		List<OrderLine> orderLines=(List<OrderLine>) orderLineRep.findAll(builder);
+		
+		
+		
+		
+		return orderLines;
+	}
+
+	@Override
+	public Page<Orders> selectByCata(String filter, int nowPage, int PageCount) {
+	
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount);	
+		Page<Orders> result =  ordersRep.findAll(pageable);
+		
+
+		return result;
 	}
 
 }

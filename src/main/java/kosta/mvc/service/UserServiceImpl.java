@@ -19,12 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
+import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.QGoods;
 import kosta.mvc.domain.QOrders;
 import kosta.mvc.domain.QUsers;
 //import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.Users;
+import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	private final PasswordEncoder passwordEncoder;
 	
-	
+	private final OrdersRepository ordersRep;
 	
 	@Override
 	public Users loginCheck(String userId) {
@@ -226,9 +228,25 @@ public class UserServiceImpl implements UserService {
 		if(filter == null){
 			 result =  userRep.findAll(pageable);
 		}else{
-			//builder.and(users.)
+			
 			result = userRep.findAll(builder, pageable);
+			//List<Orders> list= (List<Orders>) orderRep.findAll(builder);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		return result;
 	}
