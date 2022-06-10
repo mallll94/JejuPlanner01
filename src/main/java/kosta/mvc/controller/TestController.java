@@ -22,4 +22,8 @@ public class TestController {
 	   return "board/sideMypage";
    }
    
+   @RequestMapping("/myPage2")
+   public String myPageTest2() {
+	   return "mypage/myPage";
+   }
 }

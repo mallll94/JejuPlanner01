@@ -24,18 +24,32 @@
     <!-- 회원 -->
     
     <div class="menu-header"><h2><strong>마이페이지</strong></h2></div>
+     
+    <li class="menu-item">
+      <a href="" class="menu-link">
+        <i class="menu-icon fa-solid fa-user-large"></i>
+        <div data-i18n="Basic">내정보</div>
+      </a>
+    </li>
     <li class="menu-item">
       <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div data-i18n="Basic">MY플래너</div>
       </a>
     </li>
-      <li class="menu-item">
-       <a href="" class="menu-link">
+      <li class="menu-item" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages4" aria-expanded="false" aria-controls="collapsePages4">
+       <a class="menu-link">
         <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
-        <div data-i18n="Support">MY게시판</div>
+        <div data-i18n="Support" >MY게시판</div>
       </a>
     </li>
+        <div class="collapse" id="collapsePages4" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;소통 게시판</a>
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;동행구하기 게시판</a>
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;플래너공유 게시판</a>
+            </nav>
+        </div>
      <li class="menu-item">
        <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-credit-card"></i>
