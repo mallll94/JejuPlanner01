@@ -10,8 +10,9 @@
   <!-- CSS Files -->
   <link href="../assets/mypage2/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
   <style type="text/css">
-   .container-fluid {padding: 100px;}
-   .form-control {display: inline-block; width: 50%;}
+   .container-fluid {padding-left: 300px; width:1600px;}
+   .form-control {display: inline-block; width: 40%;}
+   .form-control-label {width: 30%; text-align: center;}
   </style>
 </head>
 <body>

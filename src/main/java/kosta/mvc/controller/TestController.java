@@ -16,12 +16,7 @@ public class TestController {
    public String adminTest() {
 	   return "Admin_Main";
    }
-   
-   @RequestMapping("/myPage")
-   public String myPageTest() {
-	   return "board/sideMypage";
-   }
-   
+      
    @RequestMapping("/myPage2")
    public String myPageTest2() {
 	   return "mypage/myPage";

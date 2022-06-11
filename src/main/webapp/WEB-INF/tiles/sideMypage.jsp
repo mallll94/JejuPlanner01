@@ -4,123 +4,79 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
+  <head>
+    <meta charset="utf-8" />
+   
+    <title>제주잇다 마이페이지</title>
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/mypage/vendor/fonts/boxicons.css" />
+        
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/mypage/vendor/css/core.css"/>
+    <link rel="stylesheet" href="../assets/mypage/vendor/css/theme-default.css"/>
+    
+    
+    </head>
 	<body>
-	<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
-  
-  <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
-      <span class="app-brand-logo demo">
-            <img src="${path}/img/main_logo.png" style="width: 22%; height: auto" alt="제주잇다">
-      </span>
-    </a>
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-      <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a>
-  </div>
+	<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="border-right : 1px solid #d3d3d3; height: 100%">
 
-  <div class="menu-inner-shadow"></div>
-
-  
-
-  <ul class="menu-inner py-1">
-
-    <li class="menu-item active">
-      <a href="index.html" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">홈페이지</div>
-      </a>
-    </li>
+ 
     
     <!-- 회원 -->
     
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">회원</span>
+    <div class="menu-header" style="padding-top: 70px"><h2><strong>마이페이지</strong></h2></div>
+     
+    <li class="menu-item">
+      <a href="" class="menu-link">
+        <i class="menu-icon fa-solid fa-user-large"></i>
+        <div data-i18n="Basic">내정보</div>
+      </a>
     </li>
     <li class="menu-item">
       <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div data-i18n="Basic">전체회원조회</div>
+        <div data-i18n="Basic">MY플래너</div>
       </a>
     </li>
-      <li class="menu-item">
+      <li class="menu-item" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages4" aria-expanded="false" aria-controls="collapsePages4">
+       <a class="menu-link">
+        <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+        <div data-i18n="Support" >MY게시판</div>
+      </a>
+    </li>
+        <div class="collapse" id="collapsePages4" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;소통 게시판</a>
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;동행구하기 게시판</a>
+                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;플래너공유 게시판</a>
+            </nav>
+        </div>
+     <li class="menu-item">
        <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-support"></i>
+        <i class="menu-icon tf-icons bx bx-credit-card"></i>
+        <div data-i18n="Support">MY예약</div>
+      </a>
+    </li>
+     <li class="menu-item">
+       <a href="" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-coffee-togo"></i>
         <div data-i18n="Support">1 : 1  문의</div>
       </a>
     </li>
-    
-    <!-- 플래너 -->
-    
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">플래너&다이어리</span></li>
-   
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-collection"></i>
-        <div data-i18n="Basic">플래너 작성</div>
-      </a>
-    </li>
-    <!-- User interface -->
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-box"></i>
-        <div data-i18n="Basic">플래너관리1</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-copy"></i>
-        <div data-i18n="Basic">다이어리</div>
-      </a>
-   </li>
-    
-    <!-- 플래너 -->
-    
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">상품</span></li>
-   
-    <li class="menu-item">
+     <li class="menu-item">
        <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-collection"></i>
-        <div data-i18n="Basic">상품등록</div>
+        <i class="menu-icon tf-icons bx bx-comment-add"></i>
+        <div data-i18n="Support">회원정보수정</div>
       </a>
     </li>
-    <!-- User interface -->
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-box"></i>
-        <div data-i18n="Basic">상품등록1</div>
+     <li class="menu-item" style="padding-bottom: 500px">
+       <a href="" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+        <div data-i18n="Support">회원탈퇴</div>
       </a>
     </li>
    
-    <!-- 게시판 -->
-   
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">게시판</span></li>
-    <!-- Forms -->
-    <li class="menu-item">
-      <a href="notice_Admin" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-detail"></i>
-        <div data-i18n="Form Elements">공지사항</div>
-      </a>
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-detail"></i>
-        <div data-i18n="Form Layouts">플래너공유 게시판</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-table"></i>
-        <div data-i18n="Tables">동행구하기 게시판</div>
-      </a>
-    </li>
-      <li class="menu-item">
-       <a href="crew_Admin" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-table"></i>
-        <div data-i18n="Tables">소통게시판</div>
-      </a>
-    </li>
-      
-</aside>
+    </aside>
+</body>
