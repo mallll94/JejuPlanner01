@@ -375,7 +375,7 @@ pageEncoding="UTF-8"%>
 							$("#spotList").html("");
 							$.each(result,function(index,place){
 								let str="";
-								str+="<il class='spot-card'>"
+								str+="<li class='spot-card'>"
 								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
 									str+= `<div class="spot-info-detail">
@@ -386,7 +386,7 @@ pageEncoding="UTF-8"%>
 											</p>`
 									str+=`</div>`
 								str+=`</div>`
-								str+="</il>"
+								str+="</li>"
 								$("#spotList").append(str);
 							})
 							
