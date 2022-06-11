@@ -70,4 +70,10 @@ public interface UserService {
 	 * 카카오로그인
 	 * */
 	String kakaoGetAccessToken(String auth);
+	
+	
+	/**
+	 * 이메일 체크 
+	 * */
+	int emailCheck(String email);
 }

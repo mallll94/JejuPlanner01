@@ -111,4 +111,14 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	
+	
+	@RequestMapping("/emailCheckAjax")
+	@ResponseBody
+	public int emailCheckAjax(String email) {
+		int result=userService.emailCheck(email);
+		
+		
+		return result;
+	}
 }
