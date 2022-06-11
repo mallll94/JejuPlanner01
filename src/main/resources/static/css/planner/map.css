@@ -1,16 +1,9 @@
-.body-main{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100%;
-}
+
 div{
     box-sizing: inherit;
 }
 
-div.planner-plan-addList{
-    overflow: auto;
-}
+
 
 div.sidebar-spot-wrapper{
     overflow: auto;
@@ -21,16 +14,12 @@ div.sidebar-left-area, div.sidebar-right-area{
 }
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
-#googleMap {height: 100%;}
+/* #googleMap {height: 100%;} */
 /* Optional: Makes the sample page fill the window. */
-html, body {height: 100%;margin: 0;padding: 0;}
-.search-place-keyword{float: left;}
+
+
 input[ class="category-input"]{display: none;}
-.ul-spot{padding: 0px;margin: 0px;}
-.spot-card{padding: 1px;}
-.spot-info{width: 200px;height: 60px;border: 1px solid gray;margin:2px;}
-.spot-info-photo{box-sizing: inherit;float: left;width: 65px;height: 100%;background-color: antiquewhite;}
-.spot-info-detail{box-sizing: inherit;float: left;width:135px;height: 100%;}
+
 .set-datepicker{width: 200px; font-size: 15px; text-align: center;}
 p{margin:0px;}
 ul,li{list-style-type: none; margin: 0; padding: 0;}

@@ -171,7 +171,7 @@ pageEncoding="UTF-8"%>
 												}
 											str+=`</select></div>`
 											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}"><i class="fa-solid fa-circle-xmark"></i></a></span></div>`
 											str+=`</div>`
 										str+=`</li>`
 									if(plannerplace.placeCategory==="장소"){
@@ -203,7 +203,7 @@ pageEncoding="UTF-8"%>
 												}
 											str+=`</select></div>`
 											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}"><i class="fa-solid fa-circle-xmark"></i></a></span></div>`
 											str+=`</div>`
 										str+=`</li>`
 									if(plannerplace.placeCategory==="장소"){
@@ -225,6 +225,7 @@ pageEncoding="UTF-8"%>
 							})
 							$(".planner-plan-hotelList").hide();
 							$(".planner-plan-placeList").show();
+							$("#planner-place-bnt").focus();
 
 							
 							
@@ -371,20 +372,26 @@ pageEncoding="UTF-8"%>
 						dataType:"json",
 						data:{category: category},
 						success: function(result){
-							let str="";
+							$("#spotList").html("");
 							$.each(result,function(index,place){
+								let str="";
 								str+="<il class='spot-card'>"
 								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-									str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
-										str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
-										str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
+									str+= `<div class="spot-info-detail">
+											<p>\${place.placeName}</p>`
+										str+=`<p class="spot-bnt-wrap">
+												<span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+										str+=`	<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span>
+											</p>`
+									str+=`</div>`
 								str+=`</div>`
 								str+="</il>"
+								$("#spotList").append(str);
 							})
-							$("#spotList").html("");
-							$("#spotList").append(str);
-
+							
+							
+							
 						},
 						error: function(error){
 							alert("항목을 불러오지 못했습니다.")
@@ -543,14 +550,14 @@ pageEncoding="UTF-8"%>
 						console.log("totalPages"+result.totalPages)
 						let str="";
 						$.each(result.pageList,function(index,place){
-							str+="<il class='spot-card'>"
+							str+="<li class='spot-card'>"
 							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 								str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
 								str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
 									str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
 									str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
 							str+=`</div>`
-							str+="</il>"
+							str+="</li>"
 						})
 						$("#spotList").html("");
 						$("#spotList").append(str);
@@ -564,6 +571,8 @@ pageEncoding="UTF-8"%>
 
 		</script>
 		<style>
+			html, body {width: 100%; height: 100%;margin: 0;padding: 0;}
+			a:link, a:visited, a:hover  { color: rgba(194, 193, 193, 0.89); text-decoration: none;}
 			.header-section .nav-logo .h-container .h-row{box-sizing: border-box; height: 100px;}
 			.h-container{padding-right: 15px; padding-left: 15px; margin-right: auto;margin-left: auto; text-align: left;}
 			.h-row{display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; height: fit-content; padding-left: 20px; padding-right: 20px;}
@@ -575,14 +584,17 @@ pageEncoding="UTF-8"%>
 			.nav-ul{ list-style: none;box-sizing: border-box;}
 			.nav-logo .nav-logo-right ul li{display: inline-block; box-sizing: border-box; }
 			.body-main{box-shadow: 10px 10px 10px 10px gray;}
-			/**왼쪽*/
-			.sidebar-left-area {
-				padding-top: 30px;
-				padding-bottom: 30px;
-				width: 100%;
+			.info-text{color: rgb(136, 136, 136);}
+
+			/**바디메인*/
+			.body-main{
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
 				height: 100%;
-				box-sizing: border-box;
 			}
+			/**왼쪽*/
+			
 			div.jeju-sidebar-left{
 				flex-basis: 350px;
 				flex-shrink: 0;
@@ -590,11 +602,12 @@ pageEncoding="UTF-8"%>
 				height: 100%;
 				order: 0;
 				text-align: center;
+				overflow: auto;
+				padding-bottom: 70px;
 				
 			}
-
-			/**오른쪽*/
-			.sidebar-right-area{
+			.sidebar-left-area {
+				
 				padding-top: 30px;
 				padding-bottom: 30px;
 				width: 100%;
@@ -602,15 +615,143 @@ pageEncoding="UTF-8"%>
 				box-sizing: border-box;
 				
 			}
+			.planner-myplan-wrapper{
+				margin-top: 20px;
+				margin-bottom: 20px;
+				
+			}
+			.myPlan-category{
+				box-sizing: border-box;
+				width: 120px;
+				color: rgb(136, 136, 136);
+				background-color: white;
+				outline: none;
+				border-top: none;
+				border-right: none;
+				border-left: none;
+				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
+				margin-left: 10px; margin-right: 10px;
+			}
+			.myPlan-category:focus{
+				color: rgb(254 159 41);
+				border-bottom: 3px rgb(254 159 41) solid; 
+			}
+			.planner-plan-addList{
+				padding:20px;
+				overflow: auto;
+			}
+			/* .planner-save-area{
+				width: 120px;
+				box-sizing: border-box;
+				margin-top: 10px;
+				margin-bottom: 50px;
+			} */
+			.add-plan-card{
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			.add-plan-info{
+				display: table;
+
+			}
+			.add-plan-setday{
+				display: table-cell;
+				color:   rgb(254 159 41);
+				width: 80px;
+				outline: none;
+				text-align: center;
+				font-weight: bold;
+				border: 2px solid rgb(254 159 41);
+				border-radius: 4px;
+			}
+			.add-plan-setday option{
+				background-color: rgb(254 159 41);
+				color: white;
+			}
+			.add-plan-detail{
+				display: table-cell;
+				padding-left: 10px;
+				padding-right: 10px;
+				color: rgb(100, 100, 100);
+				font-size: large;
+				font-weight: bold;
+				text-align: left;
+			}
+			.finish-wirte-bnt:link, .finish-wirte-bnt:visited, .finish-wirte-bnt:hover{
+				width: 300px; background-color: rgb(255, 195, 44); color:white}
+			
+
+			/**오른쪽*/
+			
 			div.jeju-sidebar-right{
-				flex-basis: 250px;
+				flex-basis: 300px;
 				flex-shrink: 0;
 				background-color: white;
 				height: 100%;
 				order: 2;
 				text-align: center;
+				overflow: auto;
 				
 			}
+			.sidebar-right-area{
+				padding-top: 30px;
+				padding-bottom: 30px;
+				padding-left: 10px;
+				padding-right: 10px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				
+			}
+			.keyword-input{
+				width: 200px;
+				height: 40px;
+				box-sizing: border-box;
+				color: rgb(136, 136, 136);
+				background-color: white;
+				outline: none;
+				border: 3px rgba(194, 193, 193, 0.89) solid;
+				border-radius: 4px;
+				text-align: center;
+			}
+			.search-place-button{
+				border: 0;
+				outline: 0;
+				width: 30px;
+				height: 40px;
+				background-color: rgba(100, 148, 237, 0.568);
+				border-radius: 4px;
+			}
+			.search-place-button:hover{background-color: cornflowerblue;}
+			.search-place-category{
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			.category-input{
+				margin-left: 10px;
+				margin-right: 10px;
+				color: cornflowerblue;
+				font-weight: bold;
+				font-size: large;
+				border-bottom: 3px solid cornflowerblue;
+			}
+			/**검색목록 나오는 곳*/
+			.sidebar-spot-wrapper{
+				padding: 10px;
+				box-sizing: border-box;
+			}
+			.ul-spot{padding: 0px;margin: 0px;}
+			/**li 테두리*/
+			.spot-card{padding: 0px; box-sizing: border-box;}
+			/**테두리*/
+			.spot-info{width: 100%;height: 80px;border: 1px solid gray;margin:2px;}
+
+			/**사진영역*/
+			.spot-info-photo{box-sizing: border-box;float: left;width: 30%;height: 100%;background-color: antiquewhite;}
+			/**내용*/
+			.spot-info-detail{box-sizing: border-box;float: left;width: 70%; text-align: left; padding: 5px;}
+			/**버튼wrap*/
+			.spot-bnt-wrap{float: right;}
 
 			/**지도*/
 			div.jeju-googleMap{ 
@@ -619,6 +760,7 @@ pageEncoding="UTF-8"%>
 				order: 1;
 				
 			}
+			#googleMap {height: 100%; width: 100%;}
 			.planner-name{text-align: center; font-size: xx-large; font-weight: bold; color: rgb(254 159 41);}
 			.plan-showdays{text-align: center; font-size: x-large; color: rgb(136, 136, 136);}
 			input.datepicker{
@@ -634,6 +776,7 @@ pageEncoding="UTF-8"%>
 				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
 			}
 			.planner-calender{font-size: x-large; color: rgb(136, 136, 136);}
+			.search-place-keyword{float: none;}
 			
 			
     
@@ -658,7 +801,7 @@ pageEncoding="UTF-8"%>
 									<li class="nav-li">
 										<i class="icon_phone"></i>
 										<div class="info-text">
-											<p>(+12) 345 6789</p>
+											<p>여행을 계획하다 제주잇다</p>
 										</div>
 									</li>
 								</ul>
@@ -719,12 +862,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					<!--완료버튼(좌측 하단)-->
 					<div class="planner-save-area">
-						<!-- <form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
-							<input type="hidden" name="plannerId" value="">finish-wirte-bnt
-							<input type="submit" value="작업 완료">
-						</form> -->
-						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
-						<a href="#" id="finish-wirte-bnt" class="btn btn-primary">작업완료</a>
+						<a href="#" id="finish-wirte-bnt" class="btn btn-lg btn-block finish-wirte-bnt">작업완료</a>
 						
 					</div>
 				</div>
@@ -742,19 +880,19 @@ pageEncoding="UTF-8"%>
 							<div class="search-place-keyword">
 									<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off" onKeyDown="javascript:if (event.keyCode == 13) getSearchList();"/>
 									<button class="search-place-button" id="searchPlaceButton" type="button" onclick="getSearchList()">
-										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
+										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: 15px;">
 									</button>
 							</div>
 						</div>
 						<div class="search-place-category">
 							<input class="category-input" id="selected-hotel" type="button" name="searchPlaceCategory" value="숙소" />
 							<label class="category-input" for="selected-hotel" >
-								<img alt="숙소아이콘" src="/icon/bed.png" class="icon-selected-hotel" style="width: 15px; height: inherit;">
+								<img alt="숙소아이콘" src="/icon/bed.png" class="icon-selected-hotel" style="width: 20px; height: inherit;">
 								<span>추천숙소</span>
 							</label>
 							<input class="category-input" id="selected-place" type="button" name="searchPlaceCategory" value="장소" />
 							<label class="category-input" for="selected-place" >
-								<img alt="장소아이콘" src="/icon/gps.png" class="icon-selected-place" style="width: 15px; height: inherit;">
+								<img alt="장소아이콘" src="/icon/gps.png" class="icon-selected-place" style="width: 15px; height: inherit; padding-bottom: 3px;">
 								<span>추천장소</span>
 							</label>
 						</div>
