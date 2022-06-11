@@ -91,19 +91,14 @@ pageEncoding="UTF-8"%>
 			.owl-carousel {display: flex;}
 			.spad{padding-bottom: 50px; padding-top: 50px;}
 
-
-			/**애니메이션 효과*/
-			.owl-stage{
-				transform: translate3d(-2160px, 0px, 0px);
-				transition: all 1.2s ease 0s;
-				width: 3960px;
-			}
+			
 		</style>
 
         <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 		
 		<script>
 			$(function(){
+				const element = document.getElementById('owl-stage')
 				
 				//var loginUser='${sessionScope.loginUser.userId}'
 				var loginUser= "aaa"
@@ -124,6 +119,7 @@ pageEncoding="UTF-8"%>
 					}
 				})
 			})
+
 
 		</script>
 	</head>
@@ -275,7 +271,7 @@ pageEncoding="UTF-8"%>
 
 						<!--try-->
 						<div class="owl-stage-outer">
-							<div class="owl-stage">
+							<div class="owl-stage"><!--transfom, transition 속성...-->
 
 								<!--반복-->
 								<div class="owl-item-cloned">
@@ -288,7 +284,7 @@ pageEncoding="UTF-8"%>
 												</div>
 												<div class="feature-author">
 													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
+														<img src="" alt="">
 													</div>
 													<div class="fa-text">
 														<span>Rena Simmons</span>
@@ -327,256 +323,7 @@ pageEncoding="UTF-8"%>
 									</div>
 								</div>
 								<!--반복끝-->
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="img/feature/f-author-1.jpg" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-
-
-
-
-
-
-
-
+								
 
 
 

@@ -22,70 +22,15 @@ pageEncoding="UTF-8"%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
 
+		<!-- Css Styles -->
+		<link rel="stylesheet" href="/css/planner/map.css" type="text/css">
 
         <!-- <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
-		<style>
-			.body-main{
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				height: 100%;
-			}
-			div{
-				box-sizing: inherit;
-			}
-			div.jeju-sidebar-left{
-				flex-basis: 350px;
-				flex-shrink: 0;
-				background-color: gainsboro;
-				height: 100%;
-				order: 0;
-				text-align: center;
-			}
-			div.planner-plan-addList{
-				overflow: auto;
-			}
-			div.jeju-sidebar-right{
-				flex-basis: 250px;
-				flex-shrink: 0;
-				background-color: gainsboro;
-				height: 100%;
-				order: 2;
-				text-align: center;
-			}
-			div.sidebar-spot-wrapper{
-				overflow: auto;
-			}
-			div.jeju-googleMap{ 
-				flex-basis: 100%;
-				height: 100%;
-				order: 1;
-			}
-			div.sidebar-left-area, div.sidebar-right-area{
-				display: inline-block;
-			}
-			/* Always set the map height explicitly to define the size of the div
-			* element that contains the map. */
-			#googleMap {height: 100%;}
-			/* Optional: Makes the sample page fill the window. */
-			html, body {height: 100%;margin: 0;padding: 0;}
-			.search-place-keyword{float: left;}
-			input[ class="category-input"]{display: none;}
-			.ul-spot{padding: 0px;margin: 0px;}
-			.spot-card{padding: 1px;}
-			.spot-info{width: 200px;height: 60px;border: 1px solid gray;margin:2px;}
-			.spot-info-photo{box-sizing: inherit;float: left;width: 65px;height: 100%;background-color: antiquewhite;}
-			.spot-info-detail{box-sizing: inherit;float: left;width:135px;height: 100%;}
-			.set-datepicker{width: 200px; font-size: 15px; text-align: center;}
-			p{margin:0px;}
-			ul,li{list-style-type: none;}
-			#placeContent{word-wrap: break-word;font-size: small;padding-bottom: 5px;}
-			#placeAddr{font-size: small;}
-		</style>
+		
 		<script>
 			/*googleMap*/
 			var markers =[];
@@ -226,7 +171,7 @@ pageEncoding="UTF-8"%>
 												}
 											str+=`</select></div>`
 											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}"><i class="fa-solid fa-circle-xmark"></i></a></span></div>`
 											str+=`</div>`
 										str+=`</li>`
 									if(plannerplace.placeCategory==="장소"){
@@ -258,7 +203,7 @@ pageEncoding="UTF-8"%>
 												}
 											str+=`</select></div>`
 											str+=`<div class="add-plan-detail"><span><h7>\${plannerplace.placeName}</h7><span>`
-											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}">x</a></span></div>`
+											str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="delete-plan-bnt" plannerPlaceId="${'${plannerplace.plannerPlaceId}'}"><i class="fa-solid fa-circle-xmark"></i></a></span></div>`
 											str+=`</div>`
 										str+=`</li>`
 									if(plannerplace.placeCategory==="장소"){
@@ -280,6 +225,7 @@ pageEncoding="UTF-8"%>
 							})
 							$(".planner-plan-hotelList").hide();
 							$(".planner-plan-placeList").show();
+							$("#planner-place-bnt").focus();
 
 							
 							
@@ -426,20 +372,26 @@ pageEncoding="UTF-8"%>
 						dataType:"json",
 						data:{category: category},
 						success: function(result){
-							let str="";
+							$("#spotList").html("");
 							$.each(result,function(index,place){
+								let str="";
 								str+="<il class='spot-card'>"
 								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-									str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
-										str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
-										str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
+									str+= `<div class="spot-info-detail">
+											<p>\${place.placeName}</p>`
+										str+=`<p class="spot-bnt-wrap">
+												<span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+										str+=`	<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span>
+											</p>`
+									str+=`</div>`
 								str+=`</div>`
 								str+="</il>"
+								$("#spotList").append(str);
 							})
-							$("#spotList").html("");
-							$("#spotList").append(str);
-
+							
+							
+							
 						},
 						error: function(error){
 							alert("항목을 불러오지 못했습니다.")
@@ -598,14 +550,14 @@ pageEncoding="UTF-8"%>
 						console.log("totalPages"+result.totalPages)
 						let str="";
 						$.each(result.pageList,function(index,place){
-							str+="<il class='spot-card'>"
+							str+="<li class='spot-card'>"
 							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
 								str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
 								str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
 									str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
 									str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
 							str+=`</div>`
-							str+="</il>"
+							str+="</li>"
 						})
 						$("#spotList").html("");
 						$("#spotList").append(str);
@@ -618,12 +570,248 @@ pageEncoding="UTF-8"%>
 			}
 
 		</script>
-		
+		<style>
+			html, body {width: 100%; height: 100%;margin: 0;padding: 0;}
+			a:link, a:visited, a:hover  { color: rgba(194, 193, 193, 0.89); text-decoration: none;}
+			.header-section .nav-logo .h-container .h-row{box-sizing: border-box; height: 100px;}
+			.h-container{padding-right: 15px; padding-left: 15px; margin-right: auto;margin-left: auto; text-align: left;}
+			.h-row{display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; height: fit-content; padding-left: 20px; padding-right: 20px;}
+			.col-lg-3{float: left;flex: 0 0 25%; max-width: 25%; position: relative ; width: 100%; padding-right: 30px; padding-left: 30px; box-sizing: border-box;height: 100%;}
+			.logo{padding: 10px 0; box-sizing: border-box; display: inline-block;}
+			.nav-logoImg{height: 70px;padding: 5px;}
+			.col-lg-9{float: left;flex: 0 0 25%;max-width: 75%;position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;height: 100%;}
+			.nav-logo-right{text-align: right; box-sizing: border-box;}
+			.nav-ul{ list-style: none;box-sizing: border-box;}
+			.nav-logo .nav-logo-right ul li{display: inline-block; box-sizing: border-box; }
+			.body-main{box-shadow: 10px 10px 10px 10px gray;}
+			.info-text{color: rgb(136, 136, 136);}
 
-		
+			/**바디메인*/
+			.body-main{
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				height: 100%;
+			}
+			/**왼쪽*/
+			
+			div.jeju-sidebar-left{
+				flex-basis: 350px;
+				flex-shrink: 0;
+				background-color: rgba(255, 255, 255, 0.89);
+				height: 100%;
+				order: 0;
+				text-align: center;
+				overflow: auto;
+				padding-bottom: 70px;
+				
+			}
+			.sidebar-left-area {
+				
+				padding-top: 30px;
+				padding-bottom: 30px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				
+			}
+			.planner-myplan-wrapper{
+				margin-top: 20px;
+				margin-bottom: 20px;
+				
+			}
+			.myPlan-category{
+				box-sizing: border-box;
+				width: 120px;
+				color: rgb(136, 136, 136);
+				background-color: white;
+				outline: none;
+				border-top: none;
+				border-right: none;
+				border-left: none;
+				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
+				margin-left: 10px; margin-right: 10px;
+			}
+			.myPlan-category:focus{
+				color: rgb(254 159 41);
+				border-bottom: 3px rgb(254 159 41) solid; 
+			}
+			.planner-plan-addList{
+				padding:20px;
+				overflow: auto;
+			}
+			/* .planner-save-area{
+				width: 120px;
+				box-sizing: border-box;
+				margin-top: 10px;
+				margin-bottom: 50px;
+			} */
+			.add-plan-card{
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			.add-plan-info{
+				display: table;
+
+			}
+			.add-plan-setday{
+				display: table-cell;
+				color:   rgb(254 159 41);
+				width: 80px;
+				outline: none;
+				text-align: center;
+				font-weight: bold;
+				border: 2px solid rgb(254 159 41);
+				border-radius: 4px;
+			}
+			.add-plan-setday option{
+				background-color: rgb(254 159 41);
+				color: white;
+			}
+			.add-plan-detail{
+				display: table-cell;
+				padding-left: 10px;
+				padding-right: 10px;
+				color: rgb(100, 100, 100);
+				font-size: large;
+				font-weight: bold;
+				text-align: left;
+			}
+			.finish-wirte-bnt:link, .finish-wirte-bnt:visited, .finish-wirte-bnt:hover{
+				width: 300px; background-color: rgb(255, 195, 44); color:white}
+			
+
+			/**오른쪽*/
+			
+			div.jeju-sidebar-right{
+				flex-basis: 300px;
+				flex-shrink: 0;
+				background-color: white;
+				height: 100%;
+				order: 2;
+				text-align: center;
+				overflow: auto;
+				
+			}
+			.sidebar-right-area{
+				padding-top: 30px;
+				padding-bottom: 30px;
+				padding-left: 10px;
+				padding-right: 10px;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				
+			}
+			.keyword-input{
+				width: 200px;
+				height: 40px;
+				box-sizing: border-box;
+				color: rgb(136, 136, 136);
+				background-color: white;
+				outline: none;
+				border: 3px rgba(194, 193, 193, 0.89) solid;
+				border-radius: 4px;
+				text-align: center;
+			}
+			.search-place-button{
+				border: 0;
+				outline: 0;
+				width: 30px;
+				height: 40px;
+				background-color: rgba(100, 148, 237, 0.568);
+				border-radius: 4px;
+			}
+			.search-place-button:hover{background-color: cornflowerblue;}
+			.search-place-category{
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			.category-input{
+				margin-left: 10px;
+				margin-right: 10px;
+				color: cornflowerblue;
+				font-weight: bold;
+				font-size: large;
+				border-bottom: 3px solid cornflowerblue;
+			}
+			/**검색목록 나오는 곳*/
+			.sidebar-spot-wrapper{
+				padding: 10px;
+				box-sizing: border-box;
+			}
+			.ul-spot{padding: 0px;margin: 0px;}
+			/**li 테두리*/
+			.spot-card{padding: 0px; box-sizing: border-box;}
+			/**테두리*/
+			.spot-info{width: 100%;height: 80px;border: 1px solid gray;margin:2px;}
+
+			/**사진영역*/
+			.spot-info-photo{box-sizing: border-box;float: left;width: 30%;height: 100%;background-color: antiquewhite;}
+			/**내용*/
+			.spot-info-detail{box-sizing: border-box;float: left;width: 70%; text-align: left; padding: 5px;}
+			/**버튼wrap*/
+			.spot-bnt-wrap{float: right;}
+
+			/**지도*/
+			div.jeju-googleMap{ 
+				flex-basis: 100%;
+				height: 100%;
+				order: 1;
+				
+			}
+			#googleMap {height: 100%; width: 100%;}
+			.planner-name{text-align: center; font-size: xx-large; font-weight: bold; color: rgb(254 159 41);}
+			.plan-showdays{text-align: center; font-size: x-large; color: rgb(136, 136, 136);}
+			input.datepicker{
+				width: 150px;
+				color:rgb(136, 136, 136); 
+				font-size: medium; 
+				word-spacing: 1px; 
+				letter-spacing: -1px;
+				outline: none;
+				border-top: none;
+				border-right: none;
+				border-left: none;
+				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
+			}
+			.planner-calender{font-size: x-large; color: rgb(136, 136, 136);}
+			.search-place-keyword{float: none;}
+			
+			
+    
+		</style>
 
 	</head>
 	<body>
+		<header class="header-section">
+			<div class="nav-logo">
+				<div class="h-container">
+					<div class="h-row">
+						<div class="col-lg-3">
+							<div class="logo">
+								<a href="#"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
+							</div>
+						</div>
+						<div class="col-lg-9"></div>
+						<div class="col-lg-9"></div>
+						<div class="col-lg-9">
+							<div class="nav-logo-right">
+								<ul class="nav-ul">
+									<li class="nav-li">
+										<i class="icon_phone"></i>
+										<div class="info-text">
+											<p>여행을 계획하다 제주잇다</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		
 		<div class="body-main">
 			<!-- 메인 구글지도 -->
 			<div class="jeju-googleMap">
@@ -653,7 +841,7 @@ pageEncoding="UTF-8"%>
 							</div>
 							<div class="planner-calender">
 								<input type="text" id="plan-startday" class="datepicker set-datepicker" readonly="readonly">
-								~<input type="text" id="plan-endday" class="datepicker set-datepicker" readonly="readonly">
+								<span> ~ </span><input type="text" id="plan-endday" class="datepicker set-datepicker" readonly="readonly">
 							</div>
 						</div>
 					</div>
@@ -674,12 +862,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					<!--완료버튼(좌측 하단)-->
 					<div class="planner-save-area">
-						<!-- <form id="planner-insert-save" name="planner-insert-save" method="post" action="${pageContext.request.contextPath}/planner/plannerIndex2">
-							<input type="hidden" name="plannerId" value="">finish-wirte-bnt
-							<input type="submit" value="작업 완료">
-						</form> -->
-						<!-- <a href="#" id="planner-insert-save" >작업완료</a> -->
-						<a href="#" id="finish-wirte-bnt" class="btn btn-primary">작업완료</a>
+						<a href="#" id="finish-wirte-bnt" class="btn btn-lg btn-block finish-wirte-bnt">작업완료</a>
 						
 					</div>
 				</div>
@@ -697,19 +880,19 @@ pageEncoding="UTF-8"%>
 							<div class="search-place-keyword">
 									<input id="searchPlaceKeyWord" type="text" class="keyword-input" placeholder="검색어를 입력하세요" autocomplete="off" onKeyDown="javascript:if (event.keyCode == 13) getSearchList();"/>
 									<button class="search-place-button" id="searchPlaceButton" type="button" onclick="getSearchList()">
-										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: inherit;">
+										<img alt="검색" src="/icon/search.png" class="icon-sidebar-search-place" style="width: 15px; height: 15px;">
 									</button>
 							</div>
 						</div>
 						<div class="search-place-category">
 							<input class="category-input" id="selected-hotel" type="button" name="searchPlaceCategory" value="숙소" />
 							<label class="category-input" for="selected-hotel" >
-								<img alt="숙소아이콘" src="/icon/bed.png" class="icon-selected-hotel" style="width: 15px; height: inherit;">
+								<img alt="숙소아이콘" src="/icon/bed.png" class="icon-selected-hotel" style="width: 20px; height: inherit;">
 								<span>추천숙소</span>
 							</label>
 							<input class="category-input" id="selected-place" type="button" name="searchPlaceCategory" value="장소" />
 							<label class="category-input" for="selected-place" >
-								<img alt="장소아이콘" src="/icon/gps.png" class="icon-selected-place" style="width: 15px; height: inherit;">
+								<img alt="장소아이콘" src="/icon/gps.png" class="icon-selected-place" style="width: 15px; height: inherit; padding-bottom: 3px;">
 								<span>추천장소</span>
 							</label>
 						</div>
@@ -776,7 +959,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
 
-
+	
 
 		
 	</body>
