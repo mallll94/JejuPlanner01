@@ -213,11 +213,11 @@ $(document).ready(function(){
 
 
 	<div class="container-fluid pt-5">
-  		<div class="text-center mb-4">
-      		<h2 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h2> 
-  	</div>
+  	   <div class="text-center mb-4" style="position: relative; top: -30px">
+      	  <h3 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h3> 
+  	   </div>
   
-  	<div class="row px-xl-5">
+  	<div align="center">
       <div class="col-lg-7 mb-5">
           <div class="contact-form">
               <div id="success"></div>
@@ -229,22 +229,22 @@ $(document).ready(function(){
 			 </div>	
 			   
 
- 		<div class="control-group">
+ 		<div class="control-group" style="text-align: left;">
          	카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
          <p class="help-block text-danger"></p>
  		</div>
  
- 		<div class="control-group">
+ 		<div class="control-group" style="text-align: left;">
          	제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
          <p class="help-block text-danger"></p>
  		</div>
- 		<div class="control-group">
+ 		<div class="control-group" style="text-align: left;">
         	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent">${planBoard.pboardContent}</textarea>
          <p class="help-block text-danger"></p>
  		</div>
    
-  		<h5 class="card-header">첨부파일</h5>
-			<div class="card-body">
+  		<h5 class="card-header" style="text-align: left;">첨부파일</h5>
+			<div class="card-body" align="left">
  				<div class="mb-3">
    				   <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
   				</div>

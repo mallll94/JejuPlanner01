@@ -1,0 +1,27 @@
+
+div{
+    box-sizing: inherit;
+}
+
+
+
+div.sidebar-spot-wrapper{
+    overflow: auto;
+}
+
+div.sidebar-left-area, div.sidebar-right-area{
+    display: inline-block;
+}
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+/* #googleMap {height: 100%;} */
+/* Optional: Makes the sample page fill the window. */
+
+
+input[ class="category-input"]{display: none;}
+
+.set-datepicker{width: 200px; font-size: 15px; text-align: center;}
+p{margin:0px;}
+ul,li{list-style-type: none; margin: 0; padding: 0;}
+#placeContent{word-wrap: break-word;font-size: small;padding-bottom: 5px;}
+#placeAddr{font-size: small;}

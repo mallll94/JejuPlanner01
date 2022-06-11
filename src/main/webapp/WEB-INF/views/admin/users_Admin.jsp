@@ -30,12 +30,11 @@
     <script type="text/javascript">
 
       $(function(){
-    	  var box1;
-    	  var box2;
-    	  var box3;
-    	  var box4;
-    	  
-    	  
+			var box1;
+   	 		var box2;
+    	 	var box3;
+    	  	var box4;
+    	  	
     	  
 
           function drawBasic() {
@@ -60,7 +59,7 @@
         	          title: '카테고리'
         	        }
         	      };
-
+        	      
         	      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
         	      chart.draw(data, options);
@@ -90,12 +89,12 @@
           $("#li").change(function(){
         	  
         	  if($(this).val()=='user'){
-        		  alert(2)
+        		 
         		  $("#typehi").val(0);
         		  selectAll();
         		  
         	  }else{
-        		  alert(1)
+        		 
         		  $("#typehi").val(1);
         		  orderAll();
         	  }
@@ -243,7 +242,8 @@
   			
   		})
   		
-  		
+  		var nono = 0;
+    	  
   		function catagory(goodsCategory){
   			$.ajax({
 					url:"${pageContext.request.contextPath}/admin/totalData", //서버요청주소
@@ -253,7 +253,7 @@
 					success: function(result){
 						var cataSum =result.cataSum;
 						var totalSum =result.totalSum;
-						var monthSum = result.monthSum;
+						var monthSum = result.monthSum;				
 						
 						$("#cataSum").html("");
 						$("#totalSum").html("");
@@ -261,15 +261,20 @@
 						$("#cataSum").html(cataSum);
 						$("#totalSum").html(totalSum);
 						$("#monthSum").html(monthSum);
-						
+
 						box1 =parseInt(result.rentSum);
 						box2 =parseInt(result.inSum);
 						box3 =parseInt(result.actSum);
 						box4 =parseInt(result.spaSum);
 						
+						if(nono==0){
+							
+							google.charts.load('current', {packages: ['corechart', 'bar']});
+							google.charts.setOnLoadCallback(drawBasic);
+							nono=1;
+						}
+				  		
 						
-						google.charts.load('current', {packages: ['corechart', 'bar']});
-				    	google.charts.setOnLoadCallback(drawBasic);
 					},
 					error: function(err){
 						alert(err);
@@ -278,12 +283,15 @@
   			
   			
   		};
+  		
+  		
+  		
    		 catagory("입장권");
   		
          selectAll();
-          
+         
     	  
-    	  
+        
     	  
     	  
     	  
@@ -408,26 +416,23 @@
 				                   테이블 장소
 				                </div>
 				                <div class="row">
-					 			 <div class="container">
-			      			<div class="row">
-			          			<div class="col-lg-12 text-center">
-									<div class="pagination-wrap" id="paging"> 
+					 				<div class="container">
+			      						<div class="row">
+			          						<div class="col-lg-12 text-center">
+												<div class="pagination-wrap" id="paging"> 
 					                  
-									</div>
-					         	</div>
-					     	</div>
-					  </div>
-					</div>  
-				                
-				                
-				                
+												</div>
+					         				</div>
+					     				</div>
+					  				</div>
+								</div>  
 				             </div>
 				           </form>
 			          </div>
 			       </div>
                          
 					
-					<input type="text" id="typehi" value="0">
+					<input type="hidden" id="typehi" value="0">
                   </div>
                </div>
                <!-- end dashboard inner -->

@@ -8,13 +8,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/linericon/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/nice-select/nice-select.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/vendors/nouislider/nouislider.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/css/header.css">
+
+
 <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	//회원가입
-	$("#register").click(function(){	
-		$("#loginForm").attr("action","${pageContext.request.contextPath}/user/registerForm");	
-		$("#loginForm").submit();
+	//아이디 찾기
+	$("#findId").click(function(){	
+		location.href = "${pageContext.request.contextPath}/user/findForm?type=id";
+	})
+	
+	$("#findPwd").click(function(){	
+		location.href = "${pageContext.request.contextPath}/user/findForm?type=pwd";
 	})
 
 })
@@ -23,7 +38,7 @@ $(function(){
 </script>
 </head>
 <body>
-<h1>로그인 대강</h1>
+<%-- <h1>로그인 대강</h1>
 
  ${pageContext.request.userPrincipal}이다
 
@@ -31,50 +46,54 @@ $(function(){
 아이디<input type="text" name="id"/>
 비밀번호<input type="password" name="pwd"/>
 <button type="submit" id="login">로그인</button>
-<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
 <a class="btn btn-primary" id="findId" href="${pageContext.request.contextPath}/user/findForm?type=id">아이디찾기</a>
 <a class="btn btn-primary" id="findPwd" href="${pageContext.request.contextPath}/user/findForm?type=pwd">비밀번호찾기</a>
-<button type="button" id="register">회원가입</button>
+<button type="button" id="register">회원가입</button> --%>
 
 
 
-<!-- 모달 아이디찾기 -->
-<!-- 
-<div class="modal fade" id="IdFindModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-      	
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">아이디찾기</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="col-xxl">
-					<div class="card mb-4">
-						<div class="card-header d-flex align-items-center justify-content-between">
-							<h5 class="mb-0">인증번호 확인</h5>
-						</div>
-					<div class="card-body">
-                     
-						<div class="row mb-3">
-							<label class="col-sm-4 col-form-label" for="basic-default-name">코드 입력</label>
-                        <div class="col-sm-10">
-                        	<input type="text" id="code" class="form-control placeCategory-mask" name="code"/>
-						</div>
-						</div>
+
+<section class="login_box_area section-margin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="login_box_img">
+					<div class="hover">
+						<h4>New to our website?</h4>
+						<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+						<a class="button button-account" href="${pageContext.request.contextPath}/user/registerForm" id="register">Create an Account</a>
 					</div>
-                 </div>
-               </div>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button id="codeCheck" type="button" class="btn btn-primary">확인</button>
-				<button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+			<div class="col-lg-6">
+				<div class="login_form_inner">
+					<h3>Log in to enter</h3>
+					<form class="row login_form" id="loginForm" method="post" action="${pageContext.request.contextPath}/loginCheck" >
+						<div class="col-md-12 form-group">
+							<input type="text" class="form-control" id="name" name="id" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+						</div>
+						<div class="col-md-12 form-group">
+							<input type="password" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+						</div>
+						
+						<div class="col-md-12 form-group">
+							<button type="submit" id="login" class="button button-login w-100">Log In</button>
+							<a href="${pageContext.request.contextPath}/user/findForm?type=id">Forgot Id?</a>
+							<a href="${pageContext.request.contextPath}/user/findForm?type=pwd">Forgot Password?</a>
+						</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
- -->
+</section>
+
+
+
+
 
 
 

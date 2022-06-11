@@ -111,9 +111,9 @@
     <li class="menu-header small text-uppercase"><span class="menu-header-text">플래너&다이어리</span></li>
    
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/list" class="menu-link">
         <i class="menu-icon tf-icons bx bx-collection"></i>
-        <div data-i18n="Basic">플래너 작성</div>
+        <div data-i18n="Basic">장소 데이터 관리</div>
       </a>
     </li>
     <!-- User interface -->
