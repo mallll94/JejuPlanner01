@@ -18,6 +18,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,14 +43,17 @@ public class ChatBoard {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "crew_fk")
+	@JsonIgnore
 	private CrewBoard crewboard; //부모 글번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="receiver_fk")
+	@JsonIgnore
 	private Users receiverUser; //수신자 ----
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="sender_fk")
+	@JsonIgnore
 	private Users senderUser; //발신자  
 	
 	private int chatRoom; //방번호 ----
