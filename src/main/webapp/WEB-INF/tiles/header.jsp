@@ -80,10 +80,14 @@
 						</c:otherwise>
 					</c:choose>
 						<li>
-							<div class="input-group mb-3" style= "margin-bottom: 100px;">
-							  <input type="text" class="form-control" style= "width: 150px;">
-							  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
-							</div>
+							<form action="${pageContext.request.contextPath}/goods/search">
+								<div class="input-group mb-3" style= "margin-bottom: 100px;">
+								  
+									  <input type="text" class="form-control" style= "width: 150px;" name= "keyWord">
+									  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
+								  
+								</div>
+							</form>
 					    </li>
 				</ul>
 				<h1><a href="${pageContext.request.contextPath}/"><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>

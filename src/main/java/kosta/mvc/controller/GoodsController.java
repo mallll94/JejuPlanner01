@@ -117,11 +117,11 @@ public class GoodsController {
 	
 	
 	@RequestMapping("/search")
-	public String searchKeyWord(String keyWord) {
+	public String searchKeyWord(String keyWord,Model model) {
 		
-		//goods
+		List<Goods> list=goodsService.searchByGoods(keyWord);
+		model.addAttribute("goodsList", list);
 		
-		
-		return null;
+		return "goods/goods_List";
 	}
 }
