@@ -218,7 +218,7 @@
                 <div class="row">
                     <div class="col-2 float-right">
                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#addGoodsModal">+</button>
+                            data-bs-target="#addGoodsModal">삭제하기</button>
                     </div>
                 </div>
             </div>
@@ -313,7 +313,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"
                                     id="goodsInsert" onclick="goodsInsert()">등록</button>
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+                               <!--  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button> -->
                             </div>
                         </div>
 

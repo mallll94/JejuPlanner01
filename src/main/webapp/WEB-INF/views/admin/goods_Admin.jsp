@@ -76,7 +76,7 @@
                                         <td>${goods.goodsName}</td>
                                         <td>${goods.goodsPhoto}</td>
                                         <td>${goods.goodsPrice}</td>
-                                        <td>${goods.place}</td>
+                                        <td>${goods.place.placeId}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -95,96 +95,96 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">상품 추가하기</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상품ID</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsId" value="1">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상품주소</p>
-                                </div>
-                                <div class="col-8">
-                                    <!-- select box -->
-                                    <input type="text" class="spiner-text" id="goodsAddr" value="1">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>카테고리</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsCategory" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상세설명</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsContent" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>지역</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsLocalCategory" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상품이름</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsName" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상품사진</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsPhoto" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>상품가격</p>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="spiner-text" id="goodsPrice" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>장소명</p>
-                                </div>
-
-                                <div class="container">
-                                    <select id="placeSelectInput">
-                                        <c:forEach items="${requestScope.placeList}" var="place">
-                                            <option value="${place.placeId}">${place.placeName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"
-                                    id="goodsInsert" onclick="goodsInsert()">등록</button>
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
-                            </div>
-                        </div>
-
+                    	<form action="/goods" method="post">
+	                        <div class="modal-header">
+	                            <h4 class="modal-title">상품 추가하기</h4>
+	                        </div>
+	                        <div class="modal-body">
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상품ID</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsId" name="goodsId" value="1">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상품주소</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <!-- select box -->
+	                                    <input type="text" class="spiner-text" id="goodsAddr" name="goodsAddr" value="1">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>카테고리</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsCategory" name="goodsCategory" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상세설명</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsContent" name="goodsContent" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>지역</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsLocalCategory" name="goodsLocalCategory" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상품이름</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsName" name="goodsName" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상품사진</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsPhoto" name="goodsPhoto" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>상품가격</p>
+	                                </div>
+	                                <div class="col-8">
+	                                    <input type="text" class="spiner-text" id="goodsPrice" name="goodsPrice" value="">
+	                                </div>
+	                            </div>
+	                            <div class="row">
+	                                <div class="col-4">
+	                                    <p>장소명</p>
+	                                </div>
+	
+	                                <div class="container">
+	                                    <select id="placeSelectInput" name="placeSelectInput">
+	                                        <c:forEach items="${requestScope.placeList}" var="place">
+	                                            <option value="${place.placeId}">${place.placeName}</option>
+	                                        </c:forEach>
+	                                    </select>
+	                                </div>
+	                            </div>
+	
+	                            <div class="modal-footer">
+	                                <input type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal" id="goodsInsert">
+	                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+	                            </div>
+	                        </div>
+						</form>
                     </div>
                 </div>
             </div>
