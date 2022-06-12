@@ -88,8 +88,10 @@ public class GoodsController {
 		
 	}
 	@PostMapping("")
-	public void addGoods(Goods goods) {
+	public String addGoods(Goods goods) {
+		System.out.println(goods.getGoodsId());
 		goodsService.addGoods(goods);
+		return "redirect:/goods/admin/goods_Admin";
 	}
 
 	@PutMapping("/{goodsId}")
