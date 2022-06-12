@@ -55,6 +55,7 @@ public class OrderController {
 	@RequestMapping("select")
 	@ResponseBody
 	public Map<String, Object> selectAll(Long [] goods){
+		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<GoodsDTO> goodsDTOs = new ArrayList<GoodsDTO>();
@@ -76,13 +77,14 @@ public class OrderController {
 			
 			GoodsLine goodsLine=goodsLineService.goodsLineSelect(goods[0]);
 			
-			GoodsLineDTO dto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());
-			goodsLineDTOs.add(dto);
 			
-			GoodsDTO dto2 = new GoodsDTO(goodsLine.getGoods().getGoodsId(), null, null, null, goodsLine.getGoods().getGoodsName(), goodsLine.getGoods().getGoodsPrice(), goodsLine.getGoods().getGoodsContent(), goodsLine.getGoods().getGoodsPhoto(), goodsLine.getGoods().getGoodsAddr());
-			goodsDTOs.add(dto2);
+			
+			goodsLineDTOs.add(new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate()));
+				
+			goodsDTOs.add(new GoodsDTO(goodsLine.getGoods().getGoodsId(), null, null, null, goodsLine.getGoods().getGoodsName(), goodsLine.getGoods().getGoodsPrice(), goodsLine.getGoods().getGoodsContent(), goodsLine.getGoods().getGoodsPhoto(), goodsLine.getGoods().getGoodsAddr()));
+			
 		}
-
+		
 		map.put("goodsLine" , goodsLineDTOs);
 		map.put("goods" , goodsDTOs);
 		map.put("user", users);
@@ -92,10 +94,23 @@ public class OrderController {
 	@RequestMapping("/kakao")
 	@ResponseBody
 	public String kakaoPay(Long [] goods, String name, String email, String phone, int totalPrice,String text ) {
-
+			String id =null;
 			Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			List<GoodsLine> list =cartService.selectByCartId(goods);
+			List<GoodsLine> list =new ArrayList<GoodsLine>();;
+			
+			if(goods.length!=1) {
+				list =cartService.selectByCartId(goods);
+
+			}else {
+				
+				GoodsLine goodsLine=goodsLineService.goodsLineSelect(goods[0]);
+				list.add(goodsLine);
+			}
+			
+			
+			
+			
 			
 		try {
 
@@ -123,10 +138,14 @@ public class OrderController {
 			if(result==200) {//정상 그외 에러
 				giveData = con.getInputStream();
 				
-				ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"카카오페이");
-				for(Long i : goods) {
-					cartService.deleteCart(i);
+				Long orderId=ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"카카오페이");
+				id = orderId.toString();
+				if(goods.length!=1) {
+					for(Long i : goods) {
+						cartService.deleteCart(i);
+					}
 				}
+				
 
 			}else {
 				giveData = con.getErrorStream();
@@ -141,21 +160,25 @@ public class OrderController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "ddd";
+		return id;
 	}
 	
 	@RequestMapping("bankBook")
 	@ResponseBody
-	public String bankBook(Long [] goods, String name, String email, String phone, int totalPrice,String text ){
+	public List<String> bankBook(Long [] goods, String name, String email, String phone, int totalPrice,String text ){
 			Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			List<GoodsLine> list =cartService.selectByCartId(goods);
-			ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"계좌이체");
+			System.out.println("Dsds");
+			Long id=ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"계좌이체");
 			for(Long i : goods) {
 				cartService.deleteCart(i);
 			}
 			String i = (int) (Math.random()*100000*100000000)+"";
+			List<String> result = new ArrayList<String>();
+			result.add(i);
+			result.add(id+"");
 			
-			return i;
+			return result;
 	}
 	
 	

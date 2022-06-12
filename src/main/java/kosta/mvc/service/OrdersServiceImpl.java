@@ -33,12 +33,12 @@ public class OrdersServiceImpl implements OrdersService {
 	
 
 	@Override
-	public void addOrders(List<GoodsLine> list ,String name, String email, String phone,int totalPrice,Users users,String text,String type) {
+	public Long addOrders(List<GoodsLine> list ,String name, String email, String phone,int totalPrice,Users users,String text,String type) {
 
 	Orders orders = new Orders(null, users, type, totalPrice, name, email, Integer.parseInt(phone), text, null,	null);
-	
-	orderLineService.addOrderLine(ordersRep.save(orders),list, totalPrice);
-
+	Orders order=ordersRep.save(orders);
+	orderLineService.addOrderLine(order,list, totalPrice);
+		return order.getOrdersId();
 	}
 
 	@Override

@@ -61,20 +61,22 @@ $(function(){
 	   					$.each(result.goods, function(index, item){
 		   					var price =`${'${item.goodsPrice}'}`;
 		   					var no =`${'${result.goodsLine[index].goodsLineAmount}'}`;
-		   					var sum =price*no; 
+		   					var sum =price*no;
+		   					var typeSume =sum.toLocaleString('ko-KR')+"₩";
 		   					sutotal +=sum;
 		   					data +=`<div class='order-details-confirmation mb-5'>`;
 			   				data +=`<div class='cart-page-heading'>`;
 			   				data +=`<h5>${'${item.goodsName}'}</h5><img src='../img/bottom_logo.png' alt='IMG' ></div>`; //${"${item.goodsPhoto}"}
 			   				data +=` <ul class='order-details-form mb-4'>`;
 			   				data +=`<li><span>사용일</span> <span >${'${result.goodsLine[index].goodsLineDate}'}</span></li>`;
-			   				data +=`<li><span>총금액(금액X갯수)</span> <span>${'${sum}'}</span></li></ul></div>`;
+			   				data +=`<li><span>총금액(금액X갯수)</span> <span>${'${typeSume}'}</span></li></ul></div>`;
 			   				
 						})
-						
+						var typeSutotal =sutotal.toLocaleString('ko-KR')+"₩";
+	   					
 						data +=`<div class='order-details-confirmation mb-5'>`;
 						data +=`<div class='cart-page-heading'>`;
-						data +=`<h5>총 금액</h5> <span id='sutotal'>${'${sutotal}'}</span>`;
+						data +=`<h5>총 금액</h5> <span id='sutotal'>${'${typeSutotal}'}</span>`;
 						data +=`</div></div>`;
 
 						$("#name").val(result.user.userName);
@@ -99,7 +101,7 @@ $(function(){
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
 					//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
 					data: { '${_csrf.parameterName}' : '${_csrf.token}',goods : ${requestScope.goods}, name : $("#bookName").val(),
-						email : $("#bookEmail").val(), phone : $("#bookPhone").val(), totalPrice : $("#sutotal").html()
+						email : $("#bookEmail").val(), phone : $("#bookPhone").val(), totalPrice : $("#sutotal").html().replace(/,/g, "").replace("₩","")
 						,text: $("#text").val()},
 					success: function(result){
 						//alert(result.tid)
@@ -107,6 +109,10 @@ $(function(){
 						var box =result.next_redirect_pc_url;
 						window.open(box,"카카오페이",options);
 						
+						
+						window.close();
+							
+
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){
@@ -114,6 +120,7 @@ $(function(){
 					}	
 				});//ajax
 			}else{
+
 				$.ajax({
 					url:"${pageContext.request.contextPath}/order/bankBook", //서버요청주소
 					type:"post", // 요청방식(get, post)
@@ -121,10 +128,10 @@ $(function(){
 					dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
 					//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
 					data: { '${_csrf.parameterName}' : '${_csrf.token}',goods : ${requestScope.goods}, name : $("#bookName").val(),
-						email : $("#bookEmail").val(), phone : $("#bookPhone").val(), totalPrice : $("#sutotal").html()
+						email : $("#bookEmail").val(), phone : $("#bookPhone").val(), totalPrice : $("#sutotal").html().replace(/,/g, "").replace("₩","")
 						,text: $("#text").val()},
 					success: function(result){
-						alert("가상계좌 : "+result);
+						alert("가상계좌 : "+result[0]);
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){

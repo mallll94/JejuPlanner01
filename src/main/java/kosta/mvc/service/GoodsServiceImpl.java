@@ -151,6 +151,23 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsList;
 	}
 
+	@Override
+	public List<Goods> searchByGoods(String keyWord) {
+		
+		QGoods goods = QGoods.goods;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.or(goods.goodsAddr.contains(keyWord));
+		builder.or(goods.goodsCategory.contains(keyWord));
+		builder.or(goods.goodsContent.contains(keyWord));
+		builder.or(goods.goodsName.contains(keyWord));
+		
+		List<Goods> list=(List<Goods>) goodsRepository.findAll(builder);
+		
+		
+		return list;
+	}
+
 
 
 }

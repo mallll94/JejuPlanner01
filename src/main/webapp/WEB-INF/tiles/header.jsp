@@ -21,6 +21,12 @@
 		<!-- jQuery ui -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
+        <style type="text/css">
+         .mainbottom{background-repeat: repeat-x; background-image: url("../img/headerBottom.png");}        
+        
+        </style>
+        
+        
     	<!-- 전체 카테고리 이벤트 -->
     	<script type="text/javascript">
 /* 			function cartCount() {
@@ -74,20 +80,27 @@
 						</c:otherwise>
 					</c:choose>
 						<li>
-							<div class="input-group mb-3" style= "margin-bottom: 100px;">
-							  <input type="text" class="form-control" style= "width: 150px;">
-							  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
-							</div>
+							<form action="${pageContext.request.contextPath}/goods/search">
+								<div class="input-group mb-3" style= "margin-bottom: 100px;">
+								  
+									  <input type="text" class="form-control" style= "width: 150px;" name= "keyWord">
+									  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
+								  
+								</div>
+							</form>
 					    </li>
 				</ul>
-				<h1><a href=""><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
+				<h1><a href="${pageContext.request.contextPath}/"><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
+		  </div>
+		  <div class="mainbottom" style="background-repeat: repeat-x;">
+		      <img alt="메인로고 바텀" src="/img/headerBottom.png" >
 		  </div>
 		</header>
 		<nav class="main-header-menubar">
 			<div>
 				<ul>
-					<li><a href="#" id="">여행상품</a></li>
-					<li><a href="">플래너</a></li>
+					<li><a href="${pageContext.request.contextPath}/goods/view/goods_Main" id="">여행상품</a></li>
+					<li><a href="${pageContext.request.contextPath}/planner/plannerIndex">플래너</a></li>
 					<li><a href="">게시판</a></li>
 					<li><a href="">다이어리</a></li>
 				</ul>

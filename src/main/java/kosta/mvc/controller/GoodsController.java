@@ -115,4 +115,15 @@ public class GoodsController {
 			model.addAttribute("goods", null);
 		}
 	}
+	
+	
+	
+	@RequestMapping("/search")
+	public String searchKeyWord(String keyWord,Model model) {
+		
+		List<Goods> list=goodsService.searchByGoods(keyWord);
+		model.addAttribute("goodsList", list);
+		
+		return "goods/goods_List";
+	}
 }

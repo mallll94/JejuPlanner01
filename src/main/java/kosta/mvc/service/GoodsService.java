@@ -67,5 +67,10 @@ public interface GoodsService {
 	 * 지역 기반 상품 조회
 	 */
 	public List<Goods> getAllGoodsByLocalCategory(String localCategory);
+	
+	/**
+	 * 헤더부분 검색기능
+	 * */
+	List<Goods> searchByGoods(String keyWord);
 
 }

@@ -47,7 +47,7 @@
 		var countBox = [];
 		//수량 변경- // 가격 변경
 		$(document).on("click","#minus",function(){	
-			
+			//sumtotal.toLocaleString('ko-KR')
 			if($("[name=checkboxNoLabel]")[$(this).val()].checked){
 			var id = "#goodsLineAmount"+$(this).val();
 			var price = "#price"+$(this).val();
@@ -55,15 +55,15 @@
 			var check = "#checkboxNoLabel"+$(this).val();
 			var sumtotalprint = 0;
 		
-			sumtotalprint = parseInt($("#totalPrint").html())-parseInt($(price).html())*parseInt($(id).val());
+			sumtotalprint = parseInt($("#totalPrint").html().replace(/,/g, ""))-parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val());
 			 // 모든 상품 총가격 표시하는 친구
 			if($(id).val()>1){	
 				$(id).val(parseInt($(id).val())-1)
-				$(totalprice).html(parseInt($(price).html())*parseInt($(id).val()));
+				$(totalprice).html((parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val())).toLocaleString('ko-KR')+"₩");
 			}
 
-			sumtotalprint +=parseInt($(totalprice).html());
-			$("#totalPrint").html(sumtotalprint);
+			sumtotalprint +=parseInt($(totalprice).html().replace(/,/g, ""));
+			$("#totalPrint").html(sumtotalprint.toLocaleString('ko-KR')+"₩");
 			}
 			
 			
@@ -77,14 +77,14 @@
 			var totalprice = "#totalprice"+$(this).val();	
 			var sumtotalprint = 0;
 			
-			sumtotalprint = parseInt($("#totalPrint").html())-parseInt($(price).html())*parseInt($(id).val());
+			sumtotalprint = parseInt($("#totalPrint").html().replace(/,/g, ""))-parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val());
 			
 			$(id).val(parseInt($(id).val())+1)
-			$(totalprice).html(parseInt($(price).html())*parseInt($(id).val()));
+			$(totalprice).html((parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val())).toLocaleString('ko-KR')+"₩");
 			
 			
-			sumtotalprint +=parseInt($(totalprice).html());
-			$("#totalPrint").html(sumtotalprint);
+			sumtotalprint +=parseInt($(totalprice).html().replace(/,/g, ""));
+			$("#totalPrint").html(sumtotalprint.toLocaleString('ko-KR')+"₩");
 			}
 			
 		})
@@ -98,12 +98,12 @@
 			var sumtotalprint = 0;
 			
 			if($("[name=checkboxNoLabel]")[$(this).attr("mal")].checked){
-				sumtotalprint = parseInt($("#totalPrint").html())+parseInt($(price).html())*parseInt($(id).val());
+				sumtotalprint = parseInt($("#totalPrint").html().replace(/,/g, ""))+parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val().replace(/,/g, ""));
 			}else{
-				sumtotalprint = parseInt($("#totalPrint").html())-parseInt($(price).html())*parseInt($(id).val());
+				sumtotalprint = parseInt($("#totalPrint").html().replace(/,/g, ""))-parseInt($(price).html().replace(/,/g, ""))*parseInt($(id).val().replace(/,/g, ""));
 			}
 			
-			$("#totalPrint").html(sumtotalprint);
+			$("#totalPrint").html(sumtotalprint.toLocaleString('ko-KR')+"₩");
 			
 		});
 		
@@ -113,17 +113,24 @@
 		
 		
 		
-		
+		var saveSum ="";
 		//전체 선택 해제
 		$(document).on('click','#allCheck',function(){
-			var sum = $("#totalPrint").html(); 
+			var sum = $("#totalPrint").html()
+			 
+			if(sum !="0₩"){
+				saveSum =sum;
+			}
+			
 			if($("#allCheck").val()==0){        
 				$('.form-check-input').prop('checked',true);
+				$("#totalPrint").html(saveSum);
 				$("#allCheck").val(1);
-				$("")
+				
 		    }
 			else{        
-				$('.form-check-input').prop('checked',false);    
+				$('.form-check-input').prop('checked',false);   
+				$("#totalPrint").html("0₩"); 
 				$("#allCheck").val(0);
 			} 
 		});
@@ -148,38 +155,25 @@
 			var selectLength =$("[name=checkboxNoLabel]").length;
 			//alert(selectLength);
 			orderBox = [];
-			for (var i=0; i<selectLength; i++) {
-					
-					if ($("[name=checkboxNoLabel]")[i].checked == true) {
-					orderBox.push($("[name=checkboxNoLabel]")[i].value);
-					countBox.push($("#goodsLineAmount"+i).val());
+
+				for (var i=0; i<selectLength; i++) {
+						
+						if ($("[name=checkboxNoLabel]")[i].checked == true) {
+						orderBox.push($("[name=checkboxNoLabel]")[i].value);
+						countBox.push($("#goodsLineAmount"+i).val());
+					}
 				}
-			}
+				
+				$("#cartId").val(orderBox);
+				$("#countCart").val(countBox);
+				
+				$("#cartForm").submit();
 			
-			$("#cartId").val(orderBox);
-			$("#countCart").val(countBox);
 			
-			$("#cartForm").submit();
 			//CheckOrder(orderBox,countBox);
 		})
 		
-		//선택 상품 주문
-		function CheckDelete(box,count){
-			$.ajax({
-				url:"${pageContext.request.contextPath}/cart/??", //서버요청주소
-				type:"post", // 요청방식(get, post)
-				traditional: true,
-				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
-				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
-				data: { '${_csrf.parameterName}' : '${_csrf.token}',orderBox : box ,countBox :count},
-				success: function(result){
-					
-				},
-				error: function(err){
-					alert("delete 오류");
-				}	
-			});//ajax
-		}
+		
 		
 		
 		//장바구니 뿌려주는
@@ -197,16 +191,18 @@
 						var data="";
 						var sumtotal = 0;
 					$.each(result.goods, function(index, item){
-						
+						var price2 = item.goodsPrice.toLocaleString('ko-KR')+"₩";
 						var no = `${'${result.cart[index].cartAmount}'}`;
 						var price = `${'${item.goodsPrice}'}`;
 						var total = no*price;
+						var resulttotal=total.toLocaleString('ko-KR')+"₩";
+						
 						data+=`<tr class='table_row'><td class='column-1'>`;
 						data+=`<input class='form-check-input' type='checkbox' id='checkboxNoLabel' mal=${"${index}"} name='checkboxNoLabel' checked value=${"${result.cart[index].cartId}"}>`;
 						data+=`<div class='how-itemcart1'><img src='../img/bottom_logo.png' alt='IMG'></div>`;
 						data+=`</td>`;
 						data+=`<td class='column-2'>${'${item.goodsName}'}</td>`;	
-						data+=`<td class='column-3'><span id='price${"${index}"}'>${'${item.goodsPrice}'}</span></td>`;		
+						data+=`<td class='column-3'><span id='price${"${index}"}'>${'${price2}'}</span></td>`;		
 						data+=`<td class='column-6'>${'${result.goodsLine[index].goodsLineDate}'}<input type='hidden' name='goodsLineDate'/></td>`;	
 						data+=`<td class='column-4'>`;
 						data+=`<div class='wrap-num-product flex-w m-l-auto m-r-0'>`;
@@ -217,16 +213,17 @@
 						data+=`<button type='button' id='plus' value=${"${index}"}>`;		
 						data+=`<div class='btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m' >`;		
 						data+=`<i class='fs-16 zmdi zmdi-plus'></i></div></button></div></td>`;		
-						data+=`<td class='column-5'><span id='totalprice${"${index}"}'>${'${total}'}</span></td></tr>`;	
+						data+=`<td class='column-5'><span id='totalprice${"${index}"}'>${'${resulttotal}'}</span></td></tr>`;	
 						sumtotal +=total;
 					})
 					$("#cartTable tr:gt(0)").remove();
 					$("#cartTable tr:eq(0)").after(data);
 					
 					//총가격
+				
+					//parseInt(xxxx.replace(/,/g , ''));
 					
-					
-					$("#totalPrint").html(sumtotal)
+					$("#totalPrint").html(sumtotal.toLocaleString('ko-KR')+"₩")
 						
 
 				},
@@ -291,7 +288,7 @@
 					
 						<div >
 							<div class="flex-w flex-m m-r-20 m-tb-5">
-								<div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 m-r-10 pointer m-tb-5">
+								<div class="flex-c-m stext-101 cl0 size-118 bg3 bor14 hov-btn3 p-lr-15 trans-04 m-r-10 pointer m-tb-5">
 									<button type="button" id="allCheck" value='1'>전체선택</button>
 								</div>	
 									
@@ -349,9 +346,7 @@
 		<input type="hidden" name="cartId" id="cartId">
 		<input type="hidden" name="countCart" id="countCart">
 	</form>
-	<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="kakao">
-							kakao
-	</button>
+
 	
 	
 	<input type="hidden" id="sumtotalcheck" value = "1">

@@ -26,34 +26,27 @@
     <link rel="stylesheet" href="../assets/admin/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<!--     <link rel="stylesheet" href="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     
     <link rel="stylesheet" href="../assets/admin/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
-    
-    <!-- Helpers -->
+
     <script src="../assets/admin/vendor/js/helpers.js"></script>
 
     <script src="../assets/admin/js/config.js"></script>
     
-     <!-- Core JS -->
-	  <!-- build:js assets/vendor/js/core.js -->
+
 	  <script src="../assets/admin/vendor/libs/jquery/jquery.js"></script>
 	  <script src="../assets/admin/vendor/libs/popper/popper.js"></script>
 	  <script src="../assets/admin/vendor/js/bootstrap.js"></script>
 	  <script src="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 	  
 	  <script src="../assets/admin/vendor/js/menu.js"></script>
-	  <!-- endbuild -->
-	
-	  <!-- Vendors JS -->
-	  <script src="../assets/admin/endor/libs/masonry/masonry.js"></script>
-	
-	  <!-- Main JS -->
-	  <script src="../assets/admin/js/main.js"></script>
 
-  <!-- Page JS -->
+	  <script src="../assets/admin/endor/libs/masonry/masonry.js"></script>
+
+	  <script src="../assets/admin/js/main.js"></script>
+ -->
 
 </head>
 
@@ -100,7 +93,7 @@
       </a>
     </li>
       <li class="menu-item">
-       <a href="" class="menu-link">
+       <a href="${pageContext.request.contextPath}/admin/AskList_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-support"></i>
         <div data-i18n="Support">1 : 1  문의</div>
       </a>
@@ -164,7 +157,7 @@
         <div data-i18n="Form Elements">공지사항</div>
       </a>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/Planboard_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-detail"></i>
         <div data-i18n="Form Layouts">플래너공유 게시판</div>
       </a>

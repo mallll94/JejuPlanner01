@@ -79,8 +79,8 @@
 
 html,
 body {
-    color: #898989;
-    font-size: 14px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
     font-family: 'Poppins', sans-serif;
     line-height: normal;
     font-weight: 300;
@@ -114,16 +114,7 @@ body.demos .container-fluid {
     max-width: 1080px
 }
 
-a {
-    color: #1f1f1f;
-    text-decoration: none !important;
-    outline: none !important;
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -ms-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-}
+
 
 h1,
 h2,
@@ -189,11 +180,21 @@ h6 a {
     opacity: 1
 }
 
-a {
-    color: #898989;
-    text-decoration: none;
-    outline: none;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 a,
 .btn {
@@ -1366,7 +1367,7 @@ Safari 4.0 - 8.0
     line-height: 1;
     padding: 22px 40px;
     white-space: nowrap;
-    font-size: 16px;
+    font-sirgb(0, 0, 0)16px;
 }
 
 .table_format.strp tbody th,
