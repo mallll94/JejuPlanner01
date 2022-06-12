@@ -25,7 +25,7 @@ public class AskReplyController {
 		
 		askReplyService.addAskReply(askId, askReply);
 		
-	    return "redirect:/board/Ask_Detail/" + askId;
+	    return "redirect:/admin/AskDetail_Admin/" + askId;
 	}
 	
 	
@@ -37,7 +37,7 @@ public class AskReplyController {
 		
 		System.out.println("reply delete");
 		
-		return "redirect:/board/Ask_Detail/" + askId;
+		return "redirect:/admin/AskDetail_Admin/" + askId;
 	}
 
 }

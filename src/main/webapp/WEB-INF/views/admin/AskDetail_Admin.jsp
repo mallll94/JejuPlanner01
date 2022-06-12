@@ -11,18 +11,20 @@
 
 
 <script type="text/javascript">
-   
-  $(function(){
-	   
-	   $("button[value=삭제]").click(function() {
-       	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
-		   $("#requestForm").submit();
-		})	
+
+$(function() {
 		
-   }) 
-   
-</script>    
-    
+	$("input[name=btnradio]").click(function(){
+		$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/AskDetail_Admin/complete");
+		$("#requestForm").submit();
+		
+	})
+		
+});
+
+
+</script>
+
 
 </head>
 <body>
@@ -30,7 +32,7 @@
     <!-- Contact Start -->
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
-            <h2 class="section-title px-5" style="text-align: center;"><span class="px-2">1:1 문의 상세보기</span></h2> 
+            <h2 class="section-title px-5" style="text-align: center;"><span class="px-2">관리자 1:1 문의 상세보기</span></h2> 
         </div>
         
         <div align="center">
@@ -38,8 +40,13 @@
                 <div class="contact-form">
                     <div id="success"></div>
                     
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <form name="requestForm" method="post" id="requestForm">
                     
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-left: 89.5%">
+                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="Y" data-bs-toggle="modal" data-bs-target="#exampleModal1" checked>
+                      <label class="btn btn-outline-primary" for="btnradio1">답변 완료</label>
+                    </div>
+                                
                     <div class="control-group" style="text-align: left;">
                             카테고리 <input type="text" readonly class="form-control" id="askCategory" name="askCategory" value="${askboard.askCategory}"/>
                             <p class="help-block text-danger"></p>
@@ -60,18 +67,8 @@
 		                <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
 		              </div>
 		            </div>
-	                
-	                
-	                
                    </form> 
-                   
-                   <form name="requestForm" method = "post" id="requestForm" >
-                     <input type="hidden" name="askId" value="${askboard.askId}">
-                       <div align="right">
-                         <button type="button" class="btn btn-primary py-1 px-2" value="삭제">삭제하기</button>
-                       </div>
-                   </form>    
-                      
+                                     
                 </div>
             </div>
  
@@ -87,18 +84,14 @@
   <textarea readonly class="form-control" id="askReplyContent" name="askReplyContent" style="resize: none;">
 	${reply.askReplyContent}
   </textarea>
-</div><p></p>
+</div>
 
 <div style="margin-left: 820px">  
    <span>
-     <%-- <a href="${pageContext.request.contextPath}/reply/delete/${reply.askReplyId}/${askboard.askId}">삭제하기</a> --%>
+     <a href="${pageContext.request.contextPath}/reply/delete/${reply.askReplyId}/${askboard.askId}">삭제하기</a>
    </span>
 </div>
 </c:forEach> 
-</div><p></p>
+</div>
 
 
-
-
-</body>
-</html>
