@@ -130,21 +130,27 @@
       </a>
    </li>
     
-    <!-- 플래너 -->
+    <!-- 상품 -->
     
     <li class="menu-header small text-uppercase"><span class="menu-header-text">상품</span></li>
    
     <li class="menu-item">
        <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-collection"></i>
-        <div data-i18n="Basic">상품등록</div>
+        <div data-i18n="Basic">상품관리</div>
       </a>
     </li>
     <!-- User interface -->
     <li class="menu-item">
       <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-box"></i>
-        <div data-i18n="Basic">상품등록1</div>
+        <div data-i18n="Basic">핫딜상품관리</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="Basic">상품후기관리</div>
       </a>
     </li>
    
