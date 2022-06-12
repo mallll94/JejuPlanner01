@@ -21,6 +21,12 @@
 		<!-- jQuery ui -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
+        <style type="text/css">
+         .mainbottom{background-repeat: repeat-x; background-image: url("../img/headerBottom.png");}        
+        
+        </style>
+        
+        
     	<!-- 전체 카테고리 이벤트 -->
     	<script type="text/javascript">
 /* 			function cartCount() {
@@ -81,6 +87,9 @@
 					    </li>
 				</ul>
 				<h1><a href=""><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
+		  </div>
+		  <div class="mainbottom" style="background-repeat: repeat-x;">
+		      <img alt="메인로고 바텀" src="/img/headerBottom.png" >
 		  </div>
 		</header>
 		<nav class="main-header-menubar">
