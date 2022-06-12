@@ -26,34 +26,27 @@
     <link rel="stylesheet" href="../assets/admin/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<!--     <link rel="stylesheet" href="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     
     <link rel="stylesheet" href="../assets/admin/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
-    
-    <!-- Helpers -->
+
     <script src="../assets/admin/vendor/js/helpers.js"></script>
 
     <script src="../assets/admin/js/config.js"></script>
     
-     <!-- Core JS -->
-	  <!-- build:js assets/vendor/js/core.js -->
+
 	  <script src="../assets/admin/vendor/libs/jquery/jquery.js"></script>
 	  <script src="../assets/admin/vendor/libs/popper/popper.js"></script>
 	  <script src="../assets/admin/vendor/js/bootstrap.js"></script>
 	  <script src="../assets/admin/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 	  
 	  <script src="../assets/admin/vendor/js/menu.js"></script>
-	  <!-- endbuild -->
-	
-	  <!-- Vendors JS -->
-	  <script src="../assets/admin/endor/libs/masonry/masonry.js"></script>
-	
-	  <!-- Main JS -->
-	  <script src="../assets/admin/js/main.js"></script>
 
-  <!-- Page JS -->
+	  <script src="../assets/admin/endor/libs/masonry/masonry.js"></script>
+
+	  <script src="../assets/admin/js/main.js"></script>
+ -->
 
 </head>
 

@@ -51,7 +51,10 @@
 	<!-- main js -->
 	<script src="${pageContext.request.contextPath}/js/planner2/main.js"></script>
 	
+	
+
 <script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
@@ -149,12 +152,31 @@
 			}else{
 				$("#ShareModalForm").attr("action", "${pageContext.request.contextPath}/planner/plannerShareBoard");
 				$("#ShareModalForm").submit();
-			}
-			
-			
-			
+			}	
 		})
 		
+		//날짜더하기
+		function dateAdd(date, addDays) {
+
+     		var datetmp = date.replace(/-/g,'');			
+     
+     		var y = parseInt(datetmp.substr(0, 4));
+     		var m = parseInt(datetmp.substr(4, 2));
+     		var d = parseInt(datetmp.substr(6,2));
+  
+     		d = new Date(y, m - 1, d + addDays);
+  
+   			y = d.getFullYear();
+     		m = d.getMonth() + 1; m = (m < 10) ? '0' + m : m;
+     		d = d.getDate(); d = (d < 10) ? '0' + d : d;
+  
+			return '' + y + '-' +  m  + '-' + d;		
+ 		}
+
+		
+		
+
+
 
 		function selectAll(no){//1
 			
@@ -206,6 +228,8 @@
 					
 					
 					
+					
+					
 					let index=0;
 					for(let j=1; j<=dayNo;j++){ //dayNo = 1 , 2 ,3 , 4 ,    no=0일때 모두 , no=1 1day, no=2 ,2day	
 							
@@ -222,6 +246,7 @@
 							
 							if(item.day==j){
 								
+								var now =dateAdd(result.planner.plannerStart,j-1);
 								
 								card+=`<div class='col-lg-3 col-md-3'>`;
 								card+=`<div class='single-latest-news'>`;
@@ -229,9 +254,9 @@
 								card+=`<div class='news-text-box'>`;
 								card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
 								card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
-								card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${result.planner.plannerStart}'}</span>`;
+								card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${now}'}</span>`;
 								card+=`</p><p class='excerpt'>${'${item.placeAddr}'}</p>`;
-								card+=`<a href="" class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
+								card+=`<a href='${"${item.placeUrl}"}' target='_blank' class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
 								card+=`</div></div></div>`;
 							}
 							
@@ -259,7 +284,7 @@
 					addLine(targets,getLineColor);		
 					 */
 					
-					console.log("before",line);
+					
 					$("#days").empty();
 					$("#days").append(dayNoLi);
 					$("#days").val(no);

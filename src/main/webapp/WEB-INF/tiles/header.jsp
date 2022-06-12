@@ -80,14 +80,14 @@
 							</div>
 					    </li>
 				</ul>
-				<h1><a href=""><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
+				<h1><a href="${pageContext.request.contextPath}/"><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
 		  </div>
 		</header>
 		<nav class="main-header-menubar">
 			<div>
 				<ul>
-					<li><a href="#" id="">여행상품</a></li>
-					<li><a href="">플래너</a></li>
+					<li><a href="${pageContext.request.contextPath}/goods/view/goods_Main" id="">여행상품</a></li>
+					<li><a href="${pageContext.request.contextPath}/planner/plannerIndex">플래너</a></li>
 					<li><a href="">게시판</a></li>
 					<li><a href="">다이어리</a></li>
 				</ul>

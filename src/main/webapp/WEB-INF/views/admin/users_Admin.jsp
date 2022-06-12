@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,11 @@
        <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/css/bootstrap.min.css" />
 		<!-- site css -->
+		<style type="text/css">
+		
+		
+		
+		</style>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/css/style.css" />
 		<!-- responsive css -->
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/user/css/responsive.css" />
@@ -258,9 +264,9 @@
 						$("#cataSum").html("");
 						$("#totalSum").html("");
 						$("#monthSum").html("");
-						$("#cataSum").html(cataSum);
-						$("#totalSum").html(totalSum);
-						$("#monthSum").html(monthSum);
+						$("#cataSum").html(cataSum.toLocaleString('ko-KR')+"₩");
+						$("#totalSum").html(totalSum.toLocaleString('ko-KR')+"₩");
+						$("#monthSum").html(monthSum.toLocaleString('ko-KR')+"₩");
 
 						box1 =parseInt(result.rentSum);
 						box2 =parseInt(result.inSum);
