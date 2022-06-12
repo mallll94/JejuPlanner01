@@ -35,62 +35,63 @@
 		    }
 		
 		    .title {
+		    	font-size: 1.5rem;
 		        margin-top: 20px;
-		        margin-bottom: 10px;
+		        margin-bottom: 20px;
 		        text-align: left;
-		        margin-left: 500px;
+		        margin-left: 400px;
 		    }
 		
-		    .bnt-group {
+		    .bnt {
 		        text-align: center;
 		    }
 		</style>
 		
 		<body>
-		    <img src="${pageContext.request.contextPath}/img/goods/sungsan.jpeg" width="100%" height="300px">
+		    <img src="${pageContext.request.contextPath}/img/goods/sungsan.jpeg" width="100%" height="200px">
 		    <h5 class="title">카테고리</h5>
 		    <div class="container text-center">
-		        <div class="btn-group" role="group">
-		            <button type="button" class="btn btn-outline-primary"
+		        <div class="btn btn-lg" aria-label="...">
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=액티비티'">🍊액티비티</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=입장권'">⛱입장권</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=스파/힐링'">💊스파/힐링</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=대여'">📷대여</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=전체보기'">🔎전체보기</button>
 		        </div>
 		    </div>
 		    <h5 class="title">제주도 지역별로 살펴보기</h5>
 		    <div class="container text-center">
-		        <div class="btn-group" role="group">
-		            <button type="button" class="btn btn-outline-primary"
+		        <div class="btn btn-lg" aria-label="...">
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=제주시'">🌎제주시</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=애월'">🗿애월</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=한림_협재'">🐬한림/협재</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=중문'">🛳중문</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=서귀포'">🍊서귀포</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=표선'">🏄‍♂️표선</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=성산_우도'">🌟성산/우도</button>
-		            <button type="button" class="btn btn-outline-primary"
+		            <button type="button" class="btn btn-light btn-lg"
 		                onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=함덕_구좌'">🌊함덕/구좌</button>
 		        </div>
 		
 		    </div>
 		    <h5 class="title">나의 플래너 기반 검색하기</h5>
 		    <div class="container text-center">
-		        <div class="btn-group" role="group">
+		        <div>
 		            <form method="POST" action="${pageContext.request.contextPath}/goods/view/goods_List/plannerCategory">
 		                <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-		                <button type="submit" class="btn btn-outline-primary">나의 플래너 상품</button>
+		                <button type="submit" class="btn"><img src="${pageContext.request.contextPath}/img/goods/planner_btn4.png" width="250px"></button>
 		            </form>
 		        </div>
 		    </div>
