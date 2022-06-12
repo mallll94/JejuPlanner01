@@ -375,18 +375,18 @@ pageEncoding="UTF-8"%>
 							$("#spotList").html("");
 							$.each(result,function(index,place){
 								let str="";
-								str+="<il class='spot-card'>"
+								str+="<li class='spot-card'>"
 								str+=`<div class="spot-info" id="${'${place.placeId}'}">`
-									str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+									str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
 									str+= `<div class="spot-info-detail">
-											<p>\${place.placeName}</p>`
+											<p class='spot-info-name'>\${place.placeName}</p>`
 										str+=`<p class="spot-bnt-wrap">
-												<span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
-										str+=`	<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span>
+												<span ><button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
+										str+=`	<span><a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span>
 											</p>`
 									str+=`</div>`
 								str+=`</div>`
-								str+="</il>"
+								str+="</li>"
 								$("#spotList").append(str);
 							})
 							
@@ -552,10 +552,18 @@ pageEncoding="UTF-8"%>
 						$.each(result.pageList,function(index,place){
 							str+="<li class='spot-card'>"
 							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
-								str+= `<div class="spot-info-photo"><img src="/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-								str+= `<div class="spot-info-detail"><span><h7>\${place.placeName}</h7><span>`
-									str+=`<div class="spot-bnt-wrap"><span ><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button></span>`
-									str+=`<span><a id="plan-add-bnt" class="badge rounded-pill bg-info text-dark" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a></span></div>`
+								str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+								str+= `<div class="spot-info-detail">
+										<p class='spot-info-name'>\${place.placeName}</p>`
+									str+=`<p class="spot-bnt-wrap">
+											<span>
+												<button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button>
+											</span>`
+									str+=`<span>
+											<a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a>
+										</span>
+										</p>`
+								str+=`</div>`
 							str+=`</div>`
 							str+="</li>"
 						})
@@ -747,11 +755,16 @@ pageEncoding="UTF-8"%>
 			.spot-info{width: 100%;height: 80px;border: 1px solid gray;margin:2px;}
 
 			/**사진영역*/
-			.spot-info-photo{box-sizing: border-box;float: left;width: 30%;height: 100%;background-color: antiquewhite;}
+			.spot-info-photo{box-sizing: border-box;float: left;width: 30%;height: 100%;background-color: rgb(220, 231, 255);}
+			.spotImg{box-sizing: border-box;object-fit: cover;}
 			/**내용*/
-			.spot-info-detail{box-sizing: border-box;float: left;width: 70%; text-align: left; padding: 5px;}
+			.spot-info-detail{box-sizing: border-box;float: left;width: 70%; text-align: left; padding: 5px; }
+			/**장소이름*/
+			.spot-info-name{height: 40px; }
 			/**버튼wrap*/
-			.spot-bnt-wrap{float: right;}
+			.spot-bnt-wrap{float: right;  height: 25px;}
+			.plan-info-bnt{background-color: rgb(220, 231, 255); width: 25px;border: 0; outline: 0; border-radius: 50px;}
+			.plan-add-bnt:link, .plan-add-bnt:visited .plan-add-bnt:hover .plan-add-bnt:active{display: inline-block; text-align: center;background-color: cornflowerblue; width: 25px;border-radius: 50px; color: white;}
 
 			/**지도*/
 			div.jeju-googleMap{ 
