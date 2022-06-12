@@ -225,7 +225,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요             
+                좋아요            
 			 </div>	
 			   
 
@@ -239,7 +239,7 @@ $(document).ready(function(){
          <p class="help-block text-danger"></p>
  		</div>
  		<div class="control-group" style="text-align: left;">
-        	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent">${planBoard.pboardContent}</textarea>
+        	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
          <p class="help-block text-danger"></p>
  		</div>
    
@@ -265,34 +265,34 @@ $(document).ready(function(){
 
 
 <!--댓글 등록하기-->
-<div class="card">
+<div class="card" style="margin-left: 320px; margin-right: 320px">
     <div class="card-body">
     	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
             <div class="form-inline mb-2">
-                <label for="replyId"><img src="#" class="reply-user-icon"><img></label>
+              <i class="bi bi-chat-right-dots-fill" style="font-size:2rem"></i>
                 <span><strong>{sessionScope.loginUser.userId}</strong></span>
-                <span><strong>{sessionScope.loginManager.managerId}</strong></span>
+                <!-- <span><strong>{sessionScope.loginManager.managerId}</strong></span> -->
                 <input type="hidden" name="reply_id" value="{sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
-                <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}">
+                <!-- <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}"> -->
             </div>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none"></textarea>
             <input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
-            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
+            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" style="float: right;">댓글 등록하기</button>
     	</form>
     </div>
-</div>
+</div><p></p>
 
 
 <!--댓글 조회하기 -->
-<div class="reply-num">
+<div class="reply-num" style="margin-left:320px">
    댓글 수: <span class="reply-num-count"></span>개
 </div>
-<div class="review_reply_wrap">
-    <div class="review_reply_area">
-      <div id="review_reply_output"></div>
-    </div>
-</div>
-    
+<div class="review_reply_wrap" style="margin-left: 320px">
+  <div class="review_reply_area">
+     <div id="review_reply_output"></div>
+  </div>
+</div><p></p>
+   
 
 
 

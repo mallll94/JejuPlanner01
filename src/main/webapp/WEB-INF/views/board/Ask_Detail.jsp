@@ -50,7 +50,7 @@
                             <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group" style="text-align: left;">
-                           내용 <textarea readonly class="form-control" rows="6" id="askContent" name="askContent">${askboard.askContent}</textarea>
+                           내용 <textarea readonly class="form-control" rows="6" id="askContent" name="askContent" style="resize: none">${askboard.askContent}</textarea>
                             <p class="help-block text-danger"></p>
                     </div>
 	               

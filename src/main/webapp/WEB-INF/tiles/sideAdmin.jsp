@@ -93,7 +93,7 @@
       </a>
     </li>
       <li class="menu-item">
-       <a href="" class="menu-link">
+       <a href="${pageContext.request.contextPath}/admin/AskList_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-support"></i>
         <div data-i18n="Support">1 : 1  문의</div>
       </a>
@@ -157,7 +157,7 @@
         <div data-i18n="Form Elements">공지사항</div>
       </a>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/Planboard_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-detail"></i>
         <div data-i18n="Form Layouts">플래너공유 게시판</div>
       </a>

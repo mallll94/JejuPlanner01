@@ -14,14 +14,13 @@
 </head>
 <body>
     
-<!-- row -->
-<div class="row">
+
 <!-- table section -->
- <div class="col-md-6" align="center" style="width: 700px">
+ <div class="col-md-12">
    <div class="white_shd full margin_bottom_30">
       <div class="full graph_head">
          <div class="heading1 margin_0">
-            <h2 text-align="center">관리자 1:1 문의 목록</h2><p></p>
+            <h2>관리자 1:1 문의 목록</h2><p></p>
          </div>
       </div> 
     <div class="table_section padding_infor_info">
@@ -61,7 +60,7 @@
        
        </div>                    
      </div>
-   </div>
+
    
 <p></p>
    
