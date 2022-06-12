@@ -412,8 +412,9 @@ pageEncoding="UTF-8"%>
 							$("#placeNameModal").text(result.placeName);
 							$("#placeAddrModal").text(result.placeAddr);
 							$("#placeContentModal").text(result.placeContent);
-							$("placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
-							$("modal-link-bnt").attr("urlInfo",result.placeUrl);
+							$("#placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
+							//console.log(result.placeUrl)
+							$("#modal-link-bnt").attr("href",result.placeUrl);
 
 						},
 						error: function(error){
@@ -578,222 +579,6 @@ pageEncoding="UTF-8"%>
 			}
 
 		</script>
-		<style>
-			html, body {width: 100%; height: 100%;margin: 0;padding: 0;}
-			a:link, a:visited, a:hover  { color: rgba(194, 193, 193, 0.89); text-decoration: none;}
-			.header-section .nav-logo .h-container .h-row{box-sizing: border-box; height: 100px;}
-			.h-container{padding-right: 15px; padding-left: 15px; margin-right: auto;margin-left: auto; text-align: left;}
-			.h-row{display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; height: fit-content; padding-left: 20px; padding-right: 20px;}
-			.col-lg-3{float: left;flex: 0 0 25%; max-width: 25%; position: relative ; width: 100%; padding-right: 30px; padding-left: 30px; box-sizing: border-box;height: 100%;}
-			.logo{padding: 10px 0; box-sizing: border-box; display: inline-block;}
-			.nav-logoImg{height: 70px;padding: 5px;}
-			.col-lg-9{float: left;flex: 0 0 25%;max-width: 75%;position: relative; width: 100%; padding-right: 15px; padding-left: 15px; box-sizing: border-box;height: 100%;}
-			.nav-logo-right{text-align: right; box-sizing: border-box;}
-			.nav-ul{ list-style: none;box-sizing: border-box;}
-			.nav-logo .nav-logo-right ul li{display: inline-block; box-sizing: border-box; }
-			.body-main{box-shadow: 10px 10px 10px 10px gray;}
-			.info-text{color: rgb(136, 136, 136);}
-
-			/**바디메인*/
-			.body-main{
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				height: 100%;
-			}
-			/**왼쪽*/
-			
-			div.jeju-sidebar-left{
-				flex-basis: 350px;
-				flex-shrink: 0;
-				background-color: rgba(255, 255, 255, 0.89);
-				height: 100%;
-				order: 0;
-				text-align: center;
-				overflow: auto;
-				padding-bottom: 70px;
-				
-			}
-			.sidebar-left-area {
-				
-				padding-top: 30px;
-				padding-bottom: 30px;
-				width: 100%;
-				height: 100%;
-				box-sizing: border-box;
-				
-			}
-			.planner-myplan-wrapper{
-				margin-top: 20px;
-				margin-bottom: 20px;
-				
-			}
-			.myPlan-category{
-				box-sizing: border-box;
-				width: 120px;
-				color: rgb(136, 136, 136);
-				background-color: white;
-				outline: none;
-				border-top: none;
-				border-right: none;
-				border-left: none;
-				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
-				margin-left: 10px; margin-right: 10px;
-			}
-			.myPlan-category:focus{
-				color: rgb(254 159 41);
-				border-bottom: 3px rgb(254 159 41) solid; 
-			}
-			.planner-plan-addList{
-				padding:20px;
-				overflow: auto;
-			}
-			/* .planner-save-area{
-				width: 120px;
-				box-sizing: border-box;
-				margin-top: 10px;
-				margin-bottom: 50px;
-			} */
-			.add-plan-card{
-				margin-top: 10px;
-				margin-bottom: 10px;
-			}
-			.add-plan-info{
-				display: table;
-
-			}
-			.add-plan-setday{
-				display: table-cell;
-				color:   rgb(254 159 41);
-				width: 80px;
-				outline: none;
-				text-align: center;
-				font-weight: bold;
-				border: 2px solid rgb(254 159 41);
-				border-radius: 4px;
-			}
-			.add-plan-setday option{
-				background-color: rgb(254 159 41);
-				color: white;
-			}
-			.add-plan-detail{
-				display: table-cell;
-				padding-left: 10px;
-				padding-right: 10px;
-				color: rgb(100, 100, 100);
-				font-size: large;
-				font-weight: bold;
-				text-align: left;
-			}
-			.finish-wirte-bnt:link, .finish-wirte-bnt:visited, .finish-wirte-bnt:hover{
-				width: 300px; background-color: rgb(255, 195, 44); color:white}
-			
-
-			/**오른쪽*/
-			
-			div.jeju-sidebar-right{
-				flex-basis: 300px;
-				flex-shrink: 0;
-				background-color: white;
-				height: 100%;
-				order: 2;
-				text-align: center;
-				overflow: auto;
-				
-			}
-			.sidebar-right-area{
-				padding-top: 30px;
-				padding-bottom: 30px;
-				padding-left: 10px;
-				padding-right: 10px;
-				width: 100%;
-				height: 100%;
-				box-sizing: border-box;
-				
-			}
-			.keyword-input{
-				width: 200px;
-				height: 40px;
-				box-sizing: border-box;
-				color: rgb(136, 136, 136);
-				background-color: white;
-				outline: none;
-				border: 3px rgba(194, 193, 193, 0.89) solid;
-				border-radius: 4px;
-				text-align: center;
-			}
-			.search-place-button{
-				border: 0;
-				outline: 0;
-				width: 30px;
-				height: 40px;
-				background-color: rgba(100, 148, 237, 0.568);
-				border-radius: 4px;
-			}
-			.search-place-button:hover{background-color: cornflowerblue;}
-			.search-place-category{
-				padding-top: 10px;
-				padding-bottom: 10px;
-			}
-			.category-input{
-				margin-left: 10px;
-				margin-right: 10px;
-				color: cornflowerblue;
-				font-weight: bold;
-				font-size: large;
-				border-bottom: 3px solid cornflowerblue;
-			}
-			/**검색목록 나오는 곳*/
-			.sidebar-spot-wrapper{
-				padding: 10px;
-				box-sizing: border-box;
-			}
-			.ul-spot{padding: 0px;margin: 0px;}
-			/**li 테두리*/
-			.spot-card{padding: 0px; box-sizing: border-box;}
-			/**테두리*/
-			.spot-info{width: 100%;height: 80px;border: 1px solid gray;margin:2px;}
-
-			/**사진영역*/
-			.spot-info-photo{box-sizing: border-box;float: left;width: 30%;height: 100%;background-color: rgb(220, 231, 255);}
-			.spotImg{box-sizing: border-box;object-fit: cover;}
-			/**내용*/
-			.spot-info-detail{box-sizing: border-box;float: left;width: 70%; text-align: left; padding: 5px; }
-			/**장소이름*/
-			.spot-info-name{height: 40px; }
-			/**버튼wrap*/
-			.spot-bnt-wrap{float: right;  height: 25px;}
-			.plan-info-bnt{background-color: rgb(220, 231, 255); width: 25px;border: 0; outline: 0; border-radius: 50px;}
-			.plan-add-bnt:link, .plan-add-bnt:visited .plan-add-bnt:hover .plan-add-bnt:active{display: inline-block; text-align: center;background-color: cornflowerblue; width: 25px;border-radius: 50px; color: white;}
-
-			/**지도*/
-			div.jeju-googleMap{ 
-				flex-basis: 100%;
-				height: 100%;
-				order: 1;
-				
-			}
-			#googleMap {height: 100%; width: 100%;}
-			.planner-name{text-align: center; font-size: xx-large; font-weight: bold; color: rgb(254 159 41);}
-			.plan-showdays{text-align: center; font-size: x-large; color: rgb(136, 136, 136);}
-			input.datepicker{
-				width: 150px;
-				color:rgb(136, 136, 136); 
-				font-size: medium; 
-				word-spacing: 1px; 
-				letter-spacing: -1px;
-				outline: none;
-				border-top: none;
-				border-right: none;
-				border-left: none;
-				border-bottom: 3px rgba(194, 193, 193, 0.89) solid; 
-			}
-			.planner-calender{font-size: x-large; color: rgb(136, 136, 136);}
-			.search-place-keyword{float: none;}
-			
-			
-    
-		</style>
 
 	</head>
 	<body>
@@ -942,26 +727,22 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="col-6">
                                 <div class="row">
-                                    
                                     <div class="col-8">
-										
                                         <p id="placeNameModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    
-                                    <div class="col-8" id="placeContentModal-area">
+                                    <div class="col-8 modal-content-area" id="placeContentModal-area">
                                         <p id="placeContentModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    
-                                    <div class="col-8">
+                                    <div class="col-8 modal-addr-area">
                                         <p id="placeAddrModal"></p>
                                     </div>
                                 </div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-link-bnt">링크</button>
+									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">링크</a>
 									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" >추가하기</button>
 								</div>
                             </div>

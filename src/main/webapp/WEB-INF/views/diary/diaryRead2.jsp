@@ -7,53 +7,15 @@ pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="UTF-8">
         <title>제주잇다::다이어리::</title>
-        
-		<style>
-			.diary-view{margin-top: 80px;}
-			.diary-titleview{
-				margin-top: 50px;
-				margin-bottom: 50px;
-				margin-left: 150px;
-				margin-right: 150px;
-				padding: 50px;
-			}
-			.diary-main-view{
-				margin-left: 150px;
-				margin-right: 150px;
-				padding: 20px;
-				
-			}
-			.planner-place-area{
-				
-				--bs-gutter-x: 1.5rem;
-				--bs-gutter-y: 0;
-				display: flex;
-				flex-wrap: wrap;
-				margin-top: calc(-1 * var(--bs-gutter-y));
-				margin-left: 30px;
-				float: left;
 
-				/* margin-right: calc(-.5 * var(--bs-gutter-x));
-				margin-left: calc(-.5 * var(--bs-gutter-x)); */
-			}
-			.diaryline-area{background-color: rgb(231, 242, 253); float: left;}
-			.diary-row{clear: both; display: table; padding-bottom: 30px; height: 200px;}
-			.diaryline-card{float: left;}
-			.planner-place-area, diaryline-area{display: table-cell;}
-			.diaryline-Image{box-sizing: border-box; width: 200px; height: 200px; border: 1px solid gray;}
-			.diarylineImg{box-sizing: border-box; width: 200px; height: 200px; object-fit: cover; }
-			.place-card{background-color: rgb(255, 248, 236); width: 170px; height: 200px;border: 1px saddlebrown solid;}
-			input[ class="icon-bnt"]{display: none;}
-			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
-			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
-			a{text-decoration: none;}
-			.update-col{width: 50%;}
-			textarea:focus{outline: 1px solid gray;}
-			#delete-check-message{text-align: center;}
-			#update-diaryName{width: 100%;}
-			#update-diaryCount{width: 100%}
-			#insert-diaryPhoto, #update-diary-diaryPhoto{display: none;}
-		</style>
+        <!-- CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/3d026d01cb.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
+		<script src="https://kit.fontawesome.com/3d026d01cb.js" crossorigin="anonymous"></script>
+	
 		<script>
 			$(function(){
 				const DiaryId = "${requestScope.diary.plannerId}"
@@ -71,16 +33,19 @@ pageEncoding="UTF-8"%>
 						success: function(result){
 							console.log(result)
 							let str="";
-							str+=`<h1>\${result.diary.diaryTitle}</h1>`;
-							str+=`<h4>\${result.diary.plannerStart} ~ \${result.diary.plannerEnd}  (\${result.diary.planDays} DAY)</h4>`
-							str+=`<div>`
+							str+=`<p class='diaryTitle'>\${result.diary.diaryTitle}</p>`;
+							str+=`<p class='diaryDays'>\${result.diary.plannerStart} ~ \${result.diary.plannerEnd}  (\${result.diary.planDays} DAY)</p>`
+							str+=`<div class='diaryBottom'>`
 								if(!result.diary.diaryType){
-									str+=`<span>\${result.diary.diaryCount}명</span>`
+									str+=`<span><i class="fa-solid fa-plane"></i>\${result.diary.diaryCount}명</span>`
 								}else{
-									str+=`<span>\${result.diary.diaryType}</span><span>\${result.diary.diaryCount}명</span>`
+									str+=`<span>
+											<i class="fa-solid fa-plane"></i>\${result.diary.diaryType}
+											<i class="fa-solid fa-plane"></i>\${result.diary.diaryCount}명
+										</span>`
 								}
-								str+=`<span id="setting"><select id="setting-select">`
-									str+=`<option value='none'>관리</option>`
+								str+=`<span id="setting"><select id="setting-select" class='diary-setting'>`
+									str+=`<option value='none'>⚙️관리</option>`
 									str+=`<option value='updateTitle' >다이어리 이름 변경</option>`
 									str+=`<option value='updateInfo' >다이어리 정보 수정</option>`
 									str+=`<option value='deleteDiary' >다이어리 삭제</option>`
@@ -97,52 +62,50 @@ pageEncoding="UTF-8"%>
 								//장소
 								str2+=`<div class="diary-row">`
 									str2+=`<div class="planner-place-area">`
-										str2+=`<div class="place-container">`
-											str2+= `<div class="place-card">`
-												str2+= `<a href="#"><div class="place-Img">장소이미지 자리 \${diaryline.placePhoto}</div></a>`
-												str2+=`<div class="place-detail-box">`
-													str2+=`<h3><a href="#">\${diaryline.placeName}</a></h3>`
-													str2+=`<p class="blog-meta"><span class="author"><button type="button" id="plan-info-bnt" class='badge rounded-pill bg-light text-dark' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="\${diaryline.placeId}">i</button></span></p>`
-												str2+=`</div>`
+										str2+= `<div class="place-card">`
+											str2+= `<div>
+														<img class='place-Img' src='/images/place/\${diaryline.placePhoto}'></img>
+													</div>`
+											str2+=`<div class="place-detail-box">`
+												str2+=`<p class='place-name'>\${diaryline.placeName}</p>`
+												str2+=`<p class="place-info"><span><button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="\${diaryline.placeId}">i</button><span></p>`
 											str2+=`</div>`
-									str2+=`</div>`
+										str2+=`</div>`
 									str2+=`</div>`
 
 									str2+=`<div class="diaryline-area">`
-										str2+=`<div class="diaryline-container">`
 											
-											if(!price  && !content && !photo){
-												str2+=`<div class="diaryline-card">`
-													str2+=`<a href="javascript:void(0);" id="write-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}"><div>다이어리 작성하기</div></a>`
+										if(!price  && !content && !photo){
+											str2+=`<div class="diaryline-card">`
+												str2+=`<a href="javascript:void(0);" id="write-diaryline-bnt" class='write-diaryline-bnt' data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">+</a>`
+											str2+=`</div>`
+										}else{
+											str2+=`<div class="diaryline-card">`
+												str2+=`<div class="diaryImg-card">`
+													str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">
+														<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}">
+														</div></a>`
 												str2+=`</div>`
-											}else{
-												str2+=`<div class="diaryline-card">`
-													str2+=`<div class="diaryImg-card">`
-														str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">
-															<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}">
-															</div></a>`
+											str2+=`</div>`
+											str2+=`<div class="diaryline-card">`
+											str2+=`<div class="single-latest-news">`
+													str2+=`<div class="diaryline-text-box">`
+														str2+=`<p class="excerpt">\${diaryline.diaryLineContent}\</p>`
+														str2+=`<p>`
+															str2+=`<span>경비: \${diaryline.diaryLinePrice}원</span>`
+															str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
+																	<img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;">
+																</a></span>`
+															str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
+																	<img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;">
+																</a></span>`
+														str2+=`</p>`
 													str2+=`</div>`
 												str2+=`</div>`
-												str2+=`<div class="diaryline-card">`
-												str2+=`<div class="single-latest-news">`
-														str2+=`<div class="diaryline-text-box">`
-															str2+=`<p class="excerpt">\${diaryline.diaryLineContent}\</p>`
-															str2+=`<p>`
-																str2+=`<span>경비: \${diaryline.diaryLinePrice}원</span>`
-																str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
-																		<img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;">
-																	</a></span>`
-																str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
-																		<img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;">
-																	</a></span>`
-															str2+=`</p>`
-														str2+=`</div>`
-													str2+=`</div>`
-												str2+=`</div>`
-												
-											}
+											str2+=`</div>`
+											
+										}
 
-										str2+=`</div>`
 									str2+=`</div>`
 								str2+=`</div>`
 								
@@ -180,8 +143,8 @@ pageEncoding="UTF-8"%>
 							$("#placeNameModal").text(result.placeName);
 							$("#placeAddrModal").text(result.placeAddr);
 							$("#placeContentModal").text(result.placeContent);
-							$("placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
-							$("modal-link-bnt").attr("urlInfo",result.placeUrl);
+							$("#placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
+							$("#modal-link-bnt").attr("href",result.placeUrl);
 
 						},
 						error: function(error){
@@ -322,26 +285,179 @@ pageEncoding="UTF-8"%>
 	
 		</script>
 
+		<style>
+			.mt-150{margin-top: 50px;}
+			.container{max-width: 1100px;}
+			/* div.diary-row{
+				max-width: 1100px;
+				height: 200px;
+				margin: 50px;
+				border-top: solid 3px gainsboro;
+				border-bottom: 3px solid gainsboro;
+				padding: 0%;
+			} */
+			.body-row{width: 1000px;}
+			.col-lg-8{width: 100%;}
+			.title-row{
+				width: 1000px;
+				border-top: solid 2px rgb(189, 189, 189);
+				border-bottom: 2px solid rgb(189, 189, 189);
+			}
+			div.diary-titleview{
+				padding: 30px;
+			}
+			.diaryTitle{
+				font-size: xx-large;
+				font-weight: bold;
+				color: rgb(49, 49, 49);
+				margin: 0;
+			}
+			.diaryDays{
+				font-size: x-large;
+				color:rgb(136, 136, 136); 
+				word-spacing: -5px; 
+    			letter-spacing: -1px;
+				margin: 0;
+			}
+			.diaryBottom{
+				display: flex;
+				justify-content: space-between;
+				font-size: medium;
+				color: rgb(80, 80, 80);
+				word-spacing: 10px;
+				letter-spacing: 5px;
+			}
+			.diary-setting{
+				color: rgb(214, 212, 212);
+				width: 150px;
+				outline: none;
+				text-align: center;
+				font-size: medium;
+				font-weight: bold;
+				border: 4px solid rgb(80, 80, 80);
+				background-color: rgb(80, 80, 80);
+				border-radius: 4px;
+			}
+
+			/**본문*/
+			div.diary-main-view{
+				margin-top: 30px;
+				margin-bottom: 30px;
+			}
+			.diary-row{clear: both; display: flex; height: 200px;width: 100%; margin-bottom: 30px;}
+			/**장소카드*/
+			.planner-place-area{
+				
+				--bs-gutter-x: 1.5rem;
+				--bs-gutter-y: 0;
+				display: flex;
+				flex-wrap: wrap;
+				margin-top: calc(-1 * var(--bs-gutter-y));
+				margin-left: 30px;
+				float: left;
+
+				/* margin-right: calc(-.5 * var(--bs-gutter-x));
+				margin-left: calc(-.5 * var(--bs-gutter-x)); */
+			}
+			.place-card{
+				display: flex;
+				flex-direction: column;
+				background-color: rgb(189, 189, 189); 
+				width: 170px; 
+				height: 200px;
+				border: 2px solid rgb(189, 189, 189);
+			}
+			.place-Img{
+				width: 170px; 
+				height: 110px; 
+				box-sizing: border-box;
+				object-fit: cover;}
+			.place-detail-box{
+				height: 90px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+			.place-name{
+				color: rgb(80, 80, 80);
+				font-size: 25px;
+				height: 50px;
+				font-size: medium;
+				text-align: left;
+				word-wrap: break-word;
+				margin: 0;
+			}
+			.place-info{float: right;  height: 25px; box-sizing: border-box;}
+			.plan-info-bnt{background-color: rgb(224, 224, 224); width: 25px;border: 0; outline: 0; border-radius: 50px; font-size: small;}
+
+			/**다이어리내용*/
+			.diaryline-area{background-color: rgb(241, 241, 241); float: left; margin-left: 20px;}
+			.diaryline-card{float: left; display: flex;}
+			.write-diaryline-bnt{width: 50px; height: 200px; text-align: center; line-height: 200px; font-size: xx-large;color: rgb(80, 80, 80);}
+			.write-diaryline-bnt:hover{color: orange; background-color:  rgb(255, 217, 170);}
+
+
+			.diaryline-Image{box-sizing: border-box; width: 200px; height: 200px;}
+			.diarylineImg{box-sizing: border-box; width: 200px; height: 200px; object-fit: cover; }
+			
+			input[ class="icon-bnt"]{display: none;}
+			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
+			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
+			a{text-decoration: none;}
+			.update-col{width: 50%;}
+			textarea:focus{outline: 1px solid gray;}
+			#delete-check-message{text-align: center;}
+			#update-diaryName{width: 100%;}
+			#update-diaryCount{width: 100%}
+			#insert-diaryPhoto, #update-diary-diaryPhoto{display: none;}
+
+			/**장소 정보 모달*/
+			.modal-content-area{
+				word-wrap: break-word;
+				font-size: small;
+				width: 500px;
+				height: 100px;
+				overflow: auto;
+				padding-bottom: 5px;
+			}
+			.modal-addr-area{
+				font-size: small;
+				width: 500px;
+				height: 30px;
+				word-wrap: break-word;
+
+			}
+		</style>
+
 	</head>
 	<body>
-		<section class="diary-view">
-			<!--상단 제목-->
-			<div id="diary-title-container" class="title-container">
-				<div id="diary-titleview" class="diary-titleview"></div>
-			</div>
-			
-			<!--본문-->
-			<div class="diary-main-container">
-				<div id="diary-main-view" class="diary-main-view"></div>
-			</div>
-			<!--다이어리 하단-->
-			<div class="diary-footer-container">
-				<div id="diary-TotalPrice-area" class="diary-TotalPrice-area"></div>
-				<div>
-					<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
+		<div class="latest-news mt-150 mb-150">
+			<div class="container">
+				<div class="title-row">
+					<!--상단 제목-->
+					<div id="diary-title-container" class="col-lg-8">
+						<div id="diary-titleview" class="diary-titleview"></div>
+					</div>
 				</div>
-			</div>
-		</section>
+				<div class="body-row">
+					<!--본문-->
+					<div class="col-lg-8">
+						<div id="diary-main-view" class="diary-main-view"></div>
+					</div>
+				</div>	
+				<div class="body-row">
+					<!--다이어리 하단-->
+					<div class="col-lg-8">
+						<div id="diary-TotalPrice-area" class="diary-TotalPrice-area"></div>
+						<div>
+							<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+
 
 			
 
@@ -366,17 +482,17 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-8" id="placeContentModal-area">
+                                    <div class="col-8 modal-content-area" id="placeContentModal-area" >
                                         <p id="placeContentModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-8 modal-addr-area">
                                         <p id="placeAddrModal"></p>
                                     </div>
                                 </div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-link-bnt">링크</button>
+									<a href='#' target='_blank'  class="modal-link-bnt" data-dismiss="modal" id="modal-link-bnt">링크</a>
 								</div>
                             </div>
                         </div>

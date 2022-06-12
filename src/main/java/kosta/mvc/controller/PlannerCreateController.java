@@ -57,6 +57,7 @@ public class PlannerCreateController {
 	/**플래너 전체조회하기*/
 	@RequestMapping("/plannerIndex")
 	public void selectAllByUserID(Model model, HttpSession session, @RequestParam(defaultValue = "1") int nowPage){
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//임시 테스트 아이디
 		String userId ="aaa";
 		Users loginUser =userService.selectById(userId);
