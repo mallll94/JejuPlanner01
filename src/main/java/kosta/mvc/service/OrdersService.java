@@ -14,7 +14,7 @@ public interface OrdersService {
 	/**
 	 * 주문 등록하기
 	 */
-	public void addOrders(List<GoodsLine> list,String name, String email, String phone,int totalPrice,Users users,String text,String type );
+	public Long addOrders(List<GoodsLine> list,String name, String email, String phone,int totalPrice,Users users,String text,String type );
 	
 	/**
 	 * 주문 취소하기

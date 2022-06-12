@@ -10,5 +10,6 @@
 </head>
 <body>
 <h1>결제성공</h1>
+
 </body>
 </html>

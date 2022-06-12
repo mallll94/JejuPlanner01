@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kosta.mvc.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 
 //import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -21,12 +22,26 @@ import lombok.RequiredArgsConstructor;
 public class ChatController {
 	
 
+	
+	
 	@RequestMapping("/list")
 	public String chat() {
 		
 		return "chat/chat_List";
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	@MessageMapping("/chat.register")
 	@SendTo("/queue/public")

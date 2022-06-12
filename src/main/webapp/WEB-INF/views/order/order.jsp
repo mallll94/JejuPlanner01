@@ -109,6 +109,10 @@ $(function(){
 						var box =result.next_redirect_pc_url;
 						window.open(box,"카카오페이",options);
 						
+						
+						window.close();
+							
+
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){
@@ -127,7 +131,7 @@ $(function(){
 						email : $("#bookEmail").val(), phone : $("#bookPhone").val(), totalPrice : $("#sutotal").html().replace(/,/g, "").replace("₩","")
 						,text: $("#text").val()},
 					success: function(result){
-						alert("가상계좌 : "+result);
+						alert("가상계좌 : "+result[0]);
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){

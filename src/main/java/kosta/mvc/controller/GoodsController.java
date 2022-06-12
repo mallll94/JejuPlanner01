@@ -113,4 +113,15 @@ public class GoodsController {
 			model.addAttribute("goods", null);
 		}
 	}
+	
+	
+	
+	@RequestMapping("/search")
+	public String searchKeyWord(String keyWord) {
+		
+		//goods
+		
+		
+		return null;
+	}
 }
