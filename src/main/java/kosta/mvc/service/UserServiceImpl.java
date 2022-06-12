@@ -29,6 +29,7 @@ import kosta.mvc.domain.Users;
 import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import oracle.net.aso.b;
 
 @Service
 @Transactional
@@ -232,23 +233,21 @@ public class UserServiceImpl implements UserService {
 			result = userRep.findAll(builder, pageable);
 			//List<Orders> list= (List<Orders>) orderRep.findAll(builder);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		return result;
+	}
+
+	@Override
+	public int emailCheck(String email) {
+	
+		QUsers users = QUsers.users;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.and(users.userEmail.equalsIgnoreCase(email));
+		
+		Long result=userRep.count(builder);
+		int check=result.intValue();
+		return check;
 	}
 
 }

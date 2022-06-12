@@ -58,6 +58,7 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 		// TODO Auto-generated method stub
 		Goods goods = new Goods();
 		goods.setGoodsId(goodsId);
+		System.out.println("test");
 		return goodsReplyRepository.findGoodsReplyByGoods(goods);
 	}
 

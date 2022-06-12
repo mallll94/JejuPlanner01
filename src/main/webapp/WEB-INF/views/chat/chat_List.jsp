@@ -121,7 +121,7 @@
                                     <h2>Update</h2>
                                  </div>
                               </div>
-                              <div class="full progress_bar_inner">
+                              <div class="full progress_bar_inner" style="display: table-">
                                  <div class="row">
                                     <div class="col-md-12">
                                        <div class="msg_list_main">

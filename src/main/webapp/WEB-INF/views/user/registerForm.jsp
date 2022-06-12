@@ -37,7 +37,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	<!-- bootstrap -->
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/vendor/js/helpers.js"></script>
+    
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -47,8 +47,32 @@
 $(function(){
 	var checkResultId="";
 	
-	$("#emailCheck").click(function(){
-		emailSend($("#userEmail").val());
+	$("#userEmail").keyup(function(){
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/user/emailCheckAjax",
+			dataType:"text",
+			data:{'${_csrf.parameterName}' : '${_csrf.token}' ,email : $(this).val()},	
+			success:function(data){	
+				console.log($("#userEmail").val() )
+				if($("#userEmail").val()==" "){
+					$("#emailCheck").html("fdfd");
+				}
+				if(data ==0){
+					$("#emailCheck").html("사용가능").css("color","blue");
+				}else if(data ==1){
+					$("#emailCheck").html("중복").css("color","red");
+				}
+				
+				
+			}//callback
+		});//ajax
+		
+		
+		
+		
+		
 	});
 	$("#codeCheck").click(function(){
 		codeCheck($("#code").val());
@@ -263,7 +287,7 @@ $(function(){
 							<input type="text" id="userPhone" class="form-control" name ="userPhone"/>
 						</div>
 						<div class="col-md-12 form-group">
-							<label class="form-label" >이메일주소</label>
+							<label class="form-label" >이메일주소</label><span id="emailCheck"></span>
 							<input type="text" id="userEmail" class="form-control" name ="userEmail"/>
 						</div>
 						<div class="col-md-12 form-group">

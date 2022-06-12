@@ -9,92 +9,24 @@
 <title>Insert title here</title>
 
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/all.min.css">
 
-    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/bootstrap/css/bootstrap.min.css">
 	
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/owl.carousel.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/all.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/magnific-popup.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/bootstrap/css/bootstrap.min.css">
-	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/animate.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/meanmenu.min.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/main.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/meanmenu.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/responsive.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/main.css">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/planboard/css/responsive.css">
-	
 
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/jquery-1.11.3.min.js"></script>
-	
-	<script src="${pageContext.request.contextPath}/assets/planboard/bootstrap/js/bootstrap.min.js"></script>
-	
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/jquery.countdown.js"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/jquery.isotope-3.0.6.min.js"></script>
-	
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/waypoints.js"></script>
-	
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/owl.carousel.min.js"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/jquery.magnific-popup.min.js"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/jquery.meanmenu.min.js"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/sticker.js"></script>
-
-	<script src="${pageContext.request.contextPath}/assets/planboard/js/main.js"></script> 
-
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-   
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/owl.carousel.css">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/magnific-popup.css">
-    <!-- animate css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/animate.css">
-    <!-- mean menu css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/meanmenu.min.css">
-    <!-- main style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/responsive.css">    
-
-    <!-- jquery -->
-    <script src="${pageContext.request.contextPath}/js/diary/jquery-1.11.3.min.js"></script>
-    <!-- bootstrap -->
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <!-- count down -->
-    <script src="${pageContext.request.contextPath}/js/diary/jquery.countdown.js"></script>
-    <!-- isotope -->
-    <script src="${pageContext.request.contextPath}/js/diary/jquery.isotope-3.0.6.min.js"></script>
-    <!-- waypoints -->
-    <script src="${pageContext.request.contextPath}/js/diary/waypoints.js"></script>
-    <!-- owl carousel -->
-    <script src="${pageContext.request.contextPath}/js/diary/owl.carousel.min.js"></script>
-    <!-- magnific popup -->
-    <script src="${pageContext.request.contextPath}/js/diary/jquery.magnific-popup.min.js"></script>
-    <!-- mean menu -->
-    <script src="${pageContext.request.contextPath}/js/diary/jquery.meanmenu.min.js"></script>
-    <!-- sticker js -->
-    <script src="${pageContext.request.contextPath}/js/diary/sticker.js"></script>
-    <!-- main js -->
-    <script src="${pageContext.request.contextPath}/js/diary/main.js"></script>
-
-    <style>
-        .diary-bg-1 {
-            background-image: url(../../../img/diary-default.jpg);
-        }
-    </style>
     
 <script type="text/javascript">
     
@@ -122,12 +54,12 @@
 <body>
 
 
-<h3 align="center">플래너공유 게시판</h3>
+<h3 align="center">관리자 플래너공유 게시판</h3>
 
-<div align="center">
- <button type="button" class="btn btn-light" name="나홀로">나홀로</button>
- <button type="button" class="btn btn-light" name="가족/부모님">가족/부모님</button>
- <button type="button" class="btn btn-light" name="친구">친구</button>
+<div align="center" style="position: relative; top:100px">
+ <button type="button" class="btn btn-light" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
+ <button type="button" class="btn btn-light" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
+ <button type="button" class="btn btn-light" name="친구">친구</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light" name="연인">연인</button>
 </div>
 
@@ -159,7 +91,7 @@
 				<form name="requestForm" method = "post" id="requestForm">
                   <input type="hidden" name="pboardId" value="${planboard.pboardId}">
 				   <div align="right">	
-					<button type="button" class="delete-btn btn-primary py-2 px-4" value="삭제">삭제</button>
+					<button type="button" class="delete-btn btn-primary py-1 px-2" value="삭제">삭제</button>
 		           </div>
 		        </form>  
 		           
