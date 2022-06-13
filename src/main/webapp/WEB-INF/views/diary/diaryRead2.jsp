@@ -88,19 +88,17 @@ pageEncoding="UTF-8"%>
 												str2+=`</div>`
 											str2+=`</div>`
 											str2+=`<div class="diaryline-card">`
-											str2+=`<div class="single-latest-news">`
-													str2+=`<div class="diaryline-text-box">`
-														str2+=`<p class="excerpt">\${diaryline.diaryLineContent}\</p>`
-														str2+=`<p>`
-															str2+=`<span>경비: \${diaryline.diaryLinePrice}원</span>`
-															str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
-																	<img alt="편집아이콘" src="/icon/pen.png" class="icon-edit-diaryline" style="width: 15px; height: inherit;">
-																</a></span>`
-															str2+=`<span><a href="javascript:void(0); class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
-																	<img alt="삭제아이콘" src="/icon/bin.png" class="icon-delete-diaryline" style="width: 15px; height: inherit;">
-																</a></span>`
-														str2+=`</p>`
-													str2+=`</div>`
+												str2+=`<div class="diaryline-text-box">`
+													str2+=`<p class="diaryline-content">\${diaryline.diaryLineContent}\</p>`
+													str2+=`<p class="diaryline-bottom">`
+														str2+=`<span>경비: \${diaryline.diaryLinePrice}원</span>`
+														str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
+															<i class="fa-solid fa-pen-nib"></i>
+															</a></span>`
+														str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
+																<i class="fa-solid fa-trash-can"></i>
+															</a></span>`
+													str2+=`</p>`
 												str2+=`</div>`
 											str2+=`</div>`
 											
@@ -347,26 +345,31 @@ pageEncoding="UTF-8"%>
 			.diary-row{clear: both; display: flex; height: 200px;width: 100%; margin-bottom: 30px;}
 			/**장소카드*/
 			.planner-place-area{
-				
 				--bs-gutter-x: 1.5rem;
 				--bs-gutter-y: 0;
 				display: flex;
 				flex-wrap: wrap;
 				margin-top: calc(-1 * var(--bs-gutter-y));
 				margin-left: 30px;
-				float: left;
+
+
+				flex-direction: column;
+				width: 170px; 
+				height: 200px;
+				background-color: antiquewhite;
+				box-shadow: 2px 2px 5px 1px rgb(209, 209, 209);
 
 				/* margin-right: calc(-.5 * var(--bs-gutter-x));
 				margin-left: calc(-.5 * var(--bs-gutter-x)); */
 			}
-			.place-card{
+			/* .place-card{
 				display: flex;
 				flex-direction: column;
 				background-color: rgb(189, 189, 189); 
 				width: 170px; 
 				height: 200px;
 				border: 2px solid rgb(189, 189, 189);
-			}
+			} */
 			.place-Img{
 				width: 170px; 
 				height: 110px; 
@@ -392,16 +395,67 @@ pageEncoding="UTF-8"%>
 			.plan-info-bnt{background-color: rgb(224, 224, 224); width: 25px;border: 0; outline: 0; border-radius: 50px; font-size: small;}
 
 			/**다이어리내용*/
-			.diaryline-area{background-color: rgb(241, 241, 241); float: left; margin-left: 20px;}
-			.diaryline-card{float: left; display: flex;}
-			.write-diaryline-bnt{width: 50px; height: 200px; text-align: center; line-height: 200px; font-size: xx-large;color: rgb(80, 80, 80);}
+			.diaryline-area{
+				background-color: white;
+				display: flex;
+				margin-left: 20px;
+				margin-right: 30px;
+				border-radius: 5px;
+				box-shadow: 2px 2px 5px 1px rgb(209, 209, 209);
+			}
+			.diaryline-card{
+				min-width: 50px;
+			}
+			/* .diaryline-card{float: left; } */
+			.write-diaryline-bnt{
+				display: inline-block;
+				width: 50px; 
+				height: 200px; 
+				text-align: center; 
+				line-height: 200px;
+				font-size: xx-large;
+				color: rgb(80, 80, 80);
+			}
 			.write-diaryline-bnt:hover{color: orange; background-color:  rgb(255, 217, 170);}
 
-
+			/**다이어리 이미지*/
 			.diaryline-Image{box-sizing: border-box; width: 200px; height: 200px;}
 			.diarylineImg{box-sizing: border-box; width: 200px; height: 200px; object-fit: cover; }
+
+			/**다이어리 내용*/
+			.diaryline-text-box{
+				width: 550px;
+				height: 200px;
+				padding: 10px;
+			}
+			.diaryline-content{
+				height: 120px;
+				text-align: left;
+				margin-bottom: 10px;
+			}
+			.diaryline-bottom{
+				height: 50px;
+				text-align: right;
+				line-height: 50px;
+				font-size: large;
+				font-weight: bold;
+				color: orange;
+			}
+			.icon-bnt-area{
+				width: 30px;
+				height: 30px;
+				margin-left: 10px;
+				margin-left: 10px;
+			}
+			.icon-bnt{
+				width: 35px;
+				display: inline-block;
+				color:rgb(80, 80, 80) ;
+				text-align: center; 
+				line-height: 30px;
+			} 
 			
-			input[ class="icon-bnt"]{display: none;}
+			
 			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
 			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
 			a{text-decoration: none;}
@@ -415,19 +469,23 @@ pageEncoding="UTF-8"%>
 			/**장소 정보 모달*/
 			.modal-content-area{
 				word-wrap: break-word;
-				font-size: small;
 				width: 500px;
-				height: 100px;
+				height: 150px;
 				overflow: auto;
 				padding-bottom: 5px;
 			}
-			.modal-addr-area{
+			.placeContentModal{
 				font-size: small;
+			}
+			.modal-addr-area{	
 				width: 500px;
 				height: 30px;
 				word-wrap: break-word;
-
 			}
+			.placeAddrModal{
+				font-size: small;
+			}
+		
 		</style>
 
 	</head>
@@ -483,12 +541,12 @@ pageEncoding="UTF-8"%>
                                 </div>
                                 <div class="row">
                                     <div class="col-8 modal-content-area" id="placeContentModal-area" >
-                                        <p id="placeContentModal"></p>
+                                        <p id="placeContentModal" class="placeContentModal"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-8 modal-addr-area">
-                                        <p id="placeAddrModal"></p>
+                                        <p id="placeAddrModal" class="placeAddrModal"></p>
                                     </div>
                                 </div>
 								<div class="modal-footer">

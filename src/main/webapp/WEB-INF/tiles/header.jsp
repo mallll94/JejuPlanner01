@@ -89,7 +89,7 @@
 					<li><a href="${pageContext.request.contextPath}/goods/view/goods_Main" id="">여행상품</a></li>
 					<li><a href="${pageContext.request.contextPath}/planner/plannerIndex">플래너</a></li>
 					<li><a href="">게시판</a></li>
-					<li><a href="">다이어리</a></li>
+					<li><a href="${pageContext.request.contextPath}/diary/diaryIndex">다이어리</a></li>
 				</ul>
 				<ul>
 					<li><a href="#">제주도 한눈에보기</a></li>
