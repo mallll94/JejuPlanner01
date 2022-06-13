@@ -72,10 +72,17 @@
                 text-align: left;
                 margin-left: 280px;
             }
+            .section-title {
+            	margin-top: 50px;
+            }
         </style>
 
         <body>
-            <img src="${pageContext.request.contextPath}/img/goods/goods3.png" width="100%" height="250px">
+            <%-- <img src="${pageContext.request.contextPath}/img/goods/goods3.png" width="100%" height="250px"> --%>
+            	<div class="section-title">
+                    <span>제주잇다만의 프리미엄 상품입니다.</span>
+                    <h2>여행상품</h2>
+                </div>
             <h3 class="title">카테고리</h3>
             <div class="container text-center">
                 <div class="btn btn-lg" aria-label="...">
