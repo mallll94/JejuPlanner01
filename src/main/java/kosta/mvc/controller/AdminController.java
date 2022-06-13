@@ -26,11 +26,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Users;
+import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.OrdersService;
 import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.UserService;
@@ -45,6 +48,7 @@ public class AdminController {
 	private final PlaceService placeService;
 	private final UserService userService;
 	private final OrdersService ordersService;
+	private final GoodsService goodsService;
 	
 	private final static int PAGE_COUNT=2;
 	private final static int BLOCK_COUNT=4;
@@ -245,6 +249,14 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("/goods_Admin")
+	public ModelAndView listForAdmin(Model model) {
+		List<Goods> goodsList = goodsService.getAllGoods();
+		List<Place> placeList = placeService.selectAll();
+		model.addAttribute("goodsList", goodsList);
+		model.addAttribute("placeList", placeList);
+		return new ModelAndView("admin/goods_Admin");
+	}
 	
 	
 	

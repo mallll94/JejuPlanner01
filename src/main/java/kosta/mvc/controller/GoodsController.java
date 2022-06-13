@@ -67,7 +67,6 @@ public class GoodsController {
 	
 	@PostMapping("/view/goods_List/plannerCategory")
 	public ModelAndView getGoodsListViewPlannerCategory() {
-		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Goods> goodsList = goodsService.getAllGoodsByPlanner(users);
 
@@ -76,6 +75,9 @@ public class GoodsController {
 	
 	@GetMapping("/view/goods_Main")
 	public ModelAndView getGoodsMainView(Model model) {
+		List<Goods> goodsList = goodsService.getAllGoodsOrderBySalesAmount();
+		System.out.println(goodsList.size());
+		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_Main");
 	}
 	
