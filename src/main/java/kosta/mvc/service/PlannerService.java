@@ -33,7 +33,10 @@ public interface PlannerService {
 	
 	/**카테고리별 플래너 일정 검색*/
 	List<PlannerPlaceDTO> selectPlaceByPlanner (Long plannerId);
-	
+	/**
+	 * 아이디 플래너 검색
+	 * */
+	List<Planner> selectByUserId(String userId);
 	
 	/**
 	 * 플래너 생성

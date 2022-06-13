@@ -306,5 +306,17 @@ public class PlannerServiceImpl implements PlannerService {
 		plannerRep.deleteById(plannerId);
 		
 	}
+
+	@Override
+	public List<Planner> selectByUserId(String userId) {
+		QPlanner planner = QPlanner.planner;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.and(planner.user.userId.equalsIgnoreCase(userId));
+		List<Planner> list=(List<Planner>) plannerRep.findAll(builder);
+		
+		
+		return list;
+	}
 	
 }

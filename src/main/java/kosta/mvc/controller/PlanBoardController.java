@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
+import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.LikesDTO;
 import kosta.mvc.service.PlanBoardService;
+import kosta.mvc.service.PlannerService;
 import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +31,9 @@ public class PlanBoardController {
 
    private final PlanBoardService planBoardService;
    private final UserService userService;
-
+   private final PlannerService plannerService;
+   
+   
    private final static int PAGE_COUNT=6;
    private final static int BLOCK_COUNT=3;
 
@@ -111,8 +115,10 @@ public class PlanBoardController {
 
    /**등록하기*/
    @RequestMapping(value= "/board/pinsert", method = RequestMethod.POST)
-   public String insert(PlanBoard planBoard , HttpSession session) {
-
+   public String insert(PlanBoard planBoard , HttpSession session,Long plannerId) {
+	  planBoard.setUserPlan(plannerService.selectBy(plannerId));
+	   
+	   
       String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
       planBoardService.insertPlanBoard(planBoard, uploadpath);
 
@@ -188,4 +194,11 @@ public class PlanBoardController {
    }
 
 
+   @RequestMapping("/board/planSelect")
+   @ResponseBody
+   public List<Planner> planSelect(){
+	   Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	   System.out.println("Dsd");
+	   return plannerService.selectByUserId(users.getUserId());
+   }
 }
