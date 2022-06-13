@@ -44,18 +44,18 @@
 <body>
 
 
-<h3 align="center" style="position:relative; top: 30px">플래너공유 게시판</h3>
+<h3 align="center" style="position:relative; bottom: 50px">플래너공유 게시판</h3>
 
 <p></p>
 
-<div style="position: absolute; left:39%; bottom: 42%">
+<div style="position: absolute; top:60%; left:45%">
  <button type="button" class="btn btn-light btn-lg" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light btn-lg" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light btn-lg" name="친구">친구</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light btn-lg" name="연인">연인</button>
 </div>
 
-<div align="right" style="position: relative; right:15%; top:105px">
+<div align="right" style="position: relative; right:6%; top:105px">
   <button onclick="location = '${pageContext.request.contextPath}/board/Planboard_Write'" class=" insert-btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">
    글쓰기</button>
 </div>

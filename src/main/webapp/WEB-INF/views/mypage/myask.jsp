@@ -30,7 +30,7 @@
 <!-- row -->
 <div align="center">
 <!-- table section -->
- <div class="col-md-6">
+ <div>
    <div class="white_shd full margin_bottom_30">
       <div class="full graph_head">
          <div class="heading1 margin_0">
@@ -39,8 +39,8 @@
       </div> 
     <div class="table_section padding_infor_info">
        <div class="table-responsive-sm" style="text-align: center;">
-          <table class="table" >
-             <thead>
+          <table class="table" style="width: 800px; margin-left: 230px">
+             <thead align="center">
                 <tr>
                   <th>순서</th>
                   <th>카테고리</th>
