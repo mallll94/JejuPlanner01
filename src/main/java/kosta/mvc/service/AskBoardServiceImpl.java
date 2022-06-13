@@ -11,7 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.querydsl.core.BooleanBuilder;
+
 import kosta.mvc.domain.AskBoard;
+import kosta.mvc.domain.QAskBoard;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.AskBoardRepository;
 import kosta.mvc.repository.UserRepository;
@@ -92,7 +95,7 @@ public class AskBoardServiceImpl implements AskBoardService {
 	
 	/**답변 Y or N*/
     @Override
-	public void complete(Long askId, String btnradio) {
+	public void complete(Long askId , String btnradio) {
 		
 		AskBoard ask = getAskBoard(askId);
 		
@@ -104,8 +107,13 @@ public class AskBoardServiceImpl implements AskBoardService {
 	/**내가 쓴 글 목록 조회하기*/
 	@Override
 	public List<AskBoard> selectByUserId(String userId) {
-				
-		List<AskBoard> askList = askBoardRep.findAll();
+						
+		Users user = userRep.findById(userId).orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
+		QAskBoard ask = QAskBoard.askBoard;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(ask.user.userId.eq(user.getUserId()));
+		
+		List<AskBoard> askList = (List<AskBoard>)askBoardRep.findAll(builder);
 		
 		return askList;
 	}

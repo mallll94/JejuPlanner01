@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.AskBoardService;
+import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 //@Slf4j
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class AskController {
 
 	private final AskBoardService askBoardService;
+	private final UserService userService;
 	
 	private final static int PAGE_COUNT=5;
 	private final static int BLOCK_COUNT=3;
@@ -167,10 +170,10 @@ public class AskController {
 	
 	
 	/**답변 Y or N*/
-	@RequestMapping("/admin/AskDetail_Admin/complete") 
-	public ModelAndView complete(Long askId,String btnradio) {
+	@RequestMapping("/admin/detail/complete") 
+	public ModelAndView complete(Long askId, String btnradio) {
 	
-		 askBoardService.complete(askId, btnradio);
+		 askBoardService.complete(askId , btnradio);
 		 return new ModelAndView("redirect:/board/AskList");
 	  
 	}
@@ -178,11 +181,18 @@ public class AskController {
    
 	/**마이페이지에서 내가 쓴 글 목록 조회*/
 	@RequestMapping("/mypage/myask")
-	public void mylist(Model model, String userId) {
+	public String mylist(Model model) {
 		
-		List<AskBoard> myList = askBoardService.selectByUserId(userId);
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		//Users loginUser =(Users)session.getAttribute("loginUser");
+			
+		List<AskBoard> myList = askBoardService.selectByUserId(users.getUserId());
 		
 		model.addAttribute("myList" , myList);
+		model.addAttribute("users" , users);
+		
+		return "mypage/myask";
 	}
 	
 	

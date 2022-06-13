@@ -157,6 +157,7 @@ $(function(){
  }) 
  
 $(document).ready(function(){
+
 	const pboardId = "${planBoard.pboardId}"
 	const userId = "aaa"
 	let likeVal = "${likes}"
@@ -191,21 +192,6 @@ $(document).ready(function(){
 	
 	
 }) 
-
-/*   var i = 0;
- $('i').on('click',function(){
-    if(i==0){
-       $(this).attr('class','bi-heart-fill');
-       i++;
-    }else if(i==1){
-       $(this).attr('class','bi-heart');
-       i--;
-    }
- });  */
-
-
-
-
  
 </script>
 </head>
@@ -225,7 +211,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요            
+                좋아요${likes.likesCount}        
 			 </div>	
 			   
 

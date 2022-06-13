@@ -40,6 +40,8 @@ public class Likes {
 	@JsonIgnore
 	private PlanBoard planBoard;
 	
+	private int likesCount;
+	
 //	public static Likes toLikes(Users user , PlanBoard planBoard) {
 //		Likes likes = new Likes();
 //		likes.setUser(user);

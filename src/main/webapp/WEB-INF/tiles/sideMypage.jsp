@@ -60,7 +60,7 @@
       </a>
     </li>
      <li class="menu-item">
-       <a href="" class="menu-link">
+       <a href="/mypage/myask" class="menu-link">
         <i class="menu-icon tf-icons bx bx-coffee-togo"></i>
         <div data-i18n="Support">1 : 1  문의</div>
       </a>
