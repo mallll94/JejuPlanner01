@@ -107,7 +107,7 @@
 				<ul>
 					<li><a href="#">제주도 한눈에보기</a></li>
 					<li>
-						<a href="" class="position-relative">
+						<a href="${pageContext.request.contextPath}/chat/list" class="position-relative">
 						<i class="fa-brands fa-rocketchat"></i>
 							채팅
 						</a>

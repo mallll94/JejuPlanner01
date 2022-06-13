@@ -51,7 +51,7 @@ $(function(){
 				url:"${pageContext.request.contextPath}/order/select", //서버요청주소
 				type:"post", // 요청방식(get, post)
 				traditional: true,
-				dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
+				dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
 				//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
 				data: { '${_csrf.parameterName}' : '${_csrf.token}',goods : ${requestScope.goods}},
 	   			success :function(result){

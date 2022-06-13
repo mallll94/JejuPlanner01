@@ -51,8 +51,16 @@ $(function(){
 
 					})
 					
+					
+					
+					
 					$("#sendId").val(result.userId);
-					$("#receId").val(result.msg[0].senderUserId);
+					$("#receId").val(result.receId);
+					
+					if($("#receId").val()==null || $("#receId").val()==""){
+						$("#receId").val('${param.receId}');
+					}
+					
 					
 					$("#list").html("");
    					$("#list").html(data);
@@ -70,16 +78,17 @@ $(function(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/chat/send", //서버요청주소
 			type:"post", // 요청방식(get, post)
-			traditional: true,
-			dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,msg : $("#message").val(),chatRoom : ${param.no}, sendId : $("#sendId").val(), receId:$("#receId").val()},
+			//traditional: true,
+			dataType:"text",//서버가 응답해주는 데이터타입(text,html,xml,json)
+			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,msg : $("#message").val() ,chatRoom : ${param.no}, sendId : $("#sendId").val(), receId : $("#receId").val()},
 			success :function(result){		
+   				selectAll();
    				
-   				
-			},error : function(err){  
-				alert(err+"에러 발생했어요.");
-			}  //실팽했을때 실행할 함수 
-   	
+			},error : function(request, status, error){
+
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+			}
 		});
 	})
 	
@@ -100,13 +109,16 @@ $(function(){
 <div class="container" id = "list">
 
 </div>
-<input type="hidden" id="sendId" name ="sendId" >
-<input type="hidden" id="receId" name="receId">
+
+<%-- <form method="post" action="${pageContext.request.contextPath}/chat/chatAll">
+<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"> --%>
+<%-- <input type="text" id="chatRoom" name="chatRoom" value="${param.no}"> --%>
+<input type="text" id="sendId" name ="sendId" >
+<input type="text" id="receId" name="receId">
 <input type="text" id="message">
 
-
 <button type="button" id="send">send</button>
-
+<!-- </form> -->
 
 </body>
 </html>

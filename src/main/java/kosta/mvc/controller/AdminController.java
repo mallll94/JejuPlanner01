@@ -84,8 +84,8 @@ public class AdminController {
 	@RequestMapping(value ="/placeInsert", method = RequestMethod.POST)
 	public String insert(Place place, HttpSession session){
 		System.out.println("1번문제");
-		//String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/place/";
-		String uploadPath = session.getServletContext().getRealPath("/img/")+"place";
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/place/";
+		//String uploadPath = session.getServletContext().getRealPath("/img/")+"place";
 		System.out.println("2번문제");
 		placeService.insertPlace(place,uploadPath);
 		

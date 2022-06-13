@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 
@@ -26,6 +27,7 @@ import kosta.mvc.domain.FreeReply;
 import kosta.mvc.domain.Notice;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Planner;
+import kosta.mvc.domain.QChatBoard;
 import kosta.mvc.domain.QOrders;
 import kosta.mvc.domain.QUsers;
 import kosta.mvc.domain.TimeDeal;
@@ -89,10 +91,19 @@ class JejuProjectApplicationTests {
 		Users ccc=userRep.findById("ccc").orElse(null);
 		Users ddd=userRep.findById("ddd").orElse(null);
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//chatboardRep.deleteById(null);
 		//String time = now.getDayOfMonth()+"/ "+now.getHour()+":"+now.getMinute();
-		chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "111111111111111111", 0, null, null));
-		chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "222222222222222222", 0, null, null));
+		//chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "111111111111111111", 0, null, null));
+		//chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "222222222222222222", 0, null, null));
 		////chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "333333333333333333", 0, null, null));
 		////chatboardRep.save(new ChatBoard(null, null, ccc, ddd, 0, now, null, "444444444444444444", 0, null, null));
 		//chatboardRep.save(new ChatBoard(null, null, ccc, aaa, 1, now, null, "aaaaaaaaaaaaaaa", 0, null, null));
@@ -101,8 +112,8 @@ class JejuProjectApplicationTests {
 		
 		//chatboardRep.save(new ChatBoard(null, null, aaa, ccc, 1, now, null, "111111111111111111", 0, null, null));
 		//chatboardRep.save(new ChatBoard(null, null, aaa, ccc, 1, now, null, "222222222222222222", 0, null, null));
-		chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "333333333333333333", 0, null, null));
-		chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "444444444444444444", 0, null, null));
+		//chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "333333333333333333", 0, null, null));
+		//chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "444444444444444444", 0, null, null));
 		//chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "555555555555555555", 0, null, null));
 		//chatboardRep.save(new ChatBoard(null, null, ddd, ccc, 0, now, null, "666666666666666666", 0, null, null));
 	}

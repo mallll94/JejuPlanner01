@@ -250,7 +250,7 @@
 								
 								card+=`<div class='col-lg-3 col-md-3'>`;
 								card+=`<div class='single-latest-news'>`;
-								card+=`<div class='latest-news-bg news-bg-1' style='background-image: url(../../../img/place/${"${item.placePhoto}"})'></div>`;
+								card+=`<div class='latest-news-bg news-bg-1' style='background-image: url(/images/place/${"${item.placePhoto}"})'></div>`;
 								card+=`<div class='news-text-box'>`;
 								card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
 								card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
