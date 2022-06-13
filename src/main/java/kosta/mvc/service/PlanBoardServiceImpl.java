@@ -163,7 +163,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
 		System.out.println(likes);
 		if(likes==null) {
-			likesRep.save(new Likes(null, user, planBoard, 0) );
+			//likesRep.save(new Likes(null, user, planBoard, 0) );
 	        System.out.println(1);
 			return 1;
 		}else {
