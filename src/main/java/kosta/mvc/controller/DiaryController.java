@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,7 +82,7 @@ public class DiaryController {
 	
 	/**다이어리 상세페이지로 이동*/
 	@RequestMapping("/diaryRead/{plannerId}")
-	public String selectByDiaryId(Model model,@PathVariable Long plannerId) {
+	public String selectByDiaryId(Model model,@PathVariable Long plannerId, int nowPage) {
 		/*DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
 		
 		//다이어리info
@@ -113,10 +115,10 @@ public class DiaryController {
 		Period period =Period.between(dbDiary.getPlannerStart(), dbDiary.getPlannerEnd());
 		DiaryDTO diary = new DiaryDTO(dbDiary.getDiaryTitle(), dbDiary.getDiaryPhoto(), dbDiary.getPlannerType(), dbDiary.getPlannerCount(),
 				dbDiary.getPlannerId(), (dbDiary.getPlannerStart()).format(format),(dbDiary.getPlannerEnd()).format(format),period.getDays()+1);
-		String curPage = (String)model.getAttribute("nowPage");
-		System.err.println("::현재페이지::"+curPage);
+
+		System.err.println("::현재페이지::"+nowPage);
 		model.addAttribute("diary", diary);
-		model.addAttribute("nowPage",curPage);
+		model.addAttribute("nowPage",nowPage);
 		
 		
 		return "diary/diaryRead2";
