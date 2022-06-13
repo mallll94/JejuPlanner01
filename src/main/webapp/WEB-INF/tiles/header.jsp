@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
         <style type="text/css">
-         .mainbottom{background-repeat: repeat-x; background-image: url("../img/headerBottom.png");}        
+         .mainbottom{background-repeat: repeat-x; background-image: url("../img/mainbottom3.png");}        
         
         </style>
         
@@ -75,7 +75,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a href="${pageContext.request.contextPath}/cart/cartList">장바구니</a></li>
-							<li><a href="">마이페이지</a></li>
+							<li><a href="${pageContext.request.contextPath}/user/myPage">마이페이지</a></li>
 							<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -89,7 +89,7 @@
 				<h1><a href="${pageContext.request.contextPath}/"><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
 		  </div>
 		  <div class="mainbottom" style="background-repeat: repeat-x;">
-		      <img alt="메인로고 바텀" src="/img/headerBottom.png" >
+		      <img alt="메인로고 바텀" src="/img/mainbottom3.png" >
 		  </div>
 		</header>
 		<nav class="main-header-menubar">

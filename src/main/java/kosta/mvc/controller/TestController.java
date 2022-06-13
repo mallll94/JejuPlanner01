@@ -17,8 +17,4 @@ public class TestController {
 	   return "Admin_Main";
    }
       
-   @RequestMapping("/myPage2")
-   public String myPageTest2() {
-	   return "mypage/myPage";
-   }
 }

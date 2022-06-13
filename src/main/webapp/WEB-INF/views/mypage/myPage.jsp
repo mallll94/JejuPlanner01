@@ -21,6 +21,20 @@
    .form-select{display: inline-block; width: 40%; text-align: center;}
    .btn-close{display: none;}
   </style>
+  
+   <script type="text/javascript">
+  $(function() {
+	    
+	  $("button[value=탈퇴]").click(function(){
+			   $("#deleteForm").attr("action", "${pageContext.request.contextPath}/user/userDelete");
+			   $("#deleteForm").submit();
+		   })	
+})
+	
+
+  
+  
+  </script> 
 </head>
 <body>
 <!-- Page content -->
@@ -57,25 +71,25 @@
                 <h2>내정보</h2>
                   <div class="mb-3">
 		            <label class="form-control-label" for="basic-default-fullname">회원아이디 : &nbsp;</label>
-		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="" value=""/>
+		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="userId" value="${Users.userId}"/>
 		        </div>
 		          <div class="mb-3">
 		            <label class="form-control-label" for="basic-default-fullname">이름 : &nbsp;</label>
-		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="" value=""/>
+		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="userName" value="${Users.userName}"/>
 		          </div>
                 <div class="mb-3">
 		            <label class="form-control-label" for="basic-default-fullname">성별 : &nbsp;</label>
-		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="" value=""/>
+		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="userGender" value="${Users.userGender}"/>
 		          </div>
                 <div class="mb-3">
-		            <label class="form-control-label" for="basic-default-fullname">주소 : &nbsp;</label>
-		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="" value=""/>
+		            <label class="form-control-label" for="basic-default-fullname">가입일 : &nbsp;</label>
+		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="joinDate" value="${Users.joinDate}"/>
 		        </div>
 		        <div class="mb-3">
 		            <label class="form-control-label" for="basic-default-fullname">이메일주소 : &nbsp;</label>
-		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="" value=""/>
+		            <input type="text" class="form-control form-control-alternative" id="basic-default-fullname" name="userEmail" value="${Users.userEmail}"/>
 		        </div>
-		       
+		 		       
 		        <!-- (정보수정 / 회원탈퇴) -->
 		        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyInfor">
 				  정보수정
@@ -99,7 +113,7 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		            <form>					
+		            <form id="updateForm" method="post" action="">					
 						<div class="col-md-12 form-group">
 							<label class="form-label" ><h3>비밀번호</h3></label>
 							<input type="password" id="userPassword" class="form-control" name ="userPassword"/>
@@ -144,19 +158,17 @@
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		            <form>					
-						<div class="col-md-12 form-group">
-							<label class="asd" >비밀번호를 입력해주세요</label>
-							<input type="password" id="userPassword" class="form-control" name ="userPassword"/>
-						</div>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-						<input type="hidden" name="role" value="ROLE_USER">
-					</form>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary">탈퇴하기</button>
-		      </div>
+		       <form name="deleteForm" method="post" id="deleteForm">
+					<div class="col-md-12 form-group">
+						<label class="asd" >비밀번호를 입력해주세요</label>
+						<input type="password" id="userPassword" class="form-control" name ="userPassword" value=""/>
+					</div>		
+		          <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" value="탈퇴" id="delete">탈퇴하기</button>
+		          </div> 
+		      </form>
+		     </div>
 		    </div>
 		  </div>
 		</div>

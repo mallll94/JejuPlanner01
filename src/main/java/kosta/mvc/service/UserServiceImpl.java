@@ -1,26 +1,19 @@
 package kosta.mvc.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.BooleanBuilder;
 
-import kosta.mvc.domain.Orders;
-import kosta.mvc.domain.Place;
 import kosta.mvc.domain.QGoods;
 import kosta.mvc.domain.QOrders;
 import kosta.mvc.domain.QUsers;
@@ -29,7 +22,6 @@ import kosta.mvc.domain.Users;
 import kosta.mvc.repository.OrdersRepository;
 import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import oracle.net.aso.b;
 
 @Service
 @Transactional
@@ -58,10 +50,20 @@ public class UserServiceImpl implements UserService {
 		
 		
 	}
-
+    
+	/**
+	 *  회원정보 수정하기
+	 **/
 	@Override
 	public void updateUsers(Users users) {
-		// TODO Auto-generated method stub
+		
+		Users dbUsers = userRep.findById(users.getUserId())
+				.orElseThrow(() -> new RuntimeException("존재하지 않는 아이디입니다."));
+		
+		dbUsers.setUserPassword(users.getUserPassword());
+		dbUsers.setUserPhone(users.getUserPhone());
+		dbUsers.setUserGender(users.getUserGender());
+		dbUsers.setUserEmail(users.getUserEmail());
 
 	}
 
@@ -131,10 +133,23 @@ public class UserServiceImpl implements UserService {
 		
 
 	}
-
+    
+	/**
+	 *  탈퇴하기
+	 **/
 	@Override
 	public void deleteUsers(String userId, String userPassword) {
-		// TODO Auto-generated method stub
+		// 사용자 불러오기
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		//String encodedPassword = passwordEncoder.encode(users.getUserPassword());
+		Users result = userRep.findById(userId).orElseThrow(() -> new RuntimeException("회원정보가 없습니다."));
+		//DB랑 비교
+		if(!passwordEncoder.matches(userPassword, result.getUserPassword())) {
+			throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+		}else {
+			userRep.deleteById(result.getUserId());
+		}
 
 	}
 

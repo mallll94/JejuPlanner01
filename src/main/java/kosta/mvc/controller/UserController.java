@@ -1,19 +1,19 @@
 package kosta.mvc.controller;
 
 
-import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.UserService;
@@ -121,4 +121,42 @@ public class UserController {
 		
 		return result;
 	}
+	
+	/**
+	 * 마이페이지 내정보
+	 **/
+	@RequestMapping("/myPage")
+	public ModelAndView read() {
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Users dbusers = userService.selectById(users.getUserId());
+		return new ModelAndView("mypage/myPage", "Users" , dbusers);
+		
+	}
+	
+	/**
+	 * 회원 탈퇴하기
+	 **/
+	@RequestMapping("/userDelete")
+	public String deleteUsers(String userPassword) {
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		userService.deleteUsers(users.getUserId(), userPassword);
+		SecurityContextHolder.clearContext(); //저장된 정보 삭제
+		return "user/loginForm";
+	}
+	
+	/**
+	 * 회원 정보수정하기
+	 **/
+	public String updateUsers(HttpServletRequest request, Users users) {
+		userService.updateUsers(users);
+		Users dbusers = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dbusers.setUserPassword(dbusers.getUserPassword());
+		dbusers.setUserPhone(dbusers.getUserPhone());
+		dbusers.setUserGender(dbusers.getUserGender());
+		dbusers.setUserEmail(dbusers.getUserEmail());
+		
+		return "redirect:/mypage/myPage";
+		
+	}
+	
 }
