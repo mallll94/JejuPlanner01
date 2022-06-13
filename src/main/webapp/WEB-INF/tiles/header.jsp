@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         
         <style type="text/css">
-         .mainbottom{background-repeat: repeat-x; background-image: url("../img/mainbottom3.png");}        
+         .mainbottom{background-repeat: repeat-x; background-image: url("${pageContext.request.contextPath}/img/mainbottom3.png");}        
         
         </style>
         

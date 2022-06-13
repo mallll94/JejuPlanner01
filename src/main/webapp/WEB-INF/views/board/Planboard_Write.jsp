@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
 $(function() {
@@ -35,6 +35,24 @@ $(function() {
 		})
 			
 	})
+	
+	
+	
+	function selectAll(){
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/board/planSelect",
+			type:"post", 
+			dataType:"text",
+			data: { '${_csrf.parameterName}' : '${_csrf.token}' },
+			success :function(result){		
+   					
+			},error : function(request, status, error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+		
+	}
 
 	
 }); //function

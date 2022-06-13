@@ -57,6 +57,7 @@ public class OrderController {
 	public Map<String, Object> selectAll(Long [] goods){
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<GoodsDTO> goodsDTOs = new ArrayList<GoodsDTO>();
 		List<GoodsLineDTO> goodsLineDTOs = new ArrayList<GoodsLineDTO>();
