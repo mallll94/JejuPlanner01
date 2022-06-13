@@ -28,7 +28,12 @@
 	  $("button[value=탈퇴]").click(function(){
 			   $("#deleteForm").attr("action", "${pageContext.request.contextPath}/user/userDelete");
 			   $("#deleteForm").submit();
-		   })	
+      })
+      
+      $("button[value=수정]").click(function() {
+		       $("#updateForm").attr("action", "${pageContext.request.contextPath}/user/userUpdate");
+		       $("#updateForm").submit();
+	})
 })
 	
 
@@ -112,38 +117,34 @@
 		        <h2 class="modal-title" id="exampleModalLabel">내정보 수정하기</h2>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <div class="modal-body">
-		            <form id="updateForm" method="post" action="">					
-						<div class="col-md-12 form-group">
-							<label class="form-label" ><h3>비밀번호</h3></label>
-							<input type="password" id="userPassword" class="form-control" name ="userPassword"/>
-						</div>
-						<div class="col-md-12 form-group">
-							<label class="form-label" ><h3>비밀번호확인</h3></label>
-							<input type="password" id="userPassword2" class="form-control" name ="userPassword2"/>
-						</div>
-						<div class="col-md-12 form-group">
-							<label class="form-label" for="basic-default-message" ><h3>성별</h3></label>
-							<select  id="userGender" class="form-select" name ="userGender"  aria-label=".form-select-lg example">
-							    <option selected>선택하기</option>
-								<option value="M">남자</option>
-								<option value="F">여자</option>
-							</select>
-						</div>
-						<div class="col-md-12 form-group">
-							<label class="form-label" ><h3>휴대폰 번호</h3></label>
-							<input type="text" id="userPhone" class="form-control" name ="userPhone"/>
-						</div>
-						<div class="col-md-12 form-group">
-							<label class="form-label" ><h3>이메일주소</h3></label>
-							<input type="text" id="userEmail" class="form-control" name ="userEmail"/>
-						</div>
-					</form>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-		        <button type="button" class="btn btn-primary">수정하기</button>
-		      </div>
+		      <form name="updateForm" id="updateForm" method="post">	
+		      <div class="modal-body">	            				
+					<div class="col-md-12 form-group">
+						<label class="form-label" ><h3>비밀번호</h3></label>
+						<input type="password" id="userPassword" class="form-control" name ="userPassword"/>
+					</div>
+					<div class="col-md-12 form-group" >
+						<label class="form-label" for="basic-default-message"  ><h3>성별</h3></label>
+						<select  id="userGender" class="form-select" name ="userGender"  aria-label=".form-select-lg example" >
+						    <option selected>선택하기</option>
+							<option value="M">남자</option>
+							<option value="F">여자</option>
+						</select>
+					</div>
+					<div class="col-md-12 form-group">
+						<label class="form-label" ><h3>휴대폰 번호</h3></label>
+						<input type="text" id="userPhone" class="form-control" name ="userPhone" value="${Users.userPhone}" />
+					</div>
+					<div class="col-md-12 form-group">
+						<label class="form-label" ><h3>이메일주소</h3></label>
+						<input type="text" id="userEmail" class="form-control" name ="userEmail" value="${Users.userEmail}"/>
+					</div>			
+		      </div>	
+		          <div class="modal-footer">		    
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" value="수정">수정하기</button>
+		          </div>
+		        </form>
 		    </div>
 		  </div>
 		</div>

@@ -56,15 +56,15 @@ public class UserServiceImpl implements UserService {
 	 **/
 	@Override
 	public void updateUsers(Users users) {
-		
+	
 		Users dbUsers = userRep.findById(users.getUserId())
 				.orElseThrow(() -> new RuntimeException("존재하지 않는 아이디입니다."));
-		
+	
 		dbUsers.setUserPassword(users.getUserPassword());
 		dbUsers.setUserPhone(users.getUserPhone());
 		dbUsers.setUserGender(users.getUserGender());
 		dbUsers.setUserEmail(users.getUserEmail());
-
+   
 	}
 
 	@Override

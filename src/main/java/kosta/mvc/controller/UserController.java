@@ -147,15 +147,13 @@ public class UserController {
 	/**
 	 * 회원 정보수정하기
 	 **/
+	@RequestMapping("/userUpdate")
 	public String updateUsers(HttpServletRequest request, Users users) {
-		userService.updateUsers(users);
 		Users dbusers = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		dbusers.setUserPassword(dbusers.getUserPassword());
-		dbusers.setUserPhone(dbusers.getUserPhone());
-		dbusers.setUserGender(dbusers.getUserGender());
-		dbusers.setUserEmail(dbusers.getUserEmail());
+		users.setUserId(dbusers.getUserId());
+		userService.updateUsers(users);
 		
-		return "redirect:/mypage/myPage";
+		return "redirect:/user/myPage";
 		
 	}
 	
