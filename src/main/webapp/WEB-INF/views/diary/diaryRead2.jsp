@@ -19,11 +19,12 @@ pageEncoding="UTF-8"%>
 		<script>
 			$(function(){
 				const DiaryId = "${requestScope.diary.plannerId}"
-				const curPage = "${requestScope.curPage}"
+				const curPage = "${requestScope.nowPage}"
 
 				//다이어리 title조회 ajax
 				function selectDiaryTitle(){
 					console.log(DiaryId)
+					console.log(curPage)
 					$.ajax({
 						url:"${pageContext.request.contextPath}/diary/DiaryTitle",
 						type:"post",
@@ -59,6 +60,7 @@ pageEncoding="UTF-8"%>
 								var price = diaryline.diaryLinePrice;
 								var content =diaryline.diaryLineContent
 								var photo =diaryline.diaryLinePhoto
+								var priceComma = diaryline.diaryLinePrice.toString().replace(/(\B)(?=(\d\d\d)+(?!\d))/g, ",")
 								//장소
 								str2+=`<div class="diary-row">`
 									str2+=`<div class="planner-place-area">`
@@ -82,16 +84,20 @@ pageEncoding="UTF-8"%>
 										}else{
 											str2+=`<div class="diaryline-card">`
 												str2+=`<div class="diaryImg-card">`
-													str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">
-														<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}">
-														</div></a>`
+													str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">`
+													if(!photo){
+														str2+=`<img class="diarylineImg" alt="다이어리 사진" src="../../../img/diaryline-default.jpg" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
+													}else{
+														str2+=`<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
+													}
+													str2+=`</div></a>`
 												str2+=`</div>`
 											str2+=`</div>`
 											str2+=`<div class="diaryline-card">`
 												str2+=`<div class="diaryline-text-box">`
 													str2+=`<p class="diaryline-content">\${diaryline.diaryLineContent}\</p>`
 													str2+=`<p class="diaryline-bottom">`
-														str2+=`<span>경비: \${diaryline.diaryLinePrice}원</span>`
+														str2+=`<span class='price-Num'>경비: \${priceComma}원</span>`
 														str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
 															<i class="fa-solid fa-pen-nib"></i>
 															</a></span>`
@@ -111,11 +117,14 @@ pageEncoding="UTF-8"%>
 							$("#diary-main-view").html("");
 							$("#diary-main-view").append(str2);
 
+							var totalComma = result.totalPrice.toString().replace(/(\B)(?=(\d\d\d)+(?!\d))/g, ",")
 							let str3="";
-							str3+=`<p>총 경비: <strong>\${result.totalPrice}</strong>원<p>`
-							$("#diary-TotalPrice-area").html("")
-							$("#diary-TotalPrice-area").append(str3)
+							str3+=`<a href="${pageContext.request.contextPath}/diary/diaryIndex?nowPage=\${curPage}" id="back-list-btn" class="back-list-btn">목록으로 돌아가기</a>`
+							str3+=`<span class='totalPlace'>총 경비: \${totalComma}원</span>`
+							$("#diary-bottom-area").html("")
+							$("#diary-bottom-area").append(str3)
 
+							
 
 							
 						},
@@ -124,10 +133,6 @@ pageEncoding="UTF-8"%>
 						}
 					})
 				}
-
-				
-				
-				
 			
 
 				// 모달 정보 ajax
@@ -356,7 +361,7 @@ pageEncoding="UTF-8"%>
 				flex-direction: column;
 				width: 170px; 
 				height: 200px;
-				background-color: antiquewhite;
+
 				box-shadow: 2px 2px 5px 1px rgb(209, 209, 209);
 
 				/* margin-right: calc(-.5 * var(--bs-gutter-x));
@@ -454,7 +459,36 @@ pageEncoding="UTF-8"%>
 				text-align: center; 
 				line-height: 30px;
 			} 
-			
+
+			/**하단*/
+			.bottom-row{
+				width: 1000px;
+				border-top: solid 2px rgb(189, 189, 189);
+			}
+			.diary-bottom-area{
+				padding-top: 10px;
+				width: 900px;
+				margin-left: 50px;
+				margin-right: 50px;
+				display: flex;
+				justify-content: space-between;
+			}
+			.back-list-btn{
+				height: 50px;
+				line-height: 40px;
+				border: 3px solid rgb(189, 189, 189);
+				color: rgb(156, 156, 156);
+				font-weight: bold;
+				font-size: larger;
+				width: 200px;
+				text-align: center;
+				border-radius: 4px;	
+			}
+			.totalPlace{
+				font-size: x-large;
+				font-weight: bold;
+				color: orange;
+			}
 			
 			.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
 			.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
@@ -504,13 +538,10 @@ pageEncoding="UTF-8"%>
 						<div id="diary-main-view" class="diary-main-view"></div>
 					</div>
 				</div>	
-				<div class="body-row">
+				<div class="bottom-row">
 					<!--다이어리 하단-->
 					<div class="col-lg-8">
-						<div id="diary-TotalPrice-area" class="diary-TotalPrice-area"></div>
-						<div>
-							<a href="#" id="back-list-btn" class="btn btn-outline-dark shadow-none">목록으로 돌아가기</a>
-						</div>
+						<div id='diary-bottom-area' class="diary-bottom-area"></div>
 					</div>
 				</div>
 			</div>	
