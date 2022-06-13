@@ -82,10 +82,8 @@
 						<li>
 							<form action="${pageContext.request.contextPath}/goods/search">
 								<div class="input-group mb-3" style= "margin-bottom: 100px;">
-								  
 									  <input type="text" class="form-control" style= "width: 150px;" name= "keyWord">
 									  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
-								  
 								</div>
 							</form>
 					    </li>
@@ -111,7 +109,6 @@
 						<i class="fa-brands fa-rocketchat"></i>
 							채팅
 						</a>
-						
 					</li>
 				</ul>
 			</div>
