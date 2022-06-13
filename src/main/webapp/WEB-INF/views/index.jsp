@@ -28,17 +28,34 @@
     <link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
 
-    <!-- Solartec Stylesheet -->
-    <link href="/css/solartec/style.css" rel="stylesheet">
-    <link href="/css/solartec/animate.min.css" rel="stylesheet">
-    <link href="/css/solartec/css/lightbox.min.css" rel="stylesheet">
 
-    
+    <style>
+    #create-planner-bnt{
+        color: white;
+    }
+    #create-planner-bnt:hover{
+        color: orange;
+    }
+    .profile-Img-area{
+        width: 100px;
+        height: 100px;
+        border-radius: 70%;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .our-Img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        
+    }
 
-
+    </style>
     <script>
         $(function(){
             var loginUser='${sessionScope.loginUser.userId}'
+
             $(document).on("click","#create-planner-bnt",function(){
 					if(!loginUser){
 						alert("로그인 후 이용해 주십시오")
@@ -48,7 +65,57 @@
                         alert("플래너작성하기")
 					}
 				})
+
+            //추천상품
+            function recommendGoods(){
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/planner/selectByUserId",
+                    type:"post",
+                    dataType:"json",
+                    data:{plannerId: targetPlannerId},
+                    success: function(result){
+                        let str="";
+                        $.each(result,function(index,board){
+
+                        })
+                        $("#recommend-goods-main").html()
+                        $("#recommend-goods-main").attr(str)
+                    },
+                    error: function(result){
+                        alert("플래너 정보가 없습니다.")
+                    }
+                })
+            }
+
+            //플래너게시판-추천
+            function recommendPlanner(){
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/planner/selectByUserId",
+                    type:"post",
+                    dataType:"json",
+                    data:{plannerId: targetPlannerId},
+                    success: function(result){
+                        let str="";
+                        $.each(result,function(index,board){
+
+                        })
+                        $("#recommend-plan-main").html()
+                        $("#recommend-plan-main").attr(str)
+                    },
+                    error: function(result){
+                        alert("플래너 정보가 없습니다.")
+                    }
+                })
+            }
+        
+
+
+
         })
+
+
+
+
         
     </script>
     
@@ -65,27 +132,26 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <div class="hero-text">
-                                <p class="room-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</p>
                                 <h2>나만의 여행플래너, 제주잇다</h2>
                                 <div class="room-price">
-                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하기</a></p>
+                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하러 가기</a></p>
                                 </div>
                                 <ul class="room-features">
                                     <li>
-                                        <i class="fa fa-arrows"></i>
-                                        <p>5201 sqft</p>
+                                        <i class="fa-solid fa-map" style="color: orange;"></i>
+                                        <p>plan</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bed"></i>
-                                        <p>8 Bed Room</p>
+                                        <i class="fa-solid fa-umbrella-beach"style="color: orange;"></i>
+                                        <p>tour</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bath"></i>
-                                        <p>7 Baths Bed</p>
+                                        <i class="fa-solid fa-comments"style="color: orange;"></i>
+                                        <p>share</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-car"></i>
-                                        <p>1 Garage</p>
+                                        <i class="fa-solid fa-book" style="color: orange;"></i>
+                                        <p>memory</p>
                                     </li>
                                 </ul>
                             </div>
@@ -98,27 +164,26 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <div class="hero-text">
-                                <p class="room-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</p>
                                 <h2>나만의 여행플래너, 제주잇다</h2>
                                 <div class="room-price">
-                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하기</a></p>
+                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하러 가기</a></p>
                                 </div>
                                 <ul class="room-features">
                                     <li>
-                                        <i class="fa fa-arrows"></i>
-                                        <p>5201 sqft</p>
+                                        <i class="fa-solid fa-map" style="color: orange;"></i>
+                                        <p>plan</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bed"></i>
-                                        <p>8 Bed Room</p>
+                                        <i class="fa-solid fa-umbrella-beach"style="color: orange;"></i>
+                                        <p>tour</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bath"></i>
-                                        <p>7 Baths Bed</p>
+                                        <i class="fa-solid fa-comments"style="color: orange;"></i>
+                                        <p>share</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-car"></i>
-                                        <p>1 Garage</p>
+                                        <i class="fa-solid fa-book" style="color: orange;"></i>
+                                        <p>memory</p>
                                     </li>
                                 </ul>
                             </div>
@@ -131,27 +196,26 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <div class="hero-text">
-                                <p class="room-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</p>
                                 <h2>나만의 여행플래너, 제주잇다</h2>
                                 <div class="room-price">
-                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하기</a></p>
+                                    <p><a href="#" id="create-planner-bnt" class="top-property-all">플래너 작성하러 가기</a></p>
                                 </div>
                                 <ul class="room-features">
                                     <li>
-                                        <i class="fa fa-arrows"></i>
-                                        <p>5201 sqft</p>
+                                        <i class="fa-solid fa-map" style="color: orange;"></i>
+                                        <p>plan</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bed"></i>
-                                        <p>8 Bed Room</p>
+                                        <i class="fa-solid fa-umbrella-beach"style="color: orange;"></i>
+                                        <p>tour</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-bath"></i>
-                                        <p>7 Baths Bed</p>
+                                        <i class="fa-solid fa-comments"style="color: orange;"></i>
+                                        <p>share</p>
                                     </li>
                                     <li>
-                                        <i class="fa fa-car"></i>
-                                        <p>1 Garage</p>
+                                        <i class="fa-solid fa-book" style="color: orange;"></i>
+                                        <p>memory</p>
                                     </li>
                                 </ul>
                             </div>
@@ -183,21 +247,21 @@
                 <div class="col-lg-12">
                     <div class="properties-title">
                         <div class="section-title">
-                            <span>Top Property For You</span>
-                            <h2>추천상품</h2>
+                            <span>Best 5 For You</span>
+                            <h2>베스트 상품</h2>
                         </div>
-                        <a href="#" class="top-property-all">View All Property</a>
+                        <a href="${pageContext.request.contextPath}/goods/view/goods_Main" class="top-property-all" style="color: orange; border: 3px solid orange;">모든 상품 보기</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="top-properties-carousel owl-carousel">
+            <div id='recommend-goods-main' class="top-properties-carousel owl-carousel">
                 <div class="single-top-properties">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="stp-pic">
-                                <img src="img/properties/properties-1.jpg" alt="">
+                                <img src="" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -236,7 +300,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="stp-pic">
-                                <img src="img/properties/properties-2.jpg" alt="">
+                                <img src="" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -283,12 +347,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <span>Blog & Events</span>
+                        <span>Recommend Plan</span>
                         <h2>추천 플래너</h2>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div id="recommend-plan-main" class="row">
                 <div class="col-lg-4">
                     <div class="single-blog-item">
                         <div class="sb-text">
@@ -328,57 +392,85 @@
     <!-- Latest Blog Section End -->
 
 
-     <!-- Testimonial Start -->
-     <div class="container-xxl py-5">
+     <!-- Testimonial Section Begin -->
+     <section class="testimonial-section set-bg spad" data-setbg="../../img/main/We-bakcground.jpg">
         <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">Testimonial</h6>
-                <h1 class="mb-4">What Our Clients Say!</h1>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Our Team</h2>
+                    </div>
+                </div>
             </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-1.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="testimonial-slider owl-carousel">
+                        <div class="ts-item">
+                            <div class="profile-Img-area">
+                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="김정현">
+                            </div>
+                            <p>Create a list with all possible keywords that fit to your product, service or business
+                                field. The more the better. So you will get also a lot of keywords which you mus pay for
+                                only the minimal commandment of 5 cents</p>
+                            <div class="ti-author">
+                                <h5 style="color: white;font-size: 25px;">김정현</h5>
+                                <span>CEO deercreative</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-2.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
+                        <div class="ts-item">
+                            <div class="profile-Img-area">
+                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="박민서">
+                            </div>
+                            <p>Create a list with all possible keywords that fit to your product, service or business
+                                field. The more the better. So you will get also a lot of keywords which you mus pay for
+                                only the minimal commandment of 5 cents</p>
+                            <div class="ti-author">
+                                <h5 style="color: white;font-size: 25px;">박민서</h5>
+                                <span>CEO deercreative</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-3.jpg">
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
+                        <div class="ts-item">
+                            <div class="profile-Img-area">
+                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="손채정">
+                            </div>
+                            <p>Create a list with all possible keywords that fit to your product, service or business
+                                field. The more the better. So you will get also a lot of keywords which you mus pay for
+                                only the minimal commandment of 5 cents</p>
+                            <div class="ti-author">
+                                <h5 style="color: white;font-size: 25px;">손채정</h5>
+                                <span>CEO deercreative</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Client Name</h5>
-                        <span class="fst-italic">Profession</span>
+                        <div class="ts-item">
+                            <div class="profile-Img-area">
+                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="이아리">
+                            </div>
+                            <p>Create a list with all possible keywords that fit to your product, service or business
+                                field. The more the better. So you will get also a lot of keywords which you mus pay for
+                                only the minimal commandment of 5 cents</p>
+                            <div class="ti-author">
+                                <h5 style="color: white;font-size: 25px;">이아리</h5>
+                                <span>CEO deercreative</span>
+                            </div>
+                        </div>
+                        <div class="ts-item">
+                            <div class="profile-Img-area">
+                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="이준원">
+                            </div>
+                            <p>Create a list with all possible keywords that fit to your product, service or business
+                                field. The more the better. So you will get also a lot of keywords which you mus pay for
+                                only the minimal commandment of 5 cents</p>
+                            <div class="ti-author">
+                                <h5 style="color: white;font-size: 25px;">이준원</h5>
+                                <span>CEO deercreative</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Testimonial End -->
+    </section>
+    <!-- Testimonial Section End -->
 
 
     <!--JQuery-->
@@ -393,14 +485,7 @@
     <script src="/js/owlCarousel/owl.carousel.min.js"></script>
     <script src="/js/azentaMaster/main.js"></script>
 
-    <!-- Solartec Template Javascript -->
-    <script src="/js/solartec/main.js"></script>
-    <script src="/js/solartec/wow.min.js"></script>
-    <script src="/js/solartec/easing.min.js"></script>
-    <script src="/js/solartec/waypoints.min.js"></script>
-    <script src="/js/solartec/counterup.min.js"></script>
-    <script src="/js/solartec/isotope.pkgd.min.js"></script>
-    <script src="/js/solartec/lightbox.min.js"></script>
+
 
 
 </body>
