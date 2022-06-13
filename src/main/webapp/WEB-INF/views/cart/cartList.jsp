@@ -155,18 +155,21 @@
 			var selectLength =$("[name=checkboxNoLabel]").length;
 			//alert(selectLength);
 			orderBox = [];
-			for (var i=0; i<selectLength; i++) {
-					
-					if ($("[name=checkboxNoLabel]")[i].checked == true) {
-					orderBox.push($("[name=checkboxNoLabel]")[i].value);
-					countBox.push($("#goodsLineAmount"+i).val());
+
+				for (var i=0; i<selectLength; i++) {
+						
+						if ($("[name=checkboxNoLabel]")[i].checked == true) {
+						orderBox.push($("[name=checkboxNoLabel]")[i].value);
+						countBox.push($("#goodsLineAmount"+i).val());
+					}
 				}
-			}
+				
+				$("#cartId").val(orderBox);
+				$("#countCart").val(countBox);
+				
+				$("#cartForm").submit();
 			
-			$("#cartId").val(orderBox);
-			$("#countCart").val(countBox);
 			
-			$("#cartForm").submit();
 			//CheckOrder(orderBox,countBox);
 		})
 		

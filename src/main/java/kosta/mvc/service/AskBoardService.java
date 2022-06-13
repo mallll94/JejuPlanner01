@@ -34,8 +34,15 @@ public interface AskBoardService {
 	 */
 	public void deleteAskBoard(Long askId);
 	
+	
+	/**답변 Y or N*/
+	void complete(Long askId, String btnradio);
+	
+	
 	/**마이페이지에서 내가 쓴 글 목록 조회*/
 	List<AskBoard> selectByUserId(String userId);
+
+	
 
 
 

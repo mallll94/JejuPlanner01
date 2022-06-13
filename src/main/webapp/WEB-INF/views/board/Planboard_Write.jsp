@@ -8,6 +8,42 @@
 <meta charset="UTF-8">
 <title></title>
 
+<script type="text/javascript">
+
+$(function() {
+	
+
+	$(document).ready(function(){
+	
+		$("#planBoard").on("submit" , function(){
+			
+			if( $("#pboardCategory").val() == "none"){
+				alert("카테고리를 선택해주세요");
+				return false;
+			}
+			
+			if( $("#pboardTitle").val() == ""){
+				alert("제목을 입력해주세요");
+				return false;
+			}
+			
+			if( $("#pboardContent").val() == ""){
+				alert("내용을 입력해주세요");
+				return false;
+			}
+		       
+		})
+			
+	})
+
+	
+}); //function
+
+
+
+
+</script>
+
 
     
 
@@ -25,11 +61,12 @@
                 <div class="contact-form">
                     <div id="success"></div>
                     
-                    <form name="planBoard" id="contactForm" novalidate="novalidate" method="post" action="${pageContext.request.contextPath}/board/pinsert" onSubmit='return checkValid()' enctype="multipart/form-data">
+                    <form name="planBoard" id="planBoard" method="post" action="${pageContext.request.contextPath}/board/pinsert"  enctype="multipart/form-data">
                         
                        <div class="control-group" style="text-align: left;">
-                         카테고리 <select name="pboardCategory" class="form-select" aria-label="Default select example">
-                            <option selected>Category</option>
+                         카테고리 <select name="pboardCategory" id="pboardCategory" class="form-select" 
+                         aria-label="Default select example">
+                            <option value="none" selected>Category</option>
                             <option value="나홀로">나홀로</option>
                             <option value="가족/부모님">가족/부모님</option>
                             <option value="친구">친구</option>
@@ -41,23 +78,22 @@
                        
                        
                     <div class="control-group" style="text-align: left;">
-                    제목 <input type="text" class="form-control" id="pboardTitle" name="pboardTitle" placeholder="제목을 입력해주세요"
-                          required="required" data-validation-required-message="Please enter a subject" />
+                    제목 <input type="text" class="form-control" id="pboardTitle" name="pboardTitle" placeholder="제목을 입력해주세요"/>
                          <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group" style="text-align: left;">
                     내용 <textarea class="form-control" rows="6" id="pboardContent" name="pboardContent" placeholder="내용을 입력해주세요"
-                         required="required" data-validation-required-message="Please enter your message" style="resize: none"></textarea>
+                          style="resize: none"></textarea>
                          <p class="help-block text-danger"></p>
                     </div>
 	                <div class="control-group" style="text-align: left;">
                     첨부파일 <input type="file" class="form-control" id="pboardAttach" name="file" placeholder="Attach"
-                             required="required" data-validation-required-message="Please enter a file" accept=".png, .jpg" />
+                              accept=".png, .jpg" />
                              <p class="help-block text-danger"></p>
 	                </div> 
 
                         <div align="right">
-                            <button onclick="location = '/board/PlanboardList'" class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">등록하기</button>
+                            <button type="submit" class="btn btn-primary py-1 px-2" id="planBoard">등록하기</button>
                         </div>
                     
                     </form>

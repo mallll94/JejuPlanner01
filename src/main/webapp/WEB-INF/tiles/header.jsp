@@ -80,10 +80,14 @@
 						</c:otherwise>
 					</c:choose>
 						<li>
-							<div class="input-group mb-3" style= "margin-bottom: 100px;">
-							  <input type="text" class="form-control" style= "width: 150px;">
-							  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
-							</div>
+							<form action="${pageContext.request.contextPath}/goods/search">
+								<div class="input-group mb-3" style= "margin-bottom: 100px;">
+								  
+									  <input type="text" class="form-control" style= "width: 150px;" name= "keyWord">
+									  <button class="btn btn-outline-secondary" type="button" id="button-addon2">상품검색</button>
+								  
+								</div>
+							</form>
 					    </li>
 				</ul>
 				<h1><a href="${pageContext.request.contextPath}/"><img src="${path}/img/main_logo.png" style="width: 17%; height: auto" alt="메인 로고"></a></h1>
@@ -98,7 +102,7 @@
 					<li><a href="${pageContext.request.contextPath}/goods/view/goods_Main" id="">여행상품</a></li>
 					<li><a href="${pageContext.request.contextPath}/planner/plannerIndex">플래너</a></li>
 					<li><a href="">게시판</a></li>
-					<li><a href="">다이어리</a></li>
+					<li><a href="${pageContext.request.contextPath}/diary/diaryIndex">다이어리</a></li>
 				</ul>
 				<ul>
 					<li><a href="#">제주도 한눈에보기</a></li>

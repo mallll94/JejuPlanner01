@@ -62,6 +62,7 @@ public class GoodsReplyController {
 	@PostMapping("")
 	public void addGoodsReply(GoodsReply goodsReply) {
 		goodsReplyService.addGoodsReply(goodsReply);
+		
 	}
 		
 	/**

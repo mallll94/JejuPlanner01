@@ -118,6 +118,26 @@ public class AskController {
 		
 	}
 	
+	/**관리자 상세보기*/
+	@RequestMapping("/admin/AskDetail_Admin/{askId}")
+	public String read2(@PathVariable Long askId , Model model) {
+		System.out.println("askboardId test");
+		
+		AskBoard askBoard = askBoardService.getAskBoard(askId);
+        List<AskReply> replylist = askBoard.getAskReplyList();
+		
+        System.out.println("rrrr");
+        System.out.println(replylist.size());
+        
+		model.addAttribute("askboard",askBoard);
+		model.addAttribute("replylist",replylist);
+
+		return "/admin/AskDetail_Admin";
+				
+	}
+	
+	
+		
 		
 	/**삭제*/
 	@RequestMapping("/Askdelete")
@@ -130,6 +150,29 @@ public class AskController {
 		System.out.println("delete test2");
 		
 		return "redirect:/board/AskList";
+	}
+	
+	/**관리자 삭제하기*/
+	@RequestMapping("/admin/adelete")
+	public String delete2(Long askId) {
+		
+		System.out.println("delete test11");
+		
+		askBoardService.deleteAskBoard(askId);
+
+		System.out.println("delete test22");
+		
+		return "redirect:/admin/AskList_Admin";
+	}
+	
+	
+	/**답변 Y or N*/
+	@RequestMapping("/admin/AskDetail_Admin/complete") 
+	public ModelAndView complete(Long askId,String btnradio) {
+	
+		 askBoardService.complete(askId, btnradio);
+		 return new ModelAndView("redirect:/board/AskList");
+	  
 	}
 	
    

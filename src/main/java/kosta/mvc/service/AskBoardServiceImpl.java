@@ -88,6 +88,18 @@ public class AskBoardServiceImpl implements AskBoardService {
 		askBoardRep.deleteById(askId);
 
 	}
+	
+	
+	/**답변 Y or N*/
+    @Override
+	public void complete(Long askId, String btnradio) {
+		
+		AskBoard ask = getAskBoard(askId);
+		
+		ask.setAskComplete(btnradio);
+		
+	}
+	
 
 	/**내가 쓴 글 목록 조회하기*/
 	@Override

@@ -44,9 +44,9 @@
                                 required="required" data-validation-required-message="Please enter your message" style="resize: none"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
-
+                        
 						<div align="right">
-							<button  class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">등록하기</button>
+							<button class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">답변 등록하기</button>
 						</div>
 						
 					</form>

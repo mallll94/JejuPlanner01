@@ -163,7 +163,7 @@ public class PlaceServiceImpl implements PlaceService {
 					x.getPlace().getPlaceLatitude(), x.getPlace().getPlaceLongitude(), 0,x.getPlannerPlaceDate()));
 			
 		}
-		
+      
 		return result;
 	}
 	

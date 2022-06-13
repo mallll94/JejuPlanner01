@@ -88,8 +88,10 @@ public class GoodsController {
 		
 	}
 	@PostMapping("")
-	public void addGoods(Goods goods) {
+	public String addGoods(Goods goods) {
+		System.out.println(goods.getGoodsId());
 		goodsService.addGoods(goods);
+		return "redirect:/goods/admin/goods_Admin";
 	}
 
 	@PutMapping("/{goodsId}")
@@ -112,5 +114,16 @@ public class GoodsController {
 		} catch (Exception e) {
 			model.addAttribute("goods", null);
 		}
+	}
+	
+	
+	
+	@RequestMapping("/search")
+	public String searchKeyWord(String keyWord,Model model) {
+		
+		List<Goods> list=goodsService.searchByGoods(keyWord);
+		model.addAttribute("goodsList", list);
+		
+		return "goods/goods_List";
 	}
 }

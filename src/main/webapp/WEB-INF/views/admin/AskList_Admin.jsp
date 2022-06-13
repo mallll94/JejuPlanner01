@@ -8,7 +8,32 @@
 <meta charset="UTF-8">
 <title>1:1 문의 게시판</title>
 
-       
+
+<!-- owl carousel -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/owl.carousel.css">
+<!-- magnific popup -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/magnific-popup.css">
+<!-- animate css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/animate.css">
+<!-- mean menu css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/meanmenu.min.css">
+<!-- main style -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
+<!-- responsive -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/responsive.css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>     
+     
+<script type="text/javascript">
+
+$(function(){
+    $("input[value=삭제]").click(function() {
+	  $("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/adelete");
+	  $("#requestForm").submit();
+  }) 
+
+});
+</script>       
       
        
 </head>
@@ -22,46 +47,51 @@
          <div class="heading1 margin_0">
             <h2>관리자 1:1 문의 목록</h2><p></p>
          </div>
-      </div> 
+      </div>   
+       
     <div class="table_section padding_infor_info">
        <div class="table-responsive-sm">
           <table class="table" >
-             <thead>
+             <thead align="center">
                 <tr>
                   <th>순서</th>
                   <th>카테고리</th>
                   <th>제목</th>
                   <th>날짜</th>
                   <th>답변여부</th>
+                  <th>삭제</th>
                 </tr>
              </thead>
              <c:forEach items="${requestScope.pageList.content}" var="askboard"> 
-               <tbody>
+               <tbody align="center">
                  <tr>
                    <td>${askboard.askId}</td>
                    <td>${askboard.askCategory}</td>
                    <td>
                     <a href = "${pageContext.request.contextPath}/reply/AskReply_Write/${askboard.askId}">
-                      ${askboard.askTitle}
-                    </a> 
-                   </td>
+                      ${askboard.askTitle}</a></td>
                    <td>${askboard.askRegdate}</td>
                    <td>${askboard.askComplete}</td>
+                   
+                   <td>
+                   <form name="requestForm" method ="post" id="requestForm">
+                    <input type="hidden" name="askId" value="${askboard.askId}">
+				     <div align="center">	
+					  <input type="button" class="btn btn-primary py-1 px-2" value="삭제"></button>
+		             </div>
+		           </form>
+                   </td>          
+                 
                  </tr>
                </tbody>
               </c:forEach> 
-            </table>
-             <!--  <div align="right"> 
-              <button onclick="location = '/board/AskBoard'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">작성하기</button> 
-             </div> --> 
-          
+            </table>       
           </div>
         </div>
-       
+
        </div>                    
      </div>
-
-   
+ 
 <p></p>
    
 <div class="row">
@@ -96,51 +126,7 @@
 
   
   
-    <!-- google font -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 
-        
-        <!-- owl carousel -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/owl.carousel.css">
-        <!-- magnific popup -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/magnific-popup.css">
-        <!-- animate css -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/animate.css">
-        <!-- mean menu css -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/meanmenu.min.css">
-        <!-- main style -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
-        <!-- responsive -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/responsive.css">
-
-
-        <!-- jquery -->
-        <script src="${pageContext.request.contextPath}/js/diary/jquery-1.11.3.min.js"></script>
-        <!-- bootstrap -->
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <!-- count down -->
-        <script src="${pageContext.request.contextPath}/js/diary/jquery.countdown.js"></script>
-        <!-- isotope -->
-        <script src="${pageContext.request.contextPath}/js/diary/jquery.isotope-3.0.6.min.js"></script>
-        <!-- waypoints -->
-        <script src="${pageContext.request.contextPath}/js/diary/waypoints.js"></script>
-        <!-- owl carousel -->
-        <script src="${pageContext.request.contextPath}/js/diary/owl.carousel.min.js"></script>
-        <!-- magnific popup -->
-        <script src="${pageContext.request.contextPath}/js/diary/jquery.magnific-popup.min.js"></script>
-        <!-- mean menu -->
-        <script src="${pageContext.request.contextPath}/js/diary/jquery.meanmenu.min.js"></script>
-        <!-- sticker js -->
-        <script src="${pageContext.request.contextPath}/js/diary/sticker.js"></script>
-        <!-- main js -->
-        <script src="${pageContext.request.contextPath}/js/diary/main.js"></script>
-
-        <style>
-            .diary-bg-1 {
-                background-image: url(../../../img/diary-default.jpg);
-            }
-        </style>
         
     
 
