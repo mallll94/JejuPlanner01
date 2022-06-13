@@ -68,6 +68,9 @@ public class PlanBoard {
 	@Transient
 	private MultipartFile file;
 	
+	@Transient
+	private boolean isChecked;
+	
 			
 	/**댓글*/
 	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
