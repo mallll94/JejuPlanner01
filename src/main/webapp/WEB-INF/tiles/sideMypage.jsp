@@ -29,13 +29,13 @@
     <div class="menu-header" style="padding-top: 70px"><h2><strong>마이페이지</strong></h2></div>
      
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/user/myPage" class="menu-link">
         <i class="menu-icon fa-solid fa-user-large"></i>
         <div data-i18n="Basic">내정보</div>
       </a>
     </li>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="/user/myPage" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div data-i18n="Basic">MY플래너</div>
       </a>
@@ -64,19 +64,6 @@
         <i class="menu-icon tf-icons bx bx-coffee-togo"></i>
         <div data-i18n="Support">1 : 1  문의</div>
       </a>
-    </li>
-     <li class="menu-item">
-       <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-comment-add"></i>
-        <div data-i18n="Support">회원정보수정</div>
-      </a>
-    </li>
-     <li class="menu-item" style="padding-bottom: 500px">
-       <a href="" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-        <div data-i18n="Support">회원탈퇴</div>
-      </a>
-    </li>
-   
+    </li> 
     </aside>
 </body>

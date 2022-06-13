@@ -24,6 +24,11 @@
    <put-attribute name="left" value="/WEB-INF/tiles/sideMypage.jsp"/>
  </definition>
 
+ <definition name="layoutBoard" template="/WEB-INF/tiles/layoutBoard.jsp">
+   <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+   <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
+   <put-attribute name="left" value="/WEB-INF/tiles/sideBoard.jsp"/>
+ </definition>
 
  
  <!-- Controller에서 리턴의하는 뷰의 정보에 따라 화면구성을 처리한다. 
@@ -47,7 +52,12 @@
  </definition>
  
 
-
+<definition name="board/*" extends="layoutBoard">
+ <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"></put-attribute>
+</definition>
+<definition name="board/*/*" extends="layoutBoard">
+ <put-attribute name="content" value="/WEB-INF/views/board/{1}.{2}.jsp"></put-attribute>
+</definition> 
 
 <definition name="mypage/*" extends="layoutMypage">
  <put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp"></put-attribute>
@@ -55,6 +65,7 @@
 <definition name="mypage/*/*" extends="layoutMypage">
  <put-attribute name="content" value="/WEB-INF/views/mypage/{1}.{2}.jsp"></put-attribute>
 </definition> 
+
 
  <definition name="*/*" extends="layout">
    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
