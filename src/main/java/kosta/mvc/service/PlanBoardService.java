@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
+import kosta.mvc.dto.LikesDTO;
 
 public interface PlanBoardService {
 
@@ -26,7 +27,7 @@ public interface PlanBoardService {
 	
 	
 	/**좋아요 조회*/
-	Likes selectByBoardId(Long pboardId , String userId);
+	boolean selectByBoardId(Long pboardId , String userId);
 	
 			
 	/**
@@ -51,7 +52,7 @@ public interface PlanBoardService {
 	Page<PlanBoard> selectByCate(String pboarCategory, int nowPage, int PageCount);
 
 	/**좋아요*/
-	int saveLikes(Long pboardId, String userId);
+	LikesDTO saveLikes(Long pboardId, String userId);
 	
 	
 	/**마이페이지에서 내가 쓴 글 목록 조회*/

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.Likes;
 import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.LikesDTO;
 import kosta.mvc.service.PlanBoardService;
 import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -74,17 +75,14 @@ public class PlanBoardController {
 
    /**상세보기 + 좋아요*/
    @RequestMapping("/board/Planboard_Detail/{pboardId}")
-   public String read(@PathVariable Long pboardId , Model model, HttpSession session) {
+   public String read(@PathVariable Long pboardId , Model model) {
 
-      //Users loginUser =(Users)session.getAttribute("loginUser");
-      //임시 테스트 아이디
-      String userId ="aaa";
-      Users loginUser =userService.selectById(userId);
-
+	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  
       PlanBoard planBoard = planBoardService.selectById(pboardId);
-      Likes likes = planBoardService.selectByBoardId(pboardId, userId);
+      boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
 
-      model.addAttribute("likes", likes);         
+      model.addAttribute("isChecked", isChecked);         
 
       model.addAttribute("planBoard" , planBoard);
 
@@ -97,8 +95,8 @@ public class PlanBoardController {
    /**좋아요*/
    @RequestMapping("/like")
    @ResponseBody
-   public int likes(Long pboardId, String userId) {
-	  int result = planBoardService.saveLikes(pboardId, userId);
+   public LikesDTO likes(Long pboardId, String userId) {
+	   LikesDTO result = planBoardService.saveLikes(pboardId, userId);
       System.out.println(result);
       return result;
    }

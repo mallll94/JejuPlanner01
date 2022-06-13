@@ -8,9 +8,11 @@ pageEncoding="UTF-8"%>
 		<meta charset="UTF-8">
         <title>plannerIndex</title>
 
-		 <!-- main style -->
-		 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
-		
+		<!-- Google Font -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+		<!-- main style -->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/diary/main.css">
 
 		<!-- Css Styles -->
 		<link rel="stylesheet" href="/css/azentaMaster/bootstrap.min.css" type="text/css">
@@ -19,20 +21,13 @@ pageEncoding="UTF-8"%>
 		<link rel="stylesheet" href="/css/azentaMaster/themify-icons.css" type="text/css">
 		<link rel="stylesheet" href="/css/azentaMaster/nice-select.css" type="text/css">
 		<link rel="stylesheet" href="/css/azentaMaster/jquery-ui.min.css" type="text/css">
-		<link rel="stylesheet" href="/css/azentaMaster/owl.carousel.min.css" type="text/css">
 		<link rel="stylesheet" href="/css/azentaMaster/magnific-popup.css" type="text/css">
 		<link rel="stylesheet" href="/css/azentaMaster/slicknav.min.css" type="text/css">
 		<link rel="stylesheet" href="/css/azentaMaster/style.css" type="text/css">
-
-		<!-- Js Plugins -->
-		<script src="/js/azentaMaster/jquery-3.3.1.min.js"></script>
-		<script src="/js/azentaMaster/bootstrap.min.js"></script>
-		<script src="/js/azentaMaster/jquery.magnific-popup.min.js"></script>
-		<script src="/js/azentaMaster/jquery.nice-select.min.js"></script>
-		<script src="/js/azentaMaster/jquery.slicknav.js"></script>
-		<script src="/js/azentaMaster/jquery-ui.min.js"></script>
-		<script src="/js/azentaMaster/owl.carousel.min.js"></script>
-		<script src="/js/azentaMaster/main.js"></script>
+		
+		<!-- Owl Stylesheets -->
+		<link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
+		<link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
 
 
 
@@ -87,14 +82,14 @@ pageEncoding="UTF-8"%>
 			}
 			.owl-item-cloned{width: 360px;}
 			.latest-news{margin: 0px; padding: 20px;}
-			.planner-Img{width: 150px;height: 150px;}
+			/* .planner-Img{width: 150px;height: 150px;} */
 			.owl-carousel {display: flex;}
 			.spad{padding-bottom: 50px; padding-top: 50px;}
 
 			
 		</style>
 
-        <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+        
 		
 		<script>
 			$(function(){
@@ -110,7 +105,6 @@ pageEncoding="UTF-8"%>
 					//location.replace(url)
 				})
 				$(document).on("click","#create-planner-bnt",function(){
-					var plannerId = $(this).attr("name")
 					if(!loginUser){
 						alert("로그인 후 이용해 주십시오")
 					}else{
@@ -157,7 +151,7 @@ pageEncoding="UTF-8"%>
 									<div class="col-lg-3">
 										<div class="single-agent">
 											<div class="sa-pic">
-												<img class="planner-Img" src="../../../img/planner-default.jpg" alt="플래너 기본사진">
+												<img class="planner-Img" src="../../../img/planner-default.jpg" alt="플래너 기본사진" style="width: 150px;height: 150px;">
 												<div class="hover-social">
 													<a href="#" class="shop"><i class="fa-solid fa-bag-shopping"></i></a>
 													<a href="#" class="board"><i class="fa-solid fa-clipboard"></i></i></a>
@@ -254,85 +248,271 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 
-		 <!-- Feature Section Begin -->
-		<!-- 상품 추천 슬라이드 -->
+	
+
+
+		<!-- Feature Section Begin -->
 		<section class="feature-section spad">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-title">
-							<span>제주잇다에서 제공하는 특별한 상품들로 잊지못할 여행을 만드세요</span>
-							<h2>플래너 기반 추천 상품</h2>
+							<span>제주잇다에서만 제공하는 특별한 상품들을 만나보세요</span>
+							<h2>플래너 추천 상품</h2>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="feature-carousel owl-carousel">
-
-						<!--try-->
-						<div class="owl-stage-outer">
-							<div class="owl-stage"><!--transfom, transition 속성...-->
-
-								<!--반복-->
-								<div class="owl-item-cloned">
-									<div class="col-lg-4">
-										<div class="feature-item">
-											<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-												<div class="pic-tag">
-													<div class="f-text">feauture</div>
-													<div class="s-text">For Sale</div>
-												</div>
-												<div class="feature-author">
-													<div class="fa-pic">
-														<img src="" alt="">
-													</div>
-													<div class="fa-text">
-														<span>Rena Simmons</span>
-													</div>
-												</div>
-											</div>
-											<div class="fi-text">
-												<div class="inside-text">
-													<h4>French Riviera Villa</h4>
-													<ul>
-														<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
-														<li><i class="fa fa-tag"></i> Villa</li>
-													</ul>
-													<h5 class="price">$5900<span>/month</span></h5>
-												</div>
-												<ul class="room-features">
-													<li>
-														<i class="fa fa-arrows"></i>
-														<p>780 sqft</p>
-													</li>
-													<li>
-														<i class="fa fa-bed"></i>
-														<p>4</p>
-													</li>
-													<li>
-														<i class="fa fa-bath"></i>
-														<p>3</p>
-													</li>
-													<li>
-														<i class="fa fa-car"></i>
-														<p>2</p>
-													</li>
-												</ul>
-											</div>
+						<div class="col-lg-4">
+							<div class="feature-item">
+								<div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
+									<div class="pic-tag">
+										<div class="f-text">feauture</div>
+										<div class="s-text">For Sale</div>
+									</div>
+									<div class="feature-author">
+										<div class="fa-pic">
+											<img src="" alt="">
+										</div>
+										<div class="fa-text">
+											<span>Rena Simmons</span>
 										</div>
 									</div>
 								</div>
-								<!--반복끝-->
-								
-
-
-
+								<div class="fi-text">
+									<div class="inside-text">
+										<h4>French Riviera Villa</h4>
+										<ul>
+											<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
+											<li><i class="fa fa-tag"></i> Villa</li>
+										</ul>
+										<h5 class="price">$5900<span>/month</span></h5>
+									</div>
+									<ul class="room-features">
+										<li>
+											<i class="fa fa-arrows"></i>
+											<p>780 sqft</p>
+										</li>
+										<li>
+											<i class="fa fa-bed"></i>
+											<p>4</p>
+										</li>
+										<li>
+											<i class="fa fa-bath"></i>
+											<p>3</p>
+										</li>
+										<li>
+											<i class="fa fa-car"></i>
+											<p>2</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="feature-item">
+								<div class="fi-pic set-bg" data-setbg="img/feature/feature-2.jpg">
+									<div class="pic-tag">
+										<div class="f-text">feauture</div>
+										<div class="s-text">For Sale</div>
+									</div>
+									<div class="feature-author">
+										<div class="fa-pic">
+											<img src="" alt="">
+										</div>
+										<div class="fa-text">
+											<span>Rena Johnston</span>
+										</div>
+									</div>
+								</div>
+								<div class="fi-text">
+									<div class="inside-text">
+										<h4>French Riviera Villa</h4>
+										<ul>
+											<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
+											<li><i class="fa fa-tag"></i> Villa</li>
+										</ul>
+										<h5 class="price">$5900<span>/month</span></h5>
+									</div>
+									<ul class="room-features">
+										<li>
+											<i class="fa fa-arrows"></i>
+											<p>780 sqft</p>
+										</li>
+										<li>
+											<i class="fa fa-bed"></i>
+											<p>4</p>
+										</li>
+										<li>
+											<i class="fa fa-bath"></i>
+											<p>3</p>
+										</li>
+										<li>
+											<i class="fa fa-car"></i>
+											<p>2</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="feature-item">
+								<div class="fi-pic set-bg" data-setbg="img/feature/feature-3.jpg">
+									<div class="pic-tag">
+										<div class="f-text">feauture</div>
+										<div class="s-text">For Sale</div>
+									</div>
+									<div class="feature-author">
+										<div class="fa-pic">
+											<img src="" alt="">
+										</div>
+										<div class="fa-text">
+											<span>Jonathan Walters</span>
+										</div>
+									</div>
+								</div>
+								<div class="fi-text">
+									<div class="inside-text">
+										<h4>French Riviera Villa</h4>
+										<ul>
+											<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
+											<li><i class="fa fa-tag"></i> Villa</li>
+										</ul>
+										<h5 class="price">$5900<span>/month</span></h5>
+									</div>
+									<ul class="room-features">
+										<li>
+											<i class="fa fa-arrows"></i>
+											<p>780 sqft</p>
+										</li>
+										<li>
+											<i class="fa fa-bed"></i>
+											<p>4</p>
+										</li>
+										<li>
+											<i class="fa fa-bath"></i>
+											<p>3</p>
+										</li>
+										<li>
+											<i class="fa fa-car"></i>
+											<p>2</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="feature-item">
+								<div class="fi-pic set-bg" data-setbg="img/feature/feature-4.jpg">
+									<div class="pic-tag">
+										<div class="f-text">feauture</div>
+										<div class="s-text">For Sale</div>
+									</div>
+									<div class="feature-author">
+										<div class="fa-pic">
+											<img src="" alt="">
+										</div>
+										<div class="fa-text">
+											<span>Jonathan Walters</span>
+										</div>
+									</div>
+								</div>
+								<div class="fi-text">
+									<div class="inside-text">
+										<h4>French Riviera Villa</h4>
+										<ul>
+											<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
+											<li><i class="fa fa-tag"></i> Villa</li>
+										</ul>
+										<h5 class="price">$5900<span>/month</span></h5>
+									</div>
+									<ul class="room-features">
+										<li>
+											<i class="fa fa-arrows"></i>
+											<p>780 sqft</p>
+										</li>
+										<li>
+											<i class="fa fa-bed"></i>
+											<p>4</p>
+										</li>
+										<li>
+											<i class="fa fa-bath"></i>
+											<p>3</p>
+										</li>
+										<li>
+											<i class="fa fa-car"></i>
+											<p>2</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="feature-item">
+								<div class="fi-pic set-bg" data-setbg="img/feature/feature-5.jpg">
+									<div class="pic-tag">
+										<div class="f-text">feauture</div>
+										<div class="s-text">For Sale</div>
+									</div>
+									<div class="feature-author">
+										<div class="fa-pic">
+											<img src="" alt="">
+										</div>
+										<div class="fa-text">
+											<span>Jonathan Walters</span>
+										</div>
+									</div>
+								</div>
+								<div class="fi-text">
+									<div class="inside-text">
+										<h4>French Riviera Villa</h4>
+										<ul>
+											<li><i class="fa fa-map-marker"></i> 180 York Road, London, UK</li>
+											<li><i class="fa fa-tag"></i> Villa</li>
+										</ul>
+										<h5 class="price">$5900<span>/month</span></h5>
+									</div>
+									<ul class="room-features">
+										<li>
+											<i class="fa fa-arrows"></i>
+											<p>780 sqft</p>
+										</li>
+										<li>
+											<i class="fa fa-bed"></i>
+											<p>4</p>
+										</li>
+										<li>
+											<i class="fa fa-bath"></i>
+											<p>3</p>
+										</li>
+										<li>
+											<i class="fa fa-car"></i>
+											<p>2</p>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+		<!-- Feature Section End -->
+
+
+
+		<!--JQuery-->
+		<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+
+		<!-- Js Plugins -->
+		<script src="/js/azentaMaster/bootstrap.min.js"></script>
+		<script src="/js/azentaMaster/jquery.magnific-popup.min.js"></script>
+		<script src="/js/azentaMaster/jquery.nice-select.min.js"></script>
+		<script src="/js/azentaMaster/jquery.slicknav.js"></script>
+		<script src="/js/azentaMaster/jquery-ui.min.js"></script>
+		<script src="/js/owlCarousel/owl.carousel.min.js"></script>
+		<script src="/js/azentaMaster/main.js"></script>
 
 		
 	</body>

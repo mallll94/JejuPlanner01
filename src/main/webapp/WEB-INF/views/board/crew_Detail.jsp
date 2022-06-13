@@ -233,7 +233,11 @@ $(function(){
       <div id="review_reply_output"></div>
     </div>
 </div>
-
+<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<input type="hidden" name="no" value='${freeBoard.freeId}'>
+<input type="hidden" name="receId" value='${freeBoard.user.userId}'>
+<input type="submit" value="rrr">
+</form>
 
 
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,13 +14,15 @@
 
 <script type="text/javascript">
 
+
 $(function(){
+
     var target ='${planBoard.pboardId}'
-    //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
+    var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
-    var loginUser='aaa'
+    //var loginUser='aaa'
     //alert("로그인 유저 아이디:"+loginUser)
-     alert(target)
+    console.log(target);
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -158,15 +160,18 @@ $(function(){
  
 $(document).ready(function(){
 
-	const pboardId = "${planBoard.pboardId}"
-	const userId = "aaa"
-	let likeVal = "${likes}"
-	alert(likeVal)
-	if(likeVal > 0 ){
+	const pboardId = "${planBoard.pboardId}";
+	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
+	
+	var isChecked = ${isChecked};
+	console.log(isChecked);
+	if (isChecked) {
+		console.log("이미 좋아요 함");
 		$("#liked-heart").attr('class','bi-heart-fill');
 	}else{
 		$("#liked-heart").attr('class','bi-heart');
 	}
+	
 	
 	//좋아요 버튼 클릭시 실행 
 	$("#liked-heart").on("click", function(){
@@ -176,12 +181,14 @@ $(document).ready(function(){
 			data:{pboardId : pboardId , userId : userId},
 			dataType: "text",
 			success: function(result){
-				alert(result);
-				if(result == 1){
+				var oResult = JSON.parse(result);
+				console.log(oResult);
+				if(oResult.checked){
 					$("#liked-heart").attr('class','bi-heart-fill');
 				}else{
 					$("#liked-heart").attr('class','bi-heart');
 				}
+				document.getElementById("likes-count").innerHTML = oResult.likesCount;
 			}, error : function(err){
 				alert("오류가 났습니다.")
 			}
@@ -211,7 +218,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요       
+                좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
 			 </div>	
 			   
 
@@ -256,9 +263,9 @@ $(document).ready(function(){
     	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
             <div class="form-inline mb-2">
               <i class="bi bi-chat-right-dots-fill" style="font-size:2rem"></i>
-                <span><strong>{sessionScope.loginUser.userId}</strong></span>
+                <span><strong>${sessionScope.loginUser.userId}</strong></span>
                 <!-- <span><strong>{sessionScope.loginManager.managerId}</strong></span> -->
-                <input type="hidden" name="reply_id" value="{sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
+                <input type="hidden" name="reply_id" value="${sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
                 <!-- <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}"> -->
             </div>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none"></textarea>
@@ -279,7 +286,10 @@ $(document).ready(function(){
   </div>
 </div><p></p>
    
-
+<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<input type="hidden" name="no" value='${freeBoard.freeId}'>
+<input type="hidden" name="receId" value='${freeBoard.user.userId}'>
+<input type="submit" value="rrr">
 
 
 </body>

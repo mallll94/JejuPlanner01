@@ -63,10 +63,15 @@ public class PlanBoard {
 	@CreationTimestamp
 	private LocalDateTime pboardRegdate;
 		
+	private int likesCount;
+	
 	@Transient
 	private MultipartFile file;
-		
 	
+	@Transient
+	private boolean isChecked;
+	
+			
 	/**댓글*/
 	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)
 	private List<PlanReply> planReply;

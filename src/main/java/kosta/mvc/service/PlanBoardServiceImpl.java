@@ -2,6 +2,7 @@ package kosta.mvc.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -19,6 +20,7 @@ import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.QPlanBoard;
 //import kosta.mvc.domain.QPlanBoard;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.LikesDTO;
 import kosta.mvc.repository.LikesRepository;
 import kosta.mvc.repository.PlanBoardRepository;
 import kosta.mvc.repository.UserRepository;
@@ -59,15 +61,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		return planBoard;
 	}
 	
-	/**좋아요 조회*/
-	@Override
-	public Likes selectByBoardId(Long pboardId, String userId) {
-		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
-		
-		return likes;
-	}
-
-
+	
 	/**등록하기*/
 	@Override
 	public void insertPlanBoard(PlanBoard planBoard, String uploadpath) {
@@ -151,28 +145,46 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 		
 		return result;
 	}
+	
+	
+	/**좋아요 조회*/
+	@Override
+	public boolean selectByBoardId(Long pboardId, String userId) {
+		if (likesRep.findlikesByUserIdAndPboardId(userId, pboardId) != null) {
+			return true;
+		}
+		
+		
+		return false;
+	}
+	
 
 	@Override
-	public int saveLikes(Long pboardId, String userId) {
+	public LikesDTO saveLikes(Long pboardId, String userId) {
 		PlanBoard planBoard = planBoardRep.findById(pboardId)
 				.orElseThrow(() -> new RuntimeException("게시글이 조회되지 않습니다."));
+		
 		
 		Users user = userRep.findById(userId)
 				.orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
 	
 		Likes likes = likesRep.findlikesByUserIdAndPboardId(userId, pboardId);
 		System.out.println(likes);
-		if(likes==null) {
-			likesRep.save(new Likes(null, user, planBoard, 0) );
+		LikesDTO likesDTO = new LikesDTO();
+		if(likes == null) {
+			likesRep.save(new Likes(null, user, planBoard) );
+			planBoard.setLikesCount(planBoard.getLikesCount() + 1);
+			likesDTO.setChecked(true);
 	        System.out.println(1);
-			return 1;
-		}else {
+			
+		} else {
 			likesRep.deleteById(likes.getLikeId());
+			planBoard.setLikesCount(planBoard.getLikesCount() - 1);
 			System.out.println(0);
-			return 0;
 		}
 		
-		
+		likesDTO.setLikesCount(planBoard.getLikesCount());
+		return likesDTO;
 	}
 
 	/**내가 쓴 글 목록 조회하기*/
