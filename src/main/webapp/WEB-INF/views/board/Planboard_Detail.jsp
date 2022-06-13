@@ -58,7 +58,56 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<style>
+	.col{height: 50px; margin-top: 10px; margin-bottom: 10px;}
+	.planner-name{font-size: xx-large; font-weight: bold; color:  rgb(43, 42, 42); padding-right: 10px;}
+	.planner-setting{
+		color: rgb(214, 212, 212);
+		width: 150px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid rgb(80, 80, 80);
+		background-color: rgb(80, 80, 80);
+		border-radius: 4px;
+	}
+	.planner-days{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.planner-type{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.custom-bnt{
+		font-size: large;
+		font-weight: bold;
+		color: cornflowerblue;
+		padding-bottom: 12px;
+	}
+	.custom-bnt:hover {
+		font-size: large;
+		font-weight: bold;
+		color: rgb(80, 80, 80);
+		text-decoration-line: none;
+		padding-bottom: 12px;
+	}
+</style>
 
 <script type="text/javascript">
 var mymap;
