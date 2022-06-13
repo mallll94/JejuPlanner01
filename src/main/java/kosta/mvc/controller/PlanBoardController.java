@@ -74,15 +74,12 @@ public class PlanBoardController {
 
    /**상세보기 + 좋아요*/
    @RequestMapping("/board/Planboard_Detail/{pboardId}")
-   public String read(@PathVariable Long pboardId , Model model, HttpSession session) {
+   public String read(@PathVariable Long pboardId , Model model) {
 
-      //Users loginUser =(Users)session.getAttribute("loginUser");
-      //임시 테스트 아이디
-      String userId ="aaa";
-      Users loginUser =userService.selectById(userId);
-
+	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  
       PlanBoard planBoard = planBoardService.selectById(pboardId);
-      Likes likes = planBoardService.selectByBoardId(pboardId, userId);
+      Likes likes = planBoardService.selectByBoardId(pboardId, users.getUserId());
 
       model.addAttribute("likes", likes);         
 

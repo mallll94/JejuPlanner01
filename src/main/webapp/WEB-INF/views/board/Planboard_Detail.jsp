@@ -16,9 +16,9 @@
 
 $(function(){
     var target ='${planBoard.pboardId}'
-    //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
+    var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
-    var loginUser='aaa'
+    //var loginUser='aaa'
     //alert("로그인 유저 아이디:"+loginUser)
      alert(target)
     //전체 댓글 검색
@@ -159,7 +159,7 @@ $(function(){
 $(document).ready(function(){
 
 	const pboardId = "${planBoard.pboardId}"
-	const userId = "aaa"
+	const userId = "${sessionScope.loginUser.userId}"
 	let likeVal = "${likes}"
 	alert(likeVal)
 	if(likeVal > 0 ){
@@ -211,7 +211,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요       
+                좋아요 ${planBoard.likesCount}       
 			 </div>	
 			   
 
@@ -256,9 +256,9 @@ $(document).ready(function(){
     	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
             <div class="form-inline mb-2">
               <i class="bi bi-chat-right-dots-fill" style="font-size:2rem"></i>
-                <span><strong>{sessionScope.loginUser.userId}</strong></span>
+                <span><strong>${sessionScope.loginUser.userId}</strong></span>
                 <!-- <span><strong>{sessionScope.loginManager.managerId}</strong></span> -->
-                <input type="hidden" name="reply_id" value="{sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
+                <input type="hidden" name="reply_id" value="${sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
                 <!-- <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}"> -->
             </div>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none"></textarea>
