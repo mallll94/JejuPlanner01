@@ -50,10 +50,12 @@ public class GoodsReplyController {
 		
 	/**
 	 * 후기 삭제하기
+	 * @return 
 	 */
 	@DeleteMapping("/{goodsReplyId}")
 	public void deleteGoodsReply(@PathVariable Long goodsReplyId) {
 		goodsReplyService.deleteGoodsReply(goodsReplyId);
+		
 	}
 		
 	/**
