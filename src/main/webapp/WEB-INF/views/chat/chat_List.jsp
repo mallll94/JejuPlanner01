@@ -28,6 +28,7 @@
 						data+="<td>보낸사람이름</td>";
 						data+="<td>내용</td>";
 						data+="<td>시간</td>";
+						data+="<td>안읽은 쪽지 여부</td>";
 						data+="</tr>";
 						$.each(result, function(index, item){
 							
@@ -36,6 +37,12 @@
 							data+=`<td>${'${item.senderUserId}'}</td>`;
 							data+=`<td><a href='${pageContext.request.contextPath}/chat/chat_Room?no=${"${item.chatRoom}"}'>${'${item.chatContent}'}</a></td>`;
 							data+=`<td>${'${item.chatSend}'}</td>`;
+							if(item.chatCheck==0){
+								data+=`<td>새로옴</td>`;
+							}else{
+								data+=`<td>읽음</td>`;
+							}
+							
 							data+=`</tr>`;
 							 
 						})

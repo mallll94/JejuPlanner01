@@ -65,7 +65,7 @@ public class PlanBoard {
 		
 	@Transient
 	private MultipartFile file;
-	
+		
 	
 	/**댓글*/
 	@OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL)

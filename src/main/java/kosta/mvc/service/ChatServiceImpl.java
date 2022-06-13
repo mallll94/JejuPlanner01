@@ -83,35 +83,49 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public List<ChatBoard> selectById(int chatRoom,Users users) {
-		//Map<String, List<ChatBoard>> map = new HashMap<String, List<ChatBoard>>();
+
 		QChatBoard chatBoard = QChatBoard.chatBoard;
 		BooleanBuilder builder = new BooleanBuilder();
-		BooleanBuilder builder2 = new BooleanBuilder();
+
 		builder.and(chatBoard.chatRoom.eq(chatRoom));
-		//builder.and(chatBoard.receiverUser.userId.eq(users.getUserId()));
-		List<ChatBoard> receive= (List<ChatBoard>) chatBoardRep.findAll(builder);
-		
-		//builder2.and(chatBoard.chatRoom.eq(chatRoom));
-		//builder2.and(chatBoard.receiverUser.userId.eq(users.getUserId()));
-		//List<ChatBoard> send= (List<ChatBoard>)chatBoardRep.findAll(builder2);
-		
-		//map.put("receive", receive);
-		//map.put("send", send);
+
+		List<ChatBoard> receive= (List<ChatBoard>) chatBoardRep.findAll(builder,Sort.by(Sort.Order.asc("chatSend")));
+
 		
 		return receive;
 	}
 
 	@Override
-	public void sendMessage(String msg,String userId,String receId) {
+	public void sendMessage(String msg,String userId,String receId,int chatRoom) {
 		
-		System.out.println(receId);
+
 		LocalDateTime now = LocalDateTime.now();
 		Users sendUser=userRepository.findById(userId).orElse(null);
-		System.out.println("2222");
+
 		Users receUser=userRepository.findById(receId).orElse(null);
-		System.out.println("D33333");
-		chatBoardRep.save(new ChatBoard(null, null, sendUser, receUser, 0, now, null, msg, 0, null, null));
+
+		chatBoardRep.save(new ChatBoard(null, null, sendUser, receUser, chatRoom, now, null, msg, 0, null, null));
+
 		
+	
+	}
+
+	@Override
+	public void changeType(int chatRoom) {
+		QChatBoard chatBoard = QChatBoard.chatBoard;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(chatBoard.chatRoom.eq(chatRoom));
+		
+		
+		List<ChatBoard> chat=(List<ChatBoard>) chatBoardRep.findAll(builder,Sort.by(Sort.Order.desc("chatSend")));
+		
+		
+		System.out.println(chat.get(0).getChatId());
+		
+		Long id = chat.get(0).getChatId();
+		
+		ChatBoard db=chatBoardRep.findById(id).orElse(null);
+		db.setChatCheck(1);
 	}
 
 }

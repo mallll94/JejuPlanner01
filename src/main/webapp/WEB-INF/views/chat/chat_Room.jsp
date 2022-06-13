@@ -12,14 +12,20 @@
 <script type="text/javascript">
 
 $(function(){
+	
+     
+		
+	
 
+	
+	
+	
 	function selectAll(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/chat/chatAll", //서버요청주소
-			type:"post", // 요청방식(get, post)
+			url:"${pageContext.request.contextPath}/chat/chatAll",
+			type:"post",
 			traditional: true,
-			dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-			//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
+			dataType:"json",
 			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,chatRoom : ${param.no}},
    			success :function(result){	
 					var data = "";
@@ -51,8 +57,16 @@ $(function(){
 
 					})
 					
+					
+					
+					
 					$("#sendId").val(result.userId);
-					$("#receId").val(result.msg[0].senderUserId);
+					$("#receId").val(result.receId);
+					
+					if($("#receId").val()==null || $("#receId").val()==""){
+						$("#receId").val('${param.receId}');
+					}
+					
 					
 					$("#list").html("");
    					$("#list").html(data);
@@ -68,24 +82,17 @@ $(function(){
 	
 	$("#send").click(function(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/chat/send", //서버요청주소
-			type:"post", // 요청방식(get, post)
-			traditional: true,
-			dataType:"json",//서버가 응답해주는 데이터타입(text,html,xml,json)
-			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,msg : $("#message").val(),chatRoom : ${param.no}, sendId : $("#sendId").val(), receId:$("#receId").val()},
+			url:"${pageContext.request.contextPath}/chat/send",
+			type:"post", 
+			dataType:"text",
+			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,msg : $("#message").val() ,chatRoom : ${param.no}, sendId : $("#sendId").val(), receId : $("#receId").val()},
 			success :function(result){		
-   				
-   				
-			},error : function(err){  
-				alert(err+"에러 발생했어요.");
-			}  //실팽했을때 실행할 함수 
-   	
+   				selectAll();	
+			},error : function(request, status, error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
 		});
 	})
-	
-	
-	
-	
 	selectAll();
 })
 
@@ -94,19 +101,11 @@ $(function(){
 <body>
 <h1>쪽지함</h1>
 
-
-
-
-<div class="container" id = "list">
-
-</div>
+<div class="container" id = "list"></div>
 <input type="hidden" id="sendId" name ="sendId" >
 <input type="hidden" id="receId" name="receId">
-<input type="text" id="message">
-
-
-<button type="button" id="send">send</button>
-
+<input type="text"id="message" >
+<button type="button" id="send" >send</button>
 
 </body>
 </html>

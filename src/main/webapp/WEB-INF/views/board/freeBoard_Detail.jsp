@@ -16,6 +16,7 @@
 
 $(function(){
     var target ='${freeBoard.freeId}'
+    
     //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
     var loginUser='ddd'
@@ -228,7 +229,10 @@ $(function(){
 </div>
     
 
-
-
+<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<input type="hidden" name="no" value='${freeBoard.freeId}'>
+<input type="hidden" name="receId" value='${freeBoard.user.userId}'>
+<input type="submit" value="rrr">
+</form>
 </body>
 </html>

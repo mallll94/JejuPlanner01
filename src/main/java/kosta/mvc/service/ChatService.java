@@ -21,5 +21,10 @@ public interface ChatService {
 	/**
 	 * 메세지 list에서 메세지 보낸다.
 	 * */
-	void sendMessage(String msg,String userId,String receId);
+	void sendMessage(String msg,String userId,String receId,int chatRoom);
+	
+	/**
+	 * 읽음 전환 
+	 * */
+	void changeType (int chatRoom);
 }

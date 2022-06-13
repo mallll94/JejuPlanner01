@@ -15,7 +15,7 @@
 $(function() {
 		
 	$("input[name=btnradio]").click(function(){
-		$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/AskDetail_Admin/complete");
+		$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/detail/complete");
 		$("#requestForm").submit();
 		
 	})
@@ -41,17 +41,18 @@ $(function() {
                     <div id="success"></div>
                     
                     <form name="requestForm" method="post" id="requestForm">
-                    
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-left: 89.5%">
-                      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="Y" data-bs-toggle="modal" data-bs-target="#exampleModal1" checked>
-                      <label class="btn btn-outline-primary" for="btnradio1">답변 완료</label>
-                    </div>
+                    <input type="hidden" name="askId" value="${askboard.askId}">
+                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="margin-left: 89.5%" >
+       	            <input type="radio"  value="Y" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+		            <label class="btn btn-outline-primary" for="btnradio1" >답변완료</label>
+	              </div>
+                  
+                  
                                 
                     <div class="control-group" style="text-align: left;">
                             카테고리 <input type="text" readonly class="form-control" id="askCategory" name="askCategory" value="${askboard.askCategory}"/>
                             <p class="help-block text-danger"></p>
-                    </div>
-                    
+                    </div>            
                     <div class="control-group" style="text-align: left;">
                             제목 <input type="text" readonly class="form-control" id="askTitle" name="askTitle" value="${askboard.askTitle}"/>
                             <p class="help-block text-danger"></p>

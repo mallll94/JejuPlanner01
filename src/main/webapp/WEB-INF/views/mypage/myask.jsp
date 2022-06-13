@@ -49,7 +49,7 @@
                   <th>답변여부</th>
                 </tr>
              </thead>
-             <c:forEach items="${requestScope.pageList.content}" var="askboard"> 
+             <c:forEach items="${requestScope.myList}" var="askboard"> 
                <tbody>
                  <tr>
                    <td>${askboard.askId}</td>
@@ -66,10 +66,7 @@
               </c:forEach> 
             </table>
              <p></p>
-             <div align="right"> 
-              <button onclick="location = '/board/AskBoard'" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">작성하기</button> 
-             </div>   
-          
+              
           </div>
         </div>
        
@@ -79,36 +76,10 @@
 
 <p></p> 
   
-      <div class="row" align="center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <div class="pagination-wrap"> 
-                            <ul>
-                                <c:set var="doneLoop" value="false"/>
-                                <c:if test="${(startPage-blockCount) > 0}"> <!-- (-2) > 0  -->
-                                    <li><a href="${pageContext.request.contextPath}/board/AskList?nowPage=${startPage-1}">Prev</a></li>
-                                </c:if>
-                                <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
-                                    <c:if test="${(i-1)>=pageList.getTotalPages()}"> <!-- 페이지가 전체페이지보다 크다면 -->
-                                        <c:set var="doneLoop" value="true"/> <!-- 다음페이지 돌지마라 -->
-                                    </c:if> 
-                                    <c:if test="${not doneLoop}" > <!-- 다음페이지가 없으면 -->
-                                      <li><a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/board/AskList?nowPage=${i}">${i}</a><li>
-                                    </c:if>
-                                </c:forEach>
-                                <!-- <li><a class="active" href="#">2</a></li>
-                                <li><a href="#">3</a></li> -->
-                                <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
-                                    <li><a href="${pageContext.request.contextPath}/board/AskList?nowPage=${startPage+blockCount}">Next</a></li>
-                                </c:if>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
    
+   
+
 
 </body>
 </html>

@@ -65,12 +65,7 @@
 	var targets=[];
 
 	$(function(){
-		
-		
-		
-		
-		
-		
+
 		// 타입 수정
 		$("#plannerType").change(function(){	
 			
@@ -173,11 +168,6 @@
 			return '' + y + '-' +  m  + '-' + d;		
  		}
 
-		
-		
-
-
-
 		function selectAll(no){//1
 			
 			$.ajax({
@@ -204,7 +194,6 @@
 
 					deleteMarkers();
 					removeRoute();
-					
 					getLineColor();
 				
 					//deleteLine();
@@ -216,20 +205,9 @@
 						targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
 					}
 					
-					
-					
-					
-					addMarker(targets);	
-					
+					addMarker(targets);		
 					addLine(targets,getLineColor(dayNo))
-					
-					
-					
-					
-					
-					
-					
-					
+
 					let index=0;
 					for(let j=1; j<=dayNo;j++){ //dayNo = 1 , 2 ,3 , 4 ,    no=0일때 모두 , no=1 1day, no=2 ,2day	
 							
@@ -250,7 +228,7 @@
 								
 								card+=`<div class='col-lg-3 col-md-3'>`;
 								card+=`<div class='single-latest-news'>`;
-								card+=`<div class='latest-news-bg news-bg-1' style='background-image: url(../../../img/place/${"${item.placePhoto}"})'></div>`;
+								card+=`<div class='latest-news-bg news-bg-1' style='background-image: url(/images/place/${"${item.placePhoto}"})'></div>`;
 								card+=`<div class='news-text-box'>`;
 								card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
 								card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
@@ -670,8 +648,7 @@
                        </div>
                     </div>
                   </div>
-                </div>
-              
+			</div>  
    	  </div>
       <div class="modal-footer">
         <button id="updateCount" type="submit" class="btn btn-primary">수정하기</button>
@@ -681,10 +658,6 @@
     </div>
   </div>
 </div>
-
-
-
-	
 </body>
 </html>
 	

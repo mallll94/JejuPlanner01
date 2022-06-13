@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -68,6 +69,8 @@ public class ChatController {
 			resultList.add(dto);
 		}
 		
+		
+		
 		return resultList;
 	}
 
@@ -75,52 +78,52 @@ public class ChatController {
 	@ResponseBody
 	public Map<String, Object> chatAll(int chatRoom){
 		Map<String, Object> result = new HashMap<String, Object>();
-		//Map<String, List<ChatDTO>> result = new HashMap<String, List<ChatDTO>>();
+		String recevId = null;
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//Map<String, List<ChatBoard>> map =chatService.selectById(chatRoom,users);
+		
+		chatService.changeType(chatRoom);
+
 		List<ChatBoard> list=chatService.selectById(chatRoom,users);
-		List<ChatDTO> sendList = new ArrayList<ChatDTO>();	
-		//List<ChatDTO> receList = new ArrayList<ChatDTO>();
+		List<ChatDTO> sendList = new ArrayList<ChatDTO>();
+		
 		for(ChatBoard x : list) {
 			ChatDTO dto = new ChatDTO(x.getChatId(), x.getCrewboard(), x.getReceiverUser().getUserId(), x.getSenderUser().getUserId(), x.getChatRoom(), x.getChatSend(), x.getChatRead(), x.getChatContent(), x.getChatCheck());	
 			sendList.add(dto);
+			if(!x.getReceiverUser().getUserId().equals(users.getUserId())) {
+				recevId =x.getReceiverUser().getUserId();
+				System.out.println(recevId);
+			}	
 		}
-		/*
-		for(int i=0; i < map.get("send").size();i++) {
-			
-			ChatDTO dto = new ChatDTO(map.get("send").get(i).getChatId(), map.get("send").get(i).getCrewboard(), null,map.get("send").get(i).getReceiverUser().getUserId() , map.get("send").get(i).getChatRoom(),
-					map.get("send").get(i).getChatSend(), map.get("send").get(i).getChatRead(), map.get("send").get(i).getChatContent(), map.get("send").get(i).getChatCheck());
-			
-			sendList.add(dto);
-		}
+
 		
-		for(int i=0; i < map.get("receive").size();i++) {
-			
-			ChatDTO dto = new ChatDTO(map.get("receive").get(i).getChatId(), map.get("receive").get(i).getCrewboard(), null, map.get("receive").get(i).getReceiverUser().getUserId() , map.get("receive").get(i).getChatRoom(),
-					map.get("receive").get(i).getChatSend(), map.get("receive").get(i).getChatRead(), map.get("receive").get(i).getChatContent() , map.get("receive").get(i).getChatCheck());
-			
-			receList.add(dto);
-		}
-		result.put("send", sendList);
-		result.put("receive", receList);
-		*/
+		
+		
+		
 		result.put("msg", sendList);
 		result.put("userId", users.getUserId());
+		result.put("receId",recevId);
 		return result;
 	}
 	
 	
 	@RequestMapping("/send")
 	@ResponseBody
-	public String send(String msg,String receId) {
-		System.out.println("들어오긴해??");
-		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		chatService.sendMessage(msg,users.getUserId(),receId);
-		System.out.println("fdfwef 여기까지 가능?");
-		return "dd";
+	public String send(String msg,String receId,String sendId,int chatRoom) {
+		chatService.sendMessage(msg,sendId,receId,chatRoom);
+
+		return "ok";
 	}
 	
-	
+	@RequestMapping("/roomInsert")
+	public String roomInsert(int chatRoom,String receId) {
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String sendId = users.getUserId();
+		chatService.sendMessage("채팅시작",sendId,receId,chatRoom);
+		
+		
+		return "chat/chat_Room";
+	}
+
 	
 	
 	
