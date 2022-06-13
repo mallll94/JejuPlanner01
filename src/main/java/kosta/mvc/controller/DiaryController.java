@@ -45,6 +45,7 @@ public class DiaryController {
 	@RequestMapping("/diaryIndex")
 	public void selectAllByUserIdPageing(Model model, HttpSession session, @RequestParam(defaultValue = "1") int nowPage) {
 		//Users loginUser =(Users)session.getAttribute("loginUser");
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
 		
 		//임시 테스트 아이디

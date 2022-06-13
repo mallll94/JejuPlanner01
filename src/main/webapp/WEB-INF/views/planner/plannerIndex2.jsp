@@ -190,7 +190,7 @@
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
-					var dayNoLi = "<option value='0'>일정</option>";
+					var dayNoLi = "<option value='0'>✏️일정</option>";
 
 					var saveDayNo= result.dayNo;
 
@@ -433,30 +433,79 @@
 /////////////////////////////////////////////////////////////////////	
 
 </script>
-
+<style>
+	.col{height: 50px; margin-top: 10px; margin-bottom: 10px;}
+	.planner-name{font-size: xx-large; font-weight: bold; color:  rgb(43, 42, 42); padding-right: 10px;}
+	.planner-setting{
+		color: rgb(214, 212, 212);
+		width: 150px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid rgb(80, 80, 80);
+		background-color: rgb(80, 80, 80);
+		border-radius: 4px;
+	}
+	.planner-days{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.planner-type{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.custom-bnt{
+		font-size: large;
+		font-weight: bold;
+		color: cornflowerblue;
+		padding-bottom: 12px;
+	}
+	.custom-bnt:hover {
+		font-size: large;
+		font-weight: bold;
+		color: rgb(80, 80, 80);
+		text-decoration-line: none;
+		padding-bottom: 12px;
+	}
+</style>
 
 
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<span id="name"></span>	
-				<select id="option">
-						<option value='none'>관리</option>
+				<span id="name" class="planner-name"></span>	
+				<select id="option" class="planner-setting">
+						<option value='none'>⚙️관리</option>
 						<option value='dateUpdate' >일정 수정</option>
 						<option value='placeDelete'>일정 삭제</option>
 						<option value='share'>공유하기</option>
 						<option value='placeName'>플래너 이름수정</option>
 				</select>
-				<select id="days"></select>
+				<select id="days" class="planner-days"></select>
 				
-				<select id="plannerType">
-					<option value='연인' >연인</option>
-					<option value='나홀로'>나홀로</option>
-					<option value='가족/부모님'>가족/부모님</option>
-					<option value='친구'>친구</option>
+				<select id="plannerType" class="planner-type">
+					<option value='연인' >❤️연인</option>
+					<option value='나홀로'>🧘나홀로</option>
+					<option value='가족/부모님'>🏠가족</option>
+					<option value='친구'>🧑‍🤝‍🧑친구</option>
 				</select>
-				<button type="button" class ="btn btn-link "  id="countPlan"></button>
+				<button type="button" class ="btn btn-link custom-bnt "  id="countPlan"></button>
 			</div>
 		</div>
 	</div>
