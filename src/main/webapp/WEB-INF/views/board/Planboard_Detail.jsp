@@ -211,7 +211,7 @@ $(document).ready(function(){
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요${likes.likesCount}        
+                좋아요       
 			 </div>	
 			   
 

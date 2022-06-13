@@ -179,7 +179,12 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	@Override
 	public List<PlanBoard> selectByUserId(String userId) {
 		
-		List<PlanBoard> planList = planBoardRep.findAll();
+		Users user = userRep.findById(userId).orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
+		QPlanBoard plan = QPlanBoard.planBoard;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(plan.user.userId.eq(user.getUserId()));
+		
+		List<PlanBoard> planList = (List<PlanBoard>)planBoardRep.findAll(builder);
 		
 		return planList;
 	}

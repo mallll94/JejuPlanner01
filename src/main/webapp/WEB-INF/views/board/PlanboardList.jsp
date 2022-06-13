@@ -48,7 +48,7 @@
 
 <p></p>
 
-<div style="position: absolute; left:39%; bottom: 55%">
+<div style="position: absolute; left:39%; bottom: 42%">
  <button type="button" class="btn btn-light btn-lg" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light btn-lg" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
  <button type="button" class="btn btn-light btn-lg" name="친구">친구</button>&nbsp;&nbsp;&nbsp;

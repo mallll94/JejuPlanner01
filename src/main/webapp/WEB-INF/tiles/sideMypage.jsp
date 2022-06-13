@@ -50,7 +50,7 @@
             <nav class="sb-sidenav-menu-nested nav">
                 <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;소통 게시판</a>
                 <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;동행구하기 게시판</a>
-                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;플래너공유 게시판</a>
+                <a class="nav-link" href="/mypage/myplanboard"><i class="fa-solid fa-play"></i>&nbsp;&nbsp;플래너공유 게시판</a>
             </nav>
         </div>
      <li class="menu-item">

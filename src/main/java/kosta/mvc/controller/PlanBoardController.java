@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -175,11 +176,16 @@ public class PlanBoardController {
    
    
    /**마이페이지에서 내가 쓴 글 목록 조회*/
-   @RequestMapping("/mypage/myplan")
-   public void mylist(Model model, String userId) {
-	   List<PlanBoard> myList = planBoardService.selectByUserId(userId);
+   @RequestMapping("/mypage/myplanboard")
+   public String myplan(Model model) {
+	   
+	   Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	   List<PlanBoard> myplan = planBoardService.selectByUserId(users.getUserId());
    
-	   model.addAttribute("myList", myList);
+	   model.addAttribute("myplan",myplan);
+	   model.addAttribute("users",users);
+	   
+	   return "mypage/myplanboard";
    
    }
 

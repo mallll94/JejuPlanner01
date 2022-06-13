@@ -184,9 +184,7 @@ public class AskController {
 	public String mylist(Model model) {
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		//Users loginUser =(Users)session.getAttribute("loginUser");
-			
+					
 		List<AskBoard> myList = askBoardService.selectByUserId(users.getUserId());
 		
 		model.addAttribute("myList" , myList);
