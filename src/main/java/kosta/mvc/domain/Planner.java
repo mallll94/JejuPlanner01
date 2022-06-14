@@ -77,4 +77,9 @@ public class Planner {
 	@OneToMany(fetch = FetchType.LAZY,  mappedBy = "planner" , cascade = CascadeType.REMOVE  , orphanRemoval = true   )
 	@JsonIgnore
 	private List<PlannerPlace> plannerPlaceList;
+	
+	/** 플래너 게시글 장소 */
+	@OneToMany(fetch = FetchType.LAZY,  mappedBy = "userPlan" , cascade = CascadeType.REMOVE  , orphanRemoval = true   )
+	@JsonIgnore
+	private List<PlanBoard> pboardlist;
 }
