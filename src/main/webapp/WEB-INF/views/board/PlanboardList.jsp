@@ -26,6 +26,41 @@
  <link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
  <link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
 
+ <style>
+  .property-list{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-top: solid 2px rgb(189, 189, 189);
+      border-bottom: 2px solid rgb(189, 189, 189);
+      padding: 10px;
+      
+   }
+   .property-text{display: table;padding: 10px;}
+   .category{display: table-cell;}
+   .category span{
+    text-align: center;
+      width: 120px;
+     background-color: rgb(255, 195, 42);
+      font-size: small;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 3px 20px;
+      margin-left: 5px;
+   }
+   .title{
+      display: table-cell;
+      font-size: medium;
+      font-weight: bold;
+      color: rgb(59, 59, 59);
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+   .title:hover{color: #ffc107;}
+   .info{display: table-cell;color: rgb(109, 109, 109); font-size: small;}
+ </style>
 
 <script type="text/javascript">
 	$(function() {
@@ -44,57 +79,6 @@
 
 </head>
 <body>
-
-
-<!-- <h3 align="center" style="position:relative; top: 30px">플래너공유 게시판</h3>
-
-<p></p>
-
-<div style="position: absolute; top:60%; left:45%">
- <button type="button" class="btn btn-light btn-lg" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
- <button type="button" class="btn btn-light btn-lg" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
- <button type="button" class="btn btn-light btn-lg" name="친구">친구</button>&nbsp;&nbsp;&nbsp;
- <button type="button" class="btn btn-light btn-lg" name="연인">연인</button>
-</div>
-
-<div align="right" style="position: relative; right:6%; top:105px">
-  <button onclick="location = '${pageContext.request.contextPath}/board/Planboard_Write'" class=" insert-btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">
-   글쓰기</button>
-</div>
-                     -->
-
-<!-- latest news -->
-
-<!-- <div class="latest-news mt-150 mb-150">
-  <div class="container">
-	<div class="row">
-	   
-<c:forEach items="${pageList.content}" var="planboard">	
-	   <div class="col-lg-4 col-md-6">
-		 <div class="single-latest-news">
-			<div class="latest-news-bg news-bg-1"></div>
-				<div class="news-text-box">
-				   <div align="right">${planboard.pboardCategory}</div>
-				   <h3><a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">
-				   ${planboard.pboardTitle}
-				   </a></h3>
-		
-					<p class="excerpt">${planboard.user.userId}</p>	
-		   </div>
-		 </div>
-	   </div>
-</c:forEach>			
-			
-    </div> 
-  </div> 
-</div> -->
-
-<!-- end latest news -->
-
-
-
-
-
   <!-- Property Section Begin -->
   <section class="property-section spad">
     <div class="container">
@@ -133,35 +117,56 @@
         </div>
         <!--게시판영역-->
         <div class="col-lg-9">
-          <h4 class="property-title">동행 구하기</h4>
-            <div class="sidebar-btn"></div>
+          <h4 class="property-title">플래너 게시판</h4>
+            <div class="sidebar-btn">
+              <button type="button" class="btn btn-light btn-lg" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-light btn-lg" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-light btn-lg" name="친구">친구</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-light btn-lg" name="연인">연인</button>
+            </div>
           <div class="property-list">
               <!--foreach 내용-->
-              <c:forEach items="${pageList.content}" var="planboard">	
-                <div class="col-lg-4 col-md-6">
-                <div class="single-latest-news">
-                  <div class="latest-news-bg news-bg-1"></div>
-                    <div class="news-text-box">
-                      <div>${planboard.pboardCategory}</div>
-                      <h3>
-                        <a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">${planboard.pboardTitle}</a>
-                      </h3>
-                
-                      <p class="excerpt">${planboard.user.userId}</p>	
-                  </div>
-                </div>
+              <c:forEach items="${pageList.content}" var="planboard">
+                <div class="row">
+                  <a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">	
+                    <div class="property-text">
+                      <div class="category">
+                        <span class="">${planboard.pboardCategory}</span>
+                      </div>
+                      <div class="title">${planboard.pboardTitle}</div>
+                      <div class="info">${planboard.user.userId}</div>
+                    </div>
+                  </a>
                 </div>
             </c:forEach>	
           </div>
           <div style="text-align: right;">
-            <button>작성</button>
+            <a href="${pageContext.request.contextPath}/board/Planboard_Write" class="btn btn-outline-dark shadow-none">작성하기</a>
           </div>
           <!-- 페이징 처리 -->
           <div style="text-align: center">
             <nav class="pagination-container">
               <!--페이징 내용-->
               <div class="property-pagination">
-                페이지내용 들어갈 곳
+
+                <c:set var="doneLoop" value="false" />
+                <c:if test="${(startPage-blockCount) > 0}">
+                  <a class="pagination-newer" href="${pageContext.request.contextPath}/board/PlanboardList?nowPage=${startPage-1}">PREV</a>
+                </c:if>
+
+                <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'>
+                  <c:if test="${(i-1)>=pageList.getTotalPages()}">
+                    <c:set var="doneLoop" value="true" />
+                  </c:if>
+                  <c:if test="${not doneLoop}">
+                    <a class="paginate_button" href="${pageContext.request.contextPath}/board/PlanboardList?nowPage=${i}">${i}</a>
+                  </c:if>
+                </c:forEach>
+
+                <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+                  <a class="pagination-older" href="${pageContext.request.contextPath}/board/PlanboardList?nowPage=${startPage+blockCount}">NEXT</a>
+                </c:if>
+
               </div>
               <!--페이징 내용 끝-->
             </nav>
