@@ -8,13 +8,13 @@
     <meta charset="utf-8" />
     
 
-    <title>공지사항 등록</title>
+    <title>공지사항 상세</title>
     
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
 <script type="text/javascript">
         
-        $(function() {	
+        $(function(){	
 	
         $("button[value=수정]").click(function() {
         	$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/notice_updateForm");
@@ -24,7 +24,7 @@
         $("button[value=삭제]").click(function() {
         	$("#requestForm").attr("action", "${pageContext.request.contextPath}/noticeDelete");
 			$("#requestForm").submit();
-		})
+		});
      })
         
 </script>
@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-        <form name="requestForm" method="post" id="requestForm">
+         <form name="requestForm" method="post" id="requestForm">
             <input type="hidden" name="noticeId" value="${notice.noticeId}">
               <button type="button" class="btn btn-primary" value="수정">수정하기</button>
               <button type="button" class="btn btn-primary" value="삭제">삭제하기</button>

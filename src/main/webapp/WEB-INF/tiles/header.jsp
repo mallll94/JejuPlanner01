@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8">	
 		<title>header</title>
 		<!-- CSS only -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -63,21 +65,22 @@
 		<header class="main-header">
 			<div class="main-header-top-right">
 				<ul>
-					<c:choose>
-						<c:when test="${sessionScope.loginManager != null}">
-							<li><a href="">관리자 페이지</a></li>
-							<li><a href="">로그아웃</a></li>
-						</c:when>
-						<c:when test="${empty pageContext.request.userPrincipal}">
-							<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/registerForm">회원가입</a></li>						
-						</c:when>
-						<c:otherwise>
-							<li><a href="${pageContext.request.contextPath}/cart/cartList">장바구니</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/myPage">마이페이지</a></li>
-							<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-						</c:otherwise>
-					</c:choose>
+					<sec:authorize access="hasRole('ADMIN')">
+						<li><a href="${pageContext.request.contextPath}/admin/users_Admin">관리자 페이지</a></li>
+						<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>	
+					</sec:authorize>
+					
+					<sec:authorize access="isAnonymous()">
+						<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/registerForm">회원가입</a></li>	
+					</sec:authorize>
+					
+					<sec:authorize access="hasRole('USER')">
+						<li><a href="${pageContext.request.contextPath}/cart/cartList">장바구니</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/myPage">마이페이지</a></li>
+						<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>	
+					</sec:authorize>
+
 						<li>
 							<form action="${pageContext.request.contextPath}/goods/search">
 								<div class="input-group mb-3" style= "margin-bottom: 100px;">
