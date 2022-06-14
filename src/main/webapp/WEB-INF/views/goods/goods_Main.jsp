@@ -127,8 +127,8 @@
                         action="${pageContext.request.contextPath}/goods/view/goods_List/plannerCategory">
                         <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
                         <button type="submit" class="btn"><img
-                                src="${pageContext.request.contextPath}/img/goods/planner_btn4.png"
-                                width="250px"></button>
+                                src="${pageContext.request.contextPath}/img/goods/goods4.png"
+                                width="450px"></button>
                     </form>
                 </div>
             </div>
