@@ -73,17 +73,36 @@
     </script>
     <!-- Custom notification for demo -->
     <!-- beautify ignore:end -->
+    
+    <style type="text/css">
+    
+   
+    .mt-4{text-align: center;
+          padding-right: 550px   
+    }
+    .row{width: 50%;
+         display: inline-block;
+         padding-left: 300px;
+         padding-bottom: 400px;
+         background-image: url('../img/noticeBack.png'); 
+         background-repeat: no-repeat;
+         background-position: top;
+         background-origin:content-box;
+         background-size: inherit;
+    }
+    
+    </style>
 
 </head>
-<body>
-<h5 class="mt-4">공지사항</h5>
+<body >
+<h2 class="mt-4">공지사항</h2>
 <div class="row">
-  <div class="col-md mb-4 mb-md-0">
+  
     <div class="accordion mt-3" id="accordionExample">
 	 <c:forEach items="${requestScope.list}" var="notice">   
       <div class="card accordion-item active">
         <h2 class="accordion-header" id="headingOne">
-          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne${notice.noticeId}" aria-expanded="true" aria-controls="accordionOne">
+          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne${notice.noticeId}" aria-expanded="false" aria-controls="accordionOne">
             ${notice.noticeTitle}
           </button>
         </h2>
