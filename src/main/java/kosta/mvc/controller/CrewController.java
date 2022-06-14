@@ -84,6 +84,8 @@ public class CrewController {
 	 * */
 	 @RequestMapping(value ="/board/crew_Insert", method = RequestMethod.POST)
 	 public String insert(CrewBoard crewBoard) {
+		 Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 crewBoard.setUser(users);
 		 crewService.insertCrewBoard(crewBoard);
 		 
 		 return "redirect:/board/crew";
