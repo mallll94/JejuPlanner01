@@ -7,6 +7,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+$(function() {
+	
+	$(document).ready(function(){
+	
+		$("#crewBoard").on("submit",function(){
+						
+			if( $("#crewTitle").val() == ""){
+				alert("제목을 입력해주세요");
+				return false;
+			}
+			
+			if( $("#crewContent").val() == ""){
+				alert("내용을 입력해주세요");
+				return false;
+			}
+		       
+		})
+			
+	})
+
+});
+
+</script>
+
+
 </head>
 <body>
 <div class="row">
@@ -16,19 +45,22 @@
         <h5 class="mb-0">동행구하기 등록</h5> 
       </div>
       <div class="card-body">
-        <form name="writeForm" method="post" action="${pageContext.request.contextPath}/board/crew_Insert"  enctype="multipart/form-data">
+        <form name="crewBoard" id="crewBoard" method="post" action="${pageContext.request.contextPath}/board/crew_Insert">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
-            <input type="text" class="form-control" id="basic-default-fullname" name="crewTitle" placeholder="제목을 입력해주세요" />
+            <input type="text" class="form-control" name="crewTitle" id ="crewTitle" placeholder="제목을 입력해주세요" />
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-message">내용</label>
-            <textarea id="basic-default-message" class="form-control" name="crewContent" placeholder="내용을 입력해주세요"></textarea>
+            <textarea class="form-control" name="crewContent" id="crewContent" placeholder="내용을 입력해주세요" style="resize: none"></textarea>
           </div>
-          <input type="hidden"  value="N" name="crewState"/>         
+          
+          <input type="hidden"  value="N" name="crewState"/>
           <button type="submit" class="btn btn-primary">작성하기</button>
-          <button type="reset" class="btn btn-primary">취소하기</button>
+          <button type="reset" class="btn btn-primary">취소하기</button>  
+    
         </form>
+ 
       </div>
     </div>
   </div>

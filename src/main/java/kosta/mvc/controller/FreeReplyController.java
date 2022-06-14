@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +57,8 @@ public class FreeReplyController {
 		
 		//FreeBoard freeBoard = freeBoardService.getFreeBoard(Long.valueOf(freeId), false);
 	
-		Users users = userService.selectById("ddd"); 
+		//Users users = userService.selectById("ddd"); 
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		FreeReply reply = new FreeReply(null, null, users, replyContent, null); //물어보기
 		

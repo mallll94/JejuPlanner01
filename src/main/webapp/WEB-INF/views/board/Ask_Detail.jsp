@@ -55,7 +55,7 @@
                     </div>
 	               
 	                <h5 class="card-header" style="text-align: left;">첨부파일</h5>
-		             <div class="card-body" align="left">
+		             <div class="card-body" style="text-align: left;">
 		              <div class="mb-3">
 		                <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
 		              </div>

@@ -7,15 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
 $(function(){
     var target ='${crewboard.crewId}'
+    var loginUser='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
-    var loginUser='aaa'
+    //var loginUser='aaa'
     //alert("로그인 유저 아이디:"+loginUser)
-     alert(target)
+     console.log(target)
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -25,31 +30,34 @@ $(function(){
 		data: {crewId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
-			alert("검색성공~")
+			console.log("검색성공~")
 			let str="";
 			count = 0;
 			if(result=="") {
 
-				str += "<div class='reply-each'>"
-                str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+				str+= `<div class="single-comment-body">`
+				   str+=`<div class="comment-text-body">`
+                     str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+                   str+=`</div>`;
                 str+=`</div>`;
 			} else {
 				$.each(result,function(index,reply){
-					str += "<div class='reply-each'>"
-                    str+=`<div class="reply-user-info">`;
-                    str+=`<span class="badge rounded-pill text-dark">\${reply.userId}</span>&nbsp;`
-
-                    str+=`</div>`;
-                    str+=`<div class="reply-content">`;
-                    str+=`<span class="reply-content-text">\${reply.crewReplyContent}</span>`
-                    str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span>`
-                    str+=`</div>`;
-    				str += "</div>"
+					str+= `<div class="single-comment-body">`
+				    	str+= `<div class="comment-user-avater">`	                
+	                		str+=`<img src="/img/face2.png" alt="face">`
+						str+=`</div>`;
+	               		 str+=`<div class="comment-text-body">`
+	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
+                    		str+=`<p><span class='comment-content'>\${reply.crewReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span></p>`
+                    		str+=``
+                   		str+=`</div>`;
+					str+=`</div>`;
+          
     				count++;
 				})
             }
-           	$("#review_reply_output").html(review_reply_output);
-           	$("#review_reply_output").append(str);
+			$(".comment-list").html("");
+           	$(".comment-list").append(str);
            	$(".reply-num-count").text(count);
 		},
 
@@ -166,10 +174,10 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="row">
+<div class="row" align="center" style="margin-left: 280px; margin-right: 250px; margin-top: 50px">
   <div class="col-xl">
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card mb-4" align="center">
+      <div class="card-header d-flex justify-content-between align-items-center">    
         <h5 class="mb-0">동행구하기게시판 상세</h5> 
       </div>
       <br>
@@ -183,18 +191,22 @@ $(function(){
 		  <label class="btn btn-outline-primary" for="btnradio2">동행구하기 완료</label>
 	  </div>	
       <div class="card-body">
-          <div class="mb-3">
+          <div class="mb-3" style="text-align: left;">
             <label class="form-label" for="basic-default-fullname">제목</label>
             <input type="text" class="form-control" id="basic-default-fullname" name="crewTitle" value="${crewboard.crewTitle}"/>
           </div>
-          <div class="mb-3">
+          <div class="mb-3" style="text-align: left;">
             <label class="form-label" for="basic-default-message">내용</label>
-            <textarea id="basic-default-message" class="form-control" name="crewContent">${crewboard.crewContent}</textarea>
+            <textarea id="basic-default-message" class="form-control" name="crewContent" style="resize: none">${crewboard.crewContent}</textarea>
           </div>           
 		     <input type="hidden" name="crewId" value="${crewboard.crewId}">
+		    
+		    <div align="right"> 
 	         <button type="button" class="btn btn-primary" value="수정">수정하기</button>
 	         <button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button>
 	         <button type="button" class="btn btn-primary" onclick="history.back()">목록보기</button>
+	        </div> 
+       
        </div>
        </form>
     </div>
@@ -204,19 +216,17 @@ $(function(){
 
 
 <!--댓글 등록하기-->
-<div class="card">
-    <div class="card-body">
+<div class="card" style="margin-left: 290px; margin-right: 260px;">
+    <div class="card-body" >
     	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
-            <div class="form-inline mb-2">
-                <label for="replyId"><img src="#" class="reply-user-icon"><img></label>
-                <span><strong>{sessionScope.loginUser.userId}</strong></span>
-                <span><strong>{sessionScope.loginManager.managerId}</strong></span>
-                <input type="hidden" name="reply_id" value="{sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
-                <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}">
+            <div class="form-inline mb-2" style="font-size:1.5rem">
+            <i class="bi bi-file-person" style="font-size:1.8rem"></i> 
+                <span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
+                <input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
             </div>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none" placeholder="댓글을 입력해주세요"></textarea>
             <input type="hidden" name="crewBoardId" value="${crewboard.crewId}">
-            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
+            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" style="float: right;">댓글 등록하기</button>
     	</form>
     </div>
 </div>
@@ -224,22 +234,28 @@ $(function(){
 
 
 
-<!--댓글 조회하기 -->
-<div class="reply-num">
-   댓글 수: <span class="reply-num-count"></span>개
-</div>
-<div class="review_reply_wrap">
-    <div class="review_reply_area">
-      <div id="review_reply_output"></div>
-    </div>
-</div>
+<!-- single article section -->
+				<div class="container" style="text-align: left; margin-left:280px">
+
+						<div class="col-lg-8">
+							<div class="single-article-section">
+								
+								<div class="comments-list-wrap">
+									<h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
+									<div class="comment-list"></div>
+								</div>
+							</div>
+						</div>
+
+				</div>
+				<!-- end single article section -->
 
 
-<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<%-- <form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
 <input type="hidden" name="no" value='${crewboard.crewId}'>
 <input type="hidden" name="receId" value='${receId}'>
 <input type="submit" value="쪽지 보내기">
-</form>
+</form> --%>
 
 
 

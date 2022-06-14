@@ -72,6 +72,7 @@
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
@@ -123,6 +124,17 @@
 		text-decoration-line: none;
 		padding-bottom: 12px;
 	}
+	.board-bottom-area{
+		display: flex;
+		justify-content: space-between;
+		padding: 25px;
+		margin-bottom: 20px;
+
+	}
+	.comments-list-wrap{margin: 0;}
+	.comment-user{margin:0;}
+	.comment-content{margin-right: 5px;}
+
 </style>
 
 <script type="text/javascript">
@@ -366,28 +378,28 @@ $(function(){
 			let str="";
 			count = 0;
 			if(result=="") {
-
-				str += "<div class='reply-each'>" 
-                str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
-                str+=`</div>`;
+				str+= `<div class="single-comment-body">`
+					str+=`<div class="comment-text-body">`
+                		str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+                	str+=`</div>`;
+				str+=`</div>`;
 			} else {
 				$.each(result,function(index,reply){
-				
 					str+= `<div class="single-comment-body">`
-				    str+= `<div class="comment-user-avater">`	                
-	                str+=`<img src="/img/face2.png" alt="face">`
-	                str+=`<div class="comment-text-body">`
-	                str+=`<h6>\${reply.userId}님<span class="comment-date"></span></h6>&nbsp;`
-                   
-                    
-                    str+=`<p>\${reply.pboardReplyContent}</p>`
-                    str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span>`
-                    str+=`</div>`;
+				    	str+= `<div class="comment-user-avater">`	                
+	                		str+=`<img src="/img/face2.png" alt="face">`
+						str+=`</div>`;
+	               		 str+=`<div class="comment-text-body">`
+	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
+                    		str+=`<p><span class='comment-content'>\${reply.pboardReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span></p>`
+                    		str+=``
+                   		str+=`</div>`;
+					str+=`</div>`;
           
     				count++;
 				})
             }
-            $(".comment-list").html();
+            $(".comment-list").html("");
            	$(".comment-list").append(str);
            	$(".reply-num-count").text(count);
 		},
@@ -495,8 +507,8 @@ $(document).ready(function(){
 	const pboardId = "${planBoard.pboardId}";
 	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
 	
-	//var isChecked = ${isChecked};
-	//console.log(isChecked);
+	var isChecked = ${isChecked};
+	console.log(isChecked);
 	if (isChecked) {
 		console.log("이미 좋아요 함");
 		$("#liked-heart").attr('class','bi-heart-fill');
@@ -538,86 +550,99 @@ $(document).ready(function(){
 
 
 	<div class="container-fluid pt-5">
-  	   <div class="text-center mb-4" style="position: relative; top: -30px">
-      	  <h3 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h3> 
-  	   </div>
-  
-  	<div align="center">
-      <div class="col-lg-7 mb-5">
-          <div class="contact-form">
-              <div id="success"></div>
-              <select id="days" class="planner-days"></select>
-			  <select id="plannerType" class="planner-type">
-					<option value='연인' >❤️연인</option>
-					<option value='나홀로'>🧘나홀로</option>
-					<option value='가족/부모님'>🏠가족</option>
-				<option value='친구'>🧑‍🤝‍🧑친구</option>
-			    </select>
+		<div class="text-center mb-4" style="position: relative; top: -30px">
+			<h3 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h3> 
+		</div>
+		<div align="center">
+			<div class="col-lg-7 mb-5">
+				<div class="contact-form">
+					<select id="days" class="planner-days"></select>
+					<select id="plannerType" class="planner-type">
+							<option value='연인' >❤️연인</option>
+							<option value='나홀로'>🧘나홀로</option>
+							<option value='가족/부모님'>🏠가족</option>
+							<option value='친구'>🧑‍🤝‍🧑친구</option>
+					</select>
+					<div class="control-group" style="text-align: left;">
+						카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
+						<p class="help-block text-danger"></p>
+					</div>
+
+					<div class="control-group" style="text-align: left;">
+						제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
+						<p class="help-block text-danger"></p>
+					</div>
+					<div class="control-group" style="text-align: left;">
+						내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
+						<p class="help-block text-danger"></p>
+					</div>
+
+					<h5 class="card-header" style="text-align: left;">첨부파일</h5>
+					<div class="card-body" align="left">
+						<div class="mb-3">
+							<img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
+						</div>
+					</div>
+	
+					<div class="board-bottom-area">
+						<!-- 하트 -->
+						<div align="right">
+							<i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
+							좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
+						</div>
+						<span>
+						<form name="requestForm" method="post" id="requestForm">
+								<input type="hidden" name="pboardId" value="${planBoard.pboardId}">
+								<button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정</button>
+								<button type="button" class="btn btn-outline-dark shadow-none" value="삭제">삭제</button>
+						</form> 
+						</span> 
+					</div>
+
+					<!--댓글 등록하기-->
+					<div class="card">
+						<div class="card-body">
+							<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
+								<div class="form-inline mb-2" style="font-size:1.5rem"> 
+								<i class="bi bi-file-person" style="font-size:1.8rem"></i>       
+									<span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
+									<input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
+								</div>
+								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none" placeholder="댓글을 입력해주세요"></textarea>
+								<input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
+								<button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" style="float: right;">댓글 등록하기</button>
+							</form>
+						</div>
+					</div>
 			
+				</div>
+				
+				<!-- single article section -->
+				<div class="container" style="text-align: left;">
 
-              <!-- 하트 -->
-              <div align="right">
-                <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-                좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
-			  </div>	
-			   
+						<div class="col-lg-8">
+							<div class="single-article-section">
+								
+								<div class="comments-list-wrap">
+									<h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
+									<div class="comment-list"></div>
+								</div>
+							</div>
+						</div>
+				</div>
+				<!-- end single article section -->
 
- 		<div class="control-group" style="text-align: left;">
-         	카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
-         <p class="help-block text-danger"></p>
- 		</div>
- 
- 		<div class="control-group" style="text-align: left;">
-         	제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
-         <p class="help-block text-danger"></p>
- 		</div>
- 		<div class="control-group" style="text-align: left;">
-        	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
-         <p class="help-block text-danger"></p>
- 		</div>
-   
-  		<h5 class="card-header" style="text-align: left;">첨부파일</h5>
-			<div class="card-body" align="left">
- 				<div class="mb-3">
-   				   <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
-  				</div>
+				
 			</div>
-  
-       <div align="right">
-       <form name="requestForm" method="post" id="requestForm">
-       <input type="hidden" name="pboardId" value="${planBoard.pboardId}">
-	      <button type="button" class="btn btn-primary" value="수정">수정</button>
-	      <button type="button" class="btn btn-primary" value="삭제">삭제</button>
-       </form>  
-      </div>
-     	 
-     </div>            
-  </div>
-</div>
-<!--댓글 등록하기-->
-<div class="card">
-    <div class="card-body">
-    	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
-            <div class="form-inline mb-2" style="font-size:1.5rem">
-              <i class="bi bi-file-person" style="font-size:1.8rem"></i>         
-                <span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
-                <input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
-            </div>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none" placeholder="댓글을 입력해주세요"></textarea>
-            <input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
-            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" style="float: right;">댓글 등록하기</button>
-    	</form>
-    </div>
-</div>
+		</div>
+	</div>
 
 
-<div class="reply-num" >
+
+<!-- <div class="reply-num" >
 <i class="bi bi-chat-right-text-fill" style="font-size:1.7rem"></i>
-   Comments : <span class="reply-num-count"></span>개
    
-</div>
-<div class="comment-list"></div>
-</div>
+    -->
 
 
   <!-- <div class="review_reply_wrap" style="margin-left: 320px">  
@@ -626,36 +651,36 @@ $(document).ready(function(){
   </div>
 </div> -->
 
+<div><input type="hidden" value="${planBoard.userPlan.plannerId }" id="plannerId"></div> 
 
 
 
+	
 
-   
-<input type="hidden" value="${planBoard.userPlan.plannerId }" id="plannerId">
 
 
 
 
 <!-- jquery -->
-        <script src="${pageContext.request.contextPath}/js/reply/jquery-1.11.3.min.js"></script>
-        <!-- bootstrap -->
-        <script src="${pageContext.request.contextPath}/js/reply/bootstrap.min.js"></script>
-        <!-- count down -->
-        <script src="${pageContext.request.contextPath}/js/reply/jquery.countdown.js"></script>
-        <!-- isotope -->
-        <script src="${pageContext.request.contextPath}/js/reply/jquery.isotope-3.0.6.min.js"></script>
-        <!-- waypoints -->
-        <script src="${pageContext.request.contextPath}/js/reply/waypoints.js"></script>
-        <!-- owl carousel -->
-        <script src="${pageContext.request.contextPath}/js/reply/owl.carousel.min.js"></script>
-        <!-- magnific popup -->
-        <script src="${pageContext.request.contextPath}/js/reply/jquery.magnific-popup.min.js"></script>
-        <!-- mean menu -->
-        <script src="${pageContext.request.contextPath}/js/reply/jquery.meanmenu.min.js"></script>
-        <!-- sticker js -->
-        <script src="${pageContext.request.contextPath}/js/reply/sticker.js"></script>
-        <!-- main js -->
-        <script src="${pageContext.request.contextPath}/js/reply/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/reply/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<%-- <script src="${pageContext.request.contextPath}/js/reply/bootstrap.min.js"></script> --%>
+	<!-- count down -->
+	<script src="${pageContext.request.contextPath}/js/reply/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="${pageContext.request.contextPath}/js/reply/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="${pageContext.request.contextPath}/js/reply/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="${pageContext.request.contextPath}/js/reply/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="${pageContext.request.contextPath}/js/reply/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="${pageContext.request.contextPath}/js/reply/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="${pageContext.request.contextPath}/js/reply/sticker.js"></script>
+	<!-- main js -->
+	<script src="${pageContext.request.contextPath}/js/reply/main.js"></script>
 
 
 </body>

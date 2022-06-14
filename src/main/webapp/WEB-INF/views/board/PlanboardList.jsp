@@ -65,7 +65,7 @@
 	$(function() {
 	  $(document).on("click", ".btn", function() {
 		var target = $(this).attr("name")
-		alert(target)
+		console.log(target)
         
 		let url = "${pageContext.request.contextPath}/board/PlanboardList?pboardCategory=" + target
 		location.replace(url)
