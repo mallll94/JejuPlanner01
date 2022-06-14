@@ -162,10 +162,12 @@ public class DiaryController {
 	
 	/**다이어리 내용 등록하기*/
 	@RequestMapping("/insertDiaryLine")
-	public String insertDiaryLine(PlannerPlace diaryLine, HttpSession session) {
+	public String insertDiaryLine(PlannerPlace diaryLine, HttpSession session,int nowPage,Model model) {
 			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
+			System.out.println("nowPage"+nowPage);
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
 		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
+		model.addAttribute("nowPage",nowPage);
 		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
 	}
 	
