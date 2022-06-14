@@ -5,119 +5,122 @@
 <!DOCTYPE html>
 <html>
  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>공지사항</title>
     
-    <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
-    <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
-    <!-- Canonical SEO -->
-    <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
-    
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendor/fonts/boxicons.css" />
-    
-    
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    
-     <!-- Core JS -->
-	  <!-- build:js assets/vendor/js/core.js -->
-	  <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-	  <script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
-	  <script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
-	  <script src="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-	  
-	  <script src="${pageContext.request.contextPath}/assets/vendor/js/menu.js"></script>
-	  <!-- endbuild -->
+  
+	  <!-- Css Styles -->
+	 <link rel="stylesheet" href="/css/azentaMaster/bootstrap.min.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/font-awesome.min.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/elegant-icons.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/themify-icons.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/nice-select.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/jquery-ui.min.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/magnific-popup.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/slicknav.min.css" type="text/css">
+	 <link rel="stylesheet" href="/css/azentaMaster/style.css" type="text/css">
 	
-	  <!-- Vendors JS -->
-	  
-	  
+	 <!-- Owl Stylesheets -->
+	 <link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
+	 <link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
 	
-	  <!-- Main JS -->
-	  <script src="${pageContext.request.contextPath}/assets/js/main.js"></script> 
-
-    <!-- Page CSS -->
+    <script type="text/javascript">
+ 
     
-    <!-- Helpers -->
-    <script src="${pageContext.request.contextPath}/assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+	$(function() {
+		  $(document).on("click", ".btn", function() {
+			var target = $(this).attr("name")
+			alert(target)
+	        
+			let url = "${pageContext.request.contextPath}/board/PlanboardList?pboardCategory=" + target
+			location.replace(url)
+	     })
+	  })
     
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'GA_MEASUREMENT_ID');
+    
+    
     </script>
-    <!-- Custom notification for demo -->
-    <!-- beautify ignore:end -->
     
-    <style type="text/css">
-    
-   
-    .mt-4{text-align: center;
-          padding-right: 550px   
-    }
-    .row{width: 50%;
-         display: inline-block;
-         padding-left: 300px;
-         padding-bottom: 400px;
-         background-image: url('../img/noticeBack.png'); 
-         background-repeat: no-repeat;
-         background-position: top;
-         background-origin:content-box;
-         background-size: inherit;
-    }
-    
-    </style>
+<style type="text/css">
+  .col-lg-9{ 
+    padding-bottom: 200px;
+    margin-top: -50px;    
+    padding-left: 150px;
+  }
+  .accordion-body {
+    text-align: center;
+  }
+  .row {
+   width: 90%;
+  }
+
+</style>       
 
 </head>
 <body >
-<h2 class="mt-4">공지사항</h2>
-<div class="row">
-  
-    <div class="accordion mt-3" id="accordionExample">
-	 <c:forEach items="${requestScope.list}" var="notice">   
-      <div class="card accordion-item active">
-        <h2 class="accordion-header" id="headingOne">
-          <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordionOne${notice.noticeId}" aria-expanded="false" aria-controls="accordionOne">
-            ${notice.noticeTitle}
-          </button>
-        </h2>
-        <div id="accordionOne${notice.noticeId}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-          	<div>
-          		<img alt="첨부 이미지" src="/images/notice/${notice.noticeAttach}" width="300" height="300">
-          	</div>
-           ${notice.noticeContent}
+
+ <!-- Property Section Begin -->
+  <section class="property-section spad">
+    <div class="container">
+      <div class="row">
+        <!--메뉴 사이드바-->
+        <div class="col-lg-3">
+          <div class="property-sidebar">
+            <div class="best-agents">
+            <h4>Board</h4>
+            <a href="${pageContext.request.contextPath}/board/notice" class="ba-item">
+              <div class="ba-text">
+                <h5><i class="menu-icon fa-solid fa-user-large"></i> 공지사항</h5>
+                <span>제주잇다의 소식을 확인하세요</span>
+              </div>
+            </a>
+            <a href="${pageContext.request.contextPath}/board/PlanboardList" class="ba-item">
+              <div class="ba-text">
+                <h5><i class="fa-solid fa-thumbtack"></i> 플래너 게시판</h5>
+                <span>좋았던 여행을 공유하세요</span>
+              </div>
+            </a>
+            <a href="${pageContext.request.contextPath}/board/freeBoard" class="ba-item">
+              <div class="ba-text">
+                <h5><i class="fa-solid fa-comments"></i> 소통 게시판</h5>
+                <span>정보를 나누고 교류하세요</span>
+              </div>
+            </a>
+            <a href="${pageContext.request.contextPath}/board/crew" class="ba-item">
+              <div class="ba-text">
+                <h5><i class="fa-solid fa-user-group"></i> 동행 구하기 게시판</h5>
+                <span>여러 사람과 더 즐거운 여행을 즐기세요</span>
+              </div>
+            </a>
+            </div>
           </div>
         </div>
-      </div>
-       </c:forEach>
-    </div>
+        
+        <!--게시판영역-->
+    <div class="col-lg-9">
+	 <h3><i class="menu-icon fa-solid fa-user-large"></i><strong>&nbsp;공지사항</strong></h3>
+		<div class="row">
+		  <div class="col-md mb-4 mb-md-0">
+		    <div class="accordion mt-3" id="accordionExample">
+		    <c:forEach items="${requestScope.list}" var="notice">   
+		      <div class="accordion-item">
+		        <h2 class="accordion-header" id="flush-headingOne${notice.noticeId}">
+		          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne${notice.noticeId}" aria-expanded="false" aria-controls="flush-collapseOne${notice.noticeId}">
+		            ${notice.noticeTitle}
+		          </button>
+		        </h2>
+		        <div id="flush-collapseOne${notice.noticeId}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne${notice.noticeId}" data-bs-parent="#accordionExample">
+		          <div class="accordion-body">
+		                <img alt="첨부 이미지" src="/images/notice/${notice.noticeAttach}" width="300" height="300">
+		              <p>${notice.noticeContent}</p>         
+		          </div>
+		        </div>
+		      </div>
+		       </c:forEach>
+		    </div>
+		  </div>
+		</div>
+	</div>
   </div>
-</div>
 </body>
 </html>  
