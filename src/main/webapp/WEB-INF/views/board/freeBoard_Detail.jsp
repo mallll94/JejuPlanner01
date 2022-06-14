@@ -11,17 +11,44 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- owl carousel -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/owl.carousel.css">
+<!-- magnific popup -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/magnific-popup.css">
+<!-- animate css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/animate.css">
+<!-- mean menu css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/meanmenu.min.css">
+<!-- main style -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/main.css">
+<!-- responsive -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reply/responsive.css">
 
+
+   
+
+
+<style>
+    .free-bottom-area{
+        display: flex;
+		justify-content: space-between;
+		padding: 25px;
+		margin-bottom: 20px;
+    }
+    .comments-list-wrap{margin: 0;}
+	.comment-user{margin:0;}
+	.comment-content{margin-right: 5px;}
+</style>
 <script type="text/javascript">
 
 $(function(){
     var target ='${freeBoard.freeId}'
-    
+    var loginUser='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginUser='${sessionScope.loginUser.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
-    var loginUser='ddd'
+    //var loginUser='ddd'
     //alert("로그인 유저 아이디:"+loginUser)
-     alert(target)
+     //alert(target)
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -31,32 +58,31 @@ $(function(){
 		data: {freeId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
-			alert("검색성공~")
+			//alert("검색성공~")
 			let str="";
 			count = 0;
 			if(result=="") {
-              
-				str += "<div class='reply-each'>"
-                str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
-                str+=`</div>`;
+                str+= `<div class="single-comment-body">`
+					str+=`<div class="comment-text-body">`
+                		str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+                	str+=`</div>`;
+				str+=`</div>`;
 			} else {
 				$.each(result,function(index,reply){
-					str += "<div class='reply-each'>"
-                    str+=`<div class="reply-user-info">`;
-                    str+=`<span class="badge rounded-pill text-dark">\${reply.userId}</span>&nbsp;`
-
-                    str+=`</div>`;
-                    str+=`<div class="reply-content">`;
-                        str+=`<span class="reply-content-text">\${reply.freeReplyContent}</span>`
-                        
-                        str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} freeReplyId="${'${reply.freeReplyId}'}">삭제</a></span>`
-                    str+=`</div>`;
-    				str += "</div>"
+                    str+= `<div class="single-comment-body">`
+				    	str+= `<div class="comment-user-avater">`	                
+	                		str+=`<img src="/img/face2.png" alt="face">`
+						str+=`</div>`;
+	               		 str+=`<div class="comment-text-body">`
+	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
+                    		str+=`<p><span class='comment-content'>\${reply.freeReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} freeReplyId="${'${reply.freeReplyId}'}">삭제</a></span></p>`
+                   		str+=`</div>`;
+					str+=`</div>`;
     				count++;
 				})
             }
-           	$("#review_reply_output").html(review_reply_output);
-           	$("#review_reply_output").append(str);
+           	$(".comment-list").html("");
+           	$(".comment-list").append(str);
            	$(".reply-num-count").text(count);
 		},
 
@@ -116,7 +142,7 @@ $(function(){
         //alert(replyNo)
 
         //세션에서 로그인한 유저와 댓글 작성자 id가 일치하는지 확인
-        if(loginUser==replyId||loginManager==replyId){
+        if(loginUser==replyId){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/freeBoard_Delete" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
@@ -162,74 +188,74 @@ $(function(){
 </head>
 <body>
 	<div class="container-fluid pt-5">
-  		<div class="text-center mb-4">
+		<div class="text-center mb-4" style="position: relative; top: -30px">
       		<h2 class="section-title px-5"><span class="px-2">소통하기 게시판</span></h2> 
-  	</div>  
-  	<div align="center">
-      <div class="col-lg-7 mb-5">
-          <div class="contact-form">           
-	 		<div class="control-group" style="text-align: left;">
-	         	카테고리 <input type="text" readonly class="form-control" id="freeCategory" name="freeCategory" value="${freeBoard.freeCategory}"/>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	 		<div class="control-group" style="text-align: left;">
-	         	제목 <input type="text" readonly class="form-control" id="freeTitle" name="freeTitle" value="${freeBoard.freeTitle}"/>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	 		<div class="control-group" style="text-align: left;">
-	        	내용 <textarea readonly class="form-control" rows="6" id="freeContent" name="freeContent">${freeBoard.freeContent}</textarea>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	  		<h5 class="card-header" style="text-align: left;">첨부파일</h5>
-			<div class="card-body" style="text-align: left;">
- 				<div class="mb-3">
-   				   <img alt = "첨부된 이미지" src="/images/freeBoard/${freeBoard.freeAttach}" width="300" height="300">
-  				</div>
-			</div>
-       <div align="right">
-       <form name="requestForm" method="post" id="requestForm">
-       <input type="hidden" name="freeId" value="${freeBoard.freeId}">
-	      <button type="button" class="btn btn-primary" value="수정">수정</button>
-	      <button type="button" class="btn btn-primary" value="${freeBoard.freeId}" id="delete">삭제</button>
-	      <button type="button" class="btn btn-primary" onclick="location.href='freeBoard'">목록</button>   
-       </form>  
-      </div> 	
-     </div>            
-  </div>
-</div>
-</div>
+  	    </div>  
+          <div align="center">
+			<div class="col-lg-7 mb-5">
+                <div class="contact-form" style="text-align: left;">           
+                    <div class="control-group">
+                        <p>카테고리</p>
+                        <input type="text" readonly class="form-control" id="freeCategory" name="freeCategory" value="${freeBoard.freeCategory}"/>
+                    </div>
+                    <div class="control-group">
+                        <p>제목</p>
+                        <input type="text" readonly class="form-control" id="freeTitle" name="freeTitle" value="${freeBoard.freeTitle}"/>
+                    </div>
+                    <div class="card-body">
+                        <c:choose>
+                            <c:when test="${empty freeBoard.freeAttach}">
+                                <p>${freeBoard.freeContent}</p>
+                            </c:when>
+                            <c:otherwise>
+                                <img alt = "첨부된 이미지" src="/images/freeBoard/${freeBoard.freeAttach}" width="300" height="300">
+                                <p>${freeBoard.freeContent}</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="free-bottom-area">
+                        <div>
+                            <button type="button" class="btn btn-outline-dark shadow-none" onclick="location.href='freeBoard'">목록으로 돌아가기</button>  
+                        </div>
+                        <form name="requestForm" method="post" id="requestForm">
+                            <input type="hidden" name="freeId" value="${freeBoard.freeId}">
+                            <button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정</button>
+                            <button type="button" class="btn btn-outline-dark shadow-none" value="${freeBoard.freeId}" id="delete">삭제</button>
+                        </form>  
+                    </div>
+                    <!--댓글 등록하기-->
+                    <div class="card">
+                        <div class="card-body">
+                            <form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
+                                <div class="form-inline mb-2">
+                                    <span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
+                                    <input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
+                                </div>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
+                                <input type="hidden" name="freeId" value="${freeBoard.freeId}">
+                                <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
+                            </form>
+                        </div>
+                    </div> 	
+                </div>
+                <!--댓글 조회하기 -->
+                <!-- single article section -->
+				<div class="container" style="text-align: left;">
+                    <div class="col-lg-8">
+                        <div class="single-article-section">
+                            
+                            <div class="comments-list-wrap">
+                                <h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
+                                <div class="comment-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end single article section -->
 
-<!--댓글 등록하기-->
-<div class="card">
-    <div class="card-body">
-    	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
-            <div class="form-inline mb-2">
-                <label for="replyId"><img src="#" class="reply-user-icon"><img></label>
-                <span><strong>{sessionScope.loginUser.userId}</strong></span>
-                <span><strong>{sessionScope.loginManager.managerId}</strong></span>
-                <input type="hidden" name="reply_id" value="{sessionScope.loginUser.userId}"><!-- 나중에 세션으로 아이디 받기 -->
-                <input type="hidden" name="reply_manager_id" value="{sessionScope.loginManager.managerId}">
             </div>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
-            <input type="hidden" name="freeId" value="${freeBoard.freeId}">
-            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
-    	</form>
+        </div>
     </div>
-</div>
 
-
-<!--댓글 조회하기 -->
-<div class="reply-num">
-   댓글 수: <span class="reply-num-count"></span>개
-</div>
-<div class="review_reply_wrap">
-    <div class="review_reply_area">
-      <div id="review_reply_output"></div>
-    </div>
-</div>
-    
-
-
-</form>
 </body>
 </html>
