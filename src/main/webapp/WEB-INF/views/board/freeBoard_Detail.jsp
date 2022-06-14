@@ -21,7 +21,7 @@ $(function(){
     //var loginManager='${sessionScope.loginManager.managerId}'
     var loginUser='ddd'
     //alert("로그인 유저 아이디:"+loginUser)
-     alert(target)
+     
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -31,7 +31,7 @@ $(function(){
 		data: {freeId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
-			alert("검색성공~")
+			
 			let str="";
 			count = 0;
 			if(result=="") {
@@ -191,7 +191,7 @@ $(function(){
        <input type="hidden" name="freeId" value="${freeBoard.freeId}">
 	      <button type="button" class="btn btn-primary" value="수정">수정</button>
 	      <button type="button" class="btn btn-primary" value="${freeBoard.freeId}" id="delete">삭제</button>
-	      <button type="button" class="btn btn-primary" onclick="location.href='freeBoard'">목록</button>   
+	      <button type="button" class="btn btn-primary" onclick="history.back()">목록</button>   
        </form>  
       </div> 	
      </div>            

@@ -108,9 +108,14 @@ public class noticeController {
 	  **/
 	 @RequestMapping("/noticeDelete")
 	 public String delete(Long noticeId) {
+	  	 
 	   noticeService.delete(noticeId);
 	   
 	   return "redirect:/admin/notice_Admin";
 	 }
-	
+	  
+	 
+	 
+	 
+	 
 }
