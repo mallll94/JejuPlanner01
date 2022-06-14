@@ -45,7 +45,7 @@ public class PlannerCreateController {
 	private final static int INDEX_PAGE_COUNT=4;
 	private final static int INDEX_BLOCK_COUNT=3;
 	private final static int PLACE_PAGE_COUNT=10;
-	private final static int PLACE_BLOCK_COUNT=3;
+	private final static int PLACE_BLOCK_COUNT=1;
 	
 	
 	

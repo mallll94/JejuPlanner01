@@ -239,6 +239,12 @@ input.datepicker{
     word-wrap: break-word;
 
 }
+.img-fluid{
+    box-sizing: border-box;
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
+}
 
 
 

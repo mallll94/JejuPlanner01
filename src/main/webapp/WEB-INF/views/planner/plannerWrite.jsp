@@ -30,7 +30,9 @@ pageEncoding="UTF-8"%>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
-		
+		<style>
+			
+		</style>
 		<script>
 			/*googleMap*/
 			var markers =[];
@@ -535,56 +537,121 @@ pageEncoding="UTF-8"%>
 				})
 
 
-				getplannerInfo();
 				
+
+
+				getplannerInfo();
+					
 			})
 
-			function getSearchList(){
-				let serchKeyword = $("#searchPlaceKeyWord").val()
-				let nowPage =1;
-				$.ajax({
-					url: "${pageContext.request.contextPath}/planner/searchPlace",
-					type: "post",
-					dataType: "json",
-					data:{keyword: serchKeyword, nowPage: nowPage} ,
-					success: function(result){
-						console.log("totalPages"+result.totalPages)
-						let str="";
-						$.each(result.pageList,function(index,place){
-							str+="<li class='spot-card'>"
-							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
-								str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-								str+= `<div class="spot-info-detail">
-										<p class='spot-info-name'>\${place.placeName}</p>`
-									str+=`<p class="spot-bnt-wrap">
-											<span>
-												<button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button>
-											</span>`
-									str+=`<span>
-											<a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a>
-										</span>
-										</p>`
-								str+=`</div>`
-							str+=`</div>`
-							str+="</li>"
-						})
-						$("#spotList").html("");
-						$("#spotList").append(str);
-
-						//페이지처리
-						let str2=""
-						str2+=`<a id="spot-page-P" href="#" onclick="searchSpotNextPage('p')" >이전</a>`
-						str2+=`<span id="pageList"></span>`
-						str2+=`<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>`
-						$("#page-search-nav").html("")
-						$("#page-search-nav").append(str2)
-
-					},
-					error: function(error){
-						alert("정보를 불러올 수 없습니다.")
+			//오른쪽사이드바-검색
+			function getSearchList(page){
+					let serchKeyword = $("#searchPlaceKeyWord").val()
+					let nowPage
+					if(!page){
+						nowPage =1;
+						console.log("getSearchList>>"+page+"빈값 page=1")
+					}else{
+						nowPage = page;
+						console.log("getSearchList>>"+page+"빈값아님")
 					}
-				})
-			}
+					
+					$.ajax({
+						url: "${pageContext.request.contextPath}/planner/searchPlace",
+						type: "post",
+						dataType: "json",
+						data:{keyword: serchKeyword, nowPage: nowPage} ,
+						success: function(result){
+							console.log("검색결과 totalPages"+result.totalPages)
+							let str="";
+							//console.log(result.pageList)
+							
+							if(result.pageList==0){
+								str+=`<div>`
+									str+=`<p>검색 결과가 없습니다.😢</p>`
+								str+=`</div>`
+							}else{
+								$.each(result.pageList,function(index,place){
+									str+="<li class='spot-card'>"
+									str+=`<div class="spot-info" id="${'${place.placeId}'}">`
+										str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+										str+= `<div class="spot-info-detail">
+												<p class='spot-info-name'>\${place.placeName}</p>`
+											str+=`<p class="spot-bnt-wrap">
+													<span>
+														<button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button>
+													</span>`
+											str+=`<span>
+													<a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a>
+												</span>
+												</p>`
+										str+=`</div>`
+									str+=`</div>`
+									str+="</li>"
+								})
+							}
+							
+							$("#spotList").html("");
+							$("#spotList").append(str);
+
+							//페이지처리
+							var paging ="";
+							var doneLoop =false;
+							if((result.startPage - result.blockCount)>0){
+								paging+=`<a id="spot-page-P" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage('p')" >이전</a>`
+							}
+							if((result.startPage+result.blockCount)<=result.totalPages){	
+								// paging +=`<a class='pagination-older' href='#'  name=\${result.nowPage} id='nowPage'>NEXT</a>`;
+								paging+=`<a id="spot-page-N" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage('n')" >이후</a>`;
+							}
+							
+							
+							// paging+=`<span id="pageList"></span>`
+							// paging+=`<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>`
+
+
+							// if((result.startPage-result.blockCount) > 0){	
+							// 	paging +=`<a class='pagination-newer' href='#' id='nowPage'>PREV</a>`
+							// 	paging +=`<input type='hidden' id='PrevPage' value=${'${result.startPage-1}'}>`;
+							// }	
+							// paging +=`<span class='pagination-inner'>`;
+							// for(let i=result.startPage ; i<=(result.startPage-1)+result.blockCount ;i++ ){
+							// 	if((i-1) >= result.totalPages)break
+							// 	paging +=`<a class='${i==nowPage?"pagination-active":page}' href='#'  id='nowPage'>${"${i}"}</a>`;
+								
+							// }
+							// paging +=`</span>`;
+							// if((result.startPage+result.blockCount)<=result.totalPages){	
+							// 	paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
+							// 	paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
+							// // }	
+
+							$("#page-search-nav").html("")
+							$("#page-search-nav").append(paging)
+
+						},
+						error: function(error){
+							alert("정보를 불러올 수 없습니다.")
+						}
+					})
+				}
+
+				function searchSpotNextPage(state){
+					var pagingNow =$(this).attr("name");
+					console.log("현재페이지="+pagingNow)
+					// if(state=="p"){
+					// 	getSearchList(pagingNow)
+					// }else if(state=="n"){
+
+					// }else{
+					// 	return false;
+					// }
+					getSearchList(pagingNow)
+				}
+
+			
+
+			
 
 		</script>
 
