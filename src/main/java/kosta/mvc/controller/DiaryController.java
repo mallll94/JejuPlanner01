@@ -227,7 +227,7 @@ public class DiaryController {
 	/**다이어리 삭제하기*/
 	@RequestMapping("/delete")
 	public String deleteDiary(Long plannerId) {
-		System.out.println("다이어리 삭제!!!!!!");
+		System.out.println("다이어리 삭제!!!!!!"+plannerId);
 		plannerService.deleteDiary(plannerId);
 		return "redirect:/diary/diaryIndex";	
 	}
