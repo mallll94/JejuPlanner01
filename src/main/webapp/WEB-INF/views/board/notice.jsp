@@ -44,14 +44,19 @@
 <style type="text/css">
   .col-lg-9{ 
     padding-bottom: 200px;
-    margin-top: -50px;    
+    margin-top: -10px;    
     padding-left: 150px;
   }
   .accordion-body {
     text-align: center;
   }
   .row {
-   width: 90%;
+   width: 95%;
+  }
+  body {
+    background-image: url("../img/noticeBack.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
   }
 
 </style>       
@@ -98,7 +103,7 @@
         
         <!--게시판영역-->
     <div class="col-lg-9">
-	 <h3><i class="menu-icon fa-solid fa-user-large"></i><strong>&nbsp;공지사항</strong></h3>
+	 <h4><i class="menu-icon fa-solid fa-user-large"></i><strong>&nbsp;공지사항</strong></h4>
 		<div class="row">
 		  <div class="col-md mb-4 mb-md-0">
 		    <div class="accordion mt-3" id="accordionExample">
