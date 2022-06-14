@@ -136,13 +136,6 @@
 					<!--게시판영역-->
 					<div class="col-lg-9">
 						<h4 class="property-title">동행 구하기</h4>
-						<div class="sidebar-btn">
-							<div>
-								<button type="button" id="all" class=" btn" style="background-color: grey;" onclick="location.href='freeBoard'">전체보기</button>
-								<button type="button" id="recommend" class=" btn" name="여행추천" style="background-color: grey;">여행추천</button>
-								<button type="button" id="recommend" class="btn" name="장소추천" style="background-color: grey;">장소추천</button>
-							</div>
-						</div>
 						<div class="property-list">
 							<c:forEach items="${requestScope.list.content}" var="crewboard">   
 								<div class="row">
@@ -154,7 +147,7 @@
 													<span class="crew-state">동행구함</span>
 												</c:when>
 												<c:when test="${crewboard.crewState eq 'Y'}">
-													<div class="crew-state" style="background-color: gray;">완료</div>
+													<span class="crew-state" style="background-color: gray;">완료</span>
 												</c:when>
 											</c:choose>
 											<div class="crew-date">
