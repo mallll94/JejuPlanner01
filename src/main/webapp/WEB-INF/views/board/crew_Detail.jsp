@@ -35,26 +35,29 @@ $(function(){
 			count = 0;
 			if(result=="") {
 
-				str += "<div class='reply-each'>"
-                str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+				str+= `<div class="single-comment-body">`
+				   str+=`<div class="comment-text-body">`
+                     str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+                   str+=`</div>`;
                 str+=`</div>`;
 			} else {
 				$.each(result,function(index,reply){
-					str += "<div class='reply-each'>"
-                    str+=`<div class="reply-user-info">`;
-                    str+=`<span class="badge rounded-pill text-dark">\${reply.userId}</span>&nbsp;`
-
-                    str+=`</div>`;
-                    str+=`<div class="reply-content">`;
-                    str+=`<span class="reply-content-text">\${reply.crewReplyContent}</span>`
-                    str+=`<span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span>`
-                    str+=`</div>`;
-    				str += "</div>"
+					str+= `<div class="single-comment-body">`
+				    	str+= `<div class="comment-user-avater">`	                
+	                		str+=`<img src="/img/face2.png" alt="face">`
+						str+=`</div>`;
+	               		 str+=`<div class="comment-text-body">`
+	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
+                    		str+=`<p><span class='comment-content'>\${reply.crewReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span></p>`
+                    		str+=``
+                   		str+=`</div>`;
+					str+=`</div>`;
+          
     				count++;
 				})
             }
-           	$("#review_reply_output").html(review_reply_output);
-           	$("#review_reply_output").append(str);
+			$(".comment-list").html("");
+           	$(".comment-list").append(str);
            	$(".reply-num-count").text(count);
 		},
 
@@ -231,15 +234,21 @@ $(function(){
 
 
 
-<!--댓글 조회하기 -->
-<div class="reply-num" style="margin-left: 290px;">
-   Comments : <span class="reply-num-count"></span>개
-</div>
-<div class="review_reply_wrap" style="margin-left: 290px;">
-    <div class="review_reply_area">
-      <div id="review_reply_output"></div>
-    </div>
-</div>
+<!-- single article section -->
+				<div class="container" style="text-align: left; margin-left:280px">
+
+						<div class="col-lg-8">
+							<div class="single-article-section">
+								
+								<div class="comments-list-wrap">
+									<h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
+									<div class="comment-list"></div>
+								</div>
+							</div>
+						</div>
+
+				</div>
+				<!-- end single article section -->
 
 
 <%-- <form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
