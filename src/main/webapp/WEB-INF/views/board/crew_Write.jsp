@@ -13,7 +13,6 @@
 
 $(function() {
 	
-
 	$(document).ready(function(){
 	
 		$("#crewBoard").on("submit",function(){
@@ -49,12 +48,11 @@ $(function() {
         <form name="crewBoard" id="crewBoard" method="post" action="${pageContext.request.contextPath}/board/crew_Insert">
           <div class="mb-3">
             <label class="form-label" for="basic-default-fullname">제목</label>
-            <input type="text" class="form-control" id="basic-default-fullname" name="crewTitle" id ="crewTitle" placeholder="제목을 입력해주세요" />
+            <input type="text" class="form-control" name="crewTitle" id ="crewTitle" placeholder="제목을 입력해주세요" />
           </div>
           <div class="mb-3">
             <label class="form-label" for="basic-default-message">내용</label>
-            <textarea id="basic-default-message" class="form-control" name="crewContent" 
-            id="crewContent" placeholder="내용을 입력해주세요" style="resize: none"></textarea>
+            <textarea class="form-control" name="crewContent" id="crewContent" placeholder="내용을 입력해주세요" style="resize: none"></textarea>
           </div>
           
           <input type="hidden"  value="N" name="crewState"/>
