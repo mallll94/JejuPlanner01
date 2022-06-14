@@ -507,7 +507,7 @@ $(document).ready(function(){
 	const pboardId = "${planBoard.pboardId}";
 	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
 	
-	//var isChecked = ${isChecked};
+	var isChecked = ${isChecked};
 	console.log(isChecked);
 	if (isChecked) {
 		console.log("이미 좋아요 함");
@@ -664,7 +664,7 @@ $(document).ready(function(){
 <!-- jquery -->
 	<script src="${pageContext.request.contextPath}/js/reply/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
-	<script src="${pageContext.request.contextPath}/js/reply/bootstrap.min.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/js/reply/bootstrap.min.js"></script> --%>
 	<!-- count down -->
 	<script src="${pageContext.request.contextPath}/js/reply/jquery.countdown.js"></script>
 	<!-- isotope -->
