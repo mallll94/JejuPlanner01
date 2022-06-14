@@ -571,6 +571,14 @@ pageEncoding="UTF-8"%>
 						$("#spotList").html("");
 						$("#spotList").append(str);
 
+						//페이지처리
+						let str2=""
+						str2+=`<a id="spot-page-P" href="#" onclick="searchSpotNextPage('p')" >이전</a>`
+						str2+=`<span id="pageList"></span>`
+						str2+=`<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>`
+						$("#page-search-nav").html("")
+						$("#page-search-nav").append(str2)
+
 					},
 					error: function(error){
 						alert("정보를 불러올 수 없습니다.")
@@ -701,11 +709,7 @@ pageEncoding="UTF-8"%>
 					</div>
 					<!--검색 페이징처리-->
 					<div id="pageSearch" class="paging-center">
-						<div class="page-search-nav">
-							<a id="spot-page-P" href="#" onclick="searchSpotNextPage('p')" >이전</a>
-							<span id="pageList"></span>
-							<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>
-						</div>
+						<div id="page-search-nav" class="page-search-nav"></div>
 					</div>
 				</div>
 			</div>

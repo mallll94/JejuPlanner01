@@ -1,0 +1,230 @@
+.mt-150{margin-top: 50px;}
+.container{max-width: 1100px;}
+/* div.diary-row{
+    max-width: 1100px;
+    height: 200px;
+    margin: 50px;
+    border-top: solid 3px gainsboro;
+    border-bottom: 3px solid gainsboro;
+    padding: 0%;
+} */
+.body-row{width: 1000px;}
+.col-lg-8{width: 100%;}
+.title-row{
+    width: 1000px;
+    border-top: solid 2px rgb(189, 189, 189);
+    border-bottom: 2px solid rgb(189, 189, 189);
+}
+div.diary-titleview{
+    padding: 30px;
+}
+.diaryTitle{
+    font-size: xx-large;
+    font-weight: bold;
+    color: rgb(49, 49, 49);
+    margin: 0;
+}
+.diaryDays{
+    font-size: x-large;
+    color:rgb(136, 136, 136); 
+    word-spacing: -5px; 
+    letter-spacing: -1px;
+    margin: 0;
+}
+.diaryBottom{
+    display: flex;
+    justify-content: space-between;
+    font-size: medium;
+    color: rgb(80, 80, 80);
+    word-spacing: 10px;
+    letter-spacing: 5px;
+}
+.diary-setting{
+    color: rgb(214, 212, 212);
+    width: 150px;
+    outline: none;
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    border: 4px solid rgb(80, 80, 80);
+    background-color: rgb(80, 80, 80);
+    border-radius: 4px;
+}
+
+/**본문*/
+div.diary-main-view{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.diary-row{clear: both; display: flex; height: 200px;width: 100%; margin-bottom: 30px;}
+/**장소카드*/
+.planner-place-area{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-left: 30px;
+
+
+    flex-direction: column;
+    width: 170px; 
+    height: 200px;
+
+    box-shadow: 2px 2px 5px 1px rgb(209, 209, 209);
+
+    /* margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x)); */
+}
+/* .place-card{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(189, 189, 189); 
+    width: 170px; 
+    height: 200px;
+    border: 2px solid rgb(189, 189, 189);
+} */
+.place-Img{
+    width: 170px; 
+    height: 110px; 
+    box-sizing: border-box;
+    object-fit: cover;}
+.place-detail-box{
+    height: 90px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.place-name{
+    color: rgb(80, 80, 80);
+    font-size: 25px;
+    height: 50px;
+    font-size: medium;
+    text-align: left;
+    word-wrap: break-word;
+    margin: 0;
+}
+.place-info{float: right;  height: 25px; box-sizing: border-box;}
+.plan-info-bnt{background-color: rgb(224, 224, 224); width: 25px;border: 0; outline: 0; border-radius: 50px; font-size: small;}
+
+/**다이어리내용*/
+.diaryline-area{
+    background-color: white;
+    display: flex;
+    margin-left: 20px;
+    margin-right: 30px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 1px rgb(209, 209, 209);
+}
+.diaryline-card{
+    min-width: 50px;
+}
+/* .diaryline-card{float: left; } */
+.write-diaryline-bnt{
+    display: inline-block;
+    width: 50px; 
+    height: 200px; 
+    text-align: center; 
+    line-height: 200px;
+    font-size: xx-large;
+    color: rgb(80, 80, 80);
+}
+.write-diaryline-bnt:hover{color: orange; background-color:  rgb(255, 217, 170);}
+
+/**다이어리 이미지*/
+.diaryline-Image{box-sizing: border-box; width: 200px; height: 200px;}
+.diarylineImg{box-sizing: border-box; width: 200px; height: 200px; object-fit: cover; }
+
+/**다이어리 내용*/
+.diaryline-text-box{
+    width: 550px;
+    height: 200px;
+    padding: 10px;
+}
+.diaryline-content{
+    height: 120px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.diaryline-bottom{
+    height: 50px;
+    text-align: right;
+    line-height: 50px;
+    font-size: large;
+    font-weight: bold;
+    color: orange;
+}
+.icon-bnt-area{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-left: 10px;
+}
+.icon-bnt{
+    width: 35px;
+    display: inline-block;
+    color:rgb(80, 80, 80) ;
+    text-align: center; 
+    line-height: 30px;
+} 
+
+/**하단*/
+.bottom-row{
+    width: 1000px;
+    border-top: solid 2px rgb(189, 189, 189);
+}
+.diary-bottom-area{
+    padding-top: 10px;
+    width: 900px;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.back-list-btn{
+    height: 50px;
+    line-height: 40px;
+    border: 3px solid rgb(189, 189, 189);
+    color: rgb(156, 156, 156);
+    font-weight: bold;
+    font-size: larger;
+    width: 200px;
+    text-align: center;
+    border-radius: 4px;	
+}
+.totalPlace{
+    font-size: x-large;
+    font-weight: bold;
+    color: orange;
+}
+
+.input-diaryPhoto-bnt{padding: 6px; background-color: orange; border-radius: 4px; color: white; cursor: pointer;}
+.form-modal-content{width: 100%; resize: none; border: gainsboro 1px solid; border-radius: 4px;}
+a{text-decoration: none;}
+.update-col{width: 50%;}
+textarea:focus{outline: 1px solid gray;}
+#delete-check-message{text-align: center;}
+#update-diaryName{width: 100%;}
+#update-diaryCount{width: 100%}
+#insert-diaryPhoto, #update-diary-diaryPhoto{display: none;}
+
+/**장소 정보 모달*/
+.modal-content-area{
+    word-wrap: break-word;
+    width: 500px;
+    height: 150px;
+    overflow: auto;
+    padding-bottom: 5px;
+}
+.placeContentModal{
+    font-size: small;
+}
+.modal-addr-area{	
+    width: 500px;
+    height: 30px;
+    word-wrap: break-word;
+}
+.placeAddrModal{
+    font-size: small;
+}
