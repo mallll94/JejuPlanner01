@@ -112,7 +112,7 @@ $(function(){
 	$(document).on("click","#delete",function(){
 		
 		$("[name=orderLineId]").val($(this).val());
-		$('#deleteModal').modal('show');
+		
 		
 	})
 })
