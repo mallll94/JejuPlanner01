@@ -40,9 +40,8 @@
    .category span{
     text-align: center;
       width: 120px;
-     background-color: rgb(255, 195, 42);
       font-size: small;
-      color: #ffffff;
+      color: black;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -119,10 +118,10 @@
         <div class="col-lg-9">
           <h4 class="property-title">플래너 게시판</h4>
             <div class="sidebar-btn">
-              <button type="button" class="btn btn-light btn-lg" name="나홀로">나홀로</button>&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-light btn-lg" name="가족/부모님">가족/부모님</button>&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-light btn-lg" name="친구">친구</button>&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-light btn-lg" name="연인">연인</button>
+              <button type="button" class="btn btn-light btn-lg" name="나홀로">🧘나홀로</button>
+              <button type="button" class="btn btn-light btn-lg" name="가족/부모님">🏠가족/부모님</button>
+              <button type="button" class="btn btn-light btn-lg" name="친구">🧑‍🤝‍🧑친구</button>
+              <button type="button" class="btn btn-light btn-lg" name="연인">❤️연인</button>
             </div>
           <div class="property-list">
               <!--foreach 내용-->
@@ -131,7 +130,20 @@
                   <a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">	
                     <div class="property-text">
                       <div class="category">
-                        <span class="">${planboard.pboardCategory}</span>
+                        <c:choose>
+												<c:when test="${planboard.pboardCategory eq '나홀로'}">
+                          <span style="background-color: lightskyblue;">${planboard.pboardCategory}</span>
+												</c:when>
+												<c:when test="${planboard.pboardCategory eq '가족/부모님'}">
+                          <span  style="background-color: lightsalmon;">${planboard.pboardCategory}</span>
+												</c:when>
+                        <c:when test="${planboard.pboardCategory eq '친구'}">
+                          <span  style="background-color: lightgreen;">${planboard.pboardCategory}</span>
+												</c:when>
+                        <c:when test="${planboard.pboardCategory eq '연인'}">
+                          <span  style="background-color: lightcoral;">${planboard.pboardCategory}</span>
+												</c:when>
+										   </c:choose>
                       </div>
                       <div class="title">${planboard.pboardTitle}</div>
                       <div class="info">${planboard.user.userId}</div>

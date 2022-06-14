@@ -189,6 +189,10 @@ pageEncoding="UTF-8"%>
 
 				})
 
+				//다이어리 내용 작성하기
+				
+				
+
 				//다이어리 내용 수정하기
 				$(document).on("click","#edit-diaryline-bnt",function(){
 					let target = $(this).attr('plannerPlaceId');
@@ -265,6 +269,7 @@ pageEncoding="UTF-8"%>
 				let insertarget = $(this).attr('plannerPlaceId');
 				console.log(insertarget)
 				$('#insert-diary-bnt').val(insertarget)
+				$('#writeForm').attr('action','${pageContext.request.contextPath}/diary/insertDiaryLine?nowPage='+curPage)
 			})
 
 			
@@ -594,7 +599,8 @@ pageEncoding="UTF-8"%>
                     <div class="modal-header">
                         <h4 class="modal-title" id="placeInfoTitleModal">다이어리 작성하기</h4>
                     </div>
-					<form name="writeForm" method="post" action="${pageContext.request.contextPath}/diary/insertDiaryLine" onSubmit='return checkValid()' enctype="multipart/form-data" >
+					<form name="writeForm" method="post" onSubmit='return checkValid()' enctype="multipart/form-data" >
+
 						<div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
