@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,9 +50,10 @@ public class CrewReplyController {
 	@RequestMapping("/reply/cinsert")
 	@ResponseBody
 	public void insert(String replyContent, String crewId) {
-		Users user = userService.selectById("aaa");
+		//Users user = userService.selectById("aaa");
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		CrewReply reply = new CrewReply(null, null, user, replyContent, null);
+		CrewReply reply = new CrewReply(null, null, users, replyContent, null);
 		crewReplyService.insert(Long.valueOf(crewId) , reply);
 		
 		System.out.println("크루댓글등록");
