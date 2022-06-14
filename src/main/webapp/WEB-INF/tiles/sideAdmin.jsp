@@ -76,7 +76,7 @@
   <ul class="menu-inner py-1">
 
     <li class="menu-item active">
-      <a href="${pageContext.request.contextPath}/index" class="menu-link">
+      <a href="${pageContext.request.contextPath}/" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">홈페이지</div>
       </a>
