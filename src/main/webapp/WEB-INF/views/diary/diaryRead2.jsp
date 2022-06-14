@@ -279,12 +279,6 @@ pageEncoding="UTF-8"%>
 
 			
 
-			//목록으로 돌아가기 버튼
-			$(document).on("click","#back-list-btn",function(){
-				console.log("만들어야함")
-				//let url = `${pageContext.request.contextPath}/diary/diaryIndex&nowPage=${pageNum}`
-				//location.replace(url);
-			})
 	
 		</script>
 

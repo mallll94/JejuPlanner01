@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,62 @@
 <link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
     
+<style>
+   .property-list{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-top: solid 2px rgb(189, 189, 189);
+      border-bottom: 2px solid rgb(189, 189, 189);
+      padding: 10px;
+      
+   }
+   .property-text{display: table;padding: 10px;}
+   .category{display: table-cell;}
+   .title{
+      display: table-cell;
+      width: 500px;
+      font-size: medium;
+      font-weight: bold;
+      color: rgb(59, 59, 59);
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+   .title:hover{color: #ffc107;}
+   .info{display: table-cell;color: rgb(109, 109, 109); font-size: small;}
+   .recommend-trip{
+      background-color: rgb(255, 195, 42);
+      font-size: small;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 3px 20px;
+      margin-left: 5px;
+   }
+   .recommend-place{
+      background-color: skyblue;
+      font-size: small;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 3px 20px;
+      margin-left: 5px;
+   }
+   .write-btn{
+      height: 50px;
+      line-height: 40px;
+      border: 3px solid rgb(189, 189, 189);
+      color: rgb(156, 156, 156);
+      font-weight: bold;
+      font-size: larger;
+      width: 200px;
+      text-align: center;
+      border-radius: 4px;	
+   }
+</style>
      <script type="text/javascript">
    
      $(function(){
@@ -43,77 +100,8 @@
     
 </head>
 	<body>'
-       <div class="col-md-12">
-          <div class="white_shd full margin_bottom_30">
-             <div class="full graph_head">
-                <div class="heading1 margin_0">
-                   <h2>소통게시판 게시판</h2>
-                </div>
-             </div>
-            	   <div align="left">
-            	    <span><button type="button" id="all" class=" btn" style="background-color: grey;" onclick="location.href='freeBoard'">전체보기</button></span>
-					 <button type="button" id="recommend" class=" btn" name="여행추천" style="background-color: grey;">여행추천</button>
-					 <button type="button" id="recommend" class="btn" name="장소추천" style="background-color: grey;">장소추천</button>
-					</div>
-	             <div class="table_section padding_infor_info">
-	                <div class="table-responsive-sm">
-	                   <table class="table">
-	                      <thead>
-	                         <tr>
-	                            <th>카테고리</th>
-	                            <th>제목</th>
-	                            <th>등록일</th>
-	                            <th>조회수</th>
-	                         </tr>
-	                      </thead>
-	           			  <c:forEach items="${requestScope.pageList.content}" var="freeboard">   
-		                      <tbody>
-		                      	<tr>
-		                         	<td>${freeboard.freeCategory}</td>
-		                            <td> <span><a href="${pageContext.request.contextPath}/board/freeBoard_Detail/${freeboard.freeId}">${freeboard.freeTitle}</a></span></td>
-		                            <td>${freeboard.freeRegdate}</td>  		                    
-		                            <td>${freeboard.freeReadnum}</td>  
-		                         </tr>
-		                      </tbody>
-		                  </c:forEach>
-	                   </table>
-	                </div>
-	             </div>
-             <button onclick="location='./freeBoard_Write'">작성</button>
-          </div>
-       </div>
        
-<div class="row">
-  <div class="container">
-      <div class="row">
-          <div class="col-lg-12 text-center">
-              <div class="pagination-wrap"> 
-                  <ul>
-                    <c:set var="doneLoop" value="false"/>
-                      <c:if test="${(startPage-blockCount) > 0}"> <!-- (-2) > 0  -->
-                        <a href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage-1}">Prev</a>
-                      </c:if>
-                      <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
-                        <c:if test="${(i-1)>=pageList.getTotalPages()}"> <!-- 페이지가 전체페이지보다 크다면 -->
-                          <c:set var="doneLoop" value="true"/> <!-- 다음페이지 돌지마라 -->
-                        </c:if> 
-                        <c:if test="${not doneLoop}" > <!-- 다음페이지가 없으면 -->
-                          <a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${i}">${i}</a>
-                        </c:if>
-                      </c:forEach>
-                                 <!-- <li><a class="active" href="#">2</a></li>
-                                 <li><a href="#">3</a></li> -->
-                     <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
-                      <a href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage+blockCount}">Next</a>
-                     </c:if>
-                 </ul>
-             </div>
-         </div>
-     </div>
-  </div>
-</div> 
 
-   <!--Css시도-->
    <!-- Property Section Begin -->
    <section class="property-section spad">
       <div class="container">
@@ -153,54 +141,67 @@
                   <h4 class="property-title">소통 게시판</h4>
                   <div class="sidebar-btn">
                      <div>
-                     <button type="button" id="all" class=" btn" style="background-color: grey;" onclick="location.href='freeBoard'">전체보기</button>
-                     <button type="button" id="recommend" class=" btn" name="여행추천" style="background-color: grey;">여행추천</button>
-                     <button type="button" id="recommend" class="btn" name="장소추천" style="background-color: grey;">장소추천</button>
+                     <button type="button" id="all" class="btn btn-outline-dark shadow-none"  onclick="location.href='freeBoard'">전체보기</button>
+                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="여행추천" >여행추천</button>
+                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="장소추천" >장소추천</button>
                     </div>
                  </div>
                   <div class="property-list">
-                     <div class="single-property-item">
+                     <c:forEach items="${freelist}" var="freeboard">   
                         <div class="row">
+                           <a href="${pageContext.request.contextPath}/board/freeBoard_Detail/${freeboard.freeId}">
                            <div class="property-text">
-                              <div class="s-text">For Sale</div>
-                              <h5 class="r-title">Villa 9721 Glen Creek</h5>
-                              <div class="room-price">
-                                    <span>Start From:</span>
-                                    <h5>$3.000.000</h5>
+                              <div class="category">
+                                 <c:choose>
+												<c:when test="${freeboard.freeCategory eq '여행추천'}">
+                                       <span class="recommend-trip">${freeboard.freeCategory}</span>
+												</c:when>
+												<c:when test="${freeboard.freeCategory eq '장소추천'}">
+                                       <span class="recommend-place" >${freeboard.freeCategory}</span>
+												</c:when>
+										   </c:choose>
                               </div>
-                              <div class="properties-location"><i class="icon_pin"></i> 9721 Glen Creek Ave.
-                                    Ballston Spa, NY</div>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore.</p>
-                              <ul class="room-features">
-                                    <li>
-                                       <i class="fa fa-arrows"></i>
-                                       <p>5201 sqft</p>
-                                    </li>
-                                    <li>
-                                       <i class="fa fa-bed"></i>
-                                       <p>8 Bed Room</p>
-                                    </li>
-                                    <li>
-                                       <i class="fa fa-bath"></i>
-                                       <p>7 Baths Bed</p>
-                                    </li>
-                                    <li>
-                                       <i class="fa fa-car"></i>
-                                       <p>1 Garage</p>
-                                    </li>
-                              </ul>
+                              <div class="title">${freeboard.freeTitle}</div>
+                              <div class="info">
+                                 <span>등록일: ${freeboard.freeRegdate}</span>
+                                 <span>조회수: ${freeboard.freeReadnum}</span>
+                              </div>
                            </div>
-                             
+                           </a>
                         </div>
-                     </div>
+                     </c:forEach>
+                  </div>
                    
+                  <div style="text-align: right;">
+                     <a href="${pageContext.request.contextPath}/board/freeBoard_Write" class="btn btn-outline-dark shadow-none">작성하기</a>
                   </div>
-                  <div class="property-pagination">
-                     <a href="#">1</a>
-                     <a href="#">2</a>
-                     <a href="#">3</a>
+                  <!-- 페이징 처리 -->
+                  <div style="text-align: center">
+                     <nav class="pagination-container">
+                        <!--페이징 내용-->
+                        <div class="property-pagination">
+                           <c:set var="doneLoop" value="false"/>
+                           <c:if test="${(startPage-blockCount) > 0}"> <!-- (-2) > 0  -->
+                              <a href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage-1}">Prev</a>
+                           </c:if>
+                           <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
+                              <c:if test="${(i-1)>=totalPage}">
+                                 <c:set var="doneLoop" value="true"/>
+                              </c:if> 
+                              <c:if test="${not doneLoop}" >
+                                 <a class="paginate_button <c:if test='${nowPage eq i}'>style='background-color:#2cbdb8;' </c:if>" href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${i}">${i}</a>
+                              </c:if>
+                           </c:forEach>
+                           <c:if test="${(startPage+blockCount)<=totalPage}">
+                           <a href="${pageContext.request.contextPath}/board/freeBoard?nowPage=${startPage+blockCount}">Next</a>
+                           </c:if>
+                        </div>
+                        <!--페이징 내용 끝-->
+                     </nav>
                   </div>
+                  <!-- 페이징 처리끝 -->
+               </div>
+                  
             </div>
          </div>
       </div>

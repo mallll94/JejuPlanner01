@@ -1,5 +1,9 @@
 package kosta.mvc.controller;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.FreeBoard;
+import kosta.mvc.dto.FreeBoardDTO;
 import kosta.mvc.service.FreeBoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -30,13 +35,20 @@ public class FreeBoardController {
 	
 	@RequestMapping("/board/freeBoard")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
-		
-		int temp = (nowPage-1)%BLOCK_COUNT;
+		List<FreeBoard> list = pageList.getContent();
+		List<FreeBoardDTO> freelist =new ArrayList<FreeBoardDTO>();
+		for(FreeBoard f:list) {
+			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
+					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
+		}
+ 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 		
-		model.addAttribute("pageList", pageList);
+		model.addAttribute("freelist", freelist);
+		model.addAttribute("totalPage",pageList.getTotalPages());
         model.addAttribute("blockCount", BLOCK_COUNT);
         model.addAttribute("startPage", startPage);
         model.addAttribute("nowPage", nowPage);
