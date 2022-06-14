@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsLine;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
@@ -189,7 +190,7 @@ public class UserController {
 	
 	@RequestMapping("/reserveAll")
 	@ResponseBody
-	public Map<String, Object> myReserveSelect() {
+	public Map<String, Object> myReserveSelect()  throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -219,34 +220,44 @@ public class UserController {
 			
 			OrderLineDTO dto = new OrderLineDTO(result.getOrderLineId(), null, null, result.getOrderLineAmount(), result.getOrderLinePrice(), result.getOrderLineState());
 			resultOrderLine.add(dto);
+			
+			GoodsLine goodsLine = goodsLineService.goodsLineSelect(result.getGoodsLine().getGoodsLineId());
+
+			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
+
+			resultGoodsLine.add(goodsLineDto);
+			
+			
+			
 
 		}
-		System.out.println("첫음 : "+resultOrderLine.size());
-	
-		for(OrderLineDTO x : resultOrderLine) {
-			
-			GoodsLine goodsLine = goodsLineService.goodsLineSelect(x.getOrderLineId());
-			
-			
-			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
-			resultGoodsLine.add(goodsLineDto);
-			System.out.println(resultGoodsLine.size());
-			
-		}
-		System.out.println("두음 : "+resultGoodsLine.size());
 		for(GoodsLineDTO x : resultGoodsLine) {
+			System.out.println(x.getGoodsLineId());
+			GoodsLine goodsLine = goodsLineService.goodsLineSelect(x.getGoodsLineId());
 			
-			 GoodsDTO goodsDTO = new GoodsDTO(x.getGoods().getGoodsId(), null, x.getGoods().getGoodsLocalCategory(), x.getGoods().getGoodsCategory(), x.getGoods().getGoodsName(), x.getGoods().getGoodsPrice(), x.getGoods().getGoodsContent(), x.getGoods().getGoodsPhoto(), x.getGoods().getGoodsAddr());
-			 resultGoods.add(goodsDTO);
+			Goods goods = goodsService.getGoodsByGoodsId(goodsLine.getGoods().getGoodsId());
+			
+			GoodsDTO goodsDTO = new GoodsDTO(goods.getGoodsId(), null, goods.getGoodsLocalCategory(), goods.getGoodsCategory(), goods.getGoodsName(), goods.getGoodsPrice(), goods.getGoodsContent(), goods.getGoodsPhoto(), goods.getGoodsAddr());
+			resultGoods.add(goodsDTO);
 		}
 		
 		
 		
-		System.out.println("goods : "+resultGoods.size()+"| goodsLine : "+resultGoodsLine.size() +" | orderLine : "+resultOrderLine.size() );
+		System.out.println("goods : "+resultGoods.size()+"| goodsLine : "+resultGoodsLine.size() +" | orderLine : "+resultOrderLine.size());
+		
 		map.put("goods", resultGoods);
-		//map.put("goodsLine",resultGoodsLine);
-		//map.put("orderLine", resultOrderLine);
+		map.put("goodsLine",resultGoodsLine);
+		map.put("orderLine", resultOrderLine);
+		
 		return map;
+	}
+	
+	@RequestMapping("/cancleOrder")
+	public String cancleOrder(Long orderLineId) {
+		System.out.println(orderLineId);
+		orderLineService.deleteOrderLine(orderLineId);
+		
+		return "redirect:/user/myReserve";
 	}
 	
 }

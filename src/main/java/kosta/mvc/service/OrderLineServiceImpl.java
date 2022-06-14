@@ -39,7 +39,9 @@ public class OrderLineServiceImpl implements OrderLineService {
 
 	@Override
 	public void deleteOrderLine(Long orderLineId) {
-
+		OrderLine orderLine=orderLineRepository.findById(orderLineId).orElse(null);
+		orderLine.setOrderLineState("RF");
+		
 	}
 
 	@Override

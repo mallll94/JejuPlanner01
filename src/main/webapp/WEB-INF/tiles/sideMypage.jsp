@@ -54,7 +54,7 @@
             </nav>
         </div>
      <li class="menu-item">
-       <a href="" class="menu-link">
+       <a href="${pageContext.request.contextPath}/user/myReserve" class="menu-link">
         <i class="menu-icon tf-icons bx bx-credit-card"></i>
         <div data-i18n="Support">MY예약</div>
       </a>
