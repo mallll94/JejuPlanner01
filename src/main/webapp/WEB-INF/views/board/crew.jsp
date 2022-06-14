@@ -8,6 +8,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <!-- Google Font -->
+ <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+ <!-- Css Styles -->
+ <link rel="stylesheet" href="/css/azentaMaster/bootstrap.min.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/font-awesome.min.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/elegant-icons.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/themify-icons.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/nice-select.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/jquery-ui.min.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/magnific-popup.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/slicknav.min.css" type="text/css">
+ <link rel="stylesheet" href="/css/azentaMaster/style.css" type="text/css">
+
+ <!-- Owl Stylesheets -->
+ <link rel="stylesheet" href="/css/owlCarousel/owl.carousel.min.css" type="text/css">
+ <link rel="stylesheet" href="/css/owlCarousel/owl.theme.default.min.css">
 <style>
 .property-list{
 	margin-top: 20px;
@@ -16,9 +33,7 @@
 	border-bottom: 2px solid rgb(189, 189, 189);
 	padding: 10px;
 }
-.row{
-	border-bottom: 1px solid rgb(223, 223, 223);	
-}
+
 .crew-title{
 	font-size: large;
 	font-weight: bold;
@@ -43,7 +58,7 @@
 </style>
 </head>
 	<body>
-       <div class="col-md-12">
+       <!-- <div class="col-md-12">
           <div class="white_shd full margin_bottom_30">
              <div class="full graph_head">
                 <div class="heading1 margin_0">
@@ -79,14 +94,14 @@
              <button onclick="location='./crew_Write'">작성</button>
           </div>
        </div>
-       
+        -->
 		
 
-		  <!--Css시도-->
 		<!-- Property Section Begin -->
 		<section class="property-section spad">
 			<div class="container">
 			<div class="row">
+				<!--메뉴 사이드바-->
 				<div class="col-lg-3">
 					<div class="property-sidebar">
 						<div class="best-agents">
@@ -118,6 +133,7 @@
 						</div>
 					</div>
 				</div>
+				<!--게시판영역-->
 				<div class="col-lg-9">
 					<h4 class="property-title">동행 구하기</h4>
 					<div class="sidebar-btn">
@@ -202,6 +218,17 @@
 		<!-- Property Section End -->
 
 
+		  <!--JQuery-->
+		  <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+
+		  <!-- Js Plugins -->
+		  <script src="/js/azentaMaster/bootstrap.min.js"></script>
+		  <script src="/js/azentaMaster/jquery.magnific-popup.min.js"></script>
+		  <script src="/js/azentaMaster/jquery.nice-select.min.js"></script>
+		  <script src="/js/azentaMaster/jquery.slicknav.js"></script>
+		  <script src="/js/azentaMaster/jquery-ui.min.js"></script>
+		  <script src="/js/owlCarousel/owl.carousel.min.js"></script>
+		  <script src="/js/azentaMaster/main.js"></script>
 
 
 	</body>
