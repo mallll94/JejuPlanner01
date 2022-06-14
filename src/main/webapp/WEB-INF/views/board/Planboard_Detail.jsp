@@ -72,7 +72,6 @@
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
@@ -496,8 +495,8 @@ $(document).ready(function(){
 	const pboardId = "${planBoard.pboardId}";
 	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
 	
-	var isChecked = ${isChecked};
-	console.log(isChecked);
+	//var isChecked = ${isChecked};
+	//console.log(isChecked);
 	if (isChecked) {
 		console.log("이미 좋아요 함");
 		$("#liked-heart").attr('class','bi-heart-fill');
