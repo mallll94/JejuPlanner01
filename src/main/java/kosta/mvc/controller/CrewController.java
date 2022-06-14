@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CrewBoard;
+import kosta.mvc.domain.Users;
 import kosta.mvc.service.CrewService;
 import lombok.RequiredArgsConstructor;
 
@@ -91,9 +93,15 @@ public class CrewController {
 	 * 상세보기
 	 * */
 	@RequestMapping("/board/crew_Detail/{crewId}")
-	public ModelAndView read(@PathVariable Long crewId) {
-		 CrewBoard crewboard = crewService.selectById(crewId);
-		 return new ModelAndView("/board/crew_Detail", "crewboard", crewboard);
+	public String read(@PathVariable Long crewId,Model mv) {
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CrewBoard crewboard = crewService.selectById(crewId);
+	
+		mv.addAttribute("sendId", users.getUserId());
+		mv.addAttribute("receId", crewboard.getUser().getUserId());
+		mv.addAttribute("crewboard", crewboard);
+		
+		return "board/crew_Detail";
 	}
 	
 	/**

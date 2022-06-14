@@ -81,6 +81,21 @@
 						<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>	
 					</sec:authorize>
 
+					<c:choose>
+					    <c:when test="${sessionScope.loginManager != null}">
+							<li><a href="">관리자 페이지</a></li>
+							<li><a href="">로그아웃</a></li>
+						</c:when>
+						<c:when test="${empty pageContext.request.userPrincipal}">
+							<li><a href="${pageContext.request.contextPath}/user/loginForm">로그인</a></li>
+							<li><a href="${pageContext.request.contextPath}/user/registerForm">회원가입</a></li>						
+						</c:when>
+						<c:otherwise>
+							<li><a href="${pageContext.request.contextPath}/cart/cartList">장바구니</a></li>
+							<li><a href="${pageContext.request.contextPath}/user/myPage">마이페이지</a></li>
+							<li><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+						</c:otherwise>
+					</c:choose>
 						<li>
 							<form action="${pageContext.request.contextPath}/goods/search">
 								<div class="input-group mb-3" style= "margin-bottom: 100px;">

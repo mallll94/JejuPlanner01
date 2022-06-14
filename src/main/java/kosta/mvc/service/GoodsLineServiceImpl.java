@@ -24,10 +24,7 @@ public class GoodsLineServiceImpl implements GoodsLineService {
 
 	@Override
 	public GoodsLine goodsLineSelect(Long id) {
-		GoodsLine goodsline = goodsLineRep.getById(id);
-		System.out.println(goodsline.getGoodsLineId());
-		System.out.println(goodsline.getGoodsLineAmount());
-		System.out.println("service");
+		GoodsLine goodsline = goodsLineRep.findById(id).orElse(null);
 		return goodsline;
 	}
 

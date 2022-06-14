@@ -303,6 +303,7 @@ public class PlannerServiceImpl implements PlannerService {
 	 
 	 @Override
 	public void deleteDiary(Long plannerId) {
+		 
 		plannerRep.deleteById(plannerId);
 		
 	}

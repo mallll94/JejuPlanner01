@@ -190,6 +190,26 @@ pageEncoding="UTF-8"%>
 				})
 
 				//다이어리 내용 작성하기
+				function insertDL(){
+					
+
+				}
+
+				//다이어리 등록 폼 유효성 체크
+				// $(document).on("click","#insert-diary-bnt",function checkValifffd(){
+				// 	var theForm = document.writeform;
+					
+				// 	alert($('#write-page').val())
+				// 	//console.log("checkValid()옴"+$('#insert-diaryLinePrice').val())
+				// 	//경비가 null값이면 0으로 submit
+				// 	if($('#insert-diaryLinePrice').val()==''){
+				// 		$('#insert-diaryLinePrice').val('0')
+				// 	}	
+				// 	theForm.method="post"
+				// 	theForm.target="_self"
+				// 	theForm.enctype ="multipart/form-data"
+				// 	theForm.action="${pageContext.request.contextPath}/diary/insertDiaryLine"
+				// })
 				
 				
 
@@ -198,6 +218,7 @@ pageEncoding="UTF-8"%>
 					let target = $(this).attr('plannerPlaceId');
 					console.log(target)
 					modalUpdateDiary($(this).attr('plannerPlaceId'))
+					$('#edit-page').val(curPage)
 					
 				})
 
@@ -205,8 +226,10 @@ pageEncoding="UTF-8"%>
 				$(document).on("change","#setting-select",function(){
 					console.log("모달 선택")
 					if($(this).val()=="updateTitle"){
+						$('#edit-name').val(curPage)
 						$('#NameUpdateModal').modal('show');
 					}else if($(this).val()=="updateInfo"){
+						$('#edit-type').val(curPage)
 						$("#updateCountAndTypeModal").modal('show');
 					}else if($(this).val()=="deleteDiary"){
 						$('#deleteDiaryModal').modal('show');
@@ -214,6 +237,20 @@ pageEncoding="UTF-8"%>
 				})
 				
 
+				//다이어리 등록 폼 값 전달
+				$(document).on("click","#write-diaryline-bnt", function(){
+					let insertarget = $(this).attr('plannerPlaceId');
+					console.log(insertarget)
+					$('#insert-diary-bnt').val(insertarget)
+					$('#write-page').val(curPage)
+				})
+
+				//다이어리 내용 삭제버튼
+				$(document).on("click","#delete-diaryline-bnt", function(){
+					var deletetarget = $(this).attr('plannerPlaceId');
+					let url="${pageContext.request.contextPath}/diary/deleteDiaryLine?diaryLineId="+deletetarget+"&nowPage="+curPage;
+					location.replace(url);
+				})
 				
 						
 
@@ -221,17 +258,16 @@ pageEncoding="UTF-8"%>
 			})
 
 
-
-
-			//다이어리 등록 폼 유효성 체크
 			function checkValid(){
-
-				console.log($('#insert-diaryLinePrice').val())
+				alert($('#write-page').val())
+				//console.log("checkValid()옴"+$('#insert-diaryLinePrice').val())
 				//경비가 null값이면 0으로 submit
 				if($('#insert-diaryLinePrice').val()==''){
 					$('#insert-diaryLinePrice').val('0')
 				}	
 			}
+
+			
 
 			//다이어리 수정 폼 유효성 체크
 			function checkValidUpdate(){
@@ -262,25 +298,6 @@ pageEncoding="UTF-8"%>
 			}
 
 			
-
-				
-			//다이어리 등록 폼 값 전달
-			$(document).on("click","#write-diaryline-bnt", function(){
-				let insertarget = $(this).attr('plannerPlaceId');
-				console.log(insertarget)
-				$('#insert-diary-bnt').val(insertarget)
-				$('#writeForm').attr('action','${pageContext.request.contextPath}/diary/insertDiaryLine?nowPage='+curPage)
-			})
-
-			
-
-
-			//다이어리 내용 삭제버튼
-			$(document).on("click","#delete-diaryline-bnt", function(){
-				var deletetarget = $(this).attr('plannerPlaceId');
-				let url="${pageContext.request.contextPath}/diary/deleteDiaryLine?diaryLineId="+deletetarget;
-				location.replace(url);
-			})
 
 			
 
@@ -599,8 +616,8 @@ pageEncoding="UTF-8"%>
                     <div class="modal-header">
                         <h4 class="modal-title" id="placeInfoTitleModal">다이어리 작성하기</h4>
                     </div>
-					<form name="writeForm" method="post" onSubmit='return checkValid()' enctype="multipart/form-data" >
-
+					<form name="writeForm" method="post" action="${pageContext.request.contextPath}/diary/insertDiaryLine" onSubmit='return checkValid()' enctype="multipart/form-data" >
+						<input type="hidden" name="nowPage" id="write-page">
 						<div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -673,6 +690,7 @@ pageEncoding="UTF-8"%>
                         <h4 class="modal-title" id="update-diaryTitleModal">다이어리 수정하기</h4>
                     </div>
 					<form name="updateForm" method="post" action="${pageContext.request.contextPath}/diary/updateDiaryLine" onSubmit='return checkValidUpdate()' enctype="multipart/form-data" >
+						<input type="hidden" name="nowPage" id="edit-page">
 						<div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
@@ -744,6 +762,7 @@ pageEncoding="UTF-8"%>
                         <h4 class="modal-title" id="NameUpdateModal-Title">다이어리 이름 변경</h4>
                     </div>
 					<form name="updateNameForm" method="post" action="${pageContext.request.contextPath}/diary/updateName" onSubmit='return checkValidName()' enctype="multipart/form-data" >
+						<input type="hidden" name="nowPage" id="edit-name">
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-lg-12">
@@ -770,6 +789,7 @@ pageEncoding="UTF-8"%>
                         <h4 class="modal-title" id="updateCountAndTypeModal-Title">다이어리 정보 수정</h4>
                     </div>
 					<form name="updateCandTForm" method="post" action="${pageContext.request.contextPath}/diary/updateCountAndType" onSubmit='return checkValidCandT()' enctype="multipart/form-data" >
+						<input type="hidden" name="nowPage" id="edit-type">
 						<div class="modal-body">
 							<div class="row">
 								<div class="update-col">

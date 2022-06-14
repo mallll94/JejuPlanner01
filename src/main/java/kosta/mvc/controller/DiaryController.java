@@ -162,13 +162,12 @@ public class DiaryController {
 	
 	/**다이어리 내용 등록하기*/
 	@RequestMapping("/insertDiaryLine")
-	public String insertDiaryLine(PlannerPlace diaryLine, HttpSession session,int nowPage,Model model) {
+	public String insertDiaryLine(PlannerPlace diaryLine, HttpSession session,int nowPage) {
 			System.out.println("작성 내용"+diaryLine.getDiaryLineContent());
 			System.out.println("nowPage"+nowPage);
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
 		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
-		model.addAttribute("nowPage",nowPage);
-		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId()+"?nowPage="+nowPage;
 	}
 	
 //	@RequestMapping(value = "/diaryInsertAjax", method = RequestMethod.POST)
@@ -190,45 +189,45 @@ public class DiaryController {
 	}
 	
 	@RequestMapping("/updateDiaryLine")
-	public String updateDiaryLine(PlannerPlace diaryLine, HttpSession session) {
+	public String updateDiaryLine(PlannerPlace diaryLine, HttpSession session,int nowPage) {
 			System.out.println("작성 내용"+diaryLine.getDiaryLineContent()+", 경비::"+diaryLine.getDiaryLinePrice());
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
 		Planner dbplanner =plannerService.insertDiaryLine(diaryLine, uploadPath);
-		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId()+"?nowPage="+nowPage;
 	}
 	
 	
 	@RequestMapping("/updateName")
-	public String updateName(Planner planner) {
+	public String updateName(Planner planner,int nowPage) {
 		System.out.println("변경할 plannerID::"+planner.getPlannerId());
 		System.out.println("변경할 이름::"+planner.getDiaryTitle());
 		Planner dbplanner =plannerService.updateDiaryName(planner);
-		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId()+"?nowPage="+nowPage;
 	}
 	
 	@RequestMapping("/updateCountAndType")
-	public String updateCountAndType(Planner planner) {
+	public String updateCountAndType(Planner planner,int nowPage) {
 		System.out.println("변경할 plannerID::"+planner.getPlannerId());
 		System.out.println("변경할 타입::"+planner.getPlannerType()+", 인원:: "+planner.getPlannerCount());
 		Planner dbplanner = plannerService.updateCountAndType(planner);		
-		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId()+"?nowPage="+nowPage;
 	}
 	
 	
 	/**다이어리 내용 삭제하기*/
 	@RequestMapping("/deleteDiaryLine")
-	public String deleteDiaryLine(Long diaryLineId, HttpSession session) {
+	public String deleteDiaryLine(Long diaryLineId, HttpSession session,int nowPage) {
 		PlannerPlace plannerpalce = new PlannerPlace();
 			plannerpalce.setPlannerPlaceId(diaryLineId);
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/diary/";
 		Planner dbplanner =plannerService.updateDiaryLine(plannerpalce, uploadPath);
-		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId();
+		return "redirect:/diary/diaryRead/"+dbplanner.getPlannerId()+"?nowPage="+nowPage;
 	}
 	
 	/**다이어리 삭제하기*/
 	@RequestMapping("/delete")
 	public String deleteDiary(Long plannerId) {
-		System.out.println("다이어리 삭제!!!!!!");
+		System.out.println("다이어리 삭제!!!!!!"+plannerId);
 		plannerService.deleteDiary(plannerId);
 		return "redirect:/diary/diaryIndex";	
 	}

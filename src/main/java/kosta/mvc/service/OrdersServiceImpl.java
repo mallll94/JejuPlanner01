@@ -54,9 +54,15 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public List<Orders> getOrdersByUserId() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Orders> getOrdersByUserId(String userId) {
+		QOrders orders = QOrders.orders;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.and(orders.user.userId.eq(userId));
+		
+		List<Orders> list=(List<Orders>) ordersRep.findAll(builder);
+		
+		return list;
 	}
 
 	@Override

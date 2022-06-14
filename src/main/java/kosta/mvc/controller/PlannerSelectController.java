@@ -35,13 +35,8 @@ public class PlannerSelectController {
 		Planner planner= plannerService.selectBy(plannerId);
 		List<PlannerPlace> list = null;
 		List<PlannerPlace> boxList = new ArrayList<>();
-		System.out.println();
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-		System.out.println("------2------------");
-		
-		
-		
-		System.out.println(period.getDays());
+
 		if(DayPlanner==0) {
 			list = planner.getPlannerPlaceList();
 			
