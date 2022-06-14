@@ -8,12 +8,325 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/planner2/responsive.css">
+	
+	
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<!-- bootstrap -->
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="${pageContext.request.contextPath}/js/planner2/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="${pageContext.request.contextPath}/js/planner2/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+
+	<!-- owl carousel -->
+	<script src="${pageContext.request.contextPath}/js/planner2/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="${pageContext.request.contextPath}/js/planner2/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="${pageContext.request.contextPath}/js/planner2/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="${pageContext.request.contextPath}/js/planner2/sticker.js"></script>
+	<!-- main js -->
+	<script src="${pageContext.request.contextPath}/js/planner2/main.js"></script>
+	
+	
+
+<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<style>
+	.col{height: 50px; margin-top: 10px; margin-bottom: 10px;}
+	.planner-name{font-size: xx-large; font-weight: bold; color:  rgb(43, 42, 42); padding-right: 10px;}
+	.planner-setting{
+		color: rgb(214, 212, 212);
+		width: 150px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid rgb(80, 80, 80);
+		background-color: rgb(80, 80, 80);
+		border-radius: 4px;
+	}
+	.planner-days{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.planner-type{
+		color: white;
+		width: 100px;
+		outline: none;
+		text-align: center;
+		font-size: medium;
+		font-weight: bold;
+		border: 4px solid cornflowerblue;
+		background-color: cornflowerblue;
+		border-radius: 4px;
+	}
+	.custom-bnt{
+		font-size: large;
+		font-weight: bold;
+		color: cornflowerblue;
+		padding-bottom: 12px;
+	}
+	.custom-bnt:hover {
+		font-size: large;
+		font-weight: bold;
+		color: rgb(80, 80, 80);
+		text-decoration-line: none;
+		padding-bottom: 12px;
+	}
+</style>
 
 <script type="text/javascript">
+var mymap;
+var markers=[];
+var line;
+var targets=[];
 
+$(function(){
+	//alert("${param.plannerId}")
+	$(document).on("change","#days", function(){
+		
+		selectAll($(this).val());
+	});
+	
+	//날짜더하기
+	function dateAdd(date, addDays) {
+
+ 		var datetmp = date.replace(/-/g,'');			
+ 
+ 		var y = parseInt(datetmp.substr(0, 4));
+ 		var m = parseInt(datetmp.substr(4, 2));
+ 		var d = parseInt(datetmp.substr(6,2));
+
+ 		d = new Date(y, m - 1, d + addDays);
+
+			y = d.getFullYear();
+ 		m = d.getMonth() + 1; m = (m < 10) ? '0' + m : m;
+ 		d = d.getDate(); d = (d < 10) ? '0' + d : d;
+
+		return '' + y + '-' +  m  + '-' + d;		
+		}
+
+	function selectAll(no){//1
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/planner/select",
+			type: "post",
+			dataType: "json",
+			data: { '${_csrf.parameterName}' : '${_csrf.token}' ,plannerId: $("#plannerId").val() ,DayPlanner : no},
+			success: function(result){
+				
+				let card = "";
+				var name = result.planner.plannerName;
+				var dayNo = result.dayNo;			
+				var dayNoLi = "<option value='0'>✏️일정</option>";
+
+				var saveDayNo= result.dayNo;
+
+				if(no!=0){
+					dayNo=no;
+				}
+
+				for(let i=0; i <saveDayNo ;i++){
+					dayNoLi+=`<option value=${'${i+1}'}>${'${i+1}'}day</option>`;
+				}
+
+				deleteMarkers();
+				removeRoute();
+				getLineColor();
+			
+				//deleteLine();
+				targets =[];
+				linestargets =[];
+				////////////////////
+				for(let v =0;v<result.place.length;v++){
+					
+					targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
+				}
+				
+				addMarker(targets);		
+				addLine(targets,getLineColor(dayNo))
+
+				let index=0;
+				for(let j=1; j<=dayNo;j++){ //dayNo = 1 , 2 ,3 , 4 ,    no=0일때 모두 , no=1 1day, no=2 ,2day	
+						
+					card+=`<div class='row row-cols-10' class='list'>`;
+					if(no==0){
+					  card+=`<h1>${'${j}'}Day</h1>`;
+					}else{
+						if(index==0){
+						 card+=`<h1>${'${no}'}Day</h1>`;
+						 index++;
+						}
+					}
+					$.each(result.place, function(index, item){
+						
+						if(item.day==j){
+							
+							var now =dateAdd(result.planner.plannerStart,j-1);
+							
+							card+=`<div class='col-lg-3 col-md-3'>`;
+							card+=`<div class='single-latest-news'>`;
+							card+=`<div class='latest-news-bg news-bg-1' style='background-image: url(/images/place/${"${item.placePhoto}"})'></div>`;
+							card+=`<div class='news-text-box'>`;
+							card+=`<h3><a href=''>${'${item.placeName}'}</a></h3><p class='blog-meta'>`;
+							card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
+							card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${now}'}</span>`;
+							card+=`</p><p class='excerpt'>${'${item.placeAddr}'}</p>`;
+							card+=`<a href='${"${item.placeUrl}"}' target='_blank' class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
+							card+=`</div></div></div>`;
+						}
+						
+						
+					})
+					card+=`</div>`;
+					
+				}
+
+				
+				$("#days").empty();
+				$("#days").append(dayNoLi);
+				$("#days").val(no);
+				
+				$("#name").html(name);
+				$("#card").empty();
+				$("#card").html(card);
+				
+				$("#countPlan").html(result.planner.plannerCount+"명");
+				
+			},
+			error: function(error){
+				alert("장소 정보를 불러오지 못했습니다.")
+			}
+		})
+	}
+	
+	selectAll(0);
+})
+//////////////////////////////////////////
+
+function getColor(place,plannerPlace){
+	if(place.placeCategory =='장소'){
+		if(plannerPlace.plannerPlaceDate==1){
+			return 'skyblue';
+		}else if(plannerPlace.plannerPlaceDate==2){
+			return 'pink'
+		}else if(plannerPlace.plannerPlaceDate==3){
+			return 'yellow'
+		}else if(plannerPlace.plannerPlaceDate==4){
+			return 'red'
+		}else if(plannerPlace.plannerPlaceDate==5){
+			return 'green'
+		}	
+	}else{
+		return 'black';
+	}
+	
+}
+
+function getLineColor(day){	
+		if(day==1){
+			return "#00C3FF";
+		}else if(day==2){
+			return "#FFDD00";
+		}else if(day==3){
+			return "#7C8C91";
+		}else if(day==4){
+			return "#FF0000";
+		}else if(day==5){
+			return "#5100FF";
+		}else if(day==6){
+			return "#FF841F";
+		}else if(day==7){
+			return "#E9F086";
+		}
+}
+//지도생성
+function initMap(){
+	const mapDiv= document.getElementById("googleMap");
+	mymap = new google.maps.Map(mapDiv,{
+		center:new google.maps.LatLng(33.3893, 126.5362),
+		zoom:10,
+		mapId: "a0f291588508440c",
+		streetViewControl: false
+	})	
+};
+
+
+//마커표시
+function addMarker(targets){
+	for(let i=0;i<targets.length;i++){
+		var position = targets[i];
+		//alert(position)
+		let marker = new google.maps.Marker({
+		position: position,
+		map: mymap,
+		//animation: google.maps.Animation.Drop
+		})
+		//마커 배열 저장
+		markers.push(marker);
+	}
+}
+//선 폴리선 생성
+function addLine(targets,lineColor){ 
+	
+    line = new google.maps.Polyline({
+      path : targets,
+      geodesic:true,
+      
+      strokeColor: lineColor,
+      strokeOpacity:1.0,
+      strokeWeight:3
+    })
+    
+    line.setMap(mymap); 
+}
+
+//마커삭제
+function deleteMarkers() {
+	   for (var i = 0; i < markers.length; i++) {
+	     markers[i].setMap(null);
+	   }
+}
+
+function removeRoute(){
+	 if(typeof line !== 'undefined'){
+	  line.setMap(null);
+	 }
+}
 
 $(function(){
 
@@ -32,7 +345,7 @@ $(function(){
 		data: {pboardId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
-			alert("검색성공~")
+
 			let str="";
 			count = 0;
 			if(result=="") {
@@ -214,7 +527,15 @@ $(document).ready(function(){
       <div class="col-lg-7 mb-5">
           <div class="contact-form">
               <div id="success"></div>
-              
+              <select id="days" class="planner-days"></select>
+			  <select id="plannerType" class="planner-type">
+					<option value='연인' >❤️연인</option>
+					<option value='나홀로'>🧘나홀로</option>
+					<option value='가족/부모님'>🏠가족</option>
+				<option value='친구'>🧑‍🤝‍🧑친구</option>
+			    </select>
+			
+
               <!-- 하트 -->
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
@@ -231,6 +552,17 @@ $(document).ready(function(){
          	제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
          <p class="help-block text-danger"></p>
  		</div>
+ 		
+ 		<div id="googleMap" style="width: 100%;height: 600px;"></div>
+		<div class="latest-news mt-100 mb-150">
+			<div class="container" id="card">
+		
+			</div>
+		</div>
+ 		
+ 		
+ 		
+ 		
  		<div class="control-group" style="text-align: left;">
         	내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
          <p class="help-block text-danger"></p>
@@ -286,10 +618,7 @@ $(document).ready(function(){
   </div>
 </div><p></p>
    
-<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
-<input type="hidden" name="no" value='${freeBoard.freeId}'>
-<input type="hidden" name="receId" value='${freeBoard.user.userId}'>
-<input type="submit" value="rrr">
+<input type="hidden" value="${planBoard.userPlan.plannerId }" id="plannerId">
 
 
 </body>

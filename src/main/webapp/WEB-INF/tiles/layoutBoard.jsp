@@ -13,11 +13,11 @@
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
-		<div id="wrap" style="display: table;">
-			<div id="sideBoard" style="display: table-cell; height: 100%">
+		<div id="body" style="display: flex;">
+			<div id="sideBoard" style=" min-width: 350px;max-width: 550px;float: left;">
 				<tiles:insertAttribute name="left" />
 			</div>
-			<div id="content" style="display: table-cell; width: 100%">
+			<div id="content" style=" width:1000px" >
 				<tiles:insertAttribute name="content" />
 			</div>
 		</div>

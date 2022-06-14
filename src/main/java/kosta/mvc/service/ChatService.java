@@ -26,5 +26,5 @@ public interface ChatService {
 	/**
 	 * 읽음 전환 
 	 * */
-	void changeType (int chatRoom);
+	void changeType (int chatRoom,Users user);
 }

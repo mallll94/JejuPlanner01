@@ -43,15 +43,10 @@ public interface GoodsService {
 	 */
 	public List<Goods> getAllGoodsOrderBySalesAmount();
 
-	/**
-	 * 상품 별점순으로 조회하기
-	 */
-	public List<Goods> getAllGoodsOrderByStars();
-
-	/**
-	 * 실시간 검색 순위 -> 어따넣을지 고민
-	 */
-//	public List<Goods> getAllGoodsOrderByKeyword();
+//	/**
+//	 * 상품 별점순으로 조회하기
+//	 */
+//	public List<Goods> getAllGoodsOrderByStars();
 
 	/**
 	 * 플래너 기반 상품 조회

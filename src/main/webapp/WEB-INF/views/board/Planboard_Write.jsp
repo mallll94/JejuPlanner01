@@ -43,17 +43,28 @@ $(function() {
 		$.ajax({
 			url:"${pageContext.request.contextPath}/board/planSelect",
 			type:"post", 
-			dataType:"text",
+			dataType:"json",
 			data: { '${_csrf.parameterName}' : '${_csrf.token}' },
 			success :function(result){		
+   					var data ="";
+   				
+   					
+   					$.each(result, function(index, item){
+
+
+   						data+=`<option value='${"${item.plannerId}"}'>${'${item.plannerName}'} /${'${item.plannerStart}'} </option>`;
+
+					})
+   					$("#plannerId").append(data);
    					
 			},error : function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				alert("실패")
 			}
 		});
 		
 	}
-
+	selectAll();
 	
 }); //function
 
@@ -98,6 +109,15 @@ $(function() {
                     <div class="control-group" style="text-align: left;">
                     제목 <input type="text" class="form-control" id="pboardTitle" name="pboardTitle" placeholder="제목을 입력해주세요"/>
                          <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="control-group" style="text-align: left;">
+                         플래너 <select name="plannerId" id="plannerId" class="form-select" 
+                         aria-label="Default select example">
+                            <option value="none" selected>Planner</option>
+
+                            
+                         </select>
+                            <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group" style="text-align: left;">
                     내용 <textarea class="form-control" rows="6" id="pboardContent" name="pboardContent" placeholder="내용을 입력해주세요"

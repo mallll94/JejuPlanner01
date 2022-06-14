@@ -81,32 +81,34 @@ public class GoodsServiceImpl implements GoodsService {
 		List<Goods> goodsList = goodsRepository.findAllGoodsByGoodsName(goodsName);
 		return goodsList;
 	}
-
+	/**
+	 *goods 판매량순으로 상품 조회
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public List<Goods> getAllGoodsOrderBySalesAmount() {
 		List<OrderLine> orderLineList = orderLineRepository.findAll();
 		return orderLineList.stream()
-				.collect(Collectors.groupingBy(orderLine -> orderLine.getGoodsLine().getGoods(), Collectors.summingInt(OrderLine::getOrderLineAmount)))
+				.collect(Collectors.groupingBy(orderLine -> orderLine.getGoodsLine().getGoods().getGoodsId(), Collectors.summingInt(OrderLine::getOrderLineAmount)))
 				.entrySet()
 				.stream()
 				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-				.map(item -> item.getKey())
+				.map(item -> getGoodsByGoodsId(item.getKey()))
 				.collect(Collectors.toList());
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Goods> getAllGoodsOrderByStars() {
-		List<GoodsReply> goodsReplyList = goodsReplyRepository.findAll();
-		return goodsReplyList.stream()
-				.collect(Collectors.groupingBy(goodsReply -> goodsReply.getGoods(), Collectors.averagingDouble(GoodsReply::getGoodsReplyStart)))
-				.entrySet()
-				.stream()
-				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-				.map(item -> item.getKey())
-				.collect(Collectors.toList());
-	}
+//	@Override
+//	@Transactional(readOnly = true)
+//	public List<Goods> getAllGoodsOrderByStars() {
+//		List<GoodsReply> goodsReplyList = goodsReplyRepository.findAll();
+//		return goodsReplyList.stream()
+//				.collect(Collectors.groupingBy(goodsReply -> goodsReply.getGoods(), Collectors.averagingDouble(GoodsReply::getGoodsReplyStart)))
+//				.entrySet()
+//				.stream()
+//				.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+//				.map(item -> item.getKey())
+//				.collect(Collectors.toList());
+//	}
 
 	@Override
 	@Transactional(readOnly = true)

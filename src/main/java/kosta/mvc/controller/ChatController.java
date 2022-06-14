@@ -81,7 +81,8 @@ public class ChatController {
 		String recevId = null;
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		chatService.changeType(chatRoom);
+		
+		chatService.changeType(chatRoom,users);
 
 		List<ChatBoard> list=chatService.selectById(chatRoom,users);
 		List<ChatDTO> sendList = new ArrayList<ChatDTO>();

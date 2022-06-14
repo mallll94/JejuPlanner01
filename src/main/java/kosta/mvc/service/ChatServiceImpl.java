@@ -111,7 +111,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public void changeType(int chatRoom) {
+	public void changeType(int chatRoom,Users user) {
 		QChatBoard chatBoard = QChatBoard.chatBoard;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(chatBoard.chatRoom.eq(chatRoom));
@@ -124,8 +124,19 @@ public class ChatServiceImpl implements ChatService {
 		
 		Long id = chat.get(0).getChatId();
 		
+
 		ChatBoard db=chatBoardRep.findById(id).orElse(null);
-		db.setChatCheck(1);
+		
+		if(db.getSenderUser().getUserId().equals(user.getUserId())) {
+			db.setChatCheck(1);
+		}
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
