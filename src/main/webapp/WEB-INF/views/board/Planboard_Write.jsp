@@ -100,11 +100,9 @@ $(function() {
                             <option value="가족/부모님">가족/부모님</option>
                             <option value="친구">친구</option>
                             <option value="연인">연인</option>
-                            
                          </select>
                             <p class="help-block text-danger"></p>
                         </div>
-                       
                        
                     <div class="control-group" style="text-align: left;">
                     제목 <input type="text" class="form-control" id="pboardTitle" name="pboardTitle" placeholder="제목을 입력해주세요"/>
@@ -113,9 +111,7 @@ $(function() {
                     <div class="control-group" style="text-align: left;">
                          플래너 <select name="plannerId" id="plannerId" class="form-select" 
                          aria-label="Default select example">
-                            <option value="none" selected>Planner</option>
-
-                            
+                            <option value="none" selected>Planner</option>       
                          </select>
                             <p class="help-block text-danger"></p>
                     </div>
