@@ -224,11 +224,13 @@ public class UserController {
 		System.out.println("첫음 : "+resultOrderLine.size());
 	
 		for(OrderLineDTO x : resultOrderLine) {
+			
 			GoodsLine goodsLine = goodsLineService.goodsLineSelect(x.getOrderLineId());
 			
-			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), goodsLine.getGoods(), goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
-			resultGoodsLine.add(goodsLineDto);
 			
+			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
+			resultGoodsLine.add(goodsLineDto);
+			System.out.println(resultGoodsLine.size());
 			
 		}
 		System.out.println("두음 : "+resultGoodsLine.size());
@@ -242,8 +244,8 @@ public class UserController {
 		
 		System.out.println("goods : "+resultGoods.size()+"| goodsLine : "+resultGoodsLine.size() +" | orderLine : "+resultOrderLine.size() );
 		map.put("goods", resultGoods);
-		map.put("goodsLine",resultGoodsLine);
-		map.put("orderLine", resultOrderLine);
+		//map.put("goodsLine",resultGoodsLine);
+		//map.put("orderLine", resultOrderLine);
 		return map;
 	}
 	
