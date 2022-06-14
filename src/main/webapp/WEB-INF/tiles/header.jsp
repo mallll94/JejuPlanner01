@@ -64,7 +64,7 @@
 			<div class="main-header-top-right">
 				<ul>
 					<c:choose>
-						<c:when test="${sessionScope.loginManager != null}">
+						<c:when test="${pageContext.request.userPrincipal}">
 							<li><a href="">관리자 페이지</a></li>
 							<li><a href="">로그아웃</a></li>
 						</c:when>

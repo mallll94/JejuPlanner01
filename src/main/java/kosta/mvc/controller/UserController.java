@@ -1,9 +1,15 @@
 package kosta.mvc.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +21,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.GoodsLine;
+import kosta.mvc.domain.OrderLine;
+import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.GoodsDTO;
+import kosta.mvc.dto.GoodsLineDTO;
+import kosta.mvc.dto.OrderDTO;
+import kosta.mvc.dto.OrderLineDTO;
+import kosta.mvc.service.GoodsLineService;
+import kosta.mvc.service.GoodsService;
+import kosta.mvc.service.OrderLineService;
+import kosta.mvc.service.OrdersService;
 import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +44,10 @@ public class UserController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 
-	
+	private final OrdersService ordersService;
+	private final OrderLineService orderLineService;
+	private final GoodsService goodsService;
+	private final GoodsLineService goodsLineService;
 	
 	@RequestMapping("/{url}")
 	public void init() {}
@@ -155,6 +175,76 @@ public class UserController {
 		
 		return "redirect:/user/myPage";
 		
+	}
+	
+	
+	/**
+	 * 마이페이지 내 예약 내역 조회
+	 * */
+	@RequestMapping("/myReserve")
+	public String myReserve() {
+		
+		return "mypage/myReserve";
+	}
+	
+	@RequestMapping("/reserveAll")
+	@ResponseBody
+	public Map<String, Object> myReserveSelect() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		List<Orders> order=ordersService.getOrdersByUserId(users.getUserId());
+		List<Long> orderLineIdList = new  ArrayList<Long>();
+		//jsonignore 해결하기위해 dto 설정
+		
+		List<OrderLineDTO> resultOrderLine = new ArrayList<OrderLineDTO>();
+		
+		List<GoodsLineDTO> resultGoodsLine = new ArrayList<GoodsLineDTO>();
+		
+		List<GoodsDTO> resultGoods	= new ArrayList<GoodsDTO>();
+		
+		
+		for(Orders x : order) {
+			
+			for(OrderLine y : x.getOrdersLineList()) {
+				orderLineIdList.add(y.getOrderLineId());
+			}
+		}		
+		
+		//내가 가지고있는 상품목록 뿌리기
+
+		for(Long id : orderLineIdList ) {
+			
+			OrderLine result = orderLineService.selectById(id);
+			
+			OrderLineDTO dto = new OrderLineDTO(result.getOrderLineId(), null, null, result.getOrderLineAmount(), result.getOrderLinePrice(), result.getOrderLineState());
+			resultOrderLine.add(dto);
+
+		}
+		System.out.println("첫음 : "+resultOrderLine.size());
+	
+		for(OrderLineDTO x : resultOrderLine) {
+			GoodsLine goodsLine = goodsLineService.goodsLineSelect(x.getOrderLineId());
+			
+			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), goodsLine.getGoods(), goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
+			resultGoodsLine.add(goodsLineDto);
+			
+			
+		}
+		System.out.println("두음 : "+resultGoodsLine.size());
+		for(GoodsLineDTO x : resultGoodsLine) {
+			
+			 GoodsDTO goodsDTO = new GoodsDTO(x.getGoods().getGoodsId(), null, x.getGoods().getGoodsLocalCategory(), x.getGoods().getGoodsCategory(), x.getGoods().getGoodsName(), x.getGoods().getGoodsPrice(), x.getGoods().getGoodsContent(), x.getGoods().getGoodsPhoto(), x.getGoods().getGoodsAddr());
+			 resultGoods.add(goodsDTO);
+		}
+		
+		
+		
+		System.out.println("goods : "+resultGoods.size()+"| goodsLine : "+resultGoodsLine.size() +" | orderLine : "+resultOrderLine.size() );
+		map.put("goods", resultGoods);
+		map.put("goodsLine",resultGoodsLine);
+		map.put("orderLine", resultOrderLine);
+		return map;
 	}
 	
 }

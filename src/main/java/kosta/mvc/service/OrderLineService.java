@@ -28,4 +28,9 @@ public interface OrderLineService {
 	 * 카테고리별 조회
 	 * */
 	public Map<String, Object> cataOrderLines(String cata);
+	
+	/**
+	 * 주문상세 아이디로조회
+	 * */
+	public OrderLine selectById(Long orderLineId);
 }

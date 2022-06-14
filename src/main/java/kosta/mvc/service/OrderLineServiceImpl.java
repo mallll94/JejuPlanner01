@@ -62,6 +62,14 @@ public class OrderLineServiceImpl implements OrderLineService {
 		return null;
 	}
 
+	@Override
+	public OrderLine selectById(Long orderLineId) {
+		OrderLine orderLine=orderLineRepository.findById(orderLineId).orElse(null);
+		
+		
+		return orderLine;
+	}
+
 	
 
 }
