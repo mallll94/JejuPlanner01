@@ -137,7 +137,7 @@
 					<div class="col-lg-9">
 						<h4 class="property-title">동행 구하기</h4>
 						<div class="property-list">
-							<c:forEach items="${requestScope.list.content}" var="crewboard">   
+							<c:forEach items="${requestScope.crewlist}" var="crewboard">   
 								<div class="row">
 									<a href="${pageContext.request.contextPath}/board/crew_Detail/${crewboard.crewId}">
 										<div class="property-text">

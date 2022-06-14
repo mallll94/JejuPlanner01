@@ -1,6 +1,8 @@
 package kosta.mvc.controller;
 
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.CrewDTO;
 import kosta.mvc.service.CrewService;
+import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -26,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class CrewController {
 	
 	private final CrewService crewService;
+	private final UserService userService;
 	
 	/**
 	 * 전체검색 (페이징 처리)
@@ -54,22 +59,39 @@ public class CrewController {
 	/**
 	 *  페이징처리
 	 **/
+	/**
+	 *  페이징처리
+	 **/
 	@RequestMapping("/board/crew")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage) {
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//임시 테스트 아이디
+		String userId ="ccc";
+		Users loginUser =userService.selectById(userId);
+		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		// 페이징 처리
 		Pageable page = PageRequest.of(nowPage - 1, 10, Direction.DESC, "crewId");
 		Page<CrewBoard> list = crewService.selectAll(page);
+		List<CrewBoard> clist = list.getContent();
+		List<CrewDTO> crewlist = new ArrayList<CrewDTO>();
+		for(CrewBoard c : clist) {
+			crewlist.add(new CrewDTO(c.getCrewId(), c.getUser().getUserId(), c.getCrewTitle(), c.getCrewContent(), 
+					c.getCrewState(), c.getCrewRegdate().format(format), c.getCrewUpdate().format(format)) );
+		}
 		
-		model.addAttribute("list", list);
-		
+	
 		int blockCount = 5;
 		int temp = (nowPage - 1) % blockCount;
 		int startPage = nowPage - temp;
 		
+		model.addAttribute("crewlist", crewlist);
 		model.addAttribute("blockCount", blockCount);
 		model.addAttribute("startPage", startPage);
+		model.addAttribute("nowPage", nowPage);
 	}
+	
 	
 	/**
 	 * 글 등록폼
@@ -84,6 +106,12 @@ public class CrewController {
 	 * */
 	 @RequestMapping(value ="/board/crew_Insert", method = RequestMethod.POST)
 	 public String insert(CrewBoard crewBoard) {
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    //임시 테스트 아이디
+		String userId ="ccc";
+		Users loginUser =userService.selectById(userId);
+		crewBoard.setUser(loginUser);
+		 
 		 crewService.insertCrewBoard(crewBoard);
 		 
 		 return "redirect:/board/crew";

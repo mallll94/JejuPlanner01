@@ -39,6 +39,12 @@ public class FreeBoardController {
 	
 	@RequestMapping("/board/freeBoard")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
+		
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//임시 테스트 아이디
+		String userId ="ccc";
+		Users loginUser =userService.selectById(userId);
+		
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
@@ -112,7 +118,13 @@ public class FreeBoardController {
 	 **/
 	@RequestMapping(value = "/board/freeBoard_Insert", method = RequestMethod.POST)
 	public String insert(FreeBoard freeBoard, HttpSession session) {
-				
+		
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//임시 테스트 아이디
+		String userId ="ccc";
+		Users loginUser =userService.selectById(userId);
+		freeBoard.setUser(loginUser);
+		
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
 		freeBoardService.addFreeBoard(freeBoard, uploadPath);
 		
