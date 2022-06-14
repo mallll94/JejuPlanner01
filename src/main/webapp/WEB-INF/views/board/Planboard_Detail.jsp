@@ -560,7 +560,7 @@ $(document).ready(function(){
               <div align="right">
                 <i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
                 좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
-			 </div>	
+			  </div>	
 			   
 
  		<div class="control-group" style="text-align: left;">

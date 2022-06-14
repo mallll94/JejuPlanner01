@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.FreeBoard;
+import kosta.mvc.domain.Users;
 import kosta.mvc.dto.FreeBoardDTO;
 import kosta.mvc.service.FreeBoardService;
+import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class FreeBoardController {
 
 	private final FreeBoardService freeBoardService;
+	private final UserService userService;
 	
 	private final static int PAGE_COUNT=5;
 	private final static int BLOCK_COUNT=10;
@@ -44,7 +48,8 @@ public class FreeBoardController {
 			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
 					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
 		}
- 		int temp = (nowPage-1)%BLOCK_COUNT;
+ 		
+		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 		
 		model.addAttribute("freelist", freelist);
@@ -107,7 +112,7 @@ public class FreeBoardController {
 	 **/
 	@RequestMapping(value = "/board/freeBoard_Insert", method = RequestMethod.POST)
 	public String insert(FreeBoard freeBoard, HttpSession session) {
-		
+				
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
 		freeBoardService.addFreeBoard(freeBoard, uploadPath);
 		
@@ -139,7 +144,7 @@ public class FreeBoardController {
 	 **/
     @RequestMapping(value = "board/freeBoard_update", method = RequestMethod.POST)
     public ModelAndView update(FreeBoard freeBoard, HttpSession session) {
-    	
+    	   	
     	String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
     	FreeBoard dbBoard = freeBoardService.updateFreeBoard(freeBoard, uploadPath);
     	

@@ -55,9 +55,14 @@
             margin: 10px auto;
         }
 
-        .card {
+        .card h-100 {
             width: 18rem;
-            margin: 10px auto;
+            height: 60rem;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            margin-left: 10px;
+            
+           
         }
     </style>
 
@@ -71,67 +76,120 @@
 </head>
 
 <body>
-<%--     <div class="wrap">
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="goodsCard">
-	        <c:forEach items="${requestScope.goodsList}" var="goods">
-	        	<div class="col">
-	        		<div class="card h-100" onclick="showDetail(${goods.goodsId})">
-	        			<img class="card-img-top" src="${goods.goodsPhoto}" alt="Card image cap">
-	        			<div class="card-body">
-	        				<h5 class="card-title">${goods.goodsName}</h5>
-	        				<hr>
-	        				<p class="card-text">${goods.goodsContent}</p>
-	        				<h3 class="card-title">${goods.goodsPrice}</h3>
-	        			</div>	        			
-	        		</div>
-	        	</div>
-	        	
-	            <option value="${place.placeId}">${place.placeName}</option>
-	        </c:forEach>
+    <!-- Property Section Begin -->
+    <section class="property-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="property-sidebar">
+                        <h4>필터</h4>
+                        <form action="#" class="sidebar-search">
+                            <div class="sidebar-btn">
+                                <div class="bt-item">
+                                    <input type="radio" name="s-type" id="st-buy" checked>
+                                    <label for="st-buy">제주잇다 Only</label>
+                                </div>
+                                <div class="bt-item">
+                                    <input type="radio" name="s-type" id="st-rent">
+                                    <label for="st-rent">Best</label>
+                                </div>
+                            </div>
+                            <select>
+                                <option value="">📚카테고리</option>
+                                <option value="">🍊액티비티</option>
+                                <option value="">⛱입장권</option>
+                                <option value="">💊스파/힐링</option>
+                                <option value="">📷대여</option>
+                                
+                            </select>
+                            <select>
+                                <option value="">🏝지역 카테고리</option>
+                                <option value="">🌎제주시</option>
+                                <option value="">🗿애월</option>
+                                <option value="">🛳중문</option>
+                                <option value="">🍊서귀포</option>
+                                <option value="">🏄‍♂️표선</option>
+                                <option value="">🌟성산/우도</option>
+                                <option value="">🌊함덕/구좌</option>
+                                
+                                
+                            </select>
+                            <select>
+                                <option value="">정렬기준</option>
+                                <option value="">판매량순</option>
+                                <option value="">낮은 가격순</option>
+                                <option value="">후기 많은 순</option>
+                            </select>
+                            <div class="row">
+                            </div>
+                        </form>
+                        <div class="best-agents">
+                            <h4>제주잇다 컨텐츠 즐기기🎁</h4>
+                            <a href="#" class="ba-item">
+                                <div class="ba-pic">
+                                    <img src="img/properties/best-agent-1.jpg" alt="">
+                                </div>
+                                <div class="ba-text">
+                                    <h5>플래너 만들기</h5>
+                                    <span>나만의 제주도 플래너 만들기</span>
+                                    <p class="property-items">다이어리도 만들 수 있당</p>
+                                </div>
+                            </a>
+                            <a href="#" class="ba-item">
+                                <div class="ba-pic">
+                                    <img src="img/properties/best-agent-2.jpg" alt="">
+                                </div>
+                                <div class="ba-text">
+                                    <h5>플래너 공유 게시판</h5>
+                                    <span>다른사람의 여행을 참고하기</span>
+                                    <p class="property-items">제주잇다만의 서비스</p>
+                                </div>
+                            </a>
+                            <a href="#" class="ba-item">
+                                <div class="ba-pic">
+                                    <img src="img/properties/best-agent-3.jpg" alt="">
+                                </div>
+                                <div class="ba-text">
+                                    <h5>동행구하기 게시판</h5>
+                                    <span>채팅으로 동행을 구해보세요</span>
+                                    <p class="property-items">혼자여행이 외로운 당신</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <h4 class="property-title">제주도의 투어&티켓</h4>
+                    <div class="property-list">
+                        <div class="single-property-item">
+                            <div class="row">
+                                <div class="row row-cols-1 row-cols-md-3 g-4" id="goodsCard">
+                                    <c:forEach items="${requestScope.goodsList}" var="goods">
+                                        <div class="col">
+                                            <div class="card h-100" onclick="showDetail(${goods.goodsId})">
+                                                <img class="card-img-top" src="${goods.goodsPhoto}"
+                                                    alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">${goods.goodsName}</h4>
+                                                    <h5 class="card-title">${goods.goodsPrice}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div> --%>
-        <div class="feature-carousel owl-carousel">
-        <div class="col-lg-4" id="goodsCard">
-        	<c:forEach items="${requestScope.goodsList}" var="goods">
-	            <div class="feature-item" onclick="showDetail(${goods.goodsId})">
-	                <div class="fi-pic set-bg" data-setbg="${goods.goodsPhoto}">
-	                    <div class="pic-tag">
-	                        <div class="f-text">best</div>
-	                        <!-- <div class="s-text">For Sale</div> -->
-	                    </div>
-	                </div>
-	                <div class="fi-text">
-	                    <div class="inside-text">
-	                        <h4>${goods.goodsName}</h4>
-	                        <ul>
-	                            <li><i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}</li>
-	                            <li><i class="fa fa-tag"></i>${goods.goodsCategory}</li>
-	                        </ul>
-	                        <h5 class="price">${goods.goodsPrice}</h5>
-	                    </div>
-	                    <!-- <ul class="room-features">
-	                        <li>
-	                            <i class="fa fa-arrows"></i>
-	                            <p>780 sqft</p>
-	                        </li>
-	                        <li>
-	                            <i class="fa fa-bed"></i>
-	                            <p>4</p>
-	                        </li>
-	                        <li>
-	                            <i class="fa fa-bath"></i>
-	                            <p>3</p>
-	                        </li>
-	                        <li>
-	                            <i class="fa fa-car"></i>
-	                            <p>2</p>
-	                        </li>
-	                    </ul> -->
-	                </div>
-	            </div>
-            </c:forEach>
-        </div>
-    </div>
+    </section>
+    <!-- Property Section End -->
     <script src="${pageContext.request.contextPath}/js/goods/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/goods/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/goods/jquery.magnific-popup.min.js"></script>
