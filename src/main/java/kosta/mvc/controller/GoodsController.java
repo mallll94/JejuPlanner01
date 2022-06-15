@@ -80,7 +80,7 @@ public class GoodsController {
 	@GetMapping("/view/goods_Main")
 	public ModelAndView getGoodsMainView(Model model) {
 		List<Goods> goodsList = goodsService.getAllGoodsOrderBySalesAmount();
-		System.out.println(goodsList.size());
+//		System.out.println(goodsList.size());
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_Main");
 	}
