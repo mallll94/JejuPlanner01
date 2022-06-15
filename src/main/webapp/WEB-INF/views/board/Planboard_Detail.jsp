@@ -559,12 +559,12 @@ $(document).ready(function(){
 			<div class="col-lg-7 mb-5">
 				<div class="contact-form">
 					<select id="days" class="planner-days"></select>
-					<select id="plannerType" class="planner-type">
+					<!-- <select id="plannerType" class="planner-type">
 							<option value='연인' >❤️연인</option>
 							<option value='나홀로'>🧘나홀로</option>
 							<option value='가족/부모님'>🏠가족</option>
 							<option value='친구'>🧑‍🤝‍🧑친구</option>
-					</select>
+					</select> -->
 					<div class="control-group" style="text-align: left;">
 						카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
 						<p class="help-block text-danger"></p>
