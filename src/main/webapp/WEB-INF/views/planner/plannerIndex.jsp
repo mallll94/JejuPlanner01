@@ -82,7 +82,7 @@ pageEncoding="UTF-8"%>
 			}
 			.owl-item-cloned{width: 360px;}
 			.latest-news{margin: 0px; padding: 20px;}
-			/* .planner-Img{width: 150px;height: 150px;} */
+			.when-empty-message{text-align: center; font-size: larger;font-family: 'Noto Sans KR', sans-serif;}
 			.owl-carousel {display: flex;}
 			.spad{padding-bottom: 50px; padding-top: 50px;}
 
@@ -112,6 +112,32 @@ pageEncoding="UTF-8"%>
 						location.replace(url)
 					}
 				})
+				$(document).ready(function(){
+					aler(11)
+				})
+
+				// $('.without-loop').owlCarousel({
+				// 	loop:false,
+				// 	margin:10,
+				// 	nav:true,
+				// 	responsive:{
+				// 		0:{
+				// 			items:4
+				// 		},
+				// 		600:{
+				// 			items:4
+				// 		},
+				// 		1000:{
+				// 			items:5
+				// 		}
+				// 	}
+				// })
+				// $(document).ready(function(){
+				// 	$(".without-loop").owlCarousel({
+				// 		items: 4,
+				// 		singleItem: true
+				// 	});
+				// })
 			})
 
 
@@ -137,16 +163,12 @@ pageEncoding="UTF-8"%>
 				<c:choose>
 					<c:when test="${ empty requestScope.plannerList}">
 						<div class="row">
-							<div class="agent-carousel owl-carousel">
-								<div class="container">
-									<h5 class="when-empty-message">나만의 플래너를 작성해보세요!</h5>
-								</div>
-							</div>
+							<p class="when-empty-message">아직 작성한 플래너가 없습니다!<br>🏕️나만의 여행 계획을 만들어보세요!🏕️</p>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="row">
-							<div class="agent-carousel owl-carousel">
+							<div class="agent-carousel owl-carousel without-loop">
 								<c:forEach items="${plannerList}" var="planner">
 									<div class="col-lg-3">
 										<div class="single-agent">
@@ -176,7 +198,7 @@ pageEncoding="UTF-8"%>
 											
 											<c:choose>
 												<c:when test="${bdayNum - nowNum<=0}">
-													<span>D+${(bdayNum - nowNum+1)*-1}일</span>
+													<span>D+${Math.abs(bdayNum - nowNum+1)}일</span>
 												</c:when>
 												<c:otherwise>
 													<span>D-${bdayNum - nowNum +1}일</span>

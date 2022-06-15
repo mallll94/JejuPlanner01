@@ -185,7 +185,7 @@ div.jeju-sidebar-right{
 /**li 테두리*/
 .spot-card{padding: 0px; box-sizing: border-box;}
 /**테두리*/
-.spot-info{width: 250px;height: 80px;border: 1px solid gray;margin:2px; display: table;}
+.spot-info{width: 250px;height: 80px;border: 3px rgba(194, 193, 193, 0.89) solid; border-radius: 4px;margin:2px; display: table;}
 
 /**사진영역*/
 .spot-info-photo{box-sizing: border-box;float: left;width: 80px;height: 80px;background-color: rgb(220, 231, 255); display: table-cell;}

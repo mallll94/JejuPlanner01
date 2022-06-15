@@ -129,7 +129,7 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽 사이드바 - 플래너 일정 정보 조회
 				function selectPlaceByMyPlanner(){
-					console.log("플래너 일정 정보 조회")
+					//console.log("플래너 일정 정보 조회")
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/selectPlannerPlace",
 						type: "post",
@@ -187,7 +187,7 @@ pageEncoding="UTF-8"%>
 									//마커 찍기
 									addMarker(targets);	
 									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
-									console.log(plannerplace.plannerPlaceDate)
+									console.log("마커찍히는 날짜"+plannerplace.plannerPlaceDate)
 								}else{
 									lineArr=[];
 									lineDay=plannerplace.plannerPlaceDate
@@ -219,7 +219,7 @@ pageEncoding="UTF-8"%>
 									//마커 찍기
 									addMarker(targets);	
 									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
-									console.log(plannerplace.plannerPlaceDate)
+									console.log("마커찍히는 날짜"+plannerplace.plannerPlaceDate)
 
 								}
 								
@@ -306,7 +306,7 @@ pageEncoding="UTF-8"%>
 							}
 						})
 					}else{//플래너 새로 생성하기
-						console.log("플래너를 새로 생성")
+						//console.log("플래너를 새로 생성")
 						$.ajax({
 						url: "${pageContext.request.contextPath}/planner/insert",
 						type:"post",
@@ -415,6 +415,8 @@ pageEncoding="UTF-8"%>
 							$("#placeAddrModal").text(result.placeAddr);
 							$("#placeContentModal").text(result.placeContent);
 							$("#placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
+							$("#modal-add-plan-bnt").attr("placeId",result.placeId)
+							$("#modal-add-plan-bnt").attr("category",result.placeCategory)
 							//console.log(result.placeUrl)
 							$("#modal-link-bnt").attr("href",result.placeUrl);
 
@@ -425,13 +427,13 @@ pageEncoding="UTF-8"%>
 					})
 				}
 
-				
 
-
-				//오른쪽 사이드바 - 장소 추가하기 버튼동작
-				$(document).on("click","#plan-add-bnt",function addPlaceToPlanner(){
-					let targetPlaceId = $(this).attr("placeId")
-					let targetPlaceCategory = $(this).attr("category")
+				//일정 추가
+				function addPlaceToPlanner(button){
+					//let targetPlaceId = $(this).attr("placeId")
+					//let targetPlaceCategory = $(this).attr("category")
+					let targetPlaceId = button.attr("placeId")
+					let targetPlaceCategory = button.attr("category")
 
 					if(targetPlaceCategory=="숙소"){
 						var targetDate=$("#plan-hotelList").children().last().attr("ppDate");
@@ -465,7 +467,12 @@ pageEncoding="UTF-8"%>
 						}
 					})
 					
-				})
+				}
+
+				
+
+
+				
 
 				//왼쪽 사이드바 - 장소/숙소 버튼
 				$("#planner-hotel-bnt").on("click",function(){
@@ -518,10 +525,16 @@ pageEncoding="UTF-8"%>
 
 				})
 
+				//오른쪽 사이드바 - 장소 추가하기 버튼동작
+				$(document).on("click","#plan-add-bnt",function(){
+					addPlaceToPlanner($(this))
+				})
+
 				//모달-일정 추가하기 버튼 동작
 				$(document).on("click","#modal-add-plan-bnt",function(){
-					addPlaceToPlanner()
-
+					let modalplace = $(this).attr("placeId")
+					//console.log("모달"+modalplace)
+					addPlaceToPlanner($(this))
 				})
 
 				//왼쪽사이드바 - 작업완료
@@ -550,10 +563,10 @@ pageEncoding="UTF-8"%>
 					let nowPage
 					if(!page){
 						nowPage =1;
-						console.log("getSearchList>>"+page+"빈값 page=1")
+						//console.log("getSearchList>>"+page+"빈값 page=1")
 					}else{
 						nowPage = page;
-						console.log("getSearchList>>"+page+"빈값아님")
+						//console.log("getSearchList>>"+page+"빈값아님")
 					}
 					
 					$.ajax({
@@ -596,36 +609,12 @@ pageEncoding="UTF-8"%>
 
 							//페이지처리
 							var paging ="";
-							var doneLoop =false;
 							if((result.startPage - result.blockCount)>0){
-								paging+=`<a id="spot-page-P" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage('p')" >이전</a>`
+								paging+=`<a id="spot-page-P" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage(${'${result.nowPage}'}-1)" >이전</a>`
 							}
 							if((result.startPage+result.blockCount)<=result.totalPages){	
-								// paging +=`<a class='pagination-older' href='#'  name=\${result.nowPage} id='nowPage'>NEXT</a>`;
-								paging+=`<a id="spot-page-N" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage('n')" >이후</a>`;
+								paging+=`<a id="spot-page-N" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage(${'${result.nowPage}'}+1)" >이후</a>`;
 							}
-							
-							
-							// paging+=`<span id="pageList"></span>`
-							// paging+=`<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>`
-
-
-							// if((result.startPage-result.blockCount) > 0){	
-							// 	paging +=`<a class='pagination-newer' href='#' id='nowPage'>PREV</a>`
-							// 	paging +=`<input type='hidden' id='PrevPage' value=${'${result.startPage-1}'}>`;
-							// }	
-							// paging +=`<span class='pagination-inner'>`;
-							// for(let i=result.startPage ; i<=(result.startPage-1)+result.blockCount ;i++ ){
-							// 	if((i-1) >= result.totalPages)break
-							// 	paging +=`<a class='${i==nowPage?"pagination-active":page}' href='#'  id='nowPage'>${"${i}"}</a>`;
-								
-							// }
-							// paging +=`</span>`;
-							// if((result.startPage+result.blockCount)<=result.totalPages){	
-							// 	paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
-							// 	paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
-							// // }	
-
 							$("#page-search-nav").html("")
 							$("#page-search-nav").append(paging)
 
@@ -637,16 +626,9 @@ pageEncoding="UTF-8"%>
 				}
 
 				function searchSpotNextPage(state){
-					var pagingNow =$(this).attr("name");
-					console.log("현재페이지="+pagingNow)
-					// if(state=="p"){
-					// 	getSearchList(pagingNow)
-					// }else if(state=="n"){
 
-					// }else{
-					// 	return false;
-					// }
-					getSearchList(pagingNow)
+					console.log("현재페이지 state = "+state)
+					getSearchList(state)
 				}
 
 			
@@ -663,7 +645,7 @@ pageEncoding="UTF-8"%>
 					<div class="h-row">
 						<div class="col-lg-3">
 							<div class="logo">
-								<a href="#"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
+								<a href="${pageContext.request.contextPath}/"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
 							</div>
 						</div>
 						<div class="col-lg-9"></div>
@@ -813,8 +795,8 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
 								<div class="modal-footer">
-									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">링크</a>
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" >추가하기</button>
+									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">더 알아보기</a>
+									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" placeId="" category="" >추가하기</button>
 								</div>
                             </div>
                         </div>

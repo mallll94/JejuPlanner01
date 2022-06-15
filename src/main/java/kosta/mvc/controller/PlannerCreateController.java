@@ -3,21 +3,19 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +37,6 @@ public class PlannerCreateController {
 
 	private final PlannerService plannerService;
 	private final PlaceService placeService;
-	private final UserService userService;
 	
 	
 	private final static int INDEX_PAGE_COUNT=4;
@@ -47,29 +44,25 @@ public class PlannerCreateController {
 	private final static int PLACE_PAGE_COUNT=10;
 	private final static int PLACE_BLOCK_COUNT=1;
 	
-	
-	
-	
 	@RequestMapping("/{url}")
 	public void init() {
 		
 	}
+	
 	/**플래너 전체조회하기*/
 	@RequestMapping("/plannerIndex")
 	public void selectAllByUserID(Model model, HttpSession session, @RequestParam(defaultValue = "1") int nowPage){
-		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//임시 테스트 아이디
-		String userId ="aaa";
-		Users loginUser =userService.selectById(userId);
-		
-		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.DESC, "updateDate");
-		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,loginUser.getUserId());
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		//여행시작일 오름차순
+		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.ASC, "plannerStart");
+		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,users.getUserId());
 		List<Planner> plist = pagelist.getContent();
 		
 		int temp = (nowPage-1)%INDEX_BLOCK_COUNT;
 		int startPage =nowPage-temp;
 		
-		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("loginUser", users);
 		model.addAttribute("pageList", pagelist);
 		model.addAttribute("plannerList",plist);
 		model.addAttribute("blockCount",INDEX_BLOCK_COUNT);
@@ -104,7 +97,6 @@ public class PlannerCreateController {
 	public Map<String, Object> selectPlannerPlace(Long plannerId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		
 		//D-day
 		Planner dbplanner =plannerService.selectBy(plannerId);
 		Period period = Period.between(dbplanner.getPlannerStart(), dbplanner.getPlannerEnd());
@@ -134,11 +126,7 @@ public class PlannerCreateController {
 		System.out.println(" === updateDate plannerStart"+plannerStart);
 		//D-day
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-		
-		//List<PlannerPlace> placelist= planner.getPlannerPlaceList();
-		//map.put("planner", planner);
-		//map.put("Dday", period.getDays());
-		//map.put("plannerPlace", placelist);
+
 		return period.getDays();
 	}
 	
@@ -146,18 +134,14 @@ public class PlannerCreateController {
 	@RequestMapping("/insert")
 	@ResponseBody
 	public Map<String, Object> insert(String plannerStart,String plannerEnd, HttpSession session) {
-			System.out.println(" === insert plannerStart"+plannerStart);
-		//임시 테스트 아이디
-		String userId ="aaa";
-		Users loginUser =userService.selectById(userId);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		////2022. 8. 15.
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate startDate = LocalDate.parse(plannerStart,format);
 		LocalDate endDate = LocalDate.parse(plannerEnd,format);
 			System.out.println(" === plannerInsert startDay = "+startDate);
-		Planner newplanner = new Planner(loginUser);
+		Planner newplanner = new Planner(users);
 			newplanner.setPlannerStart(startDate);
 			newplanner.setPlannerEnd(endDate);
 		plannerService.insertPlan(newplanner);
@@ -177,7 +161,6 @@ public class PlannerCreateController {
 	@RequestMapping("/updatePlanPlace")
 	@ResponseBody
 	public void updatePlanPlace(Long plannerplaceId, String date) {
-		System.out.println(date);
 		plannerService.updatePlanPlace(new PlannerPlace(plannerplaceId, null, null, null, Integer.parseInt(date), null, null, 0, null, null, null));
 		
 	}
@@ -187,7 +170,6 @@ public class PlannerCreateController {
 	@ResponseBody
 	public void deletePlan(Long plannerplaceId) {
 		plannerService.deletePlanPlace(plannerplaceId);
-		System.out.println("삭제!!!!!!!"+plannerplaceId);
 	}
 	
 	/**오른쪽 사이드바 장소정보 조회*/
@@ -195,7 +177,6 @@ public class PlannerCreateController {
 	@ResponseBody
 	public Place selectPlace(Long placeId) {
 		Place place =placeService.selectById(placeId);
-		System.out.println(place.getPlaceName());
 		return place;
 	}
 	
@@ -206,12 +187,9 @@ public class PlannerCreateController {
 		Planner dbplanner = plannerService.selectBy(plannerId);
 		Place dbplace =placeService.selectById(placeId);
 		int  plannerPlaceDate = Integer.parseInt(inputDate);
-		System.out.println("addPlace::"+placeId);
-			//임시 테스트 아이디
-			String userId ="aaa";
-			Users loginUser =userService.selectById(userId);
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		plannerService.insertPlanPlace(new PlannerPlace(null, loginUser, dbplanner, dbplace, plannerPlaceDate, null, null, 0, null, null, null));
+		plannerService.insertPlanPlace(new PlannerPlace(null, users, dbplanner, dbplace, plannerPlaceDate, null, null, 0, null, null, null));
 		return dbplace;
 	}
 	
@@ -229,13 +207,11 @@ public class PlannerCreateController {
 	@RequestMapping("/searchPlace")
 	@ResponseBody
 	public Map<String, Object> searchPlace(String keyword, @RequestParam(defaultValue = "1")int nowPage){
-			System.out.println(keyword+" 페이지는 "+nowPage);
 		Map<String, Object> map = new HashMap<String, Object>();
 		Pageable pageable = PageRequest.of((nowPage-1), PLACE_PAGE_COUNT, Direction.DESC, "placeSave");
 		Page<Place> pList =placeService.selectByKeyword(pageable,keyword);
 		List<Place> pageList = pList.getContent();
 		
-			System.out.println(keyword);
 		
 		int temp =(nowPage-1)%PLACE_BLOCK_COUNT;
 		int startPage = nowPage-temp;
@@ -249,17 +225,6 @@ public class PlannerCreateController {
 		return map;
 	}
 	
-	
-	
-	
-	/**플래너 작성하기2로 이동*/
-	/**플래너 등록하기 > 플래너 작성하기2로 이동*/
-	/*
-	@RequestMapping("/insert")
-	public String insert( String plannerStart) {
-		System.out.println("왔다!");
-		System.out.println("컨트롤러!!: "+plannerStart);
-		return null;
-	}*/
+
 	
 }
