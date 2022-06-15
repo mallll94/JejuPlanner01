@@ -19,15 +19,6 @@ import kosta.mvc.service.ChatService;
 import kosta.mvc.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 
-//import org.springframework.messaging.handler.annotation.MessageMapping;
-//import org.springframework.messaging.handler.annotation.Payload;
-//import org.springframework.messaging.handler.annotation.SendTo;
-//import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//
-//import kosta.mvc.domain.ChatBoard;
-//import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
@@ -97,9 +88,6 @@ public class ChatController {
 			}	
 		}
 
-		
-		
-		
 		
 		result.put("msg", sendList);
 		result.put("userId", users.getUserId());

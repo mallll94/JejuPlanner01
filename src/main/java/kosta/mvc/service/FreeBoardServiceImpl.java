@@ -3,14 +3,13 @@ package kosta.mvc.service;
 import java.io.IOException;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.querydsl.core.BooleanBuilder;
@@ -35,24 +34,40 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 * 소통게시판 등록하기
 	 */
 	@Override
-	public void addFreeBoard(FreeBoard freeBoard, String uploadPath) {
-		
-		FreeBoard saveFreeBoard = freeBoardRep.save(freeBoard);
-		
-		MultipartFile file = freeBoard.getFile();
-		if(!file.isEmpty()) {
-			if(file.getContentType().startsWith("image") == false) {
-				throw new RuntimeException("올바른 이미지형식이 아닙니다.");
+	public void addFreeBoard(FreeBoard freeboard, String uploadPath) {
+			System.out.println("============저장전 attach"+freeboard.getFreeAttach()+" 저장전 regdate "+freeboard.getFreeRegdate());
+			System.out.println("============저장경로::"+uploadPath);
+		FreeBoard saveFreeBoard = freeBoardRep.save(freeboard);
+
+//		MultipartFile file = freeboard.getFile();
+//		if(!file.isEmpty()) {
+//			if(file.getContentType().startsWith("image") == false) {
+//				throw new RuntimeException("올바른 이미지형식이 아닙니다.");
+//			}
+//			try {
+//				String storeFileName = fileStore.storeFile(uploadPath, file);
+//				saveFreeBoard.setFreeAttach(storeFileName);
+//					
+//			}catch(IOException e) {
+//				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
+//			}
+//		}
+		MultipartFile file = freeboard.getFile();
+		if (!file.isEmpty()) {
+			if (file.getContentType().startsWith("image") == false) {
+				throw new RuntimeException("이미지형식이 아닙니다.");
 			}
+			
 			try {
 				String storeFIleName = fileStore.storeFile(uploadPath, file);
 				saveFreeBoard.setFreeAttach(storeFIleName);
-			}catch(IOException e) {
-				e.printStackTrace();
+					System.out.println("===========setFreeAttach::"+storeFIleName);
+					System.out.println("===========파일저장?"+saveFreeBoard.getFreeAttach()+"regdate는?"+saveFreeBoard.getFreeRegdate());
+			} catch (IOException e) {
 				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
 			}
 		}
-		
+
 
 	}
     

@@ -243,7 +243,14 @@ $(function(){
 						
 						data +=`<li class='active bounceInDown'>`;
 						data +=`<a href='#' id='room' class='clearfix' mal='${"${item.chatRoom}"}'>`;
-						data +=`<img src='https://bootdey.com/img/Content/user_1.jpg' alt='' class='img-circle'>`;
+						
+						if(item.senderUserId == result.loginUser.userId){
+							data +=`<img src='${pageContext.request.contextPath}/img/face2.png' alt='' class='img-circle'>`;
+						}else{
+							data +=`<img src='${pageContext.request.contextPath}/img/face6.JPG' alt='' class='img-circle'>`;						
+						}
+						
+						
 						data +=`<div class='friend-name'>`;
 						data +=`<strong>${'${item.senderUserId}'}</strong>`;
 						data +=`</div>`;
@@ -305,10 +312,10 @@ $(function(){
 							var min = time.getMinutes();
 							var total = month+"-"+date+"  "+hour+":"+min;
 							
-							
+							//https://bootdey.com/img/Content/user_1.jpg
 							data +=`<li class='right clearfix'>`;
 							data +=`<span class='chat-img pull-right'>`;
-							data +=`<img src='https://bootdey.com/img/Content/user_1.jpg' alt='User Avatar'>`;
+							data +=`<img src='${pageContext.request.contextPath}/img/face2.png' alt='User Avatar'>`;
 							data +=`</span>`;
 							data +=`<div class='chat-body clearfix'>`;
 							data +=`<div class='header'>`;
@@ -317,7 +324,7 @@ $(function(){
 							data +=`</div>`;
 							data +=`<p>${'${item.chatContent}'}</p></div></li> `;
 
-						}else{
+						}else{//https://bootdey.com/img/Content/user_2.jpg
 							var time = new Date(item.chatSend);
 							var month = (time.getMonth()+1);
 							var date = time.getDate();
@@ -328,7 +335,7 @@ $(function(){
 							
 							data +=`<li class='left clearfix'>`;
 							data +=`<span class='chat-img pull-left'>`;
-							data +=`<img src='https://bootdey.com/img/Content/user_3.jpg' alt='User Avatar'>`;
+							data +=`<img src='${pageContext.request.contextPath}/img/face6.JPG' alt='User Avatar'>`;
 							data +=`</span>`;
 							data +=`<div class='chat-body clearfix'>`;
 							data +=`<div class='header'>`;
