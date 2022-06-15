@@ -11,7 +11,7 @@
     <script type="text/javascript">
     
     $(function(){
-    	function selectAll(){
+    	function selectListAll(){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/chat/selectAll", //서버요청주소
 				type:"post", // 요청방식(get, post)
@@ -57,7 +57,7 @@
 	   				}  //실팽했을때 실행할 함수 
 	   			});
 		} 	
-    	selectAll();
+    	selectListAll();
     })
     
     

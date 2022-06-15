@@ -41,6 +41,7 @@ public class ChatServiceImpl implements ChatService {
 		
 		//로그인된 유저의 모든 채팅내역을 가지고 오고 
 		builder.and(chatBoard.senderUser.userId.equalsIgnoreCase(userId));
+		builder.or(chatBoard.receiverUser.userId.equalsIgnoreCase(userId));
 		List<ChatBoard> list=(List<ChatBoard>) chatBoardRep.findAll(builder);
 		
 		//방번호의 중복값을 정리해서 담아준다
