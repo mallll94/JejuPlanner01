@@ -40,7 +40,10 @@ public interface AskBoardService {
 	
 	
 	/**마이페이지에서 내가 쓴 글 목록 조회*/
-	List<AskBoard> selectByUserId(String userId);
+	Page<AskBoard> selectByUserId(String userId, Pageable pageable);
+
+
+
 
 	
 

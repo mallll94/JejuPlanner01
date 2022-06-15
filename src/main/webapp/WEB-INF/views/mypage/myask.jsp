@@ -49,7 +49,7 @@
                   <th>답변여부</th>
                 </tr>
              </thead>
-             <c:forEach items="${requestScope.myList}" var="askboard"> 
+             <c:forEach items="${requestScope.asklist}" var="askboard"> 
                <tbody>
                  <tr>
                    <td>${askboard.askId}</td>
@@ -80,6 +80,35 @@
 
 <p></p> 
   
+           <!-- 페이징 처리 -->
+          <div style="text-align: center">
+            <nav class="pagination-container">
+              <!--페이징 내용-->
+              <div class="property-pagination">
+
+                <c:set var="doneLoop" value="false" />
+                <c:if test="${(startPage-blockCount) > 0}">
+                  <a class="pagination-newer" href="${pageContext.request.contextPath}/mypage/myask?nowPage=${startPage-1}">PREV</a>
+                </c:if>
+
+                <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'>
+                  <c:if test="${(i-1)>=pageList.getTotalPages()}">
+                    <c:set var="doneLoop" value="true" />
+                  </c:if>
+                  <c:if test="${not doneLoop}">
+                    <a class="paginate_button" href="${pageContext.request.contextPath}/mypage/myask?nowPage=${i}">${i}</a>
+                  </c:if>
+                </c:forEach>
+
+                <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
+                  <a class="pagination-older" href="${pageContext.request.contextPath}/mypage/myask?nowPage=${startPage+blockCount}">NEXT</a>
+                </c:if>
+
+              </div>
+              <!--페이징 내용 끝-->
+            </nav>
+          </div>
+          <!-- 페이징 처리끝 -->
       
    
    

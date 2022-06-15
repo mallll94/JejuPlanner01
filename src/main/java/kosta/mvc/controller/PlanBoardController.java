@@ -119,6 +119,7 @@ public class PlanBoardController {
    @RequestMapping(value= "/board/pinsert", method = RequestMethod.POST)
    public String insert(PlanBoard planBoard , HttpSession session,Long plannerId) {
 	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	  planBoard.setUser(users);
 	  
 	  planBoard.setUserPlan(plannerService.selectBy(plannerId));
 	      

@@ -604,7 +604,7 @@ $(document).ready(function(){
 						<div class="card-body">
 							<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
 								<div class="form-inline mb-2" style="font-size:1.5rem"> 
-								<i class="bi bi-file-person" style="font-size:1.8rem"></i>       
+								<!-- <i class="bi bi-file-person" style="font-size:1.8rem"></i>    -->    
 									<span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
 									<input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
 								</div>

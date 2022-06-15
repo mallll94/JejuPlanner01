@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.mvc.domain.AskBoard;
 import kosta.mvc.domain.AskReply;
 import kosta.mvc.domain.Users;
+import kosta.mvc.dto.AskBoardDTO;
 import kosta.mvc.service.AskBoardService;
 import kosta.mvc.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -57,15 +60,24 @@ public class AskController {
 	@RequestMapping("/admin/AskList_Admin")
 	public void askListAdmin(Model model , @RequestParam(defaultValue= "1") int nowPage) {
 		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		
 		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT , Direction.DESC , "AskId");
 		Page<AskBoard> pageList = askBoardService.getAllAskBoards(pageable);
+		
+		List<AskBoard> ask = pageList.getContent();
+		List<AskBoardDTO> askList = new ArrayList<AskBoardDTO>();
+		for(AskBoard a : ask) {
+			askList.add(new AskBoardDTO (a.getAskId(), a.getUser().getUserId(), a.getAskCategory(), a.getAskTitle(), 
+					a.getAskContent(), a.getAskAttach(), a.getAskComplete(), a.getAskRegdate().format(format)) );
+		}
 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 		
 		System.out.println("adminList test");
 					
-		model.addAttribute("pageList",pageList);
+		model.addAttribute("askList",askList);
         model.addAttribute("blockCount", BLOCK_COUNT);
         model.addAttribute("startPage", startPage);
         model.addAttribute("nowPage", nowPage);
@@ -187,14 +199,33 @@ public class AskController {
    
 	/**마이페이지에서 내가 쓴 글 목록 조회*/
 	@RequestMapping("/mypage/myask")
-	public String mylist(Model model) {
+	public String mylist(Model model, @RequestParam(defaultValue="1") int nowPage) {
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-					
-		List<AskBoard> myList = askBoardService.selectByUserId(users.getUserId());
 		
-		model.addAttribute("myList" , myList);
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		
+		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "AskId");
+		/* Page<AskBoard> pageList = askBoardService.getAllAskBoards(pageable); */
+        
+		Page<AskBoard> myList = askBoardService.selectByUserId(users.getUserId(), pageable );
+        		     		
+        List<AskBoard> list = myList.getContent();
+        List<AskBoardDTO> asklist = new ArrayList<AskBoardDTO>();  
+        for(AskBoard x : list) {
+        	asklist.add(new AskBoardDTO (x.getAskId(), x.getUser().getUserId(), 
+        			x.getAskCategory(), x.getAskTitle(), x.getAskContent(), 
+        			x.getAskAttach(), x.getAskComplete(), x.getAskRegdate().format(format)) );
+        }
+        	
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+				
+		model.addAttribute("asklist" , asklist);
 		model.addAttribute("users" , users);
+        model.addAttribute("blockCount", BLOCK_COUNT);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("nowPage", nowPage);
 		
 		return "mypage/myask";
 	}
