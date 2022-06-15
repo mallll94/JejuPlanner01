@@ -50,7 +50,7 @@ public class AdminController {
 	private final OrdersService ordersService;
 	private final GoodsService goodsService;
 	
-	private final static int PAGE_COUNT=2;
+	private final static int PAGE_COUNT=15;
 	private final static int BLOCK_COUNT=4;
 	private static final String PATH_SAVE="C:\\Edu\\Spring\\springWork\\Jeju\\src\\main\\webapp\\WEB-INF\\img";
 	
