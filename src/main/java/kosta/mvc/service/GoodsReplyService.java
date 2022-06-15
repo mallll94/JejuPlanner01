@@ -9,7 +9,7 @@ public interface GoodsReplyService {
 	/**
 	 * 후기 등록하기
 	 */
-	public void addGoodsReply(GoodsReply goodsReply);
+	public void addGoodsReply(GoodsReply goodsReply, String uploadPath);
 
 	/**
 	 * 후기 삭제하기
