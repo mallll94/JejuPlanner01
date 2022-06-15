@@ -75,7 +75,7 @@
 		    <script type="text/javascript">
 		        $(function () {
 		            function calcTotalPrice() {
-		                price = $("#goodsprice").text();
+		                price = $("#goodsPrice").text();
 		                quantity = $("input[name=cartQty]").val();
 		                cartPeriod = parseInt($("select[name=cartPeriod]").val());
 		                cartWeekday = 0;
@@ -85,7 +85,7 @@
 		                    cartWeekday = 1;
 		                }
 		
-		                $("#goodstotalprice").text(price * quantity * cartWeekday * cartPeriod);
+		                $("#goodstotalprice").text(price * quantity);
 		            }
 		
 		
@@ -208,70 +208,33 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
                                         <div class="property-more-table">
-                                            <table class="left-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="pt-name">Price</td>
-                                                        <td class="p-value">$ 138,000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Property Type</td>
-                                                        <td class="p-value">Villa</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Year Built</td>
-                                                        <td class="p-value">2016</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Bathrooms</td>
-                                                        <td class="p-value">3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Rooms</td>
-                                                        <td class="p-value">12</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Parking lots</td>
-                                                        <td class="p-value">3</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Lot area</td>
-                                                        <td class="p-value">200 spft</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="right-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="pt-name">Agent</td>
-                                                        <td class="p-value">Adam Smith</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Reference</td>
-                                                        <td class="p-value">#2019</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Contract type</td>
-                                                        <td class="p-value">Sale</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Beds</td>
-                                                        <td class="p-value">4</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Garages</td>
-                                                        <td class="p-value">2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Home area</td>
-                                                        <td class="p-value">1200 sqft</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="pt-name">Gara Size</td>
-                                                        <td class="p-value">200 sqft</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <table class="table table-striped table-sm" id="goodsTable">
+					                            <thead>
+					                                <tr>
+					                                    <th scope="col">상품후기ID</th>
+					                                    <th scope="col">상품후기 내용</th>
+					                                    <th scope="col">상품후기 사진</th>
+					                                    <th scope="col">작성 시간</th>
+					                                    <th scope="col">상품 별점</th>
+					                                    <th scope="col">Goods_Id</th>
+					                                    <th scope="col">User_Id</th>
+					                                    <th scope="col"></th>
+					                                </tr>
+					                            </thead>
+					                            <tbody>
+					                                <c:forEach items="${requestScope.goodsReplyList}" var="goodsReply">
+					                                    <tr>
+					                                        <td>${goodsReply.goodsReplyId}</td>
+					                                        <td>${goodsReply.goodsReplyContent}</td>
+					                                        <td>${goodsReply.goodsReplyPhoto}</td>
+					                                        <td>${goodsReply.goodsReplyRegdate}</td>
+					                                        <td>${goodsReply.goodsReplyStart}</td>
+					                                        <td>${goodsReply.goods.goodsId}</td>
+					                                        <td>${goodsReply.user.userId}</td>
+					                                    </tr>
+					                                </c:forEach>
+					                            </tbody>
+					                        </table>
                                         </div>
                                     </div>
                                 </div>
@@ -283,69 +246,75 @@
                     <div class="property-sidebar">
                         <!-- <h4>Search Property</h4> -->
                         <div class="sidebar-search">
-                            <table class="table option-table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p>상품 금액</p>
-                                        </td>
-                                        <td>
-                                            ${goods.goodsPrice}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p>티켓 날짜 선택</p>
-                                        </td>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="datePicker" name="goodsLineDate"
-                                                class="datepicker set-datepicker" placeholder="날짜를 선택하세요"
-                                                readonly="readonly" required>
-                                        </td>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tr>
-                                    <td>
-                                        <p>수량 선택</p>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-dark shadow-none btn-sm"
-                                            name="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                            </svg></button>
-                                        <input type="number" class="form-control-plaintext num" name="cartQty" min="1"
-                                            max="9999" step="1" value="1" readonly="readonly">
-                                        <button type="button" class="btn btn-outline-dark shadow-none btn-sm"
-                                            name="plus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                            </svg></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>총 상품 금액</p>
-                                    </td>
-                                    <td>
-                                        <h5><span class="goodstotalprice" id="goodstotalprice"></span></h5>
-                                    </td>
-                                </tr>
-                            </table>
-                            <button type="submit" class="search-btn">1:1 문의</button>
-                            <div class="sidebar-btn">
-                                <div class="bt-item">
-                                    <button type="button" class="form-control btn btn-dark shadow-none btn-lg"
-                                        id="order" checked>예약하기</button>
-                                </div>
-                                <div class="bt-item">
-                                    <button type="submit" class="form-control btn btn-outline-dark shadow-none btn-lg"
-                                        id="cart">위시리스트</button>
-                                </div>
-                            </div>
+                        	<form id="goodsViewForm" action="${pageContext.request.contextPath}/order/detailOrder" method="post">
+	                            <input type="hidden" name="goodPhoto">
+			                    <input type="hidden" name="goodsName">
+			                    <input type="hidden" name="goodsPrice">
+			                    <input type="hidden" name="goodsId" value="${goods.goodsId}">
+	                            <table class="table option-table table-borderless">
+	                                <tbody>
+	                                    <tr>
+	                                        <td>
+	                                            <p>상품 금액</p>
+	                                        </td>
+	                                        <td id="goodsPrice">
+	                                            ${goods.goodsPrice}
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>
+	                                            <p>티켓 날짜 선택</p>
+	                                        </td>
+	                                        </td>
+	                                        <td>
+	                                            <input type="text" id="datePicker" name="goodsLineDate"
+	                                                class="datepicker set-datepicker" placeholder="날짜를 선택하세요"
+	                                                readonly="readonly" required>
+	                                        </td>
+	                                        </td>
+	                                    </tr>
+	                                </tbody>
+	                                <tr>
+	                                    <td>
+	                                        <p>수량 선택</p>
+	                                    </td>
+	                                    <td>
+	                                        <button type="button" class="btn btn-outline-dark shadow-none btn-sm"
+	                                            name="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+	                                                fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+	                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+	                                            </svg></button>
+	                                        <input type="number" class="form-control-plaintext num" name="cartQty" min="1"
+	                                            max="9999" step="1" value="1" readonly="readonly">
+	                                        <button type="button" class="btn btn-outline-dark shadow-none btn-sm"
+	                                            name="plus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+	                                                fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+	                                                <path
+	                                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+	                                            </svg></button>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <td>
+	                                        <p>총 상품 금액</p>
+	                                    </td>
+	                                    <td>
+	                                        <h5><span class="goodstotalprice" id="goodstotalprice"></span></h5>
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                            <button type="submit" class="search-btn">1:1 문의</button>
+	                            <div class="sidebar-btn">
+	                                <div class="bt-item">
+	                                    <button type="submit" class="form-control btn btn-dark shadow-none btn-lg"
+	                                        id="order" checked>예약하기</button>
+	                                </div>
+	                                <div class="bt-item">
+	                                    <button type="button" class="form-control btn btn-outline-dark shadow-none btn-lg"
+	                                        id="cart">위시리스트</button>
+	                                </div>
+	                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

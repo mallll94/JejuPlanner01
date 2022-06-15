@@ -1,8 +1,10 @@
 package kosta.mvc.controller;
 
 import kosta.mvc.domain.Goods;
+import kosta.mvc.domain.GoodsReply;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Users;
+import kosta.mvc.service.GoodsReplyService;
 import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ import java.util.List;
 public class GoodsController {
 
 	private final GoodsService goodsService;
+	
+	private final GoodsReplyService goodsReplyService;
 
 	private final PlaceService placeService;
 
@@ -84,6 +88,8 @@ public class GoodsController {
 	@GetMapping("/view/goods_View/{goodsId}")
 	public ModelAndView getGoodsMainView(@PathVariable("goodsId") Long goodsId, Model model) throws Exception {
 		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
+		List<GoodsReply> goodsReplyList = goodsReplyService.getGoodsReplyByGoodsId(goodsId);
+		model.addAttribute("goodsReplyList", goodsReplyList);
 		model.addAttribute("goods", goods);
 		return new ModelAndView("goods/goods_View");
 		
