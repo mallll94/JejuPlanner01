@@ -103,7 +103,7 @@
         
         <!--게시판영역-->
     <div class="col-lg-9">
-	 <h4><i class="menu-icon fa-solid fa-user-large"></i><strong>&nbsp;공지사항</strong></h4>
+	 <h4><strong>💡&nbsp;공지사항</strong></h4>
 		<div class="row">
 		  <div class="col-md mb-4 mb-md-0">
 		    <div class="accordion mt-3" id="accordionExample">
@@ -111,7 +111,7 @@
 		      <div class="accordion-item">
 		        <h2 class="accordion-header" id="flush-headingOne${notice.noticeId}">
 		          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne${notice.noticeId}" aria-expanded="false" aria-controls="flush-collapseOne${notice.noticeId}">
-		            ${notice.noticeTitle}
+		           <strong>🌱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${notice.noticeTitle}</strong>
 		          </button>
 		        </h2>
 		        <div id="flush-collapseOne${notice.noticeId}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne${notice.noticeId}" data-bs-parent="#accordionExample">

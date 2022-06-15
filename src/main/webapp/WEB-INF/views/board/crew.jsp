@@ -151,8 +151,9 @@
 												</c:when>
 											</c:choose>
 											<div class="crew-date">
-												<span>등록일: ${crewboard.crewRegdate}</span>
+												<span>등록일: ${crewboard.crewRegdate}</span>&emsp;&emsp;&emsp;&emsp;&emsp;
 												<span>수정일: ${crewboard.crewUpdate}</span>
+												<hr>
 											</div>
 										</div>
 									</a>

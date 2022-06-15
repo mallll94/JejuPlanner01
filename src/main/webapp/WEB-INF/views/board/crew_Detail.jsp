@@ -20,6 +20,11 @@
     .comments-list-wrap{margin: 0;}
 	.comment-user{margin:0;}
 	.comment-content{margin-right: 5px;}
+	
+	.btn-outline-primary:hover {
+	    background-color: orange;
+	   
+	}
 </style>
 
 <script type="text/javascript">
@@ -158,27 +163,31 @@ $(function(){
 })
 
 
-
- 
         $(function() {
 	
-        $("button[value=수정]").click(function() {
-        	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_updateForm");
-			$("#requestForm").submit();
-		})
+        	$("input[name=btnradio]").click(function(){
+        	      var crewState=$(this).val()
+        	      console.log("변경상태"+crewState)
+        	      var crewId = "${crewboard.crewId}"
+        	      let url = "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState
+        	      location.replace(url);
+        	         // $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState);
+        	         // $("#requestForm").submit();
+        	         
+        	      })
 		
         $(document).on("click","#delete", function(){
 	             
     		   	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_delete/"+$(this).val());
     			$("#requestForm").submit();   	
 	            });
-		
-		$("input[name=btnradio]").click(function(){
-			$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_Detail/changeState");
-			$("#requestForm").submit();
-			
-		})
-			
+        	
+       	 $("button[value=수정]").click(function() {
+                $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_updateForm");
+              $("#requestForm").submit();
+           })
+        	
+        	
 })
         
 </script>
@@ -193,11 +202,11 @@ $(function(){
       <br>
       <br>
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="width: 400px; margin-left: 50px" >
-       	  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" checked>
-		  <label class="btn btn-outline-primary" for="btnradio1" >동행구하는 중</label>
+       	  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: orange;" checked>
+		  <label class="btn btn-outline-primary" for="btnradio1">🙎‍♂️동행구하는 중</label>
 		    
-		  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="Y"data-bs-toggle="modal" data-bs-target="#exampleModal2">
-		  <label class="btn btn-outline-primary" for="btnradio2">동행구하기 완료</label>
+		  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio2" autocomplete="off" value="Y"data-bs-toggle="modal" data-bs-target="#exampleModal2">
+		  <label class="btn btn-outline-primary" for="btnradio2">🧑‍🤝‍🧑동행구하기 완료</label>
 	  </div>	
       <div class="card-body">
           <div class="mb-3" style="text-align: left;">
@@ -210,14 +219,14 @@ $(function(){
           </div>           		    		   
 		  <div class = "free-bottom-area">
 		    <div>
-		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록보기</button>  
+		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()" >목록보기</button>  
 		    </div> 
 		    
 		    <div> 
 			    <form name="requestForm" method="post" id="requestForm">
 			     <input type="hidden" name="crewId" value="${crewboard.crewId}">
-		         <button type="button" class="btn btn-primary" value="수정">수정하기</button>
-		         <button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button>
+		         <button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정하기</button>
+		         <button type="button" class="btn btn-outline-dark shadow-none" value="${crewboard.crewId}" id="delete">삭제하기</button>
 		        </form>
 	        </div> 
           </div>  

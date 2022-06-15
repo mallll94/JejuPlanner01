@@ -76,7 +76,7 @@ $(function() {
                                 <input type="file" class="form-control" id="freeAttach" name="file" placeholder="Attach" accept=".png, .jpg" />
                             </div> 
                             <div align="right">
-                                <button type="submit" class="btn btn-primary py-1 px-2" id="freeBoard-bnt">등록하기</button>
+                              <br><button type="submit" class="btn btn-outline-dark shadow-none" id="freeBoard-bnt">등록하기</button>
                             </div>
                         </form>
                     </div>

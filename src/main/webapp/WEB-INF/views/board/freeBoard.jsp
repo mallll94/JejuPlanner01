@@ -141,9 +141,9 @@
                   <h4 class="property-title">소통 게시판</h4>
                   <div class="sidebar-btn">
                      <div>
-                     <button type="button" id="all" class="btn btn-outline-dark shadow-none"  onclick="location.href='freeBoard'">전체보기</button>
-                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="여행추천" >여행추천</button>
-                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="장소추천" >장소추천</button>
+                     <button type="button" id="all" class="btn btn-outline-dark shadow-none"  onclick="location.href='freeBoard'">☘️전체보기</button>
+                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="여행추천" >✈️여행추천</button>
+                     <button type="button" id="recommend" class="btn btn-outline-dark shadow-none" name="장소추천" >🏝️장소추천</button>
                     </div>
                  </div>
                   <div class="property-list">
