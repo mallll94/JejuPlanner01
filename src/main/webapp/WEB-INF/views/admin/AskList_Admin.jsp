@@ -62,7 +62,7 @@ $(function(){
                   <th>삭제</th>
                 </tr>
              </thead>
-             <c:forEach items="${requestScope.pageList.content}" var="askboard"> 
+             <c:forEach items="${requestScope.askList}" var="askboard"> 
                <tbody align="center">
                  <tr>
                    <td>${askboard.askId}</td>
@@ -124,7 +124,6 @@ $(function(){
   </div>
 </div> 
 
-  
   
 
         

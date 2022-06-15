@@ -106,14 +106,20 @@ public class AskBoardServiceImpl implements AskBoardService {
 
 	/**내가 쓴 글 목록 조회하기*/
 	@Override
-	public List<AskBoard> selectByUserId(String userId) {
+	public Page<AskBoard> selectByUserId(String userId , Pageable pageable) {
 						
 		Users user = userRep.findById(userId).orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
 		QAskBoard ask = QAskBoard.askBoard;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(ask.user.userId.eq(user.getUserId()));
 		
-		List<AskBoard> askList = (List<AskBoard>)askBoardRep.findAll(builder);
+		/*
+		 * Pageable pageable = PageRequest.of((nowPage-1), PAGE_COUNT , Direction.DESC,
+		 * "AskId");
+		 */
+		
+		Page<AskBoard> askList = askBoardRep.findAll(builder ,pageable);
+		
 		
 		return askList;
 	}
