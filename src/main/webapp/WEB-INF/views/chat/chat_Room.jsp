@@ -229,7 +229,7 @@ $(function(){
 			//data:"${_csrf.parameterName}=${_csrf.token}",//서버에게 보낼 parameter정보
 			data: { '${_csrf.parameterName}' : '${_csrf.token}'},
    			success :function(result){
-//${pageContext.request.contextPath}/chat/chat_Room?no=${"${item.chatRoom}"}
+
    					var data = "";
 
 					$.each(result.resultList, function(index, item){
@@ -249,7 +249,18 @@ $(function(){
 						data +=`</div>`;
 						data +=`<div class='last-message text-muted'>${'${item.chatContent}'}</div>`;
 						data +=`<small class='time text-muted'>${'${total}'}</small>`;
-						data +=`<small class='chat-alert label label-danger'>1</small>`;
+						
+						if(item.senderUserId == result.loginUser.userId){
+							data +=`<small class="chat-alert text-muted"><i class="fa fa-reply"></i></small>`//답장 내가 쓴글
+						}else{
+							if(item.chatCheck ==0){
+								data +=`<small class='chat-alert label label-danger'>1</small>`;//안읽음
+							}else{
+								data +=`<small class="chat-alert text-muted"><i class="fa fa-check"></i></small>`//읽기만함
+							}							
+						}
+						
+						
 						data +=`</a>`;
 						data +=`</li>`;
 	 
@@ -376,6 +387,7 @@ $(function(){
 				success :function(result){
 					
 	   				selectAll(chroom);	
+	   				selectListAll();
 				},error : function(request, status, error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
@@ -437,6 +449,15 @@ $(function(){
 	//document.getElementById("chatDiv").scrollTop( $('#chatDiv')[0].scrollHeight);
 	
 	$("#chatDiv").scrollTop($('#chatDiv')[0].scrollHeight);
+	
+	
+	$("#message").on('keyup', function(e){
+        if(e.key==='Enter'||e.keyCode===13){
+            $("#send").trigger('click');
+        }
+    })
+	
+	
 })
 </script>
 </body>
