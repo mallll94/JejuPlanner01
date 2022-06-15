@@ -195,10 +195,9 @@ $(function(){
 	<div class="container-fluid pt-5">
 		<div class="text-center mb-4" style="position: relative; top: -30px">
       		<h2 class="section-title px-5"><span class="px-2">소통하기 게시판</span></h2> 
-  	</div>  
-</div>
-          <div align="center">
-			<div class="col-lg-7 mb-5">
+    	</div>  
+        <div align="center">
+            <div class="col-lg-7 mb-5">
                 <div class="contact-form" style="text-align: left;">           
                     <div class="control-group">
                         <p>카테고리</p>
@@ -246,7 +245,7 @@ $(function(){
                 </div>
                 <!--댓글 조회하기 -->
                 <!-- single article section -->
-				<div class="container" style="text-align: left;">
+                <div class="container" style="text-align: left;">
                     <div class="col-lg-8">
                         <div class="single-article-section">
                             
