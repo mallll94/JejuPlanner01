@@ -363,6 +363,7 @@ $(function(){
    					$("#chatMessage").html(data);
    					
    					$("#chatDiv").scrollTop($('#chatDiv')[0].scrollHeight);
+   					selectListAll();
    				},error : function(request, status, error){  
    					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
    				}  //실팽했을때 실행할 함수 
@@ -392,9 +393,9 @@ $(function(){
 				dataType:"text",
 				data: { '${_csrf.parameterName}' : '${_csrf.token}' ,msg : $("#message").val() ,chatRoom : chroom, receId : rId},
 				success :function(result){
-					
+					selectListAll();
 	   				selectAll(chroom);	
-	   				selectListAll();
+	   				
 				},error : function(request, status, error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
