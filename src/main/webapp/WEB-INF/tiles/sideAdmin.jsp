@@ -148,7 +148,7 @@
       </a>
     </li>
       <li class="menu-item">
-       <a href="crew_Admin" class="menu-link">
+       <a href="${pageContext.request.contextPath}/admin/freeBoard_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-table"></i>
         <div data-i18n="Tables">소통게시판</div>
       </a>

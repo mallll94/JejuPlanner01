@@ -270,11 +270,11 @@ $(function(){
 
 
 
-<%-- <form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
 <input type="hidden" name="no" value='${crewboard.crewId}'>
 <input type="hidden" name="receId" value='${receId}'>
 <input type="submit" value="쪽지 보내기">
-</form> --%>
+</form>
 
 
 

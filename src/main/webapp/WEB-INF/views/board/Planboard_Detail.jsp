@@ -574,6 +574,24 @@ $(document).ready(function(){
 						제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
 						<p class="help-block text-danger"></p>
 					</div>
+					
+					
+					<div id="googleMap" style="width: 100%;height: 600px;"></div>
+					<div class="latest-news mt-100 mb-150">
+						<div class="container" id="card">
+			
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					<div class="control-group" style="text-align: left;">
 						내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
 						<p class="help-block text-danger"></p>
