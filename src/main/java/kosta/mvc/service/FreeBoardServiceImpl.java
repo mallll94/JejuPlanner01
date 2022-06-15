@@ -35,40 +35,20 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	 */
 	@Override
 	public void addFreeBoard(FreeBoard freeboard, String uploadPath) {
-			System.out.println("============저장전 attach"+freeboard.getFreeAttach()+" 저장전 regdate "+freeboard.getFreeRegdate());
-			System.out.println("============저장경로::"+uploadPath);
-		FreeBoard saveFreeBoard = freeBoardRep.save(freeboard);
-
-//		MultipartFile file = freeboard.getFile();
-//		if(!file.isEmpty()) {
-//			if(file.getContentType().startsWith("image") == false) {
-//				throw new RuntimeException("올바른 이미지형식이 아닙니다.");
-//			}
-//			try {
-//				String storeFileName = fileStore.storeFile(uploadPath, file);
-//				saveFreeBoard.setFreeAttach(storeFileName);
-//					
-//			}catch(IOException e) {
-//				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
-//			}
-//		}
 		MultipartFile file = freeboard.getFile();
 		if (!file.isEmpty()) {
 			if (file.getContentType().startsWith("image") == false) {
 				throw new RuntimeException("이미지형식이 아닙니다.");
 			}
-			
 			try {
 				String storeFIleName = fileStore.storeFile(uploadPath, file);
-				saveFreeBoard.setFreeAttach(storeFIleName);
-					System.out.println("===========setFreeAttach::"+storeFIleName);
-					System.out.println("===========파일저장?"+saveFreeBoard.getFreeAttach()+"regdate는?"+saveFreeBoard.getFreeRegdate());
+				freeboard.setFreeAttach(storeFIleName);			
 			} catch (IOException e) {
 				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
 			}
 		}
-
-
+		
+		freeBoardRep.save(freeboard);
 	}
     
 	/**
