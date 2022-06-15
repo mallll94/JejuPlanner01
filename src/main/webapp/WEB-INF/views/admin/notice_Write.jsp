@@ -33,7 +33,7 @@
 		      <h5 class="card-header">첨부파일</h5>
 		      <div class="card-body">
 		        <div class="mb-3">
-		          <input class="form-control" type="file" name="file" accept=".png, .jpg]">
+		          <input class="form-control" type="file" name="file" accept=".png, .jpg, .gif]">
 		        </div>
 		      </div>
 		    </div>
