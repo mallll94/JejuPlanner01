@@ -93,7 +93,7 @@ public class PlannerSelectController {
 		Planner planner=plannerService.selectBy(plannerId);
 		model.addAttribute("planner", planner);
 		//플래너 공유 게시판 주소 적용해야함
-		return "planner/plannerIndex";
+		return "board/Planboard_Write";
 	}
 	
 	

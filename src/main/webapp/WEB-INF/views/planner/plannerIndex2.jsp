@@ -293,7 +293,7 @@
 			    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
 			    var imgHeight = canvas.height * imgWidth / canvas.width;
 			    var heightLeft = imgHeight;
-			    var margin = 10; // 출력 페이지 여백설정
+			    var margin = 1; // 출력 페이지 여백설정
 			    var doc = new jsPDF('p', 'mm');
 			    var position = 0;
 			       
@@ -597,7 +597,6 @@
                 
                  <div class="row mb-3">
                  	<select id="shareSelect" name="shareSelect">
-                 		<option value="kakao">카카오톡공유</option>
                  		<option value="pdf">pdf 출력</option>
                  		<option value="board">게시물 공유</option>       	
                  	</select>
