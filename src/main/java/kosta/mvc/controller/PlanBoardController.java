@@ -42,6 +42,8 @@ public class PlanBoardController {
    @RequestMapping("/board/PlanboardList")
    public void planList(Model model, @RequestParam(defaultValue="1") int nowPage, String pboardCategory) {
 
+	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	   
       System.out.println("category????" + pboardCategory);
 
       Page<PlanBoard> pageList = planBoardService.selectByCate(pboardCategory , nowPage, PAGE_COUNT);
@@ -116,9 +118,10 @@ public class PlanBoardController {
    /**등록하기*/
    @RequestMapping(value= "/board/pinsert", method = RequestMethod.POST)
    public String insert(PlanBoard planBoard , HttpSession session,Long plannerId) {
+	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	  
 	  planBoard.setUserPlan(plannerService.selectBy(plannerId));
-	   
-	   
+	      
       String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
       planBoardService.insertPlanBoard(planBoard, uploadpath);
 
@@ -131,6 +134,8 @@ public class PlanBoardController {
    /**수정 폼*/
    @RequestMapping("/board/pupdateForm")
    public ModelAndView updateForm (Long pboardId) {
+	   
+	   
       PlanBoard planBoard = planBoardService.selectById(pboardId);
 
       System.out.println("update");
@@ -141,7 +146,9 @@ public class PlanBoardController {
    /**수정하기*/
    @RequestMapping(value = "/board/pupdate" , method = RequestMethod.POST)
    public String update(PlanBoard planBoard , HttpSession session) {
-      System.out.println("pboardupdate00");
+	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	  
+	  System.out.println("pboardupdate00");
       String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
       PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
 
