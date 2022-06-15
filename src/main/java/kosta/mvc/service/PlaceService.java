@@ -47,7 +47,7 @@ public interface PlaceService {
 	/**
 	 * 장소 수정하기
 	 * */
-	void updatePlace(Place place);
+	void updatePlace(Place place, String uploadPath);
 	
 	/**
 	 * 장소 삭제하기

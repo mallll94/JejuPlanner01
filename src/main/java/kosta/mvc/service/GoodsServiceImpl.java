@@ -69,8 +69,8 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	@Transactional(readOnly = true)
 	public Goods getGoodsByGoodsId(Long goodsId) throws RuntimeException {
-		Optional<Goods> goods = goodsRepository.findById(goodsId);
-		return goods.get();
+		Goods goods = goodsRepository.findById(goodsId).orElse(null);
+		return goods;
 	}
 	/**
 	 * goods이름으로 상품 조회

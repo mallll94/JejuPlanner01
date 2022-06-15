@@ -235,7 +235,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="post" id="modalForm" action="${pageContext.request.contextPath}/admin/placeUpdate" >	
+      <form method="post" id="modalForm" action="${pageContext.request.contextPath}/admin/placeUpdate" enctype="multipart/form-data">	
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">플래너 데이터 관리</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -304,7 +304,7 @@
                           <label class="col-sm-2 col-form-label" for="basic-default-phone">첨부 사진</label>
                           <div class="col-sm-10">
                           
-                          	<input type="file" id="file" name="file"/>
+                          	<input type="file" id="file" name="file" accept=".png, .jpg]"/>
                           	<img style="width: 100px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
                           </div>
  

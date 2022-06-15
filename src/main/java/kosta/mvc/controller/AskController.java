@@ -37,7 +37,7 @@ public class AskController {
 	
 	
 	/**전체검색 - board에서*/
-	@RequestMapping("/board/AskList") 
+	//@RequestMapping("/board/AskList") 
 	public void askList(Model model , @RequestParam(defaultValue="1") int nowPage) {
 	
 		Pageable pageable = PageRequest.of( (nowPage-1), PAGE_COUNT, Direction.DESC, "AskId");
@@ -82,12 +82,16 @@ public class AskController {
 	/**글 등록*/
 	@RequestMapping(value= "/board/Askinsert", method = RequestMethod.POST)
 	public String insert(AskBoard askBoard , HttpSession session) {
+		
+	    Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        askBoard.setUser(users);
+	    
 		System.out.println("insert test");
 
 		String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/ask/";
 		askBoardService.addAskBoard(askBoard, uploadpath);
 
-		return "redirect:/board/AskList";
+		return "redirect:/mypage/myask";
 
 	}
 
@@ -96,6 +100,8 @@ public class AskController {
 	@RequestMapping("/board/Ask_Detail/{askId}")
 	public String read(@PathVariable Long askId , Model model) {
 		System.out.println("askboardId test");
+		
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
         List<AskReply> replylist = askBoard.getAskReplyList();
@@ -152,7 +158,7 @@ public class AskController {
 
 		System.out.println("delete test2");
 		
-		return "redirect:/board/AskList";
+		return "redirect:/mypage/myask";
 	}
 	
 	/**관리자 삭제하기*/
@@ -174,7 +180,7 @@ public class AskController {
 	public ModelAndView complete(Long askId, String btnradio) {
 	
 		 askBoardService.complete(askId , btnradio);
-		 return new ModelAndView("redirect:/board/AskList");
+		 return new ModelAndView("redirect:/admin/AskList_Admin");
 	  
 	}
 	

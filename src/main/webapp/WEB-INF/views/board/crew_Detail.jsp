@@ -10,6 +10,17 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    .free-bottom-area{
+        display: flex;
+		justify-content: space-between;
+		padding: 25px;
+		margin-bottom: 20px;
+    }
+    .comments-list-wrap{margin: 0;}
+	.comment-user{margin:0;}
+	.comment-content{margin-right: 5px;}
+</style>
 
 <script type="text/javascript">
 
@@ -48,8 +59,7 @@ $(function(){
 						str+=`</div>`;
 	               		 str+=`<div class="comment-text-body">`
 	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
-                    		str+=`<p><span class='comment-content'>\${reply.crewReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span></p>`
-                    		str+=``
+                    		str+=`<p><span class='comment-content'>\${reply.crewReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} crewReplyId="${'${reply.crewReplyId}'}">삭제</a></span></p>` 	
                    		str+=`</div>`;
 					str+=`</div>`;
           
@@ -113,12 +123,12 @@ $(function(){
     $(document).on("click","#reply-delete-bnt",function(){
         
         var replyId = $(this).attr("name")
-        //alert("댓글유저아이디~~"+replyId)
+        alert("댓글유저아이디~~"+replyId)
         var crewReplyId =$(this).attr("crewReplyId")
-        //alert(replyNo)
+        alert(crewReplyId)
 
         //세션에서 로그인한 유저와 댓글 작성자 id가 일치하는지 확인
-        if(loginUser==replyId||loginManager==replyId){
+        if(loginUser==replyId){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/cdelete" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
@@ -200,12 +210,17 @@ $(function(){
             <textarea id="basic-default-message" class="form-control" name="crewContent" style="resize: none">${crewboard.crewContent}</textarea>
           </div>           
 		     <input type="hidden" name="crewId" value="${crewboard.crewId}">
+		   
+		  <div class = "free-bottom-area">
+		    <div>
+		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록보기</button>  
+		    </div> 
 		    
-		    <div align="right"> 
+		    <div> 
 	         <button type="button" class="btn btn-primary" value="수정">수정하기</button>
 	         <button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button>
-	         <button type="button" class="btn btn-primary" onclick="history.back()">목록보기</button>
 	        </div> 
+          </div> 
        
        </div>
        </form>
@@ -229,12 +244,8 @@ $(function(){
             <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn" style="float: right;">댓글 등록하기</button>
     	</form>
     </div>
-</div>
 
-
-
-
-<!-- single article section -->
+             <!-- single article section -->
 				<div class="container" style="text-align: left; margin-left:280px">
 
 						<div class="col-lg-8">
@@ -249,6 +260,14 @@ $(function(){
 
 				</div>
 				<!-- end single article section -->
+
+
+</div>
+
+
+
+
+
 
 
 <%-- <form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
