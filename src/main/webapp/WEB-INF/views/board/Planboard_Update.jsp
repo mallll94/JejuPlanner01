@@ -69,8 +69,7 @@ function selectAll(){
 
 </script>
 
-    
-    
+
 
 </head>
 <body>
@@ -89,7 +88,7 @@ function selectAll(){
      <form name="planBoard" id="planBoard" method="post" action="${pageContext.request.contextPath}/board/pupdate"  enctype="multipart/form-data">
      <input type="hidden" value="${planBoard.pboardId}" id="pboardId" name="pboardId">                
     
-    <div class="control-group" style="text-align: left;">
+     <div class="control-group" style="text-align: left;">
       카테고리 <input type="text"  readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
     <p class="help-block text-danger"></p></div>
     

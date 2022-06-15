@@ -79,8 +79,6 @@ $(function() {
 </script>
 
 
-    
-
 </head>
 <body>
 
@@ -97,14 +95,14 @@ $(function() {
                     
                     <form name="planBoard" id="planBoard" method="post" action="${pageContext.request.contextPath}/board/pinsert"  enctype="multipart/form-data">
                         
-                       <div class="control-group" style="text-align: left;">
+                    <div class="control-group" style="text-align: left;">
                          카테고리 <select name="pboardCategory" id="pboardCategory" class="form-select" 
                          aria-label="Default select example">
                             <option value="none" selected>Category</option>
-                            <option value="나홀로">나홀로</option>
-                            <option value="가족/부모님">가족/부모님</option>
-                            <option value="친구">친구</option>
-                            <option value="연인">연인</option>
+                            <option value="나홀로">🧘나홀로</option>
+                            <option value="가족/부모님">🏠가족</option>
+                            <option value="친구">🧑‍🤝‍🧑친구</option>
+                            <option value="연인">❤️연인</option>  
                          </select>
                             <p class="help-block text-danger"></p>
                         </div>
