@@ -129,7 +129,9 @@
                         <button type="submit" class="btn"><img
                                 src="${pageContext.request.contextPath}/img/goods/goods4.png"
                                 width="450px"></button>
+                        <img src="${pageContext.request.contextPath}/img/goods/plan-info.png" width="350px">
                     </form>
+                    	
                 </div>
             </div>
 
