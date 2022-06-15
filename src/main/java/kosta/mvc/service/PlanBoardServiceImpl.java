@@ -202,6 +202,12 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	}
 
 
+	@Override
+	public List<PlanBoard> recommendPlan(Pageable pageable) {
+		Page<PlanBoard> plist = planBoardRep.findAll(pageable);
+		List<PlanBoard> result =plist.getContent();
+		return result;
+	}
 
 	
 

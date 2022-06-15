@@ -57,7 +57,9 @@ public interface PlanBoardService {
 	
 	/**마이페이지에서 내가 쓴 글 목록 조회*/
 	List<PlanBoard> selectByUserId(String userId);
-
+	
+	/**좋아요순 추천게시판 목록 조회(메인페이지)*/
+	List<PlanBoard> recommendPlan(Pageable pageable);
 	
 
 	
