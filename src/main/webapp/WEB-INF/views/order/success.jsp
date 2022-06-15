@@ -81,9 +81,6 @@
               <textarea rows="" cols="" class="form-control"></textarea>
             </div>
   
-      
-
- 
          <hr><button class="w-30 btn rounded-pill btn-lg" type="submit" style="background-color: orange;">홈페이지로 돌아가기</button>
       </div>
     </div>
