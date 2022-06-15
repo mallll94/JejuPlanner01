@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,10 +55,9 @@ public class PlanReplyController {
 	public void insert(String replyContent, String pboardId) {
 		System.out.println("insert 되나?");
 		
-		//PlanBoard plan = planBoardService.selectById(Long.valueOf(pboardId));
-		Users user = userService.selectById("aaa");
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-	    PlanReply reply = new PlanReply(null, null, user, replyContent, null);
+	    PlanReply reply = new PlanReply(null, null, users, replyContent, null);
 
 		planReplyService.insert(Long.valueOf(pboardId), reply);
 		
