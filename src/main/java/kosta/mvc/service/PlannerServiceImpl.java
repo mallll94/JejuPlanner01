@@ -37,7 +37,6 @@ public class PlannerServiceImpl implements PlannerService {
 	
 	//private final static String DIARY_DEFAULT_NAME = "제주도";
 	
-	//planner조회할때 plannerState가 Y 인것만 검색해야함 >> 메소드 추가하기
 	
 	@Override
 	public Page<Planner> selectAllByUserIdPageing(Pageable pageable,String userId) {
@@ -45,25 +44,16 @@ public class PlannerServiceImpl implements PlannerService {
 		QPlanner planner = QPlanner.planner;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(planner.user.userId.eq(userId));
+		builder.and(planner.plannerState.eq("Y"));
+		//List<Planner> allList=(List<Planner>)plannerRep.findAll(builder);
+		//plannerState가 Y 인것만 검색 
+		//BooleanBuilder builder2 = new BooleanBuilder();
+		//builder2.and(builder2)
 		Page<Planner> plist = plannerRep.findAll(builder,pageable);
 		System.out.println("servie :: "+ plist.getSize());
 		return plist;
 	}
 
-	/*@Override
-	public PlannerDTO selectBy(Long plannerId) {
-		Planner planner = plannerRep.findById(plannerId).orElse(null);
-		System.out.println("planner = "+ planner);
-		System.out.println("------------------------");
-		if(planner==null) throw new RuntimeException("해당 플래너 정보가 없습니다.");
-		Users user =  planner.getUser();
-		System.out.println(user);
-		
-		UserDTO userDto = new UserDTO(user.getUserId(), user.getUserName(), user.getUserPassword(), user.getUserPhone());
-		PlannerDTO dto=new PlannerDTO(planner.getPlannerId(), userDto,  planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount());
-		
-		return dto;
-	}*/
 	
 	@Override
 	public Planner selectBy(Long plannerId) {
@@ -88,8 +78,6 @@ public class PlannerServiceImpl implements PlannerService {
 		Planner dbplanner =plannerRep.findById(plannerId)
 				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
 
-		//PlannerPlaceDTO
-		//List<PlannerPlace> list = dbplanner.getPlannerPlaceList();
 		List<PlannerPlace> list = plannerPlaceRep.findAllByPlannerIdByPlannerPlaceDateAsc(dbplanner.getPlannerId());
 		List<PlannerPlaceDTO> result = new ArrayList<PlannerPlaceDTO>();
 		
@@ -104,17 +92,7 @@ public class PlannerServiceImpl implements PlannerService {
 	
 	@Override
 	public void insertPlan(Planner planner) {
-		//planner insert
 		plannerRep.save(planner);
-
-		//diary insert
-		/*if(planner.getPlannerName()==null) {
-			diaryRep.save(new Diary(null, planner.getUser(), planner, null, DIARY_DEFAULT_NAME, planner.getPlannerType(), planner.getPlannerCount(),null));
-		}else {
-			diaryRep.save(new Diary(null, planner.getUser(), planner, null, planner.getPlannerName(), planner.getPlannerType(), planner.getPlannerCount(),null));
-		}*/
-		
-		System.out.println("diary save완료");
 	}
 	
 	@Override
@@ -209,11 +187,7 @@ public class PlannerServiceImpl implements PlannerService {
 		System.out.println("확인"+planner.getPlannerCount());
 	 }
 	 
-	 @Override
-	public void updateDiary(Planner diary) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	 @Override
 	public Planner insertDiaryLine(PlannerPlace diaryLine, String uploadPath) {
 		 
@@ -232,7 +206,6 @@ public class PlannerServiceImpl implements PlannerService {
 					throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
 				}
 			}
-			System.out.println("service 다이어리 내용 등록");
 		 
 		 dbPlannerPlace.setDiaryLineContent(diaryLine.getDiaryLineContent());
 		 dbPlannerPlace.setDiaryLinePrice(diaryLine.getDiaryLinePrice());
@@ -245,7 +218,6 @@ public class PlannerServiceImpl implements PlannerService {
 		 PlannerPlace dbPlannerPlace = plannerPlaceRep.findById(diaryLine.getPlannerPlaceId())
 					.orElseThrow( ()-> new RuntimeException("플래너 일정을 찾을 수 없습니다."));
 		
-		 System.out.println("::파일::"+diaryLine.getFile()+"======");
 		//파일이 없다면 null로 입력
 		 if(diaryLine.getFile()==null) {
 			 dbPlannerPlace.setDiaryLinePhoto(null);
@@ -265,9 +237,7 @@ public class PlannerServiceImpl implements PlannerService {
 					}
 				} 
 		 }
-		 
-			
-			
+	
 		 dbPlannerPlace.setDiaryLineContent(diaryLine.getDiaryLineContent());
 		 dbPlannerPlace.setDiaryLinePrice(diaryLine.getDiaryLinePrice());
 		 return dbPlannerPlace.getPlanner();
@@ -294,16 +264,9 @@ public class PlannerServiceImpl implements PlannerService {
 		}
 		return planner;
 	}
-	
-	 @Override
-	public Planner DeleteDiaryLine(Long diaryLineId) {
-		return null;
-		
-	}
 	 
 	 @Override
 	public void deleteDiary(Long plannerId) {
-		 
 		plannerRep.deleteById(plannerId);
 		
 	}
@@ -315,8 +278,7 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		builder.and(planner.user.userId.equalsIgnoreCase(userId));
 		List<Planner> list=(List<Planner>) plannerRep.findAll(builder);
-		
-		
+
 		return list;
 	}
 	
