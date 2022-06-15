@@ -116,8 +116,9 @@ public class FreeBoardController {
 	/**
 	 * 글 등록
 	 **/
-	@RequestMapping(value = "/board/freeBoard_Insert", method = RequestMethod.POST)
+	@RequestMapping("/board/freeBoard_Insert")
 	public String insert(FreeBoard freeBoard, HttpSession session) {
+		System.out.println("첨부파일??"+freeBoard.getFile()+"null값일 regdate 시간"+freeBoard.getFreeRegdate());
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -125,7 +126,7 @@ public class FreeBoardController {
 		
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
 		freeBoardService.addFreeBoard(freeBoard, uploadPath);
-		
+		System.out.println("=====등록완료하고 다시 목록으로 돌아가기==========");
 		return "redirect:/board/freeBoard";
 		
 	}
