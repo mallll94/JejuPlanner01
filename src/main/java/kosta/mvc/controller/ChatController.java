@@ -56,22 +56,23 @@ public class ChatController {
 	
 	@RequestMapping("/selectAll")
 	@ResponseBody
-	public List<ChatDTO> selectAll(){
-
+	public Map<String, Object> selectAll(){
+		Map<String, Object> map = new HashMap<String, Object>();
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<ChatBoard> list =chatService.selectAll(users);
 		
 		List<ChatDTO> resultList = new ArrayList<ChatDTO>();
 		for(ChatBoard x : list) {
 			System.out.println(x);
-			ChatDTO dto = new ChatDTO(x.getChatId(), x.getCrewboard(), users.getUserId(),x.getReceiverUser().getUserId() , x.getChatRoom(),
+			ChatDTO dto = new ChatDTO(x.getChatId(), x.getCrewboard(), x.getSenderUser().getUserId(),x.getReceiverUser().getUserId() , x.getChatRoom(),
 					x.getChatSend(), x.getChatRead(), x.getChatContent(), x.getChatCheck());
 			resultList.add(dto);
 		}
+		System.out.println(resultList.size()+"지금당장");
 		
-		
-		
-		return resultList;
+		map.put("resultList", resultList);
+		map.put("loginUser", users);
+		return map;
 	}
 
 	@RequestMapping("/chatAll")
@@ -109,7 +110,9 @@ public class ChatController {
 	
 	@RequestMapping("/send")
 	@ResponseBody
-	public String send(String msg,String receId,String sendId,int chatRoom) {
+	public String send(String msg,String receId,int chatRoom) {
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String sendId = users.getUserId();		
 		chatService.sendMessage(msg,sendId,receId,chatRoom);
 
 		return "ok";

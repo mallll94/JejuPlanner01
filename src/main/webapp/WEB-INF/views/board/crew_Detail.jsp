@@ -235,7 +235,7 @@ $(function(){
     <div class="card-body" >
     	<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
             <div class="form-inline mb-2" style="font-size:1.5rem">
-            <i class="bi bi-file-person" style="font-size:1.8rem"></i> 
+
                 <span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
                 <input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
             </div>
@@ -270,11 +270,11 @@ $(function(){
 
 
 
-<%-- <form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
+<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
 <input type="hidden" name="no" value='${crewboard.crewId}'>
 <input type="hidden" name="receId" value='${receId}'>
 <input type="submit" value="쪽지 보내기">
-</form> --%>
+</form>
 
 
 

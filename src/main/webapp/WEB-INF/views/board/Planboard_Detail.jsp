@@ -461,7 +461,7 @@ $(function(){
         //alert(replyNo)
 
         //세션에서 로그인한 유저와 댓글 작성자 id가 일치하는지 확인
-        if(loginUser==replyId||loginManager==replyId){
+        if(loginUser==replyId){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/delete" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
@@ -490,16 +490,18 @@ $(function(){
 
 })
 
+
+
  $(function(){
 	$("button[value=수정]").click(function() {
     	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pupdateForm");
 		$("#requestForm").submit();
 	})
 	
-     $("button[value=삭제]").click(function() {
+    $("button[value=삭제]").click(function() {
     	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pdelete");
 		$("#requestForm").submit();
-	}) 
+	})  
  }) 
  
 $(document).ready(function(){
@@ -572,6 +574,24 @@ $(document).ready(function(){
 						제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
 						<p class="help-block text-danger"></p>
 					</div>
+					
+					
+					<div id="googleMap" style="width: 100%;height: 600px;"></div>
+					<div class="latest-news mt-100 mb-150">
+						<div class="container" id="card">
+			
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					<div class="control-group" style="text-align: left;">
 						내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
 						<p class="help-block text-danger"></p>
@@ -592,9 +612,9 @@ $(document).ready(function(){
 						</div>
 						<span>
 						<form name="requestForm" method="post" id="requestForm">
-								<input type="hidden" name="pboardId" value="${planBoard.pboardId}">
-								<button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정</button>
-								<button type="button" class="btn btn-outline-dark shadow-none" value="삭제">삭제</button>
+							<input type="hidden" name="pboardId" value="${planBoard.pboardId}">
+							<button type="button" class="btn btn-outline-dark shadow-none" id="update" value="수정">수정</button>
+							<button type="button" class="btn btn-outline-dark shadow-none" id="delete" value="삭제">삭제</button>
 						</form> 
 						</span> 
 					</div>
