@@ -81,7 +81,7 @@ pageEncoding="UTF-8"%>
 			//선 색 설정
 			function getLineColor(day){	
 				if(day="1"){
-					return "#00C3FF";
+					return "#ff9430";
 				}else if(day="2"){
 					return "#FFDD00";
 				}else if(day="3"){
@@ -528,13 +528,14 @@ pageEncoding="UTF-8"%>
 				//오른쪽 사이드바 - 장소 추가하기 버튼동작
 				$(document).on("click","#plan-add-bnt",function(){
 					addPlaceToPlanner($(this))
+					
 				})
 
 				//모달-일정 추가하기 버튼 동작
 				$(document).on("click","#modal-add-plan-bnt",function(){
 					let modalplace = $(this).attr("placeId")
-					//console.log("모달"+modalplace)
 					addPlaceToPlanner($(this))
+					//$('#placeInfoModal')
 				})
 
 				//왼쪽사이드바 - 작업완료
@@ -796,7 +797,7 @@ pageEncoding="UTF-8"%>
                                 </div>
 								<div class="modal-footer">
 									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">더 알아보기</a>
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" placeId="" category="" >추가하기</button>
+									<button type="button" class="btn btn-default"  data-bs-dismiss="modal" id="modal-add-plan-bnt" placeId="" category="" >추가하기</button>
 								</div>
                             </div>
                         </div>

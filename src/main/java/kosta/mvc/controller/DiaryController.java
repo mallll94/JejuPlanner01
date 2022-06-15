@@ -105,8 +105,10 @@ public class DiaryController {
 				p.getDiaryLineContent(), p.getDiaryLinePhoto(), p.getDiaryLinePrice(), p.getPlannerPlaceDate()));
 			totalPrice+=(p.getDiaryLinePrice());
 		}
+		int total =diarylinelist.size();
 		map.put("diary", diary);
 		map.put("diarylinelist", diarylinelist);
+		map.put("total", total);
 		map.put("totalPrice", totalPrice);
 
 		return map;

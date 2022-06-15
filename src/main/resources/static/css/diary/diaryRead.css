@@ -52,6 +52,17 @@ div.diary-titleview{
 }
 
 /**본문*/
+.when-empty-diaryline{
+    width: 100%;
+    text-align: center;
+    
+}
+.when-empty-diaryline p{
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(80, 80, 80);
+    transform: translate(0,100%);
+}
 div.diary-main-view{
     margin-top: 30px;
     margin-bottom: 30px;

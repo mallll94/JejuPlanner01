@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 
 		<!-- Css Styles -->
 		<link rel="stylesheet" href="/css/diary/diaryRead.css" type="text/css">
-	
+
 		<script>
 			$(function(){
 				const DiaryId = "${requestScope.diary.plannerId}"
@@ -59,64 +59,73 @@ pageEncoding="UTF-8"%>
 							$("#diary-titleview").append(str)
 
 							let str2="";
-							$.each(result.diarylinelist,function(index,diaryline){
-								var price = diaryline.diaryLinePrice;
-								var content =diaryline.diaryLineContent
-								var photo =diaryline.diaryLinePhoto
-								var priceComma = diaryline.diaryLinePrice.toString().replace(/(\B)(?=(\d\d\d)+(?!\d))/g, ",")
-								//장소
+							if(result.total==0){
 								str2+=`<div class="diary-row">`
-									str2+=`<div class="planner-place-area">`
-										str2+= `<div class="place-card">`
-											str2+= `<div>
-														<img class='place-Img' src='/images/place/\${diaryline.placePhoto}'></img>
-													</div>`
-											str2+=`<div class="place-detail-box">`
-												str2+=`<p class='place-name'>\${diaryline.placeName}</p>`
-												str2+=`<p class="place-info"><span><button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="\${diaryline.placeId}">i</button><span></p>`
-											str2+=`</div>`
-										str2+=`</div>`
-									str2+=`</div>`
-
-									str2+=`<div class="diaryline-area">`
-											
-										if(!price  && !content && !photo){
-											str2+=`<div class="diaryline-card">`
-												str2+=`<a href="javascript:void(0);" id="write-diaryline-bnt" class='write-diaryline-bnt' data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">+</a>`
-											str2+=`</div>`
-										}else{
-											str2+=`<div class="diaryline-card">`
-												str2+=`<div class="diaryImg-card">`
-													str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">`
-													if(!photo){
-														str2+=`<img class="diarylineImg" alt="다이어리 사진" src="../../../img/diaryline-default.jpg" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
-													}else{
-														str2+=`<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
-													}
-													str2+=`</div></a>`
-												str2+=`</div>`
-											str2+=`</div>`
-											str2+=`<div class="diaryline-card">`
-												str2+=`<div class="diaryline-text-box">`
-													str2+=`<p class="diaryline-content">\${diaryline.diaryLineContent}\</p>`
-													str2+=`<p class="diaryline-bottom">`
-														str2+=`<span class='price-Num'>경비: \${priceComma}원</span>`
-														str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
-															<i class="fa-solid fa-pen-nib"></i>
-															</a></span>`
-														str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
-																<i class="fa-solid fa-trash-can"></i>
-															</a></span>`
-													str2+=`</p>`
-												str2+=`</div>`
-											str2+=`</div>`
-											
-										}
-
+									str2+=`<div class='when-empty-diaryline'>`
+										str2+=`<p>저장된 일정 없습니다.👀<br>우선 플래너에서 여행 계획을 세워보세요!</p>`
 									str2+=`</div>`
 								str2+=`</div>`
-								
-							})
+
+							}else{
+								$.each(result.diarylinelist,function(index,diaryline){
+									var price = diaryline.diaryLinePrice;
+									var content =diaryline.diaryLineContent
+									var photo =diaryline.diaryLinePhoto
+									var priceComma = diaryline.diaryLinePrice.toString().replace(/(\B)(?=(\d\d\d)+(?!\d))/g, ",")
+									//장소
+									str2+=`<div class="diary-row">`
+										str2+=`<div class="planner-place-area">`
+											str2+= `<div class="place-card">`
+												str2+= `<div>
+															<img class='place-Img' src='/images/place/\${diaryline.placePhoto}'></img>
+														</div>`
+												str2+=`<div class="place-detail-box">`
+													str2+=`<p class='place-name'>\${diaryline.placeName}</p>`
+													str2+=`<p class="place-info"><span><button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="\${diaryline.placeId}">i</button><span></p>`
+												str2+=`</div>`
+											str2+=`</div>`
+										str2+=`</div>`
+
+										str2+=`<div class="diaryline-area">`
+												
+											if(!price  && !content && !photo){
+												str2+=`<div class="diaryline-card">`
+													str2+=`<a href="javascript:void(0);" id="write-diaryline-bnt" class='write-diaryline-bnt' data-bs-toggle="modal" data-bs-target="#DiaryFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">+</a>`
+												str2+=`</div>`
+											}else{
+												str2+=`<div class="diaryline-card">`
+													str2+=`<div class="diaryImg-card">`
+														str2+=`<a href="#"><div class="diaryline-Image diary-bg-1">`
+														if(!photo){
+															str2+=`<img class="diarylineImg" alt="다이어리 사진" src="../../../img/diaryline-default.jpg" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
+														}else{
+															str2+=`<img class="diarylineImg" alt="다이어리 사진" src="/images/diary/\${diaryline.diaryLinePhoto}" onerror="javascript:src={../../../img/diaryline-default.jpg}">`
+														}
+														str2+=`</div></a>`
+													str2+=`</div>`
+												str2+=`</div>`
+												str2+=`<div class="diaryline-card">`
+													str2+=`<div class="diaryline-text-box">`
+														str2+=`<p class="diaryline-content">\${diaryline.diaryLineContent}\</p>`
+														str2+=`<p class="diaryline-bottom">`
+															str2+=`<span class='price-Num'>경비: \${priceComma}원</span>`
+															str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">
+																<i class="fa-solid fa-pen-nib"></i>
+																</a></span>`
+															str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="delete-diaryline-bnt" plannerPlaceId="\${diaryline.plannerPlaceId}">
+																	<i class="fa-solid fa-trash-can"></i>
+																</a></span>`
+														str2+=`</p>`
+													str2+=`</div>`
+												str2+=`</div>`
+												
+											}
+
+										str2+=`</div>`
+									str2+=`</div>`
+									
+								})
+							}
 							$("#diary-main-view").html("");
 							$("#diary-main-view").append(str2);
 
