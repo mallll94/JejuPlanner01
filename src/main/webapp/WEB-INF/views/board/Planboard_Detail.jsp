@@ -461,7 +461,7 @@ $(function(){
         //alert(replyNo)
 
         //세션에서 로그인한 유저와 댓글 작성자 id가 일치하는지 확인
-        if(loginUser==replyId||loginManager==replyId){
+        if(loginUser==replyId){
             $.ajax({
                 url: "${pageContext.request.contextPath}/reply/delete" , //서버요청주소
                 type: "post" , //요청방식 (get,post...)
@@ -490,16 +490,18 @@ $(function(){
 
 })
 
+
+
  $(function(){
 	$("button[value=수정]").click(function() {
     	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pupdateForm");
 		$("#requestForm").submit();
 	})
 	
-     $("button[value=삭제]").click(function() {
+    $("button[value=삭제]").click(function() {
     	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pdelete");
 		$("#requestForm").submit();
-	}) 
+	})  
  }) 
  
 $(document).ready(function(){
@@ -610,9 +612,9 @@ $(document).ready(function(){
 						</div>
 						<span>
 						<form name="requestForm" method="post" id="requestForm">
-								<input type="hidden" name="pboardId" value="${planBoard.pboardId}">
-								<button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정</button>
-								<button type="button" class="btn btn-outline-dark shadow-none" value="삭제">삭제</button>
+							<input type="hidden" name="pboardId" value="${planBoard.pboardId}">
+							<button type="button" class="btn btn-outline-dark shadow-none" id="update" value="수정">수정</button>
+							<button type="button" class="btn btn-outline-dark shadow-none" id="delete" value="삭제">삭제</button>
 						</form> 
 						</span> 
 					</div>
