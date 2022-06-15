@@ -32,6 +32,11 @@ public interface OrdersService {
 	public List<Orders> getOrdersByUserId(String userId);
 	
 	/**
+	 * 오더부분 아이디로 가져오기
+	 */
+	public List<Orders> OrdersByOkUserId(String userId);
+	
+	/**
 	 * 주문 아이디로 특정 주문 조회하기
 	 */
 	public Orders getOrdersByOrdersId();

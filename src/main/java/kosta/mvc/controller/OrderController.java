@@ -167,19 +167,19 @@ public class OrderController {
 	@RequestMapping("bankBook")
 	@ResponseBody
 	public List<String> bankBook(Long [] goods, String name, String email, String phone, int totalPrice,String text ){
-			Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			List<GoodsLine> list =cartService.selectByCartId(goods);
-			System.out.println("Dsds");
-			Long id=ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"계좌이체");
-			for(Long i : goods) {
-				cartService.deleteCart(i);
-			}
-			String i = (int) (Math.random()*100000*100000000)+"";
-			List<String> result = new ArrayList<String>();
-			result.add(i);
-			result.add(id+"");
-			
-			return result;
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<GoodsLine> list =cartService.selectByCartId(goods);
+		System.out.println("Dsds");
+		Long id=ordersService.addOrders(list, name, email, phone, totalPrice, users, text,"계좌이체");
+		for(Long i : goods) {
+			cartService.deleteCart(i);
+		}
+		String i = (int) (Math.random()*100000*100000000)+"";
+		List<String> result = new ArrayList<String>();
+		result.add(i);
+		result.add(id+"");
+		
+		return result;
 	}
 	
 	
@@ -200,5 +200,11 @@ public class OrderController {
 	}
 	
 	
-	
+	@RequestMapping("/orderId")
+	@ResponseBody
+	public List<Orders> okOrderId(){
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Orders> list=ordersService.OrdersByOkUserId(users.getUserId());
+		return list;
+	}
 }

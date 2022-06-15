@@ -114,6 +114,13 @@ $(function(){
 	}
 	selctAll();
 	
+	
+	$(document).on("click","#ask",function(){
+		
+		location.href = "${pageContext.request.contextPath}/board/AskBoard";
+		
+	})
+	
 	$(document).on("click","#cancle",function(){
 		
 		$("[name=orderLineId]").val($(this).val());
