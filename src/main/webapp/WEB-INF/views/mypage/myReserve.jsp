@@ -93,7 +93,7 @@ $(function(){
 					data+=`<h5 class='r-title'>${"${item.goodsName}"}</h5>`;  
 					data+=`<div class='room-price'>`;   
 					data+=`<span>가격</span>`;
-					data+=`<h5>${"${item.goodsPrice}"}</h5></div>`;
+					data+=`<h5>${"${result.orderLine[index].orderLinePrice}"}</h5></div>`;
 					data+=`<div class='properties-location'><i class='icon_pin'></i>${"${item.goodsAddr}"}</div>`;
 					data+=`<p>${"${item.goodsContent}"}</p></div></div>`;
 					data+=`<div class='col-lg-3'>`;

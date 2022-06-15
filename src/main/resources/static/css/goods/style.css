@@ -114,7 +114,7 @@ ul, ol {
 	right: 0;
 	height: 5px;
 	width: 80px;
-	background: #2cbdb8;
+	background: skyblue;
 	content: "";
 	margin: 0 auto;
 }
@@ -140,16 +140,16 @@ ul, ol {
 	font-size: 14px;
 	display: inline-block;
 	color: #ffffff;
-	background: #2cbdb8;
+	background: skyblue;
 	padding: 12px 50px 10px;
 }
 .site-btn {
 	display: inline-block;
 	font-size: 14px;
 	color: #ffffff;
-	background: #2cbdb8;
+	background: skyblue;
 	padding: 8px 30px 10px;
-	border: 1px solid #2cbdb8;
+	border: 1px solid skyblue;
 }
 /* Preloder */
 
@@ -239,7 +239,7 @@ ul, ol {
 	margin-right: 0;
 }
 .top-nav .main-menu ul li.active a {
-	color: #2cbdb8;
+	color: skyblue;
 }
 .top-nav .main-menu ul li a {
 	font-size: 14px;
@@ -253,7 +253,7 @@ ul, ol {
 	transition: all 0.3s;
 }
 .top-nav .main-menu ul li a:hover {
-	color: #2cbdb8;
+	color: skyblue;
 }
 .top-nav .top-right {
 	text-align: right;
@@ -315,7 +315,7 @@ ul, ol {
 }
 .top-nav .top-right .property-sub {
 	display: inline-block;
-	background: #2CBDB8;
+	background: skyblue;
 	font-size: 14px;
 	color: #ffffff;
 	padding: 20px 30px;
@@ -464,7 +464,7 @@ ul, ol {
 	font-size: 16px;
 	color: #ffffff;
 	text-transform: uppercase;
-	background: #2cbdb8;
+	background: skyblue;
 	padding: 13px 30px;
 	font-weight: 500;
 }
@@ -605,10 +605,10 @@ ul, ol {
 	width: 247px;
 	font-size: 16px;
 	height: 46px;
-	background: #2cbdb8;
+	background: skyblue;
 	color: #ffffff;
 	border: none;
-	border: 1px solid #2cbdb8;
+	border: 1px solid skyblue;
 	cursor: pointer;
 }
 .ui-widget.ui-widget-content {
@@ -618,12 +618,12 @@ ul, ol {
 	border-radius: 50px;
 }
 .ui-slider .ui-slider-range {
-	background: #2cbdb8;
+	background: skyblue;
 }
 .ui-slider-horizontal .ui-slider-handle {
 	width: 14px;
 	height: 14px;
-	background: #2cbdb8;
+	background: skyblue;
 	border-radius: 50%;
 	border: none;
 	margin-left: 0;
@@ -670,8 +670,8 @@ ul, ol {
 	margin-right: 10px;
 }
 .feature-carousel.owl-carousel .owl-dots button.owl-dot.active {
-	background: #2cbdb8;
-	border-color: #2cbdb8;
+	background: skyblue;
+	border-color: skyblue;
 }
 .feature-carousel.owl-carousel .owl-dots button:last-child {
 	margin-right: 0;
@@ -767,7 +767,7 @@ ul, ol {
 	margin-right: 0;
 }
 .feature-carousel .feature-item .fi-text .inside-text ul li i {
-	color: #2cbdb8;
+	color: skyblue;
 	margin-right: 4px;
 }
 .feature-carousel .feature-item .fi-text .inside-text h5.price {
@@ -794,7 +794,7 @@ ul, ol {
 	margin-right: 0;
 }
 .feature-carousel .feature-item .fi-text .room-features li i {
-	color: #2cbdb8;
+	color: skyblue;
 	margin-right: 4px;
 	display: inline-block;
 }
@@ -816,7 +816,7 @@ ul, ol {
 .video-text .play-btn {
 	height: 70px;
 	width: 70px;
-	background: #2cbdb8;
+	background: skyblue;
 	display: inline-block;
 	border-radius: 50%;
 	font-size: 25px;
@@ -856,8 +856,8 @@ ul, ol {
 .top-properties-section .top-property-all {
 	font-size: 16px;
 	font-weight: 500;
-	color: #2cbdb8;
-	border: 2px solid #2cbdb8;
+	color: skyblue;
+	border: 2px solid skyblue;
 	padding: 12px 30px;
 	display: inline-block;
 	float: right;
@@ -901,7 +901,7 @@ ul, ol {
 	font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	background: #2cbdb8;
+	background: skyblue;
 	display: inline-block;
 	padding: 3px 20px;
 }
@@ -922,7 +922,7 @@ ul, ol {
 	margin-right: 5px;
 }
 .top-properties-carousel .single-top-properties .stp-text .room-price h4 {
-	color: #2cbdb8;
+	color: skyblue;
 	font-weight: 600;
 	display: inline-block;
 }
@@ -932,7 +932,7 @@ ul, ol {
 	margin-bottom: 20px;
 }
 .top-properties-carousel .single-top-properties .stp-text .properties-location i {
-	color: #2cbdb8;
+	color: skyblue;
 	margin-right: 4px;
 }
 .top-properties-carousel .single-top-properties .stp-text P {
@@ -948,7 +948,7 @@ ul, ol {
 }
 .top-properties-carousel .single-top-properties .stp-text .room-features li i {
 	font-size: 24px;
-	color: #2cbdb8;
+	color: skyblue;
 }
 .top-properties-carousel .single-top-properties .stp-text .room-features li p {
 	font-size: 14px;
@@ -969,7 +969,7 @@ ul, ol {
 	background: #ffffff;
 }
 .agent-section.about-page .agent-carousel.owl-carousel .owl-nav button {
-	color: #2cbdb8;
+	color: skyblue;
 	border-radius: 0;
 	border-color: #e5e5e5;
 }
@@ -1382,7 +1382,7 @@ ul, ol {
 	display: none;
 }
 .property-sidebar .sidebar-btn .bt-item input[type=radio]:checked+label {
-	background: #2cbdb8;
+	background: #3973E8;
 	color: #ffffff;
 }
 .property-sidebar .sidebar-btn label {
@@ -1488,10 +1488,10 @@ ul, ol {
 	width: 100%;
 	font-size: 16px;
 	height: 50px;
-	background: #2cbdb8;
+	background: skyblue;
 	color: #ffffff;
 	border: none;
-	border: 1px solid #2cbdb8;
+	border: 1px solid skyblue;
 	cursor: pointer;
 }
 .property-sidebar .best-agents h4 {
@@ -1742,7 +1742,7 @@ ul, ol {
 	border: 2px solid transparent;
 }
 .pd-details-text .property-more-pic .product-thumbs .product-thumbs-track .pt.active {
-	border: 2px solid #2cbdb8;
+	border: 2px solid skyblue;
 }
 .pd-details-text .pd-desc {
 	margin-bottom: 54px;
@@ -1771,7 +1771,7 @@ ul, ol {
 }
 .pd-details-text .pd-details-tab .tab-item ul li a.active {
 	color: #ffffff;
-	background: #2cbdb8;
+	background: skyblue;
 }
 .pd-details-text .pd-details-tab .tab-content .property-more-table {
 	padding-left: 30px;
@@ -2419,7 +2419,7 @@ ul, ol {
 	margin-right: 10px;
 }
 .testimonial-slider.owl-carousel .owl-dots button.owl-dot.active {
-	background: #2cbdb8;
+	background: skyblue;
 }
 .testimonial-slider.owl-carousel .owl-dots button:last-child {
 	margin-right: 0;

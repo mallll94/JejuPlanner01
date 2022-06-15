@@ -32,7 +32,147 @@ pageEncoding="UTF-8"%>
 
 
 		<style>
-			.agent-carousel .single-agent .sa-pic .hover-social a.shop {
+			.planner-card-area{
+				display: flex;
+			}
+			.planner-card-area.owl-carousel .owl-nav button[type=button] {
+				width: 26px;
+				height: 60px;
+				border: 2px solid #D9DBDC;
+				display: inline-block;
+				font-size: 18px;
+				color: #aaaab3;
+				border-radius: 2px;
+				position: absolute;
+				left: -42px;
+				top: 50%;
+				-webkit-transform: translateY(-30px);
+				-ms-transform: translateY(-30px);
+				transform: translateY(-30px);
+				-webkit-transition: all 0.4s;
+				-o-transition: all 0.4s;
+				transition: all 0.4s;
+			}
+			.planner-card-area.owl-carousel .owl-nav button[type=button].owl-next {
+				left: auto;
+				right: -42px;
+			}
+			.planner-card-area.owl-carousel .owl-nav button[type=button]:hover {
+				background: #707079;
+				color: #ffffff;
+				border-color: #707079;
+			}
+			.planner-card-area .owl-stage-outer {
+				padding-bottom: 45px;
+				padding-top: 20px;
+			}
+			.planner-card-area.owl-carousel .owl-item img {
+				display: inline-block;
+			}
+			.planner-card-area .col-lg-3 {
+				max-width: 100%;
+			}
+			.planner-card-area .single-agent {
+				text-align: center;
+				background: #ffffff;
+				-webkit-box-shadow: 0 8px 15px 5px rgba(12, 35, 34, 0.05);
+				box-shadow: 0 8px 15px 5px rgba(12, 35, 34, 0.05);
+				padding: 40px 0;
+				-webkit-transition: all 0.3s;
+				-o-transition: all 0.3s;
+				transition: all 0.3s;
+			}
+			.planner-card-area .single-agent:hover {
+				-webkit-box-shadow: 0 4px 15px rgba(12, 35, 34, 0.2);
+				box-shadow: 0 4px 15px rgba(12, 35, 34, 0.2);
+			}
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.twitter {
+				right: -15px;
+				opacity: 1;
+				visibility: visible;
+			}
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.instagram {
+				right: -15px;
+				opacity: 1;
+				visibility: visible;
+			}
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.facebook {
+				bottom: 6px;
+				opacity: 1;
+				visibility: visible;
+			}
+			.planner-card-area .single-agent .sa-pic {
+				position: relative;
+				
+				margin: 0 auto;
+			}
+			.planner-card-area .single-agent .sa-pic img {
+				
+				border-radius: 50%;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social a {
+				display: inline-block;
+				color: #ffffff;
+				font-size: 18px;
+				height: 40px;
+				width: 40px;
+				line-height: 40px;
+				text-align: center;
+				background: #222222;
+				border-radius: 50%;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social a.twitter {
+				background: #29BFE8;
+				position: absolute;
+				right: -40px;
+				bottom: 100px;
+				-webkit-transition: all 0.2s ease 0.2s;
+				-o-transition: all 0.2s ease 0.2s;
+				transition: all 0.2s ease 0.2s;
+				opacity: 0;
+				visibility: hidden;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social a.instagram {
+				background: #F74D91;
+				position: absolute;
+				right: -40px;
+				bottom: 50px;
+				-webkit-transition: all 0.4s ease 0.4s;
+				-o-transition: all 0.4s ease 0.4s;
+				transition: all 0.4s ease 0.4s;
+				opacity: 0;
+				visibility: hidden;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social a.facebook {
+				background: #3973E8;
+				position: absolute;
+				right: 15px;
+				bottom: -4px;
+				-webkit-transition: all 0.6s ease 0.6s;
+				-o-transition: all 0.6s ease 0.6s;
+				transition: all 0.6s ease 0.6s;
+				opacity: 0;
+				visibility: hidden;
+			}
+			.planner-card-area .single-agent h5 {
+				font-size: 20px;
+				color: #19191a;
+				font-weight: 600;
+				margin-top: 25px;
+			}
+			.planner-card-area .single-agent h5 span {
+				display: block;
+				font-size: 14px;
+				color: #aaaab3;
+				font-weight: 400;
+				margin-top: 12px;
+			}
+			.planner-card-area .single-agent .sa-pic .hover-social a.shop {
 				background: #ffda35;
 				position: absolute;
 				right: -40px;
@@ -43,7 +183,7 @@ pageEncoding="UTF-8"%>
 				opacity: 0;
 				visibility: hidden;
 			}
-			.agent-carousel .single-agent .sa-pic .hover-social a.board {
+			.planner-card-area .single-agent .sa-pic .hover-social a.board {
 				background: #ff70a9;
 				position: absolute;
 				right: -40px;
@@ -54,7 +194,7 @@ pageEncoding="UTF-8"%>
 				opacity: 0;
 				visibility: hidden;
 			}
-			.agent-carousel .single-agent .sa-pic .hover-social a.write {
+			.planner-card-area .single-agent .sa-pic .hover-social a.write {
 				background: #518bff;
 				position: absolute;
 				right: 15px;
@@ -65,24 +205,24 @@ pageEncoding="UTF-8"%>
 				opacity: 0;
 				visibility: hidden;
 			}
-			.agent-carousel .single-agent:hover .sa-pic .hover-social a.shop {
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.shop {
 				right: -15px;
 				opacity: 1;
 				visibility: visible;
 			}
-			.agent-carousel .single-agent:hover .sa-pic .hover-social a.board {
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.board {
 				right: -15px;
 				opacity: 1;
 				visibility: visible;
 			}
-			.agent-carousel .single-agent:hover .sa-pic .hover-social a.write {
+			.planner-card-area .single-agent:hover .sa-pic .hover-social a.write {
 				bottom: 6px;
 				opacity: 1;
 				visibility: visible;
 			}
 			.owl-item-cloned{width: 360px;}
 			.latest-news{margin: 0px; padding: 20px;}
-			/* .planner-Img{width: 150px;height: 150px;} */
+			.when-empty-message{text-align: center; font-size: larger;font-family: 'Noto Sans KR', sans-serif;}
 			.owl-carousel {display: flex;}
 			.spad{padding-bottom: 50px; padding-top: 50px;}
 
@@ -94,6 +234,7 @@ pageEncoding="UTF-8"%>
 		<script>
 			$(function(){
 				const element = document.getElementById('owl-stage')
+				const total = "${plannerList.size()}"
 				
 				//var loginUser='${sessionScope.loginUser.userId}'
 				var loginUser= "aaa"
@@ -112,6 +253,7 @@ pageEncoding="UTF-8"%>
 						location.replace(url)
 					}
 				})
+				
 			})
 
 
@@ -137,16 +279,12 @@ pageEncoding="UTF-8"%>
 				<c:choose>
 					<c:when test="${ empty requestScope.plannerList}">
 						<div class="row">
-							<div class="agent-carousel owl-carousel">
-								<div class="container">
-									<h5 class="when-empty-message">나만의 플래너를 작성해보세요!</h5>
-								</div>
-							</div>
+							<p class="when-empty-message">아직 작성한 플래너가 없습니다!<br>🏕️나만의 여행 계획을 만들어보세요!🏕️</p>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="row">
-							<div class="agent-carousel owl-carousel">
+							<div class="planner-card-area" id="without-loop">
 								<c:forEach items="${plannerList}" var="planner">
 									<div class="col-lg-3">
 										<div class="single-agent">
@@ -154,7 +292,7 @@ pageEncoding="UTF-8"%>
 												<img class="planner-Img" src="../../../img/planner-default.jpg" alt="플래너 기본사진" style="width: 150px;height: 150px;">
 												<div class="hover-social">
 													<a href="#" class="shop"><i class="fa-solid fa-bag-shopping"></i></a>
-													<a href="#" class="board"><i class="fa-solid fa-clipboard"></i></i></a>
+													<a href="${pageContext.request.contextPath}/diary/diaryRead/${planner.plannerId}?nowPage=1" class="board"><i class="fa-solid fa-clipboard"></i></i></a>
 													<a href="${pageContext.request.contextPath}/planner/plannerIndex2?plannerId=${planner.plannerId}" class="write"><i class="fa-solid fa-pen-clip"></i></a>
 												</div>
 											</div>
@@ -176,13 +314,12 @@ pageEncoding="UTF-8"%>
 											
 											<c:choose>
 												<c:when test="${bdayNum - nowNum<=0}">
-													<span>D+${(bdayNum - nowNum+1)*-1}일</span>
+													<span>D+${Math.abs(bdayNum - nowNum+1)}일</span>
 												</c:when>
 												<c:otherwise>
 													<span>D-${bdayNum - nowNum +1}일</span>
 												</c:otherwise>
 											</c:choose>
-											<!-- <a href="${pageContext.request.contextPath}/planner/plannerIndex2?plannerId=${planner.plannerId}" id="read-planner-bnt" class="btn btn-primary" name="${planner.plannerId}">플래너 계속 작성하기</a> -->
 											</div>
 										</div>
 									</div>
@@ -513,6 +650,7 @@ pageEncoding="UTF-8"%>
 		<script src="/js/azentaMaster/jquery-ui.min.js"></script>
 		<script src="/js/owlCarousel/owl.carousel.min.js"></script>
 		<script src="/js/azentaMaster/main.js"></script>
+		
 
 		
 	</body>

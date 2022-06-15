@@ -84,10 +84,6 @@ public interface PlannerService {
 	void plannerTypeUpdate(String type, Long plannerId);
 	void plannerCountUpdate(int count, Long plannerId);
 	
-	/**
-	 * 다이어리 수정-타입/인원/제목/사진
-	 * */
-	void updateDiary(Planner diary);
 /**
 	 * 다이어리 내용 추가
 	 * */
@@ -111,11 +107,7 @@ public interface PlannerService {
 	 * 다이어리 인원, 타입 변경
 	 * */
 	Planner updateCountAndType(Planner diary);
-	
-	/**
-	 * 다이어리 내용 삭제
-	 * */
-	Planner DeleteDiaryLine(Long diaryLineId);
+
 	
 	/**
 	 * 다이어리 삭제

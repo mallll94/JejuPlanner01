@@ -30,7 +30,9 @@ pageEncoding="UTF-8"%>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 		<!--GoogleMap-->
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAQyf0XE4ptqpDNkKhiwyhT5MJpSrvpd8&callback=initMap&map_ids=a0f291588508440c&region=KR"></script>
-		
+		<style>
+			
+		</style>
 		<script>
 			/*googleMap*/
 			var markers =[];
@@ -79,7 +81,7 @@ pageEncoding="UTF-8"%>
 			//선 색 설정
 			function getLineColor(day){	
 				if(day="1"){
-					return "#00C3FF";
+					return "#ff9430";
 				}else if(day="2"){
 					return "#FFDD00";
 				}else if(day="3"){
@@ -127,7 +129,7 @@ pageEncoding="UTF-8"%>
 
 				//왼쪽 사이드바 - 플래너 일정 정보 조회
 				function selectPlaceByMyPlanner(){
-					console.log("플래너 일정 정보 조회")
+					//console.log("플래너 일정 정보 조회")
 					$.ajax({
 						url: "${pageContext.request.contextPath}/planner/selectPlannerPlace",
 						type: "post",
@@ -185,7 +187,7 @@ pageEncoding="UTF-8"%>
 									//마커 찍기
 									addMarker(targets);	
 									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
-									console.log(plannerplace.plannerPlaceDate)
+									console.log("마커찍히는 날짜"+plannerplace.plannerPlaceDate)
 								}else{
 									lineArr=[];
 									lineDay=plannerplace.plannerPlaceDate
@@ -217,7 +219,7 @@ pageEncoding="UTF-8"%>
 									//마커 찍기
 									addMarker(targets);	
 									addLine(lineArr,getLineColor(plannerplace.plannerPlaceDate));
-									console.log(plannerplace.plannerPlaceDate)
+									console.log("마커찍히는 날짜"+plannerplace.plannerPlaceDate)
 
 								}
 								
@@ -304,7 +306,7 @@ pageEncoding="UTF-8"%>
 							}
 						})
 					}else{//플래너 새로 생성하기
-						console.log("플래너를 새로 생성")
+						//console.log("플래너를 새로 생성")
 						$.ajax({
 						url: "${pageContext.request.contextPath}/planner/insert",
 						type:"post",
@@ -413,6 +415,8 @@ pageEncoding="UTF-8"%>
 							$("#placeAddrModal").text(result.placeAddr);
 							$("#placeContentModal").text(result.placeContent);
 							$("#placePhotoModal").attr("src", "/images/place/"+result.placePhoto )
+							$("#modal-add-plan-bnt").attr("placeId",result.placeId)
+							$("#modal-add-plan-bnt").attr("category",result.placeCategory)
 							//console.log(result.placeUrl)
 							$("#modal-link-bnt").attr("href",result.placeUrl);
 
@@ -423,13 +427,13 @@ pageEncoding="UTF-8"%>
 					})
 				}
 
-				
 
-
-				//오른쪽 사이드바 - 장소 추가하기 버튼동작
-				$(document).on("click","#plan-add-bnt",function addPlaceToPlanner(){
-					let targetPlaceId = $(this).attr("placeId")
-					let targetPlaceCategory = $(this).attr("category")
+				//일정 추가
+				function addPlaceToPlanner(button){
+					//let targetPlaceId = $(this).attr("placeId")
+					//let targetPlaceCategory = $(this).attr("category")
+					let targetPlaceId = button.attr("placeId")
+					let targetPlaceCategory = button.attr("category")
 
 					if(targetPlaceCategory=="숙소"){
 						var targetDate=$("#plan-hotelList").children().last().attr("ppDate");
@@ -463,7 +467,12 @@ pageEncoding="UTF-8"%>
 						}
 					})
 					
-				})
+				}
+
+				
+
+
+				
 
 				//왼쪽 사이드바 - 장소/숙소 버튼
 				$("#planner-hotel-bnt").on("click",function(){
@@ -516,10 +525,17 @@ pageEncoding="UTF-8"%>
 
 				})
 
+				//오른쪽 사이드바 - 장소 추가하기 버튼동작
+				$(document).on("click","#plan-add-bnt",function(){
+					addPlaceToPlanner($(this))
+					
+				})
+
 				//모달-일정 추가하기 버튼 동작
 				$(document).on("click","#modal-add-plan-bnt",function(){
-					addPlaceToPlanner()
-
+					let modalplace = $(this).attr("placeId")
+					addPlaceToPlanner($(this))
+					//$('#placeInfoModal')
 				})
 
 				//왼쪽사이드바 - 작업완료
@@ -535,56 +551,90 @@ pageEncoding="UTF-8"%>
 				})
 
 
-				getplannerInfo();
 				
+
+
+				getplannerInfo();
+					
 			})
 
-			function getSearchList(){
-				let serchKeyword = $("#searchPlaceKeyWord").val()
-				let nowPage =1;
-				$.ajax({
-					url: "${pageContext.request.contextPath}/planner/searchPlace",
-					type: "post",
-					dataType: "json",
-					data:{keyword: serchKeyword, nowPage: nowPage} ,
-					success: function(result){
-						console.log("totalPages"+result.totalPages)
-						let str="";
-						$.each(result.pageList,function(index,place){
-							str+="<li class='spot-card'>"
-							str+=`<div class="spot-info" id="${'${place.placeId}'}">`
-								str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
-								str+= `<div class="spot-info-detail">
-										<p class='spot-info-name'>\${place.placeName}</p>`
-									str+=`<p class="spot-bnt-wrap">
-											<span>
-												<button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button>
-											</span>`
-									str+=`<span>
-											<a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a>
-										</span>
-										</p>`
-								str+=`</div>`
-							str+=`</div>`
-							str+="</li>"
-						})
-						$("#spotList").html("");
-						$("#spotList").append(str);
-
-						//페이지처리
-						let str2=""
-						str2+=`<a id="spot-page-P" href="#" onclick="searchSpotNextPage('p')" >이전</a>`
-						str2+=`<span id="pageList"></span>`
-						str2+=`<a id="spot-page-N" href="#" onclick="searchSpotNextPage('n')" >이후</a>`
-						$("#page-search-nav").html("")
-						$("#page-search-nav").append(str2)
-
-					},
-					error: function(error){
-						alert("정보를 불러올 수 없습니다.")
+			//오른쪽사이드바-검색
+			function getSearchList(page){
+					let serchKeyword = $("#searchPlaceKeyWord").val()
+					let nowPage
+					if(!page){
+						nowPage =1;
+						//console.log("getSearchList>>"+page+"빈값 page=1")
+					}else{
+						nowPage = page;
+						//console.log("getSearchList>>"+page+"빈값아님")
 					}
-				})
-			}
+					
+					$.ajax({
+						url: "${pageContext.request.contextPath}/planner/searchPlace",
+						type: "post",
+						dataType: "json",
+						data:{keyword: serchKeyword, nowPage: nowPage} ,
+						success: function(result){
+							console.log("검색결과 totalPages"+result.totalPages)
+							let str="";
+							//console.log(result.pageList)
+							
+							if(result.pageList==0){
+								str+=`<div>`
+									str+=`<p>검색 결과가 없습니다.😢</p>`
+								str+=`</div>`
+							}else{
+								$.each(result.pageList,function(index,place){
+									str+="<li class='spot-card'>"
+									str+=`<div class="spot-info" id="${'${place.placeId}'}">`
+										str+= `<div class="spot-info-photo"><img class='spotImg' src="/images/place/\${place.placePhoto}" alt="장소상세사진"></div>`
+										str+= `<div class="spot-info-detail">
+												<p class='spot-info-name'>\${place.placeName}</p>`
+											str+=`<p class="spot-bnt-wrap">
+													<span>
+														<button type="button" id="plan-info-bnt" class='plan-info-bnt' data-bs-toggle="modal" data-bs-target="#placeInfoModal"  placeId="${'${place.placeId}'}">i</button>
+													</span>`
+											str+=`<span>
+													<a id="plan-add-bnt" class="plan-add-bnt" href="javascript:void(0);" category="${'${place.placeCategory}'}" placeId="${'${place.placeId}'}">+</a>
+												</span>
+												</p>`
+										str+=`</div>`
+									str+=`</div>`
+									str+="</li>"
+								})
+							}
+							
+							$("#spotList").html("");
+							$("#spotList").append(str);
+
+							//페이지처리
+							var paging ="";
+							if((result.startPage - result.blockCount)>0){
+								paging+=`<a id="spot-page-P" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage(${'${result.nowPage}'}-1)" >이전</a>`
+							}
+							if((result.startPage+result.blockCount)<=result.totalPages){	
+								paging+=`<a id="spot-page-N" href="#" name="${'${result.nowPage}'}" onclick="searchSpotNextPage(${'${result.nowPage}'}+1)" >이후</a>`;
+							}
+							$("#page-search-nav").html("")
+							$("#page-search-nav").append(paging)
+
+						},
+						error: function(error){
+							alert("정보를 불러올 수 없습니다.")
+						}
+					})
+				}
+
+				function searchSpotNextPage(state){
+
+					console.log("현재페이지 state = "+state)
+					getSearchList(state)
+				}
+
+			
+
+			
 
 		</script>
 
@@ -596,7 +646,7 @@ pageEncoding="UTF-8"%>
 					<div class="h-row">
 						<div class="col-lg-3">
 							<div class="logo">
-								<a href="#"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
+								<a href="${pageContext.request.contextPath}/"><img class="nav-logoImg" src="../../../img/main_logo.png" alt="제주잇다 메인로고"></a>
 							</div>
 						</div>
 						<div class="col-lg-9"></div>
@@ -746,8 +796,8 @@ pageEncoding="UTF-8"%>
                                     </div>
                                 </div>
 								<div class="modal-footer">
-									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">링크</a>
-									<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-add-plan-bnt" >추가하기</button>
+									<a href='#' target='_blank' data-dismiss="modal" id="modal-link-bnt">더 알아보기</a>
+									<button type="button" class="btn btn-default"  data-bs-dismiss="modal" id="modal-add-plan-bnt" placeId="" category="" >추가하기</button>
 								</div>
                             </div>
                         </div>
