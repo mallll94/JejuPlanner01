@@ -195,7 +195,7 @@ $(function(){
 	<div class="container-fluid pt-5">
 		<div class="text-center mb-4" style="position: relative; top: -30px">
       		<h2 class="section-title px-5"><span class="px-2">소통하기 게시판</span></h2> 
-<<<<<<< HEAD
+
   	</div>  
   	<div class="row px-xl-5">
       <div class="col-lg-7 mb-5">
@@ -230,7 +230,7 @@ $(function(){
   </div>
 </div>
 </div>
-=======
+
   	    </div>  
           <div align="center">
 			<div class="col-lg-7 mb-5">
@@ -293,7 +293,6 @@ $(function(){
                     </div>
                 </div>
                 <!-- end single article section -->
->>>>>>> b0edff93021efd0acd6698bf46c3e26aa8d28904
 
             </div>
         </div>

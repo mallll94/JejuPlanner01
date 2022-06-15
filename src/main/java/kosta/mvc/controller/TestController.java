@@ -17,4 +17,8 @@ public class TestController {
 	   return "Admin_Main";
    }
       
+   @RequestMapping("/success")
+   public String success() {
+	   return "order/success";
+   }
 }
