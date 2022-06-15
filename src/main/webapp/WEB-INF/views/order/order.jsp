@@ -115,8 +115,8 @@ $(function(){
 
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
-					error: function(err){
-						alert(err);
+					error: function(error){
+						alert(error);
 					}	
 				});//ajax
 			}else{
@@ -132,6 +132,8 @@ $(function(){
 						,text: $("#text").val()},
 					success: function(result){
 						alert("가상계좌 : "+result[0]);
+						
+						var id = result[1];
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){

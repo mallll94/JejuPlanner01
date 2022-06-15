@@ -63,25 +63,25 @@ $(function(){
 					<div class="hover">
 						<h4>New to our website?</h4>
 						<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-						<a class="button button-account" href="${pageContext.request.contextPath}/user/registerForm" id="register">Create an Account</a>
+						<a class="button button-account" href="${pageContext.request.contextPath}/user/registerForm" id="register">회원 가입</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="login_form_inner">
-					<h3>Log in to enter</h3>
+					<h3>로그인</h3>
 					<form class="row login_form" id="loginForm" method="post" action="${pageContext.request.contextPath}/loginCheck" >
 						<div class="col-md-12 form-group">
-							<input type="text" class="form-control" id="name" name="id" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							<input type="text" class="form-control" id="name" name="id" placeholder="ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID'">
 						</div>
 						<div class="col-md-12 form-group">
 							<input type="password" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 						</div>
 						
 						<div class="col-md-12 form-group">
-							<button type="submit" id="login" class="button button-login w-100">Log In</button>
-							<a href="${pageContext.request.contextPath}/user/findForm?type=id">Forgot Id?</a>
-							<a href="${pageContext.request.contextPath}/user/findForm?type=pwd">Forgot Password?</a>
+							<button type="submit" id="login" class="button button-login w-100">로그인</button>
+							<a href="${pageContext.request.contextPath}/user/findForm?type=id">아이디 찾기</a>
+							<a href="${pageContext.request.contextPath}/user/findForm?type=pwd">비밀번호 찾기</a>
 						</div>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>

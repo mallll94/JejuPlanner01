@@ -413,7 +413,7 @@
                                 field. The more the better. So you will get also a lot of keywords which you mus pay for
                                 only the minimal commandment of 5 cents</p>
                             <div class="ti-author">
-                                <h5 style="color: white;font-size: 25px;">김정현</h5>
+                                <h5 style="color: white;font-size: 25px;"><a href="${pageContext.request.contextPath}/planner/aa" id="d" style="color: white;">김정현</a></h5>
                                 <span>CEO deercreative</span>
                             </div>
                         </div>
@@ -472,7 +472,6 @@
     </section>
     <!-- Testimonial Section End -->
 
-
     <!--JQuery-->
     <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
@@ -484,7 +483,7 @@
     <script src="/js/azentaMaster/jquery-ui.min.js"></script>
     <script src="/js/owlCarousel/owl.carousel.min.js"></script>
     <script src="/js/azentaMaster/main.js"></script>
-
+	
 
 
 

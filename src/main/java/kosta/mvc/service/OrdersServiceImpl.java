@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +95,17 @@ public class OrdersServiceImpl implements OrdersService {
 		
 
 		return result;
+	}
+
+	@Override
+	public List<Orders> OrdersByOkUserId(String userId) {
+		QOrders orders = QOrders.orders;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(orders.user.userId.eq(userId));
+		
+		List<Orders> list =(List<Orders>) ordersRep.findAll(builder, Sort.by(Sort.Order.desc("ordersId")));
+
+		return list;
 	}
 
 }
