@@ -161,7 +161,7 @@
 							</c:forEach>
 						</div>
 						<div style="text-align: right;">
-							<button onclick="location='./crew_Write'">작성</button>
+							<button type="button" class="btn btn-outline-dark shadow-none" onclick="location='./crew_Write'" >작성하기</button>
 						</div>
 						<!-- 페이징 처리 -->
 						<!--  블럭당  -->

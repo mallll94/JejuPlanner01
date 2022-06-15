@@ -192,7 +192,6 @@ $(function(){
       </div>
       <br>
       <br>
-     <form name="requestForm" method="post" id="requestForm">
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="width: 400px; margin-left: 50px" >
        	  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" checked>
 		  <label class="btn btn-outline-primary" for="btnradio1" >동행구하는 중</label>
@@ -208,22 +207,21 @@ $(function(){
           <div class="mb-3" style="text-align: left;">
             <label class="form-label" for="basic-default-message">내용</label>
             <textarea id="basic-default-message" class="form-control" name="crewContent" style="resize: none">${crewboard.crewContent}</textarea>
-          </div>           
-		     <input type="hidden" name="crewId" value="${crewboard.crewId}">
-		   
+          </div>           		    		   
 		  <div class = "free-bottom-area">
 		    <div>
 		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록보기</button>  
 		    </div> 
 		    
 		    <div> 
-	         <button type="button" class="btn btn-primary" value="수정">수정하기</button>
-	         <button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button>
+			    <form name="requestForm" method="post" id="requestForm">
+			     <input type="hidden" name="crewId" value="${crewboard.crewId}">
+		         <button type="button" class="btn btn-primary" value="수정">수정하기</button>
+		         <button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button>
+		        </form>
 	        </div> 
-          </div> 
-       
-       </div>
-       </form>
+          </div>  
+       </div>       
     </div>
   </div>
 </div>

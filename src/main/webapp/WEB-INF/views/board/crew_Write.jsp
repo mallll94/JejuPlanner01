@@ -56,8 +56,8 @@ $(function() {
           </div>
           
           <input type="hidden"  value="N" name="crewState"/>
-          <button type="submit" class="btn btn-primary">작성하기</button>
-          <button type="reset" class="btn btn-primary">취소하기</button>  
+          <button type="submit" class="btn btn-outline-dark shadow-none">작성하기</button>
+          <button type="reset" class="btn btn-outline-dark shadow-none">취소하기</button>  
     
         </form>
  

@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -64,11 +66,9 @@ public class CrewController {
 	 **/
 	@RequestMapping("/board/crew")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage) {
-		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//임시 테스트 아이디
-		String userId ="ccc";
-		Users loginUser =userService.selectById(userId);
 		
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		// 페이징 처리
@@ -147,7 +147,7 @@ public class CrewController {
 	 @RequestMapping("/board/crew_updateForm")
 	 public ModelAndView updateForm(Long crewId) {
 		 CrewBoard crewBoard = crewService.selectById(crewId);
-		 return new ModelAndView("/board/crew_pdate","crewboard",crewBoard);
+		 return new ModelAndView("/board/crew_Update","crewboard",crewBoard);
 		 
 		 
 	 }
@@ -155,8 +155,11 @@ public class CrewController {
 	/**
 	 * 수정하기
 	 * */
-	 @RequestMapping("/board/crew_update")
-	 public ModelAndView update(CrewBoard crewboard) {
+	 @RequestMapping(value ="/board/crew_update", method = RequestMethod.POST)
+	 public ModelAndView update(CrewBoard crewboard , HttpSession session) {
+		 Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		 crewboard.setUser(users);
+		 
 		 CrewBoard dbBoard = crewService.updateCrewBoard(crewboard);
 		 
 		 return new ModelAndView("/board/crew_Detail", "crewboard", dbBoard);
