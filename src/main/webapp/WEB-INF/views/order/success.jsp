@@ -22,7 +22,7 @@
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <img class="d-block mx-auto mb-4" src="/img/bottom_logo.png" alt="" width="200" height="120">
+      <img class="d-block mx-auto mb-4" src="/img/successLogo.png" alt="" width="700" height="200">
       <h2>결제가 완료되었습니다.</h2>
       <p class="lead">제주잇다를 이용해주셔서 감사합니다.</p>
     </div>
@@ -84,7 +84,7 @@
       
 
  
-         <hr><button class="w-50 btn rounded-pill btn-lg" type="submit" style="background-color: orange;  ">홈페이지로 돌아가기</button>
+         <hr><button class="w-30 btn rounded-pill btn-lg" type="submit" style="background-color: orange;">홈페이지로 돌아가기</button>
       </div>
     </div>
   </main>
