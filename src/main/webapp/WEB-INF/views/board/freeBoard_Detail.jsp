@@ -195,43 +195,8 @@ $(function(){
 	<div class="container-fluid pt-5">
 		<div class="text-center mb-4" style="position: relative; top: -30px">
       		<h2 class="section-title px-5"><span class="px-2">소통하기 게시판</span></h2> 
-
   	</div>  
-  	<div class="row px-xl-5">
-      <div class="col-lg-7 mb-5">
-          <div class="contact-form">           
-	 		<div class="control-group">
-	         	카테고리 <input type="text" readonly class="form-control" id="freeCategory" name="freeCategory" value="${freeBoard.freeCategory}"/>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	 		<div class="control-group">
-	         	제목 <input type="text" readonly class="form-control" id="freeTitle" name="freeTitle" value="${freeBoard.freeTitle}"/>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	 		<div class="control-group">
-	        	내용 <textarea readonly class="form-control" rows="6" id="freeContent" name="freeContent">${freeBoard.freeContent}</textarea>
-	         <p class="help-block text-danger"></p>
-	 		</div>
-	  		<h5 class="card-header">첨부파일</h5>
-			<div class="card-body">
- 				<div class="mb-3">
-   				   <img alt = "첨부된 이미지" src="/images/freeBoard/${freeBoard.freeAttach}" width="300" height="300">
-  				</div>
-			</div>
-       <div align="right">
-       <form name="requestForm" method="post" id="requestForm">
-       <input type="hidden" name="freeId" value="${freeBoard.freeId}">
-	      <button type="button" class="btn btn-primary" value="수정">수정</button>
-	      <button type="button" class="btn btn-primary" value="${freeBoard.freeId}" id="delete">삭제</button>
-	      <button type="button" class="btn btn-primary" onclick="history.back()">목록</button>   
-       </form>  
-      </div> 	
-     </div>            
-  </div>
 </div>
-</div>
-
-  	    </div>  
           <div align="center">
 			<div class="col-lg-7 mb-5">
                 <div class="contact-form" style="text-align: left;">           
@@ -256,7 +221,7 @@ $(function(){
                     </div>
                     <div class="free-bottom-area">
                         <div>
-                            <button type="button" class="btn btn-outline-dark shadow-none" onclick="location.href='freeBoard'">목록으로 돌아가기</button>  
+                            <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록으로 돌아가기</button>  
                         </div>
                         <form name="requestForm" method="post" id="requestForm">
                             <input type="hidden" name="freeId" value="${freeBoard.freeId}">

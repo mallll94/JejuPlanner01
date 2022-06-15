@@ -40,21 +40,21 @@ public class FreeBoardController {
 	@RequestMapping("/board/freeBoard")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
 		
-		System.out.println(1);
+		
 	    Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-	    System.out.println(2);		
+	    	
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
 		List<FreeBoard> list = pageList.getContent();
 		List<FreeBoardDTO> freelist =new ArrayList<FreeBoardDTO>();
-		System.out.println(3);
+		
 		for(FreeBoard f:list) {
 			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
 					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
 		}
- 		System.out.println(4);
+ 		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 		
@@ -119,11 +119,9 @@ public class FreeBoardController {
 	@RequestMapping(value = "/board/freeBoard_Insert", method = RequestMethod.POST)
 	public String insert(FreeBoard freeBoard, HttpSession session) {
 		
-		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//임시 테스트 아이디
-		String userId ="ccc";
-		Users loginUser =userService.selectById(userId);
-		freeBoard.setUser(loginUser);
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		freeBoard.setUser(users);
 		
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
 		freeBoardService.addFreeBoard(freeBoard, uploadPath);
