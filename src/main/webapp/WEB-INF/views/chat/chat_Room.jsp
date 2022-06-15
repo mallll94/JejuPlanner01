@@ -247,7 +247,7 @@ $(function(){
 						if(item.senderUserId == result.loginUser.userId){
 							data +=`<img src='${pageContext.request.contextPath}/img/face2.png' alt='' class='img-circle'>`;
 						}else{
-							data +=`<img src='${pageContext.request.contextPath}/img/face6.JPG' alt='' class='img-circle'>`;						
+							data +=`<img src='${pageContext.request.contextPath}/img/face8.png' alt='' class='img-circle'>`;						
 						}
 						
 						
@@ -335,7 +335,7 @@ $(function(){
 							
 							data +=`<li class='left clearfix'>`;
 							data +=`<span class='chat-img pull-left'>`;
-							data +=`<img src='${pageContext.request.contextPath}/img/face6.JPG' alt='User Avatar'>`;
+							data +=`<img src='${pageContext.request.contextPath}/img/face8.png' alt='User Avatar'>`;
 							data +=`</span>`;
 							data +=`<div class='chat-body clearfix'>`;
 							data +=`<div class='header'>`;
