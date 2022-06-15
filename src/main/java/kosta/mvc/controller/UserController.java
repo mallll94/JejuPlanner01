@@ -254,10 +254,18 @@ public class UserController {
 	
 	@RequestMapping("/cancleOrder")
 	public String cancleOrder(Long orderLineId) {
-		System.out.println(orderLineId);
 		orderLineService.deleteOrderLine(orderLineId);
 		
 		return "redirect:/user/myReserve";
+	}
+	
+	@RequestMapping("/deleteOrder")
+	@ResponseBody
+	public String deleteOrder(Long orderLineId) {
+		System.out.println(orderLineId);
+		orderLineService.deleteOrder(orderLineId);
+		
+		return "ok";
 	}
 	
 }

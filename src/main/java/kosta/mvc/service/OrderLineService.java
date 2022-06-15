@@ -18,6 +18,11 @@ public interface OrderLineService {
 	 * 주문 상품 취소하기
 	 */
 	public void deleteOrderLine(Long orderLineId);
+	
+	/**
+	 * 주문 상품 삭제하기
+	 */
+	public void deleteOrder(Long orderLineId);
 
 	/**
 	 * 주문 전체 조회하기

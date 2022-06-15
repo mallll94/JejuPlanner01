@@ -3,6 +3,7 @@ package kosta.mvc.domain;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +60,7 @@ public class Orders {
 	private LocalDate ordersDate;
 	
 	/** 주문상세 */
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order" ,cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<OrderLine> ordersLineList;
 	

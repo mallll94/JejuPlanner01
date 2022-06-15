@@ -72,6 +72,12 @@ public class OrderLineServiceImpl implements OrderLineService {
 		return orderLine;
 	}
 
+	@Override
+	public void deleteOrder(Long orderLineId) {
+		orderLineRepository.deleteById(orderLineId);
+		
+	}
+
 	
 
 }

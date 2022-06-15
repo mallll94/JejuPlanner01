@@ -106,12 +106,15 @@ public class AdminController {
 		return result;
 	}
 	
-	@RequestMapping("/placeUpdate")
-	public String update(Place place) {
+	@RequestMapping(value="/placeUpdate", method = RequestMethod.POST)
+	public String update(Place place, HttpSession session) {
 		System.out.println(place.getPlaceId());
-		placeService.updatePlace(place);
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/place/";
 		
-		return "admin/list";
+		placeService.updatePlace(place,uploadPath);
+		
+		System.out.println("여기서 문제인가?");
+		return "redirect:/admin/list";
 	}
 	
 	@RequestMapping("/placeDelete")

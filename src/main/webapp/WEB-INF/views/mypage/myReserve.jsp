@@ -54,7 +54,14 @@ $(function(){
 			dataType: "json",
 			data: { '${_csrf.parameterName}' : '${_csrf.token}' },
 			success: function(result){
+				var now = new Date();
+				var year = now.getFullYear();
+				var month = now.getMonth();
+				var date = now.getDate();
+				var maxDay = year+"-"+(month+1)+"-"+date;
 				
+				var test = new Date(maxDay);
+				//alert(test)
 				var data = "";
 
 				$.each(result.goods,function(index,item){//${"${item.goodsPhoto}"}
@@ -68,6 +75,11 @@ $(function(){
 					}else if(result.orderLine[index].orderLineState =="RF"){
 						state="환불";
 					}
+					var bookTiem = new Date(result.goodsLine[index].goodsLineDate)
+					if(bookTiem< maxDay ){
+						state="기간만료";
+					}
+					
 					data+=`<h5 class='property-title mb-3'>${'${result.goodsLine[index].goodsLineDate}'}</h5>`;
 					data+=`<div class='single-property-item'>`;
 					data+=`<div class='row'>`;
@@ -111,8 +123,19 @@ $(function(){
 	
 	$(document).on("click","#delete",function(){
 		
-		$("[name=orderLineId]").val($(this).val());
 		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/user/deleteOrder",
+			type: "post",
+			dataType: "text",
+			data: { '${_csrf.parameterName}' : '${_csrf.token}',orderLineId : $(this).val() },
+			success: function(result){
+				selctAll();
+			},
+			error: function(error){
+				alert("장소 정보를 불러오지 못했습니다.")
+			}
+		})
 		
 	})
 })

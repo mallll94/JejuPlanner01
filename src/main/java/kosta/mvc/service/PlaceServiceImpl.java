@@ -73,9 +73,9 @@ public class PlaceServiceImpl implements PlaceService {
 	
 	@Override
 	public void insertPlace(Place place, String uploadPath) {
-		System.out.println("3번문제");
+
 		Place savePlace = placeRep.save(place);
-		System.out.println("4번문제");
+
 		MultipartFile file = place.getFile();
 		
 		if (!file.isEmpty()) {
@@ -84,7 +84,7 @@ public class PlaceServiceImpl implements PlaceService {
 			}
 			
 			try {
-				System.out.println("5번문제");
+
 				String storeFIleName = fileStore.storeFile(uploadPath, file);
 				savePlace.setPlacePhoto(storeFIleName);
 			} catch (IOException e) {
@@ -94,16 +94,36 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public void updatePlace(Place place) {
+	public void updatePlace(Place place, String uploadPath) {
+		MultipartFile file = place.getFile();
 		
 		Place result=placeRep.findById(place.getPlaceId()).orElse(null);
+		
 		result.setPlaceAddr(place.getPlaceAddr());
 		result.setPlaceContent(place.getPlaceContent());
 		result.setPlaceLatitude(place.getPlaceLatitude());
 		result.setPlaceLongitude(place.getPlaceLongitude());
 		result.setPlaceName(place.getPlaceName());
-		result.setPlacePhoto(place.getPlacePhoto());
 		result.setPlaceUrl(place.getPlaceUrl());
+		
+		
+		
+		if (!file.isEmpty()) {
+			if (file.getContentType().startsWith("image") == false) {
+				throw new RuntimeException("이미지형식이 아닙니다.");
+			}
+			
+			try {
+
+				String storeFIleName = fileStore.storeFile(uploadPath, file);
+				result.setPlacePhoto(storeFIleName);
+				System.out.println("되긴한건가?");
+
+			} catch (IOException e) {
+				throw new RuntimeException("저장중에 문제가 발생하였습니다.", e);
+			}
+		}
+		
 
 	}
 
