@@ -309,7 +309,6 @@ $(function() {
 				</div>
 				<!-- end single article section -->
 
-
 </div>
 
 

@@ -27,7 +27,7 @@
           <div class="white_shd full margin_bottom_30">
              <div class="full graph_head">
                 <div class="heading1 margin_0">
-                   <h2>관리자 동행구하기게시판 관리</h2>
+                   <h2>관리자 소통게시판 관리</h2>
                 </div>
              </div>
               <form name="requestForm" method="post" id="requestForm">	

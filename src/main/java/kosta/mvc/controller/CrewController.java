@@ -204,7 +204,7 @@ public class CrewController {
 	 }
 	  
 	 /**
-		 * 삭제하기(관리자)
+		 * 삭제하기(마이페이지)
 		 * */
 	 @RequestMapping("/mypage/crew_delete/{crewId}")
 	 public String myDelete(@PathVariable Long crewId) {
