@@ -1775,12 +1775,12 @@ ul, ol {
 }
 .pd-details-text .pd-details-tab .tab-content .property-more-table {
 	padding-left: 30px;
-	border: 1px solid #ebebeb;
+	
 	border-top: none;
 	padding-bottom: 6px;
 }
 .pd-details-text .pd-details-tab .tab-content .property-more-table table tbody tr {
-	border-bottom: 1px solid #ebebeb;
+	border-bottom: 1px solid white;
 }
 .pd-details-text .pd-details-tab .tab-content .property-more-table table tbody tr:last-child {
 	border-bottom: none;
@@ -2234,6 +2234,7 @@ ul, ol {
 	color: #2cbdb8;
 }
 .comment-option {
+	margin-top: 50px;
 	margin-bottom: 60px;
 }
 .comment-option h4 {
@@ -2255,7 +2256,7 @@ ul, ol {
 	top: 0;
 	width: 1px;
 	height: 257px;
-	background: #e9e9e9;
+	background: white;
 	content: "";
 }
 .comment-option .single-comment-item.second-comment .sc-text {
@@ -2267,7 +2268,7 @@ ul, ol {
 	top: 0;
 	width: 1px;
 	height: 97px;
-	background: #e9e9e9;
+	background: white;
 	content: "";
 }
 .comment-option .single-comment-item.reply-comment {
@@ -2933,7 +2934,7 @@ ul, ol {
 		width: 100%;
 	}
 	.pd-details-text .pd-details-tab .tab-content .property-more-table table tbody tr:last-child {
-		border-bottom: 1px solid #ebebeb;
+		border-bottom: 1px solid white;
 	}
 	.bd-hero-text h2 {
 		font-size: 40px;

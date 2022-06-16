@@ -26,7 +26,7 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 	 * 등록하기
 	 */
 	@Override
-	public void addGoodsReply(GoodsReply goodsReply) {
+	public void addGoodsReply(GoodsReply goodsReply, String uploadPath) {
 		goodsReplyRepository.save(goodsReply);
 
 	}

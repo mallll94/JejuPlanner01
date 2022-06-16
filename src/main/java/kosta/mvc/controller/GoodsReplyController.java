@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +33,7 @@ public class GoodsReplyController {
 	private final GoodsService goodsService;
 	private final UserService userService;
 	
+	
 	/**
 	 * 관리자 페이지.
 	 * @param model
@@ -55,18 +57,43 @@ public class GoodsReplyController {
 	@DeleteMapping("/{goodsReplyId}")
 	public void deleteGoodsReply(@PathVariable Long goodsReplyId) {
 		goodsReplyService.deleteGoodsReply(goodsReplyId);
-		
 	}
-		
+	
 	/**
-	 * 후기 작성하기
+	 * 후기 작성 폼
 	 */
-	@PostMapping("")
-	public void addGoodsReply(GoodsReply goodsReply) {
-		goodsReplyService.addGoodsReply(goodsReply);
+	@RequestMapping("/mypage/goodsReply_Write")
+	public void write() {
+	}
+	
+	/**
+	 * 글 등록 폼
+	 **/
+	@RequestMapping("/mypage/goodsReply_Insert")
+	public String insert(GoodsReply goodsReply, HttpSession session) {
+		
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		goodsReply.setUser(users);
+		
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/goodsReply/";
+		goodsReplyService.addGoodsReply(goodsReply, uploadPath);
+		
+		System.out.println("=====등록완료하고 다시 목록으로 돌아가기==========");
+		return "redirect:/mypage/myReserve";
 		
 	}
-		
+	
+//		
+//	/**
+//	 * 후기 작성하기
+//	 */
+//	@PostMapping("")
+//	public void addGoodsReply(GoodsReply goodsReply) {
+//		goodsReplyService.addGoodsReply(goodsReply);
+//		
+//	}
+//		
 	/**
 	 * 해당 상품 후기 조회하기(사용자)
 	 */
