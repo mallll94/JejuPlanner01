@@ -57,6 +57,10 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+    
+    .s-text {
+    	backgroud-color: skyblue;
+    }
 
     </style>
     <script>
@@ -272,7 +276,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="stp-text">
-                                    <div class="s-text">For Sale</div>
+                                    <div class="s-text">제주잇다 Only</div>
                                     <h2>${goods.goodsName}</h2>
                                     <div class="room-price">
                                         

@@ -90,7 +90,7 @@
                         <form action="#" class="sidebar-search">
                             <div class="sidebar-btn">
                                 <div class="bt-item">
-                                    <input type="radio" name="s-type" id="st-buy" checked>
+                                    <input type="radio" name="s-type" onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=전체보기'" id="st-buy" checked>
                                     <label for="st-buy">제주잇다 Only</label>
                                 </div>
                                 <div class="bt-item">
@@ -98,23 +98,24 @@
                                     <label for="st-rent">Best</label>
                                 </div>
                             </div>
-                            <select>
-                                <option value="">📚카테고리</option>
-                                <option value="">🍊액티비티</option>
-                                <option value="">⛱입장권</option>
-                                <option value="">💊스파/힐링</option>
-                                <option value="">📷대여</option>
+                            <select name="none" onchange="if(this.value) location.href=(this.value);">
+                                <option value="" >📚카테고리</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/category?category=액티비티">🍊액티비티</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/category?category=입장권'">⛱입장권</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/category?category=스파/힐링">💊스파/힐링</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/category?category=대여">📷대여</option>
                                 
                             </select>
-                            <select>
+                            <select name="none" onchange="if(this.value) location.href=(this.value);">
                                 <option value="">🏝지역 카테고리</option>
-                                <option value="">🌎제주시</option>
-                                <option value="">🗿애월</option>
-                                <option value="">🛳중문</option>
-                                <option value="">🍊서귀포</option>
-                                <option value="">🏄‍♂️표선</option>
-                                <option value="">🌟성산/우도</option>
-                                <option value="">🌊함덕/구좌</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=제주시">🌎제주시</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=애월">🗿애월</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=한림_협재">🐬한림/협재</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=중문">🛳중문</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=서귀포">🍊서귀포</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=표선">🏄‍♂️표선</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=성산_우도">🌟성산/우도</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/localCategory?localCategory=함덕_구좌">🌊함덕/구좌</option>
                                 
                                 
                             </select>
@@ -153,11 +154,6 @@
                                 <div class="ba-pic">
                                     <img src="img/properties/best-agent-3.jpg" alt="">
                                 </div>
-                                <div class="ba-text">
-                                    <h5>동행구하기 게시판</h5>
-                                    <span>채팅으로 동행을 구해보세요</span>
-                                    <p class="property-items">혼자여행이 외로운 당신</p>
-                                </div>
                             </a>
                         </div>
                     </div>
@@ -176,6 +172,14 @@
                                                 <div class="card-body">
                                                     <h4 class="card-title">${goods.goodsName}</h4>
                                                     <h5 class="card-title">${goods.goodsPrice}</h5>
+                                                    <ul>
+                                            			
+                                            				<i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}
+                                            			
+                                            			
+                                            				<i class="fa fa-tag"></i>${goods.goodsCategory}
+                                            			
+                                       				 </ul>
                                                 </div>
                                             </div>
                                         </div>

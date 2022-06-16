@@ -326,7 +326,7 @@
                                                     <p>총 상품 금액</p>
                                                 </td>
                                                 <td>
-                                                    <h3><strong><span class="goodstotalprice" id="goodstotalprice"></span></strong></h3>
+                                                    <h3><strong><span class="goodstotalprice" id="goodstotalprice">${goods.goodsPrice}</span></strong></h3>
                                                 </td>
                                             </tr>
                                         </table>

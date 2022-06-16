@@ -35,8 +35,8 @@
 		width: 100%;
 		font-size: 16px;
 		height: 32px;
-		background: gray;
-		color: white;
+		background: #e9ecef;
+		color: black;
 		border: none;
 		
 		border-radius: 0.3rem;
@@ -44,7 +44,11 @@
 		}
 		
 		.property-list {
-			margin-left: 30px;
+			margin-left: 60px;
+			padding-top: 20px;
+			padding-left: 20px;
+			padding-right: 20px;
+			border: 0.5px solid #e9ecef;
 		
 		}
     </style>
@@ -174,7 +178,7 @@ $(function(){
 	//후기 보러가는거
 	$(document).on("click", "#replySelect", function(){
 		var goodsId = $(this).val();
-		location.href = "${pageContext.request.contextPath}/view/goods_View/" + goodsId;
+		location.href = "${pageContext.request.contextPath}/goods/view/goods_View/" + goodsId;
 	})
 	
 	$(document).on("click","#ask",function(){
@@ -219,7 +223,7 @@ $(function(){
             <div class="row">
                 
                 <div class="col-lg-9">
-                    <h4 class="property-title">Property</h4>
+                    <h4 class="property-title">나의 여행</h4>
                     <div class="property-list" id="myOrder">
    
                     </div>
