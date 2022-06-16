@@ -206,25 +206,6 @@ pageEncoding="UTF-8"%>
 					
 
 				}
-
-				//다이어리 등록 폼 유효성 체크
-				// $(document).on("click","#insert-diary-bnt",function checkValifffd(){
-				// 	var theForm = document.writeform;
-					
-				// 	alert($('#write-page').val())
-				// 	//console.log("checkValid()옴"+$('#insert-diaryLinePrice').val())
-				// 	//경비가 null값이면 0으로 submit
-				// 	if($('#insert-diaryLinePrice').val()==''){
-				// 		$('#insert-diaryLinePrice').val('0')
-				// 	}	
-				// 	theForm.method="post"
-				// 	theForm.target="_self"
-				// 	theForm.enctype ="multipart/form-data"
-				// 	theForm.action="${pageContext.request.contextPath}/diary/insertDiaryLine"
-				// })
-				
-				
-
 				//다이어리 내용 수정하기
 				$(document).on("click","#edit-diaryline-bnt",function(){
 					let target = $(this).attr('plannerPlaceId');
