@@ -37,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 public class PlanBoardController {
 
    private final PlanBoardService planBoardService;
-   private final UserService userService;
    private final PlannerService plannerService;
    
    

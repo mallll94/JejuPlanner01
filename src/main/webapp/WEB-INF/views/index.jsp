@@ -314,17 +314,20 @@
                 </div>
             </div>
             <div id="recommend-plan-main" class="row">
-                <div class="col-lg-4">
-                    <div class="single-blog-item">
-                        <div class="sb-text">
-                            <ul>
-                                <li><i class="fa fa-user"></i> Adam Smith</li>
-                                <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
-                            </ul>
-                            <h4><a href="#">Enhance Your Brand Potential With Giant.</a></h4>
+                <c:forEach items="${requestScope.planBoardList}" var="planboare">
+                    <div class="col-lg-4">
+                        <div class="single-blog-item">
+                            <div class="sb-text">
+                                <ul>
+                                    <li><i class="fa fa-user"></i> Adam Smith</li>
+                                    <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
+                                </ul>
+                                <h4><a href="#">Enhance Your Brand Potential With Giant.</a></h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
+                
                 <div class="col-lg-4">
                     <div class="single-blog-item">
                         <div class="sb-text">
