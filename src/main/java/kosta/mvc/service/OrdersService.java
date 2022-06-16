@@ -44,7 +44,7 @@ public interface OrdersService {
 	/**
 	 * 주문 번호로 주문 상세 취소
 	 */
-	
+	public Page<OrderLine> getOrdersByUserIdPage(String userId,int nowPage,int PageCount);
 //	public Orders getOrdersByOrdersId();
 	
 	/**
