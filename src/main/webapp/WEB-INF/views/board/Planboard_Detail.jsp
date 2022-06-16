@@ -629,7 +629,7 @@ $(document).ready(function(){
 		}
 		.category span{
 			text-align: center;
-			width: 120px;
+			width: 150px;
 			font-size: small;
 			color: black;
 			font-weight: 500;
@@ -638,6 +638,10 @@ $(document).ready(function(){
 			display: inline-block;
 			padding: 3px 20px;
 			margin-left: 5px;
+		}
+		.card-body p{
+			padding-top: 20px;
+			padding-bottom: 20px;
 		}
 	   .Image-area{
 		box-sizing: border-box;
@@ -650,6 +654,10 @@ $(document).ready(function(){
 			height: 400px;
 			object-fit: contain;
 			background-color: rgb(241, 241, 241);
+		}
+		#likes-count{
+			color: red;
+
 		}
 		.comment-when-empty-reply{
 			text-align: center;
@@ -737,7 +745,7 @@ $(document).ready(function(){
 						<!-- 하트 -->
 						<div align="right">
 							<i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
-							좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
+							<span> 좋아요 </span><span id="likes-count">${planBoard.likesCount}</span>       
 						</div>
 					</div>
 					<!-- <div class="control-group" style="text-align: left;">
@@ -760,7 +768,7 @@ $(document).ready(function(){
                             <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록으로 돌아가기</button>  
                         </div>
                         <form name="requestForm" method="post" id="requestForm">
-                            <input type="hidden" name="freeId" value="${planBoard.pboardId}">
+                            <input type="hidden" name="pboardId" value="${planBoard.pboardId}">
                             <button type="button" class="btn btn-outline-dark shadow-none" name="${planBoard.userId}" id="update">수정</button>
                             <button type="button" class="btn btn-outline-dark shadow-none" name="${planBoard.userId}" id="delete">삭제</button>
                         </form>  
