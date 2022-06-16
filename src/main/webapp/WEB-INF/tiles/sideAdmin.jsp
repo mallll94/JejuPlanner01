@@ -141,7 +141,7 @@
       </a>
     </li>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/crew_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-table"></i>
         <div data-i18n="Tables">동행구하기 게시판</div>
       </a>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
 
 public interface FreeBoardService {
@@ -44,6 +43,10 @@ public interface FreeBoardService {
 	 * 카테고리별 조회하기
 	 **/
 	Page<FreeBoard> selectByCate(String freeCategory, int nowPage, int PageCount);
-
-
+    
+	/**
+	 * 마이페이지 조회 
+	 **/
+    public Page<FreeBoard> selectByUserId(String userId, int nowPage, int PageCount);
+    
 }

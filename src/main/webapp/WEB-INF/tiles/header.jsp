@@ -107,7 +107,7 @@
 				<ul>
 					<li><a href="https://www.google.co.kr/maps/place/%EC%A0%9C%EC%A3%BC%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84/data=!4m5!3m4!1s0x350ce3544cc84045:0x66bc36d2981ebf31!8m2!3d33.4890113!4d126.4983023?hl=ko">제주도 한눈에보기</a></li>
 					<li>
-						<a href="${pageContext.request.contextPath}/chat/chat_Room?no=0" class="position-relative">
+						<a href="${pageContext.request.contextPath}/chat/chat_Room?crewId=0" class="position-relative">
 						<i class="fa-brands fa-rocketchat"></i>
 							채팅
 						</a>

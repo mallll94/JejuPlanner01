@@ -8,13 +8,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script type="text/javascript">
+<script type="text/javascript">
   
      $(function() {
     	 
 	    	    $(document).on("click","#delete", function(){
 	             
-    		   	$("#requestForm").attr("action", "${pageContext.request.contextPath}/admin/freeBoard_delete/"+$(this).val());
+    		   	$("#requestForm").attr("action", "${pageContext.request.contextPath}/mypage/crew_delete/"+$(this).val());
     			$("#requestForm").submit();   	
 	            });
     	  
@@ -27,7 +27,7 @@
           <div class="white_shd full margin_bottom_30">
              <div class="full graph_head">
                 <div class="heading1 margin_0">
-                   <h2>관리자 소통게시판 관리</h2>
+                   <h2>My 동행구하기게시판</h2>
                 </div>
              </div>
               <form name="requestForm" method="post" id="requestForm">	
@@ -36,20 +36,22 @@
 	                   <table class="table">
 	                      <thead>
 	                         <tr>
-	                            <th>순서</th>
-	                            <th>작성자</th>
+	                            <th>순서</th>                           
 	                            <th>제목</th>
-	                            <th>등록일</th>                      
+	                            <th>등록일</th>
+	                            <th>수정일</th>
+	                            <th>답변완료<th>                         
 	                         </tr>
 	                      </thead>	                   
-	           			  <c:forEach items="${requestScope.pageList.content}" var="freeboard"> 	           	           			 
+	           			  <c:forEach items="${requestScope.pageList.content}" var="crewboard">   	           	           			 
 		                      <tbody>
 		                      	<tr>
-		                         	<td>${freeboard.freeId}</td>
-		                         	<td>${freeboard.user}</td>
-		                            <td> <span><a href="${pageContext.request.contextPath}/board/freeBoard_Detail/${freeboard.freeId}">${freeboard.freeTitle}</a></span></td>
-		                            <td>${freeboard.freeRegdate}</td>  		                         		              	                       
-		                            <td><button type="button" class="btn btn-primary" value="${freeboard.freeId}" id="delete">삭제하기</button></td> 
+		                         	<td>${crewboard.crewId}</td>
+		                            <td> <span><a href="${pageContext.request.contextPath}/board/crew_Detail/${crewboard.crewId}">${crewboard.crewTitle}</a></span></td>
+		                            <td>${crewboard.crewRegdate}</td>  
+		                            <td>${crewboard.crewUpdate}</td>  
+		                            <td>${crewboard.crewState}</td>  		              	                       
+		                            <td><button type="button" class="btn btn-primary" value="${crewboard.crewId}" id="delete">삭제하기</button></td> 
 		                         </tr>
 		                      </tbody>		             
 		                  </c:forEach>
@@ -60,7 +62,7 @@
           </div>
        </div>
        
-<div class="row">
+ <div class="row">
   <div class="container">
       <div class="row">
           <div class="col-lg-12 text-center">
@@ -68,30 +70,30 @@
                   <ul>
                     <c:set var="doneLoop" value="false"/>
                       <c:if test="${(startPage-blockCount) > 0}"> <!-- (-2) > 0  -->
-                        <a href="${pageContext.request.contextPath}/admin/freeBoard_Admin?nowPage=${startPage-1}">Prev</a>
+                        <a href="${pageContext.request.contextPath}/mypage/myCrewboard?nowPage=${startPage-1}">Prev</a>
                       </c:if>
                       <c:forEach var='i' begin='${startPage}' end='${(startPage-1)+blockCount}'> 
                         <c:if test="${(i-1)>=pageList.getTotalPages()}"> <!-- 페이지가 전체페이지보다 크다면 -->
                           <c:set var="doneLoop" value="true"/> <!-- 다음페이지 돌지마라 -->
                         </c:if> 
                         <c:if test="${not doneLoop}" > <!-- 다음페이지가 없으면 -->
-                          <a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/admin/freeBoard_Admin?nowPage=${i}">${i}</a>
+                          <a class="paginate_button <c:if test='${nowPage eq i}'>active</c:if>" href="${pageContext.request.contextPath}/mypage/myCrewboard?nowPage=${i}">${i}</a>
                         </c:if>
                       </c:forEach>
                                  <!-- <li><a class="active" href="#">2</a></li>
                                  <li><a href="#">3</a></li> -->
                      <c:if test="${(startPage+blockCount)<=pageList.getTotalPages()}">
-                      <a href="${pageContext.request.contextPath}/admin/freeBoard_Admin?nowPage=${startPage+blockCount}">Next</a>
+                      <a href="${pageContext.request.contextPath}/mypage/myCrewboard?nowPage=${startPage+blockCount}">Next</a>
                      </c:if>
                  </ul>
              </div>
          </div>
      </div>
   </div>
-</div>        
+</div>  
        
        
        
        
-</body>
+	</body>
 </html>

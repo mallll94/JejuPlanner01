@@ -35,7 +35,7 @@
       </a>
     </li>
     <li class="menu-item">
-      <a href="/user/myPage" class="menu-link">
+      <a href="${pageContext.request.contextPath}/planner/plannerIndex" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div data-i18n="Basic">MY플래너</div>
       </a>
@@ -48,8 +48,8 @@
     </li>
         <div class="collapse" id="collapsePages4" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
             <nav class="sb-sidenav-menu-nested nav">
-                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;소통 게시판</a>
-                <a class="nav-link" href=""><i class="fa-solid fa-play"></i>&nbsp;&nbsp;동행구하기 게시판</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/mypage/myFreeboard"><i class="fa-solid fa-play"></i>&nbsp;&nbsp;소통 게시판</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/mypage/myCrewboard"><i class="fa-solid fa-play"></i>&nbsp;&nbsp;동행구하기 게시판</a>
                 <a class="nav-link" href="/mypage/myplanboard"><i class="fa-solid fa-play"></i>&nbsp;&nbsp;플래너공유 게시판</a>
             </nav>
         </div>

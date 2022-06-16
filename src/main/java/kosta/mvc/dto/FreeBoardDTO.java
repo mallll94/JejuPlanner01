@@ -22,4 +22,6 @@ public class FreeBoardDTO {
 	private int freeReadnum;
 	private String freeRegdate;
 	private String freeUpdate;
+	
+
 }
