@@ -64,13 +64,13 @@
             var loginUser='${sessionScope.loginUser.userId}'
 
             $(document).on("click","#create-planner-bnt",function(){
-					if(!loginUser){
-						alert("로그인 후 이용해 주십시오")
-					}else{
-						//let url = `${pageContext.request.contextPath}/planner/plannerWrite`
-						//location.replace(url)
-                        alert("플래너작성하기")
-					}
+					// if(!loginUser){
+					// 	alert("로그인 후 이용해 주십시오")
+					// }else{
+						let url = `${pageContext.request.contextPath}/planner/plannerWrite`
+						location.replace(url)
+                       // alert("플래너작성하기")
+					//}
 				})
 
             //추천상품
