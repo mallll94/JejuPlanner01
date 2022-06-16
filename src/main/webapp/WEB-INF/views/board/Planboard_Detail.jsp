@@ -459,7 +459,7 @@ $(function(){
         //alert("댓글유저아이디~~"+replyId)
         var pboardReplyId =$(this).attr("pboardReplyId")
         //alert(replyNo)
-
+		
         //세션에서 로그인한 유저와 댓글 작성자 id가 일치하는지 확인
         if(loginUser==replyId){
             $.ajax({

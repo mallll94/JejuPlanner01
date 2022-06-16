@@ -67,7 +67,7 @@ public class CrewController {
 	@RequestMapping("/board/crew")
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage) {
 		
-		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		

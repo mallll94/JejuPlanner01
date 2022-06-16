@@ -79,7 +79,7 @@ $(function(){
 					if(bookTiem< maxDay ){
 						state="기간만료";
 					}
-					
+					var price =result.orderLine[index].orderLinePrice.toLocaleString('ko-KR')+"₩";
 					data+=`<h5 class='property-title mb-3'>${'${result.goodsLine[index].goodsLineDate}'}</h5>`;
 					data+=`<div class='single-property-item'>`;
 					data+=`<div class='row'>`;
@@ -93,7 +93,7 @@ $(function(){
 					data+=`<h5 class='r-title'>${"${item.goodsName}"}</h5>`;  
 					data+=`<div class='room-price'>`;   
 					data+=`<span>가격</span>`;
-					data+=`<h5>${"${result.orderLine[index].orderLinePrice}"}</h5></div>`;
+					data+=`<h5>${"${price}"}</h5></div>`;
 					data+=`<div class='properties-location'><i class='icon_pin'></i>${"${item.goodsAddr}"}</div>`;
 					data+=`<p>${"${item.goodsContent}"}</p></div></div>`;
 					data+=`<div class='col-lg-3'>`;

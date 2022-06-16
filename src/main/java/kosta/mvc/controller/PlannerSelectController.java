@@ -58,7 +58,7 @@ public class PlannerSelectController {
 		}
 		map.put("planner", planner ); //
 		map.put("plannerPlaces",  list);
-		map.put("dayNo", period.getDays());
+		map.put("dayNo", period.getDays()+1);
 		map.put("place", place);
 		
 		return map;
