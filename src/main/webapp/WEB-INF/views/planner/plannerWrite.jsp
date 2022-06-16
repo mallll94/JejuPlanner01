@@ -109,12 +109,13 @@ pageEncoding="UTF-8"%>
 					strokeWeight:5
 				})
 				line.setMap(mymap);
+				
 			}
 
 			//선삭제
 			function removeRoute(){
-				lineArr=[];
-				line.setMap(mymap)
+				
+				line.setMap(null)
 			}
 
 
@@ -511,6 +512,7 @@ pageEncoding="UTF-8"%>
 						data: {plannerplaceId: targetDeletePlan},
 						success: function(){
 							selectPlaceByMyPlanner();
+							initMap();
 						},
 						error: function(){
 							alert("일정을 삭제하지 못했습니다.")
