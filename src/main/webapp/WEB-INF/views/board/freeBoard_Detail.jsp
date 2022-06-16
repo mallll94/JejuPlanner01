@@ -28,22 +28,7 @@
    
 
 
-<style>
-    .free-bottom-area{
-        display: flex;
-		justify-content: space-between;
-		padding: 25px;
-		margin-bottom: 20px;
-    }
-    
-    
-    .comments-list-wrap{margin: 0;} 
-	.comment-user{margin:0;}
-	.comment-content{margin-right: 5px;}
-   .comment-text-body{
-    word-wrap: break-word;
-   }
-</style>
+
 <script type="text/javascript">
 
 $(function(){
@@ -196,7 +181,20 @@ $(function(){
 
 </script>
 <style>
-
+.free-bottom-area{
+        display: flex;
+		justify-content: space-between;
+		padding: 25px;
+		margin-bottom: 20px;
+    }
+    
+    
+    .comments-list-wrap{margin: 0; padding: 20px;} 
+	.comment-user{margin:0;}
+	.comment-content{margin-right: 5px;}
+   .comment-text-body{
+    word-wrap: break-word;
+   }
 .board-area{
     width: 1000px
 }
@@ -321,7 +319,7 @@ $(function(){
                                 </c:choose>
                             </div>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent"></textarea>
-                            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn">댓글 등록하기</button>
+                            <button type="button" class="btn btn-dark mt-3" id="reply-insert-btn"  style="float: right;">댓글 등록하기</button>
                         </div>
                     </div> 	
                 </div>
