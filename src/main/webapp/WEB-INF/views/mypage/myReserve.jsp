@@ -174,7 +174,7 @@ $(function(){
 	//후기 보러가는거
 	$(document).on("click", "#replySelect", function(){
 		var goodsId = $(this).val();
-		location.href = "${pageContext.request.contextPath}/view/goods_View/" + goodsId;
+		location.href = "${pageContext.request.contextPath}/goods/view/goods_View/" + goodsId;
 	})
 	
 	$(document).on("click","#ask",function(){
