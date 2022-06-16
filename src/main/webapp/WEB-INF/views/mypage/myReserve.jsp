@@ -34,25 +34,41 @@
 	    .search-btn {
 		width: 100%;
 		font-size: 16px;
-		height: 25px;
-		background: #fe9f29;
-		color: #ffffff;
+		height: 32px;
+		background: gray;
+		color: white;
 		border: none;
-		border: 1px solid #fe9f29;
+		
 		border-radius: 0.3rem;
 		cursor: pointer;
+		}
+		
+		.property-list {
+			margin-left: 30px;
+		
 		}
     </style>
 <script type="text/javascript">
 
 $(function(){
 	
-	function selctAll(){
+	$(document).on("click","#nowPage", function(){
+		if($(this).text() == "NEXT"){
+			selctAll($("#NextPage").val())
+		}else if($(this).text() == "PREV"){
+			selctAll($("#PrevPage").val())
+		}else{
+			selctAll($(this).text())
+		}
+	});
+	
+	
+	function selctAll(paramNowPage){
 		$.ajax({
 			url: "${pageContext.request.contextPath}/user/reserveAll",
 			type: "post",
 			dataType: "json",
-			data: { '${_csrf.parameterName}' : '${_csrf.token}' },
+			data: { '${_csrf.parameterName}' : '${_csrf.token}', nowPage :paramNowPage },
 			success: function(result){
 				var now = new Date();
 				var year = now.getFullYear();
@@ -63,7 +79,7 @@ $(function(){
 				var test = new Date(maxDay);
 				//alert(test)
 				var data = "";
-
+				console.log(result);
 				$.each(result.goods,function(index,item){//${"${item.goodsPhoto}"}
 					var state = "";
 					if(result.orderLine[index].orderLineState =="BU"){
@@ -79,15 +95,16 @@ $(function(){
 					if(bookTiem< maxDay ){
 						state="기간만료";
 					}
+					console.log(result.orderLine[index]);
 					var price =result.orderLine[index].orderLinePrice.toLocaleString('ko-KR')+"₩";
 					data+=`<h5 class='property-title mb-3'>${'${result.goodsLine[index].goodsLineDate}'}</h5>`;
 					data+=`<div class='single-property-item'>`;
 					data+=`<div class='row'>`;
-					data+=`<div class='col-md-2'>`;
+					data+=`<div class='col-md-3'>`;
 					data+=`<div class='property-pic'>`;
 					data+=`<img src='${pageContext.request.contextPath}/img/place/7dbf3d3f-efa4-430d-a05f-8b5598631638Do.jpg' alt='상품사진'>`;
 					data+=`</div></div>`;
-					data+=` <div class='col-md-7'>`;
+					data+=` <div class='col-md-6'>`;
 					data+=`<div class='property-text'>`;
 					data+=`<div class='s-text'>${"${state}"}</div>`;
 					data+=`<h5 class='r-title'>${"${item.goodsName}"}</h5>`;  
@@ -97,14 +114,49 @@ $(function(){
 					data+=`<div class='properties-location'><i class='icon_pin'></i>${"${item.goodsAddr}"}</div>`;
 					data+=`<p>${"${item.goodsContent}"}</p></div></div>`;
 					data+=`<div class='col-lg-3'>`;
-					data+=`<button type='button' class='search-btn mb-4' id='reply' value=''>후기 작성</button>`;
 					data+=`<button type='button' class='search-btn mb-4' id='ask' value=''>1대1 문의</button>`;
+					
+					
+					if(result.replyCheck[index] ==0){
+						data+=`<button type='button' class='search-btn mb-4' id='reply' value='${"${result.goods[index].goodsId}"}'>후기 작성</button>`;
+					}else{
+						data+=`<button type='button' class='search-btn mb-4' id='replySelect' value='${"${result.goods[index].goodsId}"}'>후기 보러가기</button>`;
+					}
+					
+					
+					
+					
 					data+=`<button type='button' class='search-btn mb-4' id='cancle' value='${"${result.orderLine[index].orderLineId}"}'>예약 취소</button>`;
 					if(state=="환불"){
 						data+=`<button type='button' class='search-btn mb-4' id='delete' value='${"${result.orderLine[index].orderLineId}"}'>삭제</button>`;
 					}
 					data+=`</div></div></div>`;    
 				})
+				var paging ="";
+				if((result.startPage-result.blockCount) > 0){	
+					paging +=`<a class='pagination-newer' href='#' id='nowPage'>PREV</a>`
+					paging +=`<input type='hidden' id='PrevPage' value=${'${result.startPage-1}'}>`;
+				}	
+				paging +=`<span class='pagination-inner'>`;
+			    for(let i=result.startPage ; i<=(result.startPage-1)+result.blockCount ;i++ ){
+			    	if((i-1) >= result.totalPages)break
+			    	paging +=`<a class='${i==nowPage?"pagination-active":page}' href='#'  id='nowPage'>${"${i}"}</a>`;
+			    	
+			    }
+				paging +=`</span>`;
+				if((result.startPage+result.blockCount)<=result.totalPages){	
+					paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
+					paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
+				}	
+
+				$("#paging").html(paging);
+				
+				
+				
+				
+				
+				
+				
 				$("#myOrder").html(data);
 			},
 			error: function(error){
@@ -113,7 +165,17 @@ $(function(){
 		})
 	}
 	selctAll();
+	//후기작성
+	$(document).on("click", "#reply", function(){
+		var goodsId = $(this).val();
+		location.href = "${pageContext.request.contextPath}/review/mypage/goodsReply_Write/" + goodsId;
+	})
 	
+	//후기 보러가는거
+	$(document).on("click", "#replySelect", function(){
+		var goodsId = $(this).val();
+		location.href = "${pageContext.request.contextPath}/view/goods_View/" + goodsId;
+	})
 	
 	$(document).on("click","#ask",function(){
 		
@@ -164,6 +226,17 @@ $(function(){
                 </div>
             </div>
         </div>
+        
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="pagination-wrap" id="paging"> 
+					          
+					</div>
+				</div>
+			</div>
+		</div>
+		
     </section>
     
     <!-- 예약 취소 모달-->

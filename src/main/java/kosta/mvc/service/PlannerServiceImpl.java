@@ -44,13 +44,21 @@ public class PlannerServiceImpl implements PlannerService {
 		QPlanner planner = QPlanner.planner;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(planner.user.userId.eq(userId));
-		builder.and(planner.plannerState.eq("Y"));
-		//List<Planner> allList=(List<Planner>)plannerRep.findAll(builder);
 		//plannerState가 Y 인것만 검색 
-		//BooleanBuilder builder2 = new BooleanBuilder();
-		//builder2.and(builder2)
+		builder.and(planner.plannerState.eq("Y"));
+
 		Page<Planner> plist = plannerRep.findAll(builder,pageable);
 		System.out.println("servie :: "+ plist.getSize());
+		return plist;
+	}
+	
+	@Override
+	public Page<Planner> selectAllDiaryPageing(Pageable pageable, String userId) {
+		//userId별 검색
+		QPlanner planner = QPlanner.planner;
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.and(planner.user.userId.eq(userId));
+		Page<Planner> plist = plannerRep.findAll(builder,pageable);
 		return plist;
 	}
 

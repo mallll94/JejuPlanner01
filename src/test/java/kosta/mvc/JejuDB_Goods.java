@@ -48,9 +48,9 @@ public class JejuDB_Goods {
 		Place place3 = placeRep.findById(3L).orElse(null); //금능해수욕장
 		Place place4 = placeRep.findById(4L).orElse(null); //제주신라호텔
 		Place place5 = placeRep.findById(5L).orElse(null); //그랜드하얏트제주
-		goodsRep.save(new Goods(null, place1, "성산/우도", "액티비티", "제주레일바이크 이용권", 15000, "푸른 제주도 자연을 느껴보세요~!", null, "제주특별자치도 제주시 구좌읍 용눈이오름로 641"));
-		goodsRep.save(new Goods(null, place2, "제주시", "액티비티", "쇠소깍 배낚시 캡틴호 주간 체험 배낚시 3시간", 28500, "제주도의 푸른 바다에서 친구, 가족, 연인과 함께 아름다운 추억을 만들어 보세요!", null, "제주특별자치도 서귀포시 효돈동 쇠소깍로 138"));
-		goodsRep.save(new Goods(null, place3, "애월", "대여", "파라솔 캠핑&피크닉팩/24시간 대여", 33000, "2인 기준 1세트 가격입니다.⛱", null, "욜로올레제주 (제주특별자치도 제주시 애월읍 하가리 1407-3)"));
+		//goodsRep.save(new Goods(null, place1, "성산/우도", "액티비티", "제주레일바이크 이용권", 15000, "푸른 제주도 자연을 느껴보세요~!", null, "제주특별자치도 제주시 구좌읍 용눈이오름로 641"));
+		//goodsRep.save(new Goods(null, place2, "제주시", "액티비티", "쇠소깍 배낚시 캡틴호 주간 체험 배낚시 3시간", 28500, "제주도의 푸른 바다에서 친구, 가족, 연인과 함께 아름다운 추억을 만들어 보세요!", null, "제주특별자치도 서귀포시 효돈동 쇠소깍로 138"));
+		//goodsRep.save(new Goods(null, place3, "애월", "대여", "파라솔 캠핑&피크닉팩/24시간 대여", 33000, "2인 기준 1세트 가격입니다.⛱", null, "욜로올레제주 (제주특별자치도 제주시 애월읍 하가리 1407-3)"));
 	}
 	
 	/**상품 상세*/

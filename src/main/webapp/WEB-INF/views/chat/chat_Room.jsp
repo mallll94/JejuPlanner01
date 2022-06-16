@@ -377,7 +377,7 @@ $(function(){
 			var chroom ="";
 			var rId = "";
 			if($("#send").val() ==null || $("#send").val() == ""){
-				chroom =${param.no};
+				chroom =${param.crewId};
 				$("#fristreceId").val();
 				rId ='${param.receId}';
 			}else{

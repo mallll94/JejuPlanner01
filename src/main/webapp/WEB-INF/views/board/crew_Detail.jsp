@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
@@ -164,30 +164,36 @@ $(function(){
 })
 
 
-        $(function() {
-	
-        	$("input[name=btnradio]").click(function(){
-        	      var crewState=$(this).val()
-        	      console.log("변경상태"+crewState)
-        	      var crewId = "${crewboard.crewId}"
-        	      let url = "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState
-        	      location.replace(url);
-        	         // $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState);
-        	         // $("#requestForm").submit();
-        	         
-        	      })
+$(function() {
+	 	var loginUser='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}'
+	 	
+		$("input[name=btnradio]").click(function(){
+        		
+			if(loginUser==$(this).attr("mal")){
+				var crewState=$(this).val()
+				console.log("변경상태"+crewState)
+				var crewId = "${crewboard.crewId}"
+				let url = "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState
+				location.replace(url);
+      	         // $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_Detail/changeState?crewId="+crewId+"&btnradio="+crewState);
+      	         // $("#requestForm").submit();
+			}else{
+				alert("자신이 작성한 게시물만 수정 가능합니다.");
+			}
+		})
 		
-        $(document).on("click","#delete", function(){
-	             
-    		   	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_delete/"+$(this).val());
-    			$("#requestForm").submit();   	
-	            });
+         $(document).on("click","#delete", function(){
+        	 
+	        if(loginUser==$(this).attr("name")){
+	        	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_delete/"+$(this).val());
+	    		$("#requestForm").submit();   
+	        }else{
+	        	alert("자신이 작성한 게시물만 수정 가능합니다.");
+	        }
+	        
+    			
+	     });
         	
-       	 $("button[value=수정]").click(function() {
-                $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_updateForm");
-              $("#requestForm").submit();
-           })
-        
           
           // 동행구하기 여부
          
@@ -198,9 +204,26 @@ $(function(){
        	  } else {
        		document.getElementById('btnradio1').checked = true;
        	  }
-           
 
-	
+       	 $("button[value=수정]").click(function(){
+       		
+       		
+       		 
+       		if(loginUser==$(this).attr("name")){
+            $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_updateForm");
+            $("#requestForm").submit();
+       		}else{
+       			alert("자신이 작성한 게시물만 수정 가능합니다.");
+       		}
+         })
+        	
+   
+           		
+	     $("#message").click(function(){
+	    	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/chat/chat_Room");
+	    	 $("#requestForm").submit();
+	     })
+
 })
         
 </script>
@@ -215,10 +238,10 @@ $(function(){
       <br>
       <br>
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="width: 400px; margin-left: 50px"  >
-       	  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: orange;">
+       	  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: orange;" mal="${crewboard.user.userId}">
 		  <label class="btn btn-outline-primary" for="btnradio1">🙎‍♂️동행구하는 중</label>
 		    
-		  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio2" autocomplete="off" value="Y"data-bs-toggle="modal" data-bs-target="#exampleModal2">
+		  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio2" autocomplete="off" value="Y"data-bs-toggle="modal" data-bs-target="#exampleModal2" mal="${crewboard.user.userId}">
 		  <label class="btn btn-outline-primary" for="btnradio2">🧑‍🤝‍🧑동행구하기 완료</label>
 	  </div>	
       <div class="card-body">
@@ -235,13 +258,18 @@ $(function(){
 		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()" >목록보기</button>  
 		    </div> 
 		    
-		    <div> 
+		    <div > 
 			    <form name="requestForm" method="post" id="requestForm">
 			     <input type="hidden" name="crewId" value="${crewboard.crewId}">
-		         <button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정하기</button>
-		         <button type="button" class="btn btn-outline-dark shadow-none" value="${crewboard.crewId}" id="delete">삭제하기</button>
+			     <input type="hidden" name="receId" value='${receId}'>
+		         <button type="button" class="btn btn-outline-dark shadow-none" name="${crewboard.user.userId}" value="수정">수정하기</button>
+		         <button type="button" class="btn btn-outline-dark shadow-none" name="${crewboard.user.userId}" value="${crewboard.crewId}" id="delete">삭제하기</button>
+		         <button type="button" id="message" class="btn btn-outline-dark shadow-none" name="${crewboard.user.userId}" value="쪽지 보내기">쪽지 보내기</button>
+		         
 		        </form>
-	        </div> 
+		        
+	        </div>
+	        
           </div>  
        </div>       
     </div>
@@ -290,11 +318,7 @@ $(function(){
 
 
 
-<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
-<input type="hidden" name="no" value='${crewboard.crewId}'>
-<input type="hidden" name="receId" value='${receId}'>
-<input type="submit" value="쪽지 보내기">
-</form>
+
 
 
 

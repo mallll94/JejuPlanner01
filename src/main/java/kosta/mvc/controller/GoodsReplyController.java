@@ -61,26 +61,35 @@ public class GoodsReplyController {
 	
 	/**
 	 * 후기 작성 폼
+	 * @throws Exception 
 	 */
-	@RequestMapping("/mypage/goodsReply_Write")
-	public void write() {
+	@RequestMapping("/mypage/goodsReply_Write/{goodsId}")
+	public ModelAndView write(@PathVariable Long goodsId, Model model) throws Exception {
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
+		model.addAttribute("goods", goods);
+		return new ModelAndView("/mypage/goodsReply_Write");
 	}
 	
 	/**
 	 * 글 등록 폼
+	 * @throws Exception 
 	 **/
 	@RequestMapping("/mypage/goodsReply_Insert")
-	public String insert(GoodsReply goodsReply, HttpSession session) {
+	public String insert(Long goodsId, int goodsReplyStart, String goodsReplyContent, HttpSession session) throws Exception {
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		GoodsReply goodsReply = new GoodsReply();
+		goodsReply.setGoodsReplyStart(goodsReplyStart);
+		goodsReply.setGoodsReplyContent(goodsReplyContent);
 		goodsReply.setUser(users);
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
+		goodsReply.setGoods(goods);
 		
 		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/goodsReply/";
 		goodsReplyService.addGoodsReply(goodsReply, uploadPath);
 		
 		System.out.println("=====등록완료하고 다시 목록으로 돌아가기==========");
-		return "redirect:/mypage/myReserve";
+		return "redirect:/user/myReserve";
 		
 	}
 	

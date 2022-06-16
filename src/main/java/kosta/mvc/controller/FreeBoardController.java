@@ -52,10 +52,13 @@ public class FreeBoardController {
 		
 		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
 		List<FreeBoard> list = pageList.getContent();
+        List<FreeBoardDTO> freelist =new ArrayList<FreeBoardDTO>();
 		
-		List<FreeBoardDTO> freelist = list.stream()
-										.map((f) -> FreeBoardDTO.of(f, format))
-										.collect(Collectors.toList());
+		for(FreeBoard f:list) {
+			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
+					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
+		}
+ 		
  		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
@@ -97,19 +100,25 @@ public class FreeBoardController {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Page<FreeBoard> myfree = freeBoardService.selectByUserId(users.getUserId(), nowPage, PAGE_COUNT);
+		Page<FreeBoard> pageList = freeBoardService.selectByUserId(users.getUserId(), nowPage, PAGE_COUNT);
+		List<FreeBoard> list = pageList.getContent();
+		List<FreeBoardDTO> freelist =new ArrayList<FreeBoardDTO>();
 		
-		Page<FreeBoardDTO> pageList = myfree.map((f) -> FreeBoardDTO.of(f, format));
-		
+		for(FreeBoard f:list) {
+			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
+					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
+		}
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
 		
 		 model.addAttribute("pageList",pageList);
 		 model.addAttribute("users",users);
+	     model.addAttribute("totalPage",pageList.getTotalPages());
 		 model.addAttribute("blockCount", BLOCK_COUNT);
 	     model.addAttribute("startPage", startPage);
 	     model.addAttribute("nowPage", nowPage);
-		   
+		 
+	     
 		 return "mypage/myFreeboard";
         
  
@@ -169,9 +178,11 @@ public class FreeBoardController {
 	public ModelAndView read(@PathVariable Long freeId) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		FreeBoard dbfreeBoard = freeBoardService.getFreeBoard(freeId, true);
-		FreeBoardDTO freeBoard = FreeBoardDTO.of(dbfreeBoard, format);
+		FreeBoardDTO freeBoard = new FreeBoardDTO(dbfreeBoard.getFreeId(), dbfreeBoard.getUser().getUserId(), dbfreeBoard.getFreeCategory(),
+				dbfreeBoard.getFreeTitle(), dbfreeBoard.getFreeContent(), dbfreeBoard.getFreeAttach(), dbfreeBoard.getFreeReadnum(), dbfreeBoard.getFreeRegdate().format(format), dbfreeBoard.getFreeUpdate().format(format));
 		return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
 	}
+	
 	
 	/**
 	 * 수정폼
@@ -186,12 +197,13 @@ public class FreeBoardController {
 	/**
 	 * 수정하기
 	 **/
-    @RequestMapping(value = "board/freeBoard_update", method = RequestMethod.POST)
-    public ModelAndView update(FreeBoard freeBoard, HttpSession session) {
-    	   	
+	@RequestMapping(value = "board/freeBoard_update", method = RequestMethod.POST)
+    public ModelAndView update(FreeBoard freeboard, HttpSession session) {
+    	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"); 	
     	String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
-    	FreeBoard dbBoard = freeBoardService.updateFreeBoard(freeBoard, uploadPath);
-    	
+    	FreeBoard dbfreeBoard = freeBoardService.updateFreeBoard(freeboard, uploadPath);
+    	FreeBoardDTO freeBoard = new FreeBoardDTO(dbfreeBoard.getFreeId(), dbfreeBoard.getUser().getUserId(), dbfreeBoard.getFreeCategory(),
+				dbfreeBoard.getFreeTitle(), dbfreeBoard.getFreeContent(), dbfreeBoard.getFreeAttach(), dbfreeBoard.getFreeReadnum(), dbfreeBoard.getFreeRegdate().format(format), dbfreeBoard.getFreeUpdate().format(format));
     	return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
     }
 	

@@ -37,14 +37,12 @@ import lombok.RequiredArgsConstructor;
 public class PlanBoardController {
 
    private final PlanBoardService planBoardService;
-   private final UserService userService;
    private final PlannerService plannerService;
    
    
-   private final static int PAGE_COUNT=6;
-   private final static int BLOCK_COUNT=3;
+   private final static int PAGE_COUNT=10;
+   private final static int BLOCK_COUNT=5;
    
-   private final static int RANK_COUNT=6;
 
 
    /**전체검색 & 카테고리 & 페이징*/
@@ -90,19 +88,35 @@ public class PlanBoardController {
    @RequestMapping("/board/Planboard_Detail/{pboardId}")
    public String read(@PathVariable Long pboardId , Model model) {
 
-	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	  //Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   
-      PlanBoard planBoard = planBoardService.selectById(pboardId);
-      boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
+      PlanBoard p = planBoardService.selectById(pboardId);
+      //boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
 
-      model.addAttribute("isChecked", isChecked);         
-
+      //model.addAttribute("isChecked", isChecked); 
+      
+      //DTO변환
+      DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+      PlanBoardDTO planBoard= new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(),p.getUser().getUserId(), p.getUserPlan().getPlannerCount(),
+   				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount());
+      
       model.addAttribute("planBoard" , planBoard);
-
-      System.out.println("나와라");
-
       return "/board/Planboard_Detail";
 
+   }
+   @RequestMapping("/checkLike")
+   @ResponseBody
+   public int checkLike(Long pboardId ,String userId) {
+	   if(userId==null) {
+		   return 2; //비회원
+	   }else {
+		   boolean isChecked = planBoardService.selectByBoardId(pboardId, userId); 
+		   if(isChecked) {
+			   return 1; //좋아요 눌렀음
+		   }else {
+			   return 0; //좋아요 안눌렀음
+		   }
+	   }
    }
 
    /**좋아요*/
@@ -159,7 +173,7 @@ public class PlanBoardController {
 	  System.out.println("pboardupdate00");
       String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
       PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
-
+      
       System.out.println("pboardupdate");
 
       return "redirect:/board/Planboard_Detail/" + dbBoard.getPboardId();
@@ -218,21 +232,5 @@ public class PlanBoardController {
    }
    
    
-   /**추천플래너 6개(좋아요순)*/
-   @RequestMapping("/board/recommend")
-   @ResponseBody
-   public List<PlanBoardDTO> recommentPlan(){
-	   DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-	   //순위구하기
-	   Pageable pageable = PageRequest.of(0, RANK_COUNT,Direction.DESC,"likesCount");
-	   List<PlanBoard> plist =planBoardService.recommendPlan(pageable);
-	   List<PlanBoardDTO> planboardlist = new ArrayList<PlanBoardDTO>();
-	   
-	   for(PlanBoard p:plist) {
-		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(), p.getUserPlan().getPlannerCount(),
-				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount()));
-	   }
-	   
-	   return planboardlist;
-   }
+   
 }

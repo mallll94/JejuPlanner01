@@ -16,10 +16,13 @@ import kosta.mvc.dto.PlannerPlaceDTO;
 public interface PlannerService {
 
 	/**
-	 * 플래너 목록 전체 검색
+	 * 플래너 목록 전체 검색(state가 "Y"인것만)
 	 * */
 	Page<Planner> selectAllByUserIdPageing(Pageable pageable,String userId);
-	
+	/**
+	 * 전체 플래너 검색(다이어리용)
+	 * */
+	Page<Planner> selectAllDiaryPageing(Pageable pageable,String userId);
 	/**
 	 * 플래너 상세 검색
 	 * */

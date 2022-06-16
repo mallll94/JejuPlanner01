@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.GoodsLine;
+import kosta.mvc.domain.GoodsReply;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Users;
@@ -31,6 +33,7 @@ import kosta.mvc.dto.GoodsLineDTO;
 import kosta.mvc.dto.OrderDTO;
 import kosta.mvc.dto.OrderLineDTO;
 import kosta.mvc.service.GoodsLineService;
+import kosta.mvc.service.GoodsReplyService;
 import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.OrderLineService;
 import kosta.mvc.service.OrdersService;
@@ -49,6 +52,10 @@ public class UserController {
 	private final OrderLineService orderLineService;
 	private final GoodsService goodsService;
 	private final GoodsLineService goodsLineService;
+	private final GoodsReplyService goodsReplyService;
+	
+	private final static int PAGE_COUNT=3;
+	private final static int BLOCK_COUNT=4;
 	
 	@RequestMapping("/{url}")
 	public void init() {}
@@ -190,6 +197,77 @@ public class UserController {
 	
 	@RequestMapping("/reserveAll")
 	@ResponseBody
+	public Map<String, Object> myReserveSelect(@RequestParam(defaultValue = "1")int nowPage)  throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(nowPage+"현재ㅔ페이지 주소찍기");
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		Page<OrderLine> orderLine=ordersService.getOrdersByUserIdPage(users.getUserId(),nowPage,PAGE_COUNT);
+
+		List<OrderLineDTO> resultOrderLine = new ArrayList<OrderLineDTO>();
+		
+		List<GoodsLineDTO> resultGoodsLine = new ArrayList<GoodsLineDTO>();
+		
+		List<GoodsDTO> resultGoods	= new ArrayList<GoodsDTO>();
+		
+		List<Integer> replyCheck = new ArrayList<Integer>();
+		//내가 가지고있는 상품목록 뿌리기
+
+		for(OrderLine result : orderLine ) {
+			//
+			
+			List<GoodsReply> goodsReplyCheck =goodsReplyService.selectByGoodsReplyCheck(result.getGoodsLine().getGoods().getGoodsId(),users.getUserId());
+			
+			//System.out.println(goodsReplyCheck.size()+"000나와라");
+			replyCheck.add(goodsReplyCheck.size());
+			
+			
+			
+			OrderLineDTO dto = new OrderLineDTO(result.getOrderLineId(), null, null, result.getOrderLineAmount(), result.getOrderLinePrice(), result.getOrderLineState());
+			resultOrderLine.add(dto);
+			
+			GoodsLine goodsLine = goodsLineService.goodsLineSelect(result.getGoodsLine().getGoodsLineId());
+
+			GoodsLineDTO goodsLineDto = new GoodsLineDTO(goodsLine.getGoodsLineId(), null, goodsLine.getGoodsLineAmount(), goodsLine.getGoodsLineDate());	
+
+			resultGoodsLine.add(goodsLineDto);
+		}
+		for(GoodsLineDTO x : resultGoodsLine) {
+			
+			GoodsLine goodsLine = goodsLineService.goodsLineSelect(x.getGoodsLineId());
+			
+			Goods goods = goodsService.getGoodsByGoodsId(goodsLine.getGoods().getGoodsId());
+			
+			GoodsDTO goodsDTO = new GoodsDTO(goods.getGoodsId(), null, goods.getGoodsLocalCategory(), goods.getGoodsCategory(), goods.getGoodsName(), goods.getGoodsPrice(), goods.getGoodsContent(), goods.getGoodsPhoto(), goods.getGoodsAddr());
+			resultGoods.add(goodsDTO);
+		}
+		
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage =nowPage-temp;
+		
+		System.out.println("goods : "+resultGoods.size()+"| goodsLine : "+resultGoodsLine.size() +" | orderLine : "+resultOrderLine.size());
+		
+		/////상품후기 여부 
+		
+		
+		map.put("replyCheck",replyCheck);
+		map.put("totalPages", orderLine.getTotalPages());
+		map.put("nowPage", nowPage);
+		map.put("blockCount", BLOCK_COUNT);
+		map.put("startPage", startPage);
+		
+		map.put("goods", resultGoods);
+		map.put("goodsLine",resultGoodsLine);
+		map.put("orderLine", resultOrderLine);
+		
+		return map;
+	}
+	
+	
+	/*
+	 @RequestMapping("/reserveAll")
+	@ResponseBody
 	public Map<String, Object> myReserveSelect()  throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -251,6 +329,11 @@ public class UserController {
 		
 		return map;
 	}
+	 * */
+	
+	
+	
+	
 	
 	@RequestMapping("/cancleOrder")
 	public String cancleOrder(Long orderLineId) {

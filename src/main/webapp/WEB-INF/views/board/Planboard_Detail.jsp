@@ -91,7 +91,7 @@
 	}
 	.planner-days{
 		color: white;
-		width: 100px;
+		width: 200px;
 		outline: none;
 		text-align: center;
 		font-size: medium;
@@ -180,7 +180,7 @@ $(function(){
 				let card = "";
 				var name = result.planner.plannerName;
 				var dayNo = result.dayNo;			
-				var dayNoLi = "<option value='0'>✏️일정</option>";
+				var dayNoLi = "<option value='0'>✏️전체일정</option>";
 
 				var saveDayNo= result.dayNo;
 
@@ -358,12 +358,12 @@ function removeRoute(){
 
 $(function(){
 
-    var target ='${planBoard.pboardId}'
-    var loginUser='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}' //세션으로 확인한 현재 로그인한 유저
+    const target ='${planBoard.pboardId}'
+    const loginUser='${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}' //세션으로 확인한 현재 로그인한 유저
     //var loginManager='${sessionScope.loginManager.managerId}'
     //var loginUser='aaa'
     //alert("로그인 유저 아이디:"+loginUser)
-    console.log(target);
+    //console.log(target);
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -374,13 +374,13 @@ $(function(){
 		
 		success: function(result){
 
-			console.log("검색성공~");
+			//console.log("검색성공~");
 			let str="";
 			count = 0;
 			if(result=="") {
 				str+= `<div class="single-comment-body">`
-					str+=`<div class="comment-text-body">`
-                		str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
+					str+=`<div class="comment-when-empty-reply">`
+                		str+=`<span class="when-empty-reply">댓글이 없습니다</span>`;
                 	str+=`</div>`;
 				str+=`</div>`;
 			} else {
@@ -390,9 +390,8 @@ $(function(){
 	                		str+=`<img src="/img/face2.png" alt="face">`
 						str+=`</div>`;
 	               		 str+=`<div class="comment-text-body">`
-	                		str+=`<h6 class='comment-user'>\${reply.userId}님</h6>`	
+	                		str+=`<h4 class='comment-user'>\${reply.userId}님</h4>`	
                     		str+=`<p><span class='comment-content'>\${reply.pboardReplyContent}</span><span class="badge rounded-pill text-dark"><a href="javascript:void(0);" id="reply-delete-bnt" name=${'${reply.userId}'} pboardReplyId="${'${reply.pboardReplyId}'}">삭제</a></span></p>`
-                    		str+=``
                    		str+=`</div>`;
 					str+=`</div>`;
           
@@ -484,6 +483,27 @@ $(function(){
             alert("댓글은 자신이 단 댓글만 삭제 가능합니다.")
         }
     })
+
+	$(document).on("click","#update",function() {
+		var boardUserID = $(this).attr("name")
+        if(loginUser!=boardUserID){
+            alert("자신이 작성한 게시물만 수정 가능합니다.")
+        }else{
+			$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pupdateForm");
+			$("#requestForm").submit();
+		}
+	})
+	
+	$(document).on("click","#delete", function(){
+		var boardUserID = $(this).attr("name")
+        if(loginUser!=boardUserID){
+            alert("자신이 작성한 게시물만 삭제 가능합니다.")
+        }else{
+			$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pdelete");
+			$("#requestForm").submit();
+		}
+	})  
+ 
     
 
   selectAllReply();
@@ -492,54 +512,78 @@ $(function(){
 
 
 
- $(function(){
-	$("button[value=수정]").click(function() {
-    	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pupdateForm");
-		$("#requestForm").submit();
-	})
-	
-    $("button[value=삭제]").click(function() {
-    	$("#requestForm").attr("action", "${pageContext.request.contextPath}/board/pdelete");
-		$("#requestForm").submit();
-	})  
- }) 
+
  
 $(document).ready(function(){
-
 	const pboardId = "${planBoard.pboardId}";
 	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
 	
-	var isChecked = ${isChecked};
-	console.log(isChecked);
-	if (isChecked) {
-		console.log("이미 좋아요 함");
-		$("#liked-heart").attr('class','bi-heart-fill');
-	}else{
-		$("#liked-heart").attr('class','bi-heart');
-	}
-	
-	
-	//좋아요 버튼 클릭시 실행 
-	$("#liked-heart").on("click", function(){
+	//좋아요 여부 조회
+	if(userId!=""){
 		$.ajax({
-			url: "${pageContext.request.contextPath}/like",
+			url: "${pageContext.request.contextPath}/checkLike",
 			type: "post",
 			data:{pboardId : pboardId , userId : userId},
 			dataType: "text",
 			success: function(result){
-				var oResult = JSON.parse(result);
-				console.log(oResult);
-				if(oResult.checked){
+
+				if(result==1){ //좋아요함
+					//console.log("이미 좋아요 함");
 					$("#liked-heart").attr('class','bi-heart-fill');
-				}else{
+				}else if(result==0){//좋아요 안함
+					//console.log("좋아요 안함");
 					$("#liked-heart").attr('class','bi-heart');
+				}else{
+					//console.log("아작스 갔다옴??!?!?비회원이군!")
 				}
-				document.getElementById("likes-count").innerHTML = oResult.likesCount;
 			}, error : function(err){
 				alert("오류가 났습니다.")
 			}
 			
 		})
+	}
+	// }else{
+	// 	console.log("비회원이군!")
+	// }
+	// var isChecked ="${isChecked}";
+	// console.log(isChecked);
+	// if (isChecked) {
+	// 	console.log("이미 좋아요 함");
+	// 	$("#liked-heart").attr('class','bi-heart-fill');
+	// }else{
+	// 	$("#liked-heart").attr('class','bi-heart');
+	// }
+	
+	
+	//좋아요 버튼 클릭시 실행 
+	$("#liked-heart").on("click", function(){
+
+		//비회원이면
+		if(userId==""){
+			alert("좋아요 기능은 회원만 가능합니다.")
+		}else{
+			$.ajax({
+				url: "${pageContext.request.contextPath}/like",
+				type: "post",
+				data:{pboardId : pboardId , userId : userId},
+				dataType: "text",
+				success: function(result){
+					var likeResult = JSON.parse(result);
+					//console.log(likeResult);
+					if(likeResult.checked){
+						$("#liked-heart").attr('class','bi-heart-fill');
+					}else{
+						$("#liked-heart").attr('class','bi-heart');
+					}
+					document.getElementById("likes-count").innerHTML = likeResult.likesCount;
+				}, error : function(err){
+					alert("오류가 났습니다.")
+				}
+				
+			})
+		}
+
+		
 		
 	})
 	
@@ -547,17 +591,122 @@ $(document).ready(function(){
 }) 
  
 </script>
+<style>
+	.free-bottom-area{
+			display: flex;
+			justify-content: space-between;
+			padding: 25px;
+			margin-bottom: 20px;
+		}
+		
+		
+		.comments-list-wrap{margin: 0; padding: 20px;} 
+		.comment-user{margin:0;}
+		.comment-content{margin-right: 5px;}
+	   .comment-text-body{
+		word-wrap: break-word;
+	   }
+	.board-area{
+		width: 1000px
+	}
+	.board-body-area{
+		padding: 30px;
+	}
+		.board-title-area{
+			margin-top: 30px;
+			border-top: solid 2px rgb(189, 189, 189);
+		border-bottom: 2px solid rgb(189, 189, 189);
+		padding: 30px;
+		}
+		.boardTitle{
+			font-size: xx-large;
+			font-weight: bold;
+			margin: 0;
+		}
+		.boardInfo{
+			display: flex;
+			justify-content: space-between;      
+		}
+		.category span{
+			text-align: center;
+			width: 150px;
+			font-size: small;
+			color: black;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			display: inline-block;
+			padding: 3px 20px;
+			margin-left: 5px;
+		}
+		.card-body p{
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+	   .Image-area{
+		box-sizing: border-box;
+		width: 100%;
+		height: 400px;
+	   }
+		
+		.boardImg{
+			box-sizing: border-box;
+			height: 400px;
+			object-fit: contain;
+			background-color: rgb(241, 241, 241);
+		}
+		#likes-count{
+			color: red;
+
+		}
+		.comment-when-empty-reply{
+			text-align: center;
+		}
+		.when-empty-reply{
+			font-size: medium;
+			font-weight: bold;
+			font-family: 'Noto Sans KR', sans-serif;
+			color: rgb(70, 70, 70);
+		}
+	
+	</style>
 </head>
 <body>
 
 
-	<div class="container-fluid pt-5">
-		<div class="text-center mb-4" style="position: relative; top: -30px">
+	<div class="container-fluid pt-5 board-area">
+		<div class="board-title-area" style="position: relative; top: -30px">
+			<div class="boardTitle"><span>${planBoard.pboardTitle}</span></div>
+		  <div class="boardInfo">
+			<div class="category">
+				<c:choose>
+					<c:when test="${planBoard.pboardCategory eq '나홀로'}">
+						<span style="background-color: lightskyblue;">🧘${planBoard.pboardCategory}</span>
+					</c:when>
+					<c:when test="${planBoard.pboardCategory eq '가족/부모님'}">
+						<span  style="background-color: lightsalmon;">🏠${planBoard.pboardCategory}</span>
+					</c:when>
+						<c:when test="${planBoard.pboardCategory eq '친구'}">
+						<span  style="background-color: lightgreen;">🧑‍🤝‍🧑${planBoard.pboardCategory}</span>
+					</c:when>
+					<c:when test="${planBoard.pboardCategory eq '연인'}">
+						<span  style="background-color: lightcoral;">❤️${planBoard.pboardCategory}</span>
+					</c:when>
+			   </c:choose>
+			</div>
+			<span><i class="menu-icon fa-solid fa-user-large"></i> 작성자: ${planBoard.userId.substring(0,3)}****</span> 
+		  </div>
+	  </div>  
+	  <div class="board-body-area" align="center">
+			  <div class="contact-form" style="text-align: left;">           
+				  
+
+		<!-- <div class="text-center mb-4" style="position: relative; top: -30px">
 			<h3 class="section-title px-5"><span class="px-2">플래너공유 게시판</span></h3> 
 		</div>
 		<div align="center">
 			<div class="col-lg-7 mb-5">
-				<div class="contact-form">
+				<div class="contact-form"> -->
 					<select id="days" class="planner-days"></select>
 					<!-- <select id="plannerType" class="planner-type">
 							<option value='연인' >❤️연인</option>
@@ -565,7 +714,7 @@ $(document).ready(function(){
 							<option value='가족/부모님'>🏠가족</option>
 							<option value='친구'>🧑‍🤝‍🧑친구</option>
 					</select> -->
-					<div class="control-group" style="text-align: left;">
+					<!-- <div class="control-group" style="text-align: left;">
 						카테고리 <input type="text" readonly class="form-control" id="pboardCategory" name="pboardCategory" value="${planBoard.pboardCategory}"/>
 						<p class="help-block text-danger"></p>
 					</div>
@@ -574,25 +723,32 @@ $(document).ready(function(){
 						제목 <input type="text" readonly class="form-control" id="pboardTitle" name="pboardTitle" value="${planBoard.pboardTitle}"/>
 						<p class="help-block text-danger"></p>
 					</div>
-					
+					 -->
 					
 					<div id="googleMap" style="width: 100%;height: 600px;"></div>
 					<div class="latest-news mt-100 mb-150">
-						<div class="container" id="card">
-			
+						<div class="container" id="card"></div>
+					</div>
+					<!--본문내용-->
+					<div class="card-body">
+						<c:choose>
+                            <c:when test="${empty planBoard.pboardAttach}">
+                                <p>${planBoard.pboardContent}</p>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="Image-area">
+                                    <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" class="boardImg">
+                                </div>
+                                <p>${planBoard.pboardContent}</p>
+                            </c:otherwise>
+                        </c:choose>
+						<!-- 하트 -->
+						<div align="right">
+							<i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
+							<span> 좋아요 </span><span id="likes-count">${planBoard.likesCount}</span>       
 						</div>
 					</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<div class="control-group" style="text-align: left;">
+					<!-- <div class="control-group" style="text-align: left;">
 						내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
 						<p class="help-block text-danger"></p>
 					</div>
@@ -602,10 +758,25 @@ $(document).ready(function(){
 						<div class="mb-3">
 							<img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
 						</div>
-					</div>
+					</div> -->
 	
-					<div class="board-bottom-area">
-						<!-- 하트 -->
+
+					
+					
+					<div class="free-bottom-area">
+                        <div>
+                            <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록으로 돌아가기</button>  
+                        </div>
+                        <form name="requestForm" method="post" id="requestForm">
+                            <input type="hidden" name="pboardId" value="${planBoard.pboardId}">
+                            <button type="button" class="btn btn-outline-dark shadow-none" name="${planBoard.userId}" id="update">수정</button>
+                            <button type="button" class="btn btn-outline-dark shadow-none" name="${planBoard.userId}" id="delete">삭제</button>
+                        </form>  
+                    </div>
+
+
+					<!-- <div class="board-bottom-area">
+
 						<div align="right">
 							<i id="liked-heart" class="bi bi-heart" style="font-size:1.5rem; color: red; cursor: pointer;"></i>
 							좋아요 <span id="likes-count">${planBoard.likesCount}</span>       
@@ -617,16 +788,21 @@ $(document).ready(function(){
 							<button type="button" class="btn btn-outline-dark shadow-none" id="delete" value="삭제">삭제</button>
 						</form> 
 						</span> 
-					</div>
+					</div> -->
 
 					<!--댓글 등록하기-->
 					<div class="card">
 						<div class="card-body">
 							<form name="reply-loginUser-insert" method="post" id="reply-loginUser-insert">
 								<div class="form-inline mb-2" style="font-size:1.5rem"> 
-								<!-- <i class="bi bi-file-person" style="font-size:1.8rem"></i>    -->    
-									<span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
-									<input type="hidden" name="reply_id" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}"><!-- 나중에 세션으로 아이디 받기 -->
+									<c:choose>
+										<c:when test="${ empty sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}">
+											<span><strong>로그인 후 이용해주십시오</strong></span>
+										</c:when>
+										<c:otherwise>
+											<span><strong>${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}님</strong></span>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="replyContent" style="resize: none" placeholder="댓글을 입력해주세요"></textarea>
 								<input type="hidden" name="planBoardId" value="${planBoard.pboardId}">
@@ -636,19 +812,15 @@ $(document).ready(function(){
 					</div>
 			
 				</div>
-				
+				 <!--댓글 조회하기 -->
 				<!-- single article section -->
 				<div class="container" style="text-align: left;">
-
-						<div class="col-lg-8">
-							<div class="single-article-section">
-								
-								<div class="comments-list-wrap">
-									<h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
-									<div class="comment-list"></div>
-								</div>
-							</div>
+					<div class="single-article-section">
+						<div class="comments-list-wrap">
+							<h3 class="comment-count-title">Comments : <span class="reply-num-count"></span>개</h3>
+							<div class="comment-list"></div>
 						</div>
+					</div>
 				</div>
 				<!-- end single article section -->
 
@@ -671,7 +843,7 @@ $(document).ready(function(){
   </div>
 </div> -->
 
-<div><input type="hidden" value="${planBoard.userPlan.plannerId }" id="plannerId"></div> 
+<div><input type="hidden" value="${planBoard.plannerId }" id="plannerId"></div> 
 
 
 
