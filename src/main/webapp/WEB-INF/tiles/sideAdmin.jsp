@@ -105,9 +105,8 @@
     <!-- 상품 -->
     
     <li class="menu-header small text-uppercase"><span class="menu-header-text">상품</span></li>
-   
     <li class="menu-item">
-       <a href="" class="menu-link">
+       <a href="${pageContext.request.contextPath}/admin/goods_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-collection"></i>
         <div data-i18n="Basic">상품관리</div>
       </a>
@@ -120,7 +119,7 @@
       </a>
     </li>
     <li class="menu-item">
-      <a href="" class="menu-link">
+      <a href="${pageContext.request.contextPath}/admin/goodsReply_Admin" class="menu-link">
         <i class="menu-icon tf-icons bx bx-box"></i>
         <div data-i18n="Basic">상품후기관리</div>
       </a>

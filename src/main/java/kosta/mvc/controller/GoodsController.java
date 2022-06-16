@@ -35,14 +35,14 @@ public class GoodsController {
 	 * 관리자
 	 * TODO: admin controller로 이동할것
 	 */
-	@RequestMapping("/admin/goods_Admin")
-	public ModelAndView listForAdmin(Model model) {
-		List<Goods> goodsList = goodsService.getAllGoods();
-		List<Place> placeList = placeService.selectAll();
-		model.addAttribute("goodsList", goodsList);
-		model.addAttribute("placeList", placeList);
-		return new ModelAndView("admin/goods_Admin");
-	}
+//	@RequestMapping("/admin/goods_Admin")
+//	public ModelAndView listForAdmin(Model model) {
+//		List<Goods> goodsList = goodsService.getAllGoods();
+//		List<Place> placeList = placeService.selectAll();
+//		model.addAttribute("goodsList", goodsList);
+//		model.addAttribute("placeList", placeList);
+//		return new ModelAndView("admin/goods_Admin");
+//	}
 	/**
 	 * 카테고리별 검색
 	 * @param category
@@ -84,6 +84,9 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_Main");
 	}
+	
+	
+
 	
 	@GetMapping("/view/goods_View/{goodsId}")
 	public ModelAndView getGoodsMainView(@PathVariable("goodsId") Long goodsId, Model model) throws Exception {

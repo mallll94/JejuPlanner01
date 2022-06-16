@@ -53,7 +53,7 @@
 		</head>
 		
 		<body>
-		    <div style="width: 100%; padding: 100px 50px 100px 250px;">
+		    <div style="width: 100%;">
 		        <div class="container-fluid overflow-scroll">
 		            <div class="row">
 		            </div>

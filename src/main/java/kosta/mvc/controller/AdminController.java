@@ -29,10 +29,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.Goods;
+import kosta.mvc.domain.GoodsReply;
 import kosta.mvc.domain.OrderLine;
 import kosta.mvc.domain.Orders;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Users;
+import kosta.mvc.service.GoodsReplyService;
 import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.OrdersService;
 import kosta.mvc.service.PlaceService;
@@ -49,6 +51,7 @@ public class AdminController {
 	private final UserService userService;
 	private final OrdersService ordersService;
 	private final GoodsService goodsService;
+	private final GoodsReplyService goodsReplyService;
 	
 	private final static int PAGE_COUNT=15;
 	private final static int BLOCK_COUNT=4;
@@ -83,6 +86,7 @@ public class AdminController {
 		return map;
 		
 	}
+	
 
 	
 	@RequestMapping(value ="/placeInsert", method = RequestMethod.POST)
@@ -244,13 +248,10 @@ public class AdminController {
 		map.put("blockCount", BLOCK_COUNT);
 		map.put("startPage", startPage);
 		
-		
-		
-
-		
 		return map;
 		
 	}
+	
 	
 	@RequestMapping("/goods_Admin")
 	public ModelAndView listForAdmin(Model model) {
@@ -262,8 +263,17 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	@RequestMapping("/goodsReply_Admin")
+	public ModelAndView listForAdmin1(Model model) {
+		List<GoodsReply> goodsReplyList = goodsReplyService.getAllGoodsReply();
+		List<Goods> goodsList = goodsService.getAllGoods();
+		List<Users> usersList = userService.selectAll();
+		model.addAttribute("goodsReplyList", goodsReplyList);
+		model.addAttribute("goodsList", goodsList);
+		
+		return new ModelAndView("admin/goodsReply_Admin");
+	}
+		
 	
 	
 	
