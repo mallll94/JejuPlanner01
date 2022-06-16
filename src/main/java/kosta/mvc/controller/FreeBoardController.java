@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class FreeBoardController {
 
 	private final FreeBoardService freeBoardService;
-	private final UserService userService;
+	
 	
 	private final static int PAGE_COUNT=5;
 	private final static int BLOCK_COUNT=10;
@@ -41,7 +41,7 @@ public class FreeBoardController {
 	public void list(Model model, @RequestParam(defaultValue = "1") int nowPage, String freeCategory) {
 		
 		
-	    Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    //Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 	    	
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
@@ -135,8 +135,11 @@ public class FreeBoardController {
 	 * 상세보기
 	 **/
 	@RequestMapping("board/freeBoard_Detail/{freeId}")
-	public ModelAndView read(@PathVariable Long freeId) {	
-		FreeBoard freeBoard = freeBoardService.getFreeBoard(freeId, true);
+	public ModelAndView read(@PathVariable Long freeId) {
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		FreeBoard dbfreeBoard = freeBoardService.getFreeBoard(freeId, true);
+		FreeBoardDTO freeBoard = new FreeBoardDTO(dbfreeBoard.getFreeId(), dbfreeBoard.getUser().getUserId(), dbfreeBoard.getFreeCategory(),
+				dbfreeBoard.getFreeTitle(), dbfreeBoard.getFreeContent(), dbfreeBoard.getFreeAttach(), dbfreeBoard.getFreeReadnum(), dbfreeBoard.getFreeRegdate().format(format), dbfreeBoard.getFreeUpdate().format(format));
 		return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
 	}
 	
@@ -165,8 +168,8 @@ public class FreeBoardController {
 	/**
 	 * 삭제하기
 	 **/
-    @RequestMapping("/board/freeBoard_delete/{freeId}")
-	 public String delete(@PathVariable Long freeId) {
+    @RequestMapping("/board/freeBoard_delete")
+	 public String delete(Long freeId) {
 		 freeBoardService.deleteFreeBoard(freeId);		 
 		 return "redirect:/board/freeBoard"; 
 	 
