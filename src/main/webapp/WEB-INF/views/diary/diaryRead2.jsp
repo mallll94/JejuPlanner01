@@ -19,6 +19,9 @@ pageEncoding="UTF-8"%>
 		<!-- Css Styles -->
 		<link rel="stylesheet" href="/css/diary/diaryRead.css" type="text/css">
 
+		<style>
+			
+		</style>
 		<script>
 			$(function(){
 				const DiaryId = "${requestScope.diary.plannerId}"
@@ -106,7 +109,9 @@ pageEncoding="UTF-8"%>
 												str2+=`</div>`
 												str2+=`<div class="diaryline-card">`
 													str2+=`<div class="diaryline-text-box">`
+														str2+=`<div class="content-box">`
 														str2+=`<p class="diaryline-content">\${diaryline.diaryLineContent}\</p>`
+														str2+=`</div>`
 														str2+=`<p class="diaryline-bottom">`
 															str2+=`<span class='price-Num'>경비: \${priceComma}원</span>`
 															str2+=`<span class='icon-bnt-area'><a href="javascript:void(0);" class="icon-bnt" id="edit-diaryline-bnt" data-bs-toggle="modal" data-bs-target="#DiaryUpdateFormModal" plannerPlaceId="\${diaryline.plannerPlaceId}">

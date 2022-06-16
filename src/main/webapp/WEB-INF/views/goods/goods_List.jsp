@@ -129,7 +129,7 @@
                         </form>
                         <div class="best-agents">
                             <h4>제주잇다 컨텐츠 즐기기🎁</h4>
-                            <a href="#" class="ba-item">
+                            <a href="${pageContext.request.contextPath}/planner/plannerIndex" class="ba-item">
                                 <div class="ba-pic">
                                     <img src="img/properties/best-agent-1.jpg" alt="">
                                 </div>
@@ -139,7 +139,7 @@
                                     <p class="property-items">다이어리도 만들 수 있당</p>
                                 </div>
                             </a>
-                            <a href="#" class="ba-item">
+                            <a href="${pageContext.request.contextPath}/board/PlanboardList" class="ba-item">
                                 <div class="ba-pic">
                                     <img src="img/properties/best-agent-2.jpg" alt="">
                                 </div>
@@ -149,7 +149,7 @@
                                     <p class="property-items">제주잇다만의 서비스</p>
                                 </div>
                             </a>
-                            <a href="#" class="ba-item">
+                            <a href="${pageContext.request.contextPath}/diary/diaryIndex" class="ba-item">
                                 <div class="ba-pic">
                                     <img src="img/properties/best-agent-3.jpg" alt="">
                                 </div>

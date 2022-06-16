@@ -46,7 +46,7 @@ public class DiaryController {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E)");
 	
 		Pageable pageable = PageRequest.of((nowPage-1), PAGE_COUNT, Direction.DESC, "insertDate");
-		Page<Planner> pageList =plannerService.selectAllByUserIdPageing(pageable, users.getUserId());
+		Page<Planner> pageList =plannerService.selectAllDiaryPageing(pageable, users.getUserId());
 		List<Planner> plannerlist = pageList.getContent();
 		List<DiaryDTO> diaryList = new ArrayList<DiaryDTO>();
 		
