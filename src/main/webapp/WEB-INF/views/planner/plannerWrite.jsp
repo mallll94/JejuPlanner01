@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%>
 			//선삭제
 			function removeRoute(){
 				lineArr=[];
-				line.setMap(null)
+				line.setMap(mymap)
 			}
 
 

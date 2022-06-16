@@ -180,7 +180,7 @@
 					let card = "";
 					var name = result.planner.plannerName;
 					var dayNo = result.dayNo;			
-					var dayNoLi = "<option value='0'>✏️일정</option>";
+					var dayNoLi = "<option value='0'>✏️전체일정</option>";
 
 					var saveDayNo= result.dayNo;
 
@@ -234,7 +234,7 @@
 								card+=`<span class='author'><i class='fas fa-user'></i> ${'${result.planner.plannerType}'}</span>`;
 								card+=`<span class='date'><i class='fas fa-calendar'></i> ${'${now}'}</span>`;
 								card+=`</p><p class='excerpt'>${'${item.placeAddr}'}</p>`;
-								card+=`<a href='${"${item.placeUrl}"}' target='_blank' class='read-more-btn'>자세히 보기<i class='fas fa-angle-right'></i></a>`;
+								card+=`<a href='${"${item.placeUrl}"}' target='_blank' class='read-more-btn'>관련 링크<i class='fas fa-angle-right'></i></a>`;
 								card+=`</div></div></div>`;
 							}
 							
@@ -427,7 +427,7 @@
 	}
 	.planner-days{
 		color: white;
-		width: 100px;
+		width: 150px;
 		outline: none;
 		text-align: center;
 		font-size: medium;
