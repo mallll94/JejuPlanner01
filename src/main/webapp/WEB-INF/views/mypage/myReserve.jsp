@@ -34,13 +34,18 @@
 	    .search-btn {
 		width: 100%;
 		font-size: 16px;
-		height: 25px;
-		background: #fe9f29;
-		color: #ffffff;
+		height: 32px;
+		background: gray;
+		color: white;
 		border: none;
-		border: 1px solid #fe9f29;
+		
 		border-radius: 0.3rem;
 		cursor: pointer;
+		}
+		
+		.property-list {
+			margin-left: 30px;
+		
 		}
     </style>
 <script type="text/javascript">
@@ -95,11 +100,11 @@ $(function(){
 					data+=`<h5 class='property-title mb-3'>${'${result.goodsLine[index].goodsLineDate}'}</h5>`;
 					data+=`<div class='single-property-item'>`;
 					data+=`<div class='row'>`;
-					data+=`<div class='col-md-2'>`;
+					data+=`<div class='col-md-3'>`;
 					data+=`<div class='property-pic'>`;
 					data+=`<img src='${pageContext.request.contextPath}/img/place/7dbf3d3f-efa4-430d-a05f-8b5598631638Do.jpg' alt='상품사진'>`;
 					data+=`</div></div>`;
-					data+=` <div class='col-md-7'>`;
+					data+=` <div class='col-md-6'>`;
 					data+=`<div class='property-text'>`;
 					data+=`<div class='s-text'>${"${state}"}</div>`;
 					data+=`<h5 class='r-title'>${"${item.goodsName}"}</h5>`;  
