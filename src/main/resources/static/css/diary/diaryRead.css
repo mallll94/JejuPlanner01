@@ -158,6 +158,9 @@ div.diary-main-view{
     text-align: left;
     margin-bottom: 10px;
 }
+.content-box{
+    overflow: auto;
+}
 .diaryline-bottom{
     height: 50px;
     text-align: right;

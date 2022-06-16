@@ -30,8 +30,8 @@ public class FreeBoardController {
 	private final FreeBoardService freeBoardService;
 	
 	
-	private final static int PAGE_COUNT=5;
-	private final static int BLOCK_COUNT=10;
+	private final static int PAGE_COUNT=10;
+	private final static int BLOCK_COUNT=5;
 	
 	/**
 	 * 전체검색 (페이징 처리)

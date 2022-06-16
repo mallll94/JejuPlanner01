@@ -40,10 +40,9 @@ public class PlanBoardController {
    private final PlannerService plannerService;
    
    
-   private final static int PAGE_COUNT=6;
-   private final static int BLOCK_COUNT=3;
+   private final static int PAGE_COUNT=10;
+   private final static int BLOCK_COUNT=5;
    
-   private final static int RANK_COUNT=6;
 
 
    /**전체검색 & 카테고리 & 페이징*/
@@ -233,21 +232,5 @@ public class PlanBoardController {
    }
    
    
-   /**추천플래너 6개(좋아요순)*/
-   @RequestMapping("/board/recommend")
-   @ResponseBody
-   public List<PlanBoardDTO> recommentPlan(){
-	   DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-	   //순위구하기
-	   Pageable pageable = PageRequest.of(0, RANK_COUNT,Direction.DESC,"likesCount");
-	   List<PlanBoard> plist =planBoardService.recommendPlan(pageable);
-	   List<PlanBoardDTO> planboardlist = new ArrayList<PlanBoardDTO>();
-	   
-	   for(PlanBoard p:plist) {
-		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(),p.getUser().getUserId(), p.getUserPlan().getPlannerCount(),
-				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount()));
-	   }
-	   
-	   return planboardlist;
-   }
+   
 }

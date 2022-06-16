@@ -61,8 +61,8 @@ $(function(){
 			<div class="col-lg-6">
 				<div class="login_box_img">
 					<div class="hover">
-						<h4>New to our website?</h4>
-						<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+						<h4>첫 방문이신가요?</h4>
+						<p>지금 바로 제주잇다 회원으로 가입하고<br>제주잇다 회원에게만 제공되는 다양한 혜택을 누리세요!</p>
 						<a class="button button-account" href="${pageContext.request.contextPath}/user/registerForm" id="register">회원 가입</a>
 					</div>
 				</div>
