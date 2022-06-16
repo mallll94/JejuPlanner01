@@ -116,7 +116,7 @@ $(function(){
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(error){
-						alert(error);
+						alert("예약자 정보를 입력해주세요.");
 					}	
 				});//ajax
 			}else{
@@ -137,7 +137,7 @@ $(function(){
 						location.href = "${pageContext.request.contextPath}/order/success";
 					},
 					error: function(err){
-						alert("실패");
+						alert("예약자 정보를 입력해주세요.");
 					}	
 				});//ajax
 			}

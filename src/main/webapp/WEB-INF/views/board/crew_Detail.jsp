@@ -193,8 +193,12 @@ $(function(){
 		    console.log('btnradio2 is ' + document.getElementById('btnradio2').checked);
 	     };    
            
+		
+	     $("#message").click(function(){
+	    	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/chat/chat_Room");
+	    	 $("#requestForm").submit();
+	     })
 
-	
 })
         
 </script>
@@ -229,13 +233,18 @@ $(function(){
 		      <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()" >목록보기</button>  
 		    </div> 
 		    
-		    <div> 
+		    <div > 
 			    <form name="requestForm" method="post" id="requestForm">
 			     <input type="hidden" name="crewId" value="${crewboard.crewId}">
+			     <input type="hidden" name="receId" value='${receId}'>
 		         <button type="button" class="btn btn-outline-dark shadow-none" value="수정">수정하기</button>
 		         <button type="button" class="btn btn-outline-dark shadow-none" value="${crewboard.crewId}" id="delete">삭제하기</button>
+		         <button type="button" id="message" class="btn btn-outline-dark shadow-none" value="쪽지 보내기">쪽지 보내기</button>
+		         
 		        </form>
-	        </div> 
+		        
+	        </div>
+	        
           </div>  
        </div>       
     </div>
@@ -284,11 +293,7 @@ $(function(){
 
 
 
-<form method="get" action="${pageContext.request.contextPath}/chat/chat_Room">
-<input type="hidden" name="no" value='${crewboard.crewId}'>
-<input type="hidden" name="receId" value='${receId}'>
-<input type="submit" value="쪽지 보내기">
-</form>
+
 
 
 
