@@ -50,6 +50,13 @@
         object-fit: cover;
         
     }
+    .sb-text{
+        text-align: center;
+    }
+    .planboard-span{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
     </style>
     <script>
@@ -314,21 +321,37 @@
                 </div>
             </div>
             <div id="recommend-plan-main" class="row">
-                <c:forEach items="${requestScope.planBoardList}" var="planboare">
+                <c:forEach items="${requestScope.planBoardList}" var="planboard">
                     <div class="col-lg-4">
                         <div class="single-blog-item">
                             <div class="sb-text">
                                 <ul>
-                                    <li><i class="fa fa-user"></i> Adam Smith</li>
-                                    <li><i class="fa fa-clock-o"></i> 18th Jan, 2019</li>
+                                    <c:choose>
+                                        <c:when test="${planboard.pboardCategory eq '나홀로'}">
+                                            <li class="cate-alone">🧘 ${planboard.pboardCategory}</li>
+                                        </c:when>
+                                        <c:when test="${planboard.pboardCategory eq '가족/부모님'}">
+                                            <li class="cate-family">🏠 ${planboard.pboardCategory}</li>
+                                        </c:when>
+                                        <c:when test="${planboard.pboardCategory eq '연인'}">
+                                            <li class="cate-lover">❤️ ${planboard.pboardCategory}</li>
+                                        </c:when>
+                                        <c:when test="${planboard.pboardCategory eq '친구'}">
+                                            <li class="cate-freind">🧑‍🤝‍🧑 ${planboard.pboardCategory}</li>
+                                        </c:when>
+                                    </c:choose>
+                                    <li><i class="fa fa-user"></i><span class="planboard-span">${planboard.plannerCount} 명</span></li>
                                 </ul>
-                                <h4><a href="#">Enhance Your Brand Potential With Giant.</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/board/Planboard_Detail/${planboard.pboardId}">${planboard.pboardTitle}</a></h4>
+                                <ul>
+                                    <li><i class="fa-solid fa-heart"></i><span class="planboard-span">${planboard.likesCount}</span></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
                 
-                <div class="col-lg-4">
+                <!-- <div class="col-lg-4">
                     <div class="single-blog-item">
                         <div class="sb-text">
                             <ul>
@@ -349,7 +372,7 @@
                             <h4><a href="#">Branding Do You Know Who You Are</a></h4>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
