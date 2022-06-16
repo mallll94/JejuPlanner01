@@ -149,7 +149,7 @@
                 <div class="feature-carousel owl-carousel">
                     <c:forEach items="${requestScope.goodsList}" var="goods">
                         <div class="col-lg-4">
-                            <div class="feature-item">
+                            <div class="feature-item" onclick="">
                                 <div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
                                     <div class="pic-tag">
                                         <div class="f-text">Best</div>

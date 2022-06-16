@@ -107,8 +107,6 @@
                     }
                 })
             }
-        
-
 
 
         })
@@ -257,84 +255,47 @@
         </div>
         <div class="container">
             <div id='recommend-goods-main' class="top-properties-carousel owl-carousel">
-                <div class="single-top-properties">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="stp-pic">
-                                <img src="" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="stp-text">
-                                <div class="s-text">For Sale</div>
-                                <h2>Villa 9721 Glen Creek</h2>
-                                <div class="room-price">
-                                    <span>Start From:</span>
-                                    <h4>$3.000.000</h4>
+                <c:forEach items="${requestScope.bestGoods}" var="goods">
+                    <div class="single-top-properties">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="stp-pic">
+                                    <img src="" alt="">
                                 </div>
-                                <div class="properties-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <ul class="room-features">
-                                    <li>
-                                        <i class="fa fa-arrows"></i>
-                                        <p>5201 sqft</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-bed"></i>
-                                        <p>8 Bed Room</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-bath"></i>
-                                        <p>7 Baths Bed</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-car"></i>
-                                        <p>1 Garage</p>
-                                    </li>
-                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="stp-text">
+                                    <div class="s-text">For Sale</div>
+                                    <h2>${goods.goodsName}</h2>
+                                    <div class="room-price">
+                                        
+                                        <h4>${goods.goodsPrice}원</h4>
+                                    </div>
+                                    <div class="properties-location">${goods.place.placeAddr}</div>
+                                    <p>${goods.goodsContent}</p>
+                                    <!-- <ul class="room-features">
+                                        <li>
+                                            <i class="fa fa-arrows"></i>
+                                            <p>5201 sqft</p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-bed"></i>
+                                            <p>8 Bed Room</p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-bath"></i>
+                                            <p>7 Baths Bed</p>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-car"></i>
+                                            <p>1 Garage</p>
+                                        </li>
+                                    </ul> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="single-top-properties">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="stp-pic">
-                                <img src="" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="stp-text">
-                                <div class="s-text">For Sale</div>
-                                <h2>Villa 9721 Glen Creek</h2>
-                                <div class="room-price">
-                                    <span>Start From:</span>
-                                    <h4>$3.000.000</h4>
-                                </div>
-                                <div class="properties-location"><i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <ul class="room-features">
-                                    <li>
-                                        <i class="fa fa-arrows"></i>
-                                        <p>5201 sqft</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-bed"></i>
-                                        <p>8 Bed Room</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-bath"></i>
-                                        <p>7 Baths Bed</p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-car"></i>
-                                        <p>1 Garage</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>
