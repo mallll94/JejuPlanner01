@@ -2,15 +2,17 @@ package kosta.mvc.dto;
 
 
 
+import java.time.format.DateTimeFormatter;
+
+import kosta.mvc.domain.FreeBoard;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class FreeBoardDTO {
 	private Long freeId;
 	private String userId;
@@ -22,4 +24,18 @@ public class FreeBoardDTO {
 	private int freeReadnum;
 	private String freeRegdate;
 	private String freeUpdate;
+	
+	public static FreeBoardDTO of(FreeBoard freeBoard, DateTimeFormatter formatter) {
+		
+		return new FreeBoardDTO(
+				freeBoard.getFreeId(),
+				freeBoard.getUser().getUserId(),
+				freeBoard.getFreeCategory(),
+				freeBoard.getFreeTitle(),
+				freeBoard.getFreeContent(),
+				freeBoard.getFreeAttach(),
+				freeBoard.getFreeReadnum(),
+				freeBoard.getFreeRegdate().format(formatter),
+				freeBoard.getFreeUpdate().format(formatter));
+	}
 }

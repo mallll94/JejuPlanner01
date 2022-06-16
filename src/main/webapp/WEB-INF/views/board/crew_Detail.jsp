@@ -46,6 +46,7 @@ $(function(){
 		data: {crewId: target} , //서버에게 보낼 데이터정보(parameter정보)
 		
 		success: function(result){
+			
 			console.log("검색성공~")
 			let str="";
 			count = 0;
@@ -54,7 +55,7 @@ $(function(){
 				str+= `<div class="single-comment-body">`
 				   str+=`<div class="comment-text-body">`
                      str+=`<span class="reply-content-text">댓글이 없습니다</span>`;
-                   str+=`</div>`;
+                   str+=`</div>`; 
                 str+=`</div>`;
 			} else {
 				$.each(result,function(index,reply){
@@ -157,7 +158,7 @@ $(function(){
         }
     })
     
-
+    
   selectAllReply();
 
 })
@@ -186,12 +187,17 @@ $(function(){
                 $("#requestForm").attr("action", "${pageContext.request.contextPath}/board/crew_updateForm");
               $("#requestForm").submit();
            })
-        	
-           
-         window.onload = function() {
-		    console.log('btnradio1 is ' + document.getElementById('btnradio1').checked);
-		    console.log('btnradio2 is ' + document.getElementById('btnradio2').checked);
-	     };    
+        
+          
+          // 동행구하기 여부
+         
+          var crewState = '${crewboard.crewState}';
+       	  console.dir(crewState);
+       	  if (crewState == "Y") {
+       		document.getElementById('btnradio2').checked = true;
+       	  } else {
+       		document.getElementById('btnradio1').checked = true;
+       	  }
            
 
 	

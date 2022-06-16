@@ -1,8 +1,10 @@
 package kosta.mvc.controller;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.CrewBoard;
 import kosta.mvc.domain.FreeBoard;
+import kosta.mvc.domain.PlanBoard;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.FreeBoardDTO;
 import kosta.mvc.service.FreeBoardService;
@@ -48,12 +52,10 @@ public class FreeBoardController {
 		
 		Page<FreeBoard> pageList = freeBoardService.selectByCate(freeCategory, nowPage, PAGE_COUNT);
 		List<FreeBoard> list = pageList.getContent();
-		List<FreeBoardDTO> freelist =new ArrayList<FreeBoardDTO>();
 		
-		for(FreeBoard f:list) {
-			freelist.add(new FreeBoardDTO(f.getFreeId(), f.getUser().getUserId(), f.getFreeCategory(), f.getFreeTitle(),
-					f.getFreeContent(), f.getFreeAttach(), f.getFreeReadnum(), f.getFreeRegdate().format(format), f.getFreeUpdate().format(format)));
-		}
+		List<FreeBoardDTO> freelist = list.stream()
+										.map((f) -> FreeBoardDTO.of(f, format))
+										.collect(Collectors.toList());
  		
 		int temp = (nowPage-1)%BLOCK_COUNT;
 		int startPage = nowPage - temp;
@@ -85,6 +87,35 @@ public class FreeBoardController {
         model.addAttribute("freeCategory",freeCategory);
 
 	}
+	
+	/**
+	 * 내글조회 (마이페이지)
+	 **/
+	@RequestMapping("/mypage/myFreeboard")
+	public String myFreeboard(Model model, @RequestParam(defaultValue = "1") int nowPage) {
+		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		
+		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Page<FreeBoard> myfree = freeBoardService.selectByUserId(users.getUserId(), nowPage, PAGE_COUNT);
+		
+		Page<FreeBoardDTO> pageList = myfree.map((f) -> FreeBoardDTO.of(f, format));
+		
+		int temp = (nowPage-1)%BLOCK_COUNT;
+		int startPage = nowPage - temp;
+		
+		 model.addAttribute("pageList",pageList);
+		 model.addAttribute("users",users);
+		 model.addAttribute("blockCount", BLOCK_COUNT);
+	     model.addAttribute("startPage", startPage);
+	     model.addAttribute("nowPage", nowPage);
+		   
+		 return "mypage/myFreeboard";
+        
+ 
+	}
+	
+	
 	
 	/**
 	 *  페이징처리
@@ -138,8 +169,7 @@ public class FreeBoardController {
 	public ModelAndView read(@PathVariable Long freeId) {
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 		FreeBoard dbfreeBoard = freeBoardService.getFreeBoard(freeId, true);
-		FreeBoardDTO freeBoard = new FreeBoardDTO(dbfreeBoard.getFreeId(), dbfreeBoard.getUser().getUserId(), dbfreeBoard.getFreeCategory(),
-				dbfreeBoard.getFreeTitle(), dbfreeBoard.getFreeContent(), dbfreeBoard.getFreeAttach(), dbfreeBoard.getFreeReadnum(), dbfreeBoard.getFreeRegdate().format(format), dbfreeBoard.getFreeUpdate().format(format));
+		FreeBoardDTO freeBoard = FreeBoardDTO.of(dbfreeBoard, format);
 		return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
 	}
 	
@@ -175,6 +205,17 @@ public class FreeBoardController {
 	 
 	 }
 	
+    /**
+	* 삭제하기(마이페이지)
+	 **/
+    @RequestMapping("/mypage/freeBoard_delete/{freeId}")
+	 public String myDelete(@PathVariable Long freeId) {
+   	 freeBoardService.deleteFreeBoard(freeId);		 
+		 
+		 return "redirect:/mypage/myFreeboard"; 
+	 
+    }
+    
 	/**
 	* 삭제하기(관리자)
 	 **/

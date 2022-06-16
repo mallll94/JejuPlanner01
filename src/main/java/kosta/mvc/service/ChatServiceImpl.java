@@ -2,11 +2,9 @@ package kosta.mvc.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.core.BooleanBuilder;
 
-import io.github.classgraph.AnnotationInfoList;
 import kosta.mvc.domain.ChatBoard;
 import kosta.mvc.domain.QChatBoard;
 import kosta.mvc.domain.Users;

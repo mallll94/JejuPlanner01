@@ -16,8 +16,10 @@ import com.querydsl.core.BooleanBuilder;
 
 import kosta.mvc.domain.FreeBoard;
 import kosta.mvc.domain.QFreeBoard;
+import kosta.mvc.domain.Users;
 //import kosta.mvc.domain.QFreeBoard;
 import kosta.mvc.repository.FreeBoardRepository;
+import kosta.mvc.repository.UserRepository;
 import kosta.mvc.util.FileStore;
 import lombok.RequiredArgsConstructor;
 
@@ -26,9 +28,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FreeBoardServiceImpl implements FreeBoardService {
 	
-	private final FreeBoardRepository freeBoardRep;
-	
+	private final FreeBoardRepository freeBoardRep;	
 	private final FileStore fileStore;
+	private final UserRepository userRep;
     
 	/**
 	 * 소통게시판 등록하기
@@ -154,8 +156,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 			
 			result = freeBoardRep.findAll(builder, pageable);
 		}
-		
-		
+			
 		return result;
 	}
+    
+    /**
+	 * 마이페이지 조회 
+	 **/
+    @Override
+    public Page<FreeBoard> selectByUserId(String userId, int nowPage, int PageCount) {
+    	
+    	Users user = userRep.findById(userId).orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
+		Pageable pageable = PageRequest.of( (nowPage-1), PageCount, Direction.DESC , "freeId");
+		
+		
+		return freeBoardRep.findAllByUser(user, pageable);
+	
+    }
 }

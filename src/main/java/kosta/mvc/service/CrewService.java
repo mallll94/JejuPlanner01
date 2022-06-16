@@ -45,4 +45,9 @@ public interface CrewService {
 	 * 동행구하기 게시판 삭제
 	 * */
 	void deleteCrewBoard(Long crewId);
+	
+	/**
+	 * 마이페이지 조회
+	 **/
+	public Page<CrewBoard> selectByUserId(String userId, int nowpage, int pageCount);
 }

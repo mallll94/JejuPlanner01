@@ -5,12 +5,16 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.CrewBoard;
+import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CrewBoardRepository;
+import kosta.mvc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 
@@ -20,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CrewServiceImpl implements CrewService {
 
 	private final CrewBoardRepository crewBoardRep;
+	private final UserRepository userRep;
 	
 	/**
 	 * 전체보기
@@ -114,5 +119,19 @@ public class CrewServiceImpl implements CrewService {
 		crewBoardRep.deleteById(crewId);
 
 	}
-
+    
+	/**
+	 * 마이페이지 조회
+	 **/
+	@Override
+	public Page<CrewBoard> selectByUserId(String userId, int nowPage, int PageCount) {
+		
+	 Users user = userRep.findById(userId).orElseThrow(() -> new RuntimeException("사용자가 조회되지 않습니다."));
+   	 Pageable pageable = PageRequest.of( (nowPage-1), PageCount, Direction.DESC , "crewId");	
+	 	
+	 return crewBoardRep.findAllByUser(user, pageable);
+   	 
+	}
+	
+	
 }
