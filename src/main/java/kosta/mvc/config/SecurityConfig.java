@@ -29,19 +29,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests() 
-		.anyRequest().permitAll()
-		//.antMatchers(HttpMethod.OPTIONS).permitAll() // preflight 대응
-        //.antMatchers("/auth/**").permitAll() // /auth/**에 대한 접근을 인증 절차 없이 허용(로그인 관련 url)
-        // 특정 권한을 가진 사용자만 접근을 허용해야 할 경우, 하기 항목을 통해 가능
+
+		//.anyRequest().permitAll()
         //.antMatchers("/admin/**").hasAnyRole("ADMIN")
-        //.anyRequest().authenticated()--------------------------------------------------------------------------------------------------
-		
+        //.anyRequest().authenticated()
+        
 		//.antMatchers("/","/user/**").permitAll()// "/","/user/**"제외
 		//.hasAnyRole("USER","ADMIN")//권한 User , admin의 권한이 있어야한다
 		//.antMatchers("/member/**")//member/** 아래는 무조건 인증되어야한다는 의미
 		//.authenticated()
-		//.antMatchers("/admin/**")//admin/** 는 admin만 권한이 있다는 의미
-		//.hasRole("ADMIN")
+		.antMatchers("/planner/**","/diary/**","/chat/**","/board/crew_Detail/**","/board/freeBoard_updateForm","/board/freeBoard_Write",
+				"/board/Planboard_Write","/board/pupdateForm",
+				"/board/crew_Write","/board/crew_updateForm"
+				,"/order/**","/cart/**",
+				"/user/myPage","/user/myReserve","/mypage/**")//admin/** 는 admin만 권한이 있다는 의미
+		
+		.hasAnyRole("USER","ADMIN")
+		.antMatchers("/admin/**")//admin/** 는 admin만 권한이 있다는 의미
+		.hasRole("ADMIN")
 		//.anyRequest().authenticated()//모든곳에서 권한이 필요하다는 의미
 		.and()
 		.csrf().disable() 

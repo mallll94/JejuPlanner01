@@ -37,7 +37,6 @@ import lombok.RequiredArgsConstructor;
 public class PlanBoardController {
 
    private final PlanBoardService planBoardService;
-   private final UserService userService;
    private final PlannerService plannerService;
    
    
@@ -90,12 +89,12 @@ public class PlanBoardController {
    @RequestMapping("/board/Planboard_Detail/{pboardId}")
    public String read(@PathVariable Long pboardId , Model model) {
 
-	  Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	  //Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   
       PlanBoard planBoard = planBoardService.selectById(pboardId);
-      boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
+      //boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
 
-      model.addAttribute("isChecked", isChecked);         
+      //model.addAttribute("isChecked", isChecked);         
 
       model.addAttribute("planBoard" , planBoard);
 
@@ -103,6 +102,20 @@ public class PlanBoardController {
 
       return "/board/Planboard_Detail";
 
+   }
+   @RequestMapping("/checkLike")
+   @ResponseBody
+   public int checkLike(Long pboardId ,String userId) {
+	   if(userId==null) {
+		   return 2; //비회원
+	   }else {
+		   boolean isChecked = planBoardService.selectByBoardId(pboardId, userId); 
+		   if(isChecked) {
+			   return 1; //좋아요 눌렀음
+		   }else {
+			   return 0; //좋아요 안눌렀음
+		   }
+	   }
    }
 
    /**좋아요*/

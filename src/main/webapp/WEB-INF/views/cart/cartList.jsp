@@ -156,18 +156,23 @@
 			//alert(selectLength);
 			orderBox = [];
 
+			if(selectLength !=0){
 				for (var i=0; i<selectLength; i++) {
-						
-						if ($("[name=checkboxNoLabel]")[i].checked == true) {
-						orderBox.push($("[name=checkboxNoLabel]")[i].value);
-						countBox.push($("#goodsLineAmount"+i).val());
+					
+					if ($("[name=checkboxNoLabel]")[i].checked == true) {
+					orderBox.push($("[name=checkboxNoLabel]")[i].value);
+					countBox.push($("#goodsLineAmount"+i).val());
 					}
 				}
-				
+			
 				$("#cartId").val(orderBox);
 				$("#countCart").val(countBox);
 				
 				$("#cartForm").submit();
+			}else{
+				alert("상품이 없습니다.");
+			}
+				
 			
 			
 			//CheckOrder(orderBox,countBox);
@@ -226,9 +231,6 @@
 					$("#totalPrint").html(sumtotal.toLocaleString('ko-KR')+"₩")
 						
 
-				},
-				error: function(err){
-					alert(err);
 				}	
 			});//ajax
 		}//selectAll

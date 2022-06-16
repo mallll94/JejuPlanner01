@@ -65,6 +65,22 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		return list;
 	}
+	
+	
+	@Override
+	public Page<OrderLine> getOrdersByUserIdPage(String userId,int nowPage,int PageCount) {
+		QOrders orders = QOrders.orders;
+		QOrderLine orderLine = QOrderLine.orderLine;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		Pageable pageable = PageRequest.of((nowPage-1), PageCount, Direction.DESC, "orderLineId");
+		
+		//builder.and(orders.user.userId.eq(userId));
+		builder.and(orderLine.order.user.userId.eq(userId));
+		Page<OrderLine> list= orderLineRep.findAll(builder,pageable);
+		
+		return list;
+	}
 
 	@Override
 	public Orders getOrdersByOrdersId() {

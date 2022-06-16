@@ -363,7 +363,7 @@ $(function(){
     //var loginManager='${sessionScope.loginManager.managerId}'
     //var loginUser='aaa'
     //alert("로그인 유저 아이디:"+loginUser)
-    console.log(target);
+    //console.log(target);
     //전체 댓글 검색
 	function selectAllReply(){
         $.ajax({
@@ -374,7 +374,7 @@ $(function(){
 		
 		success: function(result){
 
-			console.log("검색성공~");
+			//console.log("검색성공~");
 			let str="";
 			count = 0;
 			if(result=="") {
@@ -505,41 +505,75 @@ $(function(){
  }) 
  
 $(document).ready(function(){
-
 	const pboardId = "${planBoard.pboardId}";
 	const userId = "${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userId}";
 	
-	var isChecked = ${isChecked};
-	console.log(isChecked);
-	if (isChecked) {
-		console.log("이미 좋아요 함");
-		$("#liked-heart").attr('class','bi-heart-fill');
-	}else{
-		$("#liked-heart").attr('class','bi-heart');
-	}
-	
-	
-	//좋아요 버튼 클릭시 실행 
-	$("#liked-heart").on("click", function(){
+	//좋아요 여부 조회
+	if(userId!=""){
 		$.ajax({
-			url: "${pageContext.request.contextPath}/like",
+			url: "${pageContext.request.contextPath}/checkLike",
 			type: "post",
 			data:{pboardId : pboardId , userId : userId},
 			dataType: "text",
 			success: function(result){
-				var oResult = JSON.parse(result);
-				console.log(oResult);
-				if(oResult.checked){
+
+				if(result==1){ //좋아요함
+					//console.log("이미 좋아요 함");
 					$("#liked-heart").attr('class','bi-heart-fill');
-				}else{
+				}else if(result==0){//좋아요 안함
+					//console.log("좋아요 안함");
 					$("#liked-heart").attr('class','bi-heart');
+				}else{
+					//console.log("아작스 갔다옴??!?!?비회원이군!")
 				}
-				document.getElementById("likes-count").innerHTML = oResult.likesCount;
 			}, error : function(err){
 				alert("오류가 났습니다.")
 			}
 			
 		})
+	}
+	// }else{
+	// 	console.log("비회원이군!")
+	// }
+	// var isChecked ="${isChecked}";
+	// console.log(isChecked);
+	// if (isChecked) {
+	// 	console.log("이미 좋아요 함");
+	// 	$("#liked-heart").attr('class','bi-heart-fill');
+	// }else{
+	// 	$("#liked-heart").attr('class','bi-heart');
+	// }
+	
+	
+	//좋아요 버튼 클릭시 실행 
+	$("#liked-heart").on("click", function(){
+
+		//비회원이면
+		if(userId==""){
+			alert("좋아요 기능은 회원만 가능합니다.")
+		}else{
+			$.ajax({
+				url: "${pageContext.request.contextPath}/like",
+				type: "post",
+				data:{pboardId : pboardId , userId : userId},
+				dataType: "text",
+				success: function(result){
+					var likeResult = JSON.parse(result);
+					//console.log(likeResult);
+					if(likeResult.checked){
+						$("#liked-heart").attr('class','bi-heart-fill');
+					}else{
+						$("#liked-heart").attr('class','bi-heart');
+					}
+					document.getElementById("likes-count").innerHTML = likeResult.likesCount;
+				}, error : function(err){
+					alert("오류가 났습니다.")
+				}
+				
+			})
+		}
+
+		
 		
 	})
 	

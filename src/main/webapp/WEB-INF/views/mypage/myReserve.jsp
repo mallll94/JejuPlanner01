@@ -47,12 +47,23 @@
 
 $(function(){
 	
-	function selctAll(){
+	$(document).on("click","#nowPage", function(){
+		if($(this).text() == "NEXT"){
+			selctAll($("#NextPage").val())
+		}else if($(this).text() == "PREV"){
+			selctAll($("#PrevPage").val())
+		}else{
+			selctAll($(this).text())
+		}
+	});
+	
+	
+	function selctAll(paramNowPage){
 		$.ajax({
 			url: "${pageContext.request.contextPath}/user/reserveAll",
 			type: "post",
 			dataType: "json",
-			data: { '${_csrf.parameterName}' : '${_csrf.token}' },
+			data: { '${_csrf.parameterName}' : '${_csrf.token}', nowPage :paramNowPage },
 			success: function(result){
 				var now = new Date();
 				var year = now.getFullYear();
@@ -106,6 +117,31 @@ $(function(){
 					}
 					data+=`</div></div></div>`;    
 				})
+				var paging ="";
+				if((result.startPage-result.blockCount) > 0){	
+					paging +=`<a class='pagination-newer' href='#' id='nowPage'>PREV</a>`
+					paging +=`<input type='hidden' id='PrevPage' value=${'${result.startPage-1}'}>`;
+				}	
+				paging +=`<span class='pagination-inner'>`;
+			    for(let i=result.startPage ; i<=(result.startPage-1)+result.blockCount ;i++ ){
+			    	if((i-1) >= result.totalPages)break
+			    	paging +=`<a class='${i==nowPage?"pagination-active":page}' href='#'  id='nowPage'>${"${i}"}</a>`;
+			    	
+			    }
+				paging +=`</span>`;
+				if((result.startPage+result.blockCount)<=result.totalPages){	
+					paging +=`<a class='pagination-older' href='#' id='nowPage'>NEXT</a>`;
+					paging +=`<input type='hidden' id='NextPage' value=${'${result.startPage+result.blockCount}'}>`;
+				}	
+
+				$("#paging").html(paging);
+				
+				
+				
+				
+				
+				
+				
 				$("#myOrder").html(data);
 			},
 			error: function(error){
@@ -170,6 +206,17 @@ $(function(){
                 </div>
             </div>
         </div>
+        
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="pagination-wrap" id="paging"> 
+					          
+					</div>
+				</div>
+			</div>
+		</div>
+		
     </section>
     
     <!-- 예약 취소 모달-->

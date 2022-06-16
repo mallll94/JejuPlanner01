@@ -157,11 +157,12 @@ public class FreeBoardController {
 	 * 수정하기
 	 **/
     @RequestMapping(value = "board/freeBoard_update", method = RequestMethod.POST)
-    public ModelAndView update(FreeBoard freeBoard, HttpSession session) {
-    	   	
+    public ModelAndView update(FreeBoard freeboard, HttpSession session) {
+    	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"); 	
     	String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/freeBoard/";
-    	FreeBoard dbBoard = freeBoardService.updateFreeBoard(freeBoard, uploadPath);
-    	
+    	FreeBoard dbfreeBoard = freeBoardService.updateFreeBoard(freeboard, uploadPath);
+    	FreeBoardDTO freeBoard = new FreeBoardDTO(dbfreeBoard.getFreeId(), dbfreeBoard.getUser().getUserId(), dbfreeBoard.getFreeCategory(),
+				dbfreeBoard.getFreeTitle(), dbfreeBoard.getFreeContent(), dbfreeBoard.getFreeAttach(), dbfreeBoard.getFreeReadnum(), dbfreeBoard.getFreeRegdate().format(format), dbfreeBoard.getFreeUpdate().format(format));
     	return new ModelAndView("board/freeBoard_Detail", "freeBoard", freeBoard);
     }
 	
