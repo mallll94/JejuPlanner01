@@ -187,7 +187,14 @@ $(function(){
               $("#requestForm").submit();
            })
         	
-        	
+           
+         window.onload = function() {
+		    console.log('btnradio1 is ' + document.getElementById('btnradio1').checked);
+		    console.log('btnradio2 is ' + document.getElementById('btnradio2').checked);
+	     };    
+           
+
+	
 })
         
 </script>
@@ -201,8 +208,8 @@ $(function(){
       </div>
       <br>
       <br>
-      <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="width: 400px; margin-left: 50px" >
-       	  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: orange;" checked>
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group"  style="width: 400px; margin-left: 50px"  >
+       	  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio1" autocomplete="off" value="N" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="color: orange;">
 		  <label class="btn btn-outline-primary" for="btnradio1">🙎‍♂️동행구하는 중</label>
 		    
 		  <input type="radio" class="btn btn-outline-dark shadow-none" name="btnradio" id="btnradio2" autocomplete="off" value="Y"data-bs-toggle="modal" data-bs-target="#exampleModal2">
