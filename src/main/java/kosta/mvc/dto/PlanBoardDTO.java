@@ -13,6 +13,7 @@ public class PlanBoardDTO {
 
 	private Long pboardId;
 	private Long plannerId;
+	private String userId;
 	private int plannerCount;
 	private String pboardCategory;
 	private String pboardTitle;

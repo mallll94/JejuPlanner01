@@ -42,7 +42,7 @@ public class IndexController {
 	   List<PlanBoardDTO> planboardlist = new ArrayList<PlanBoardDTO>();
 	   
 	   for(PlanBoard p:plist) {
-		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(), p.getUserPlan().getPlannerCount(),
+		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(),p.getUser().getUserId(), p.getUserPlan().getPlannerCount(),
 				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount()));
 	   }
 	   

@@ -91,15 +91,17 @@ public class PlanBoardController {
 
 	  //Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   
-      PlanBoard planBoard = planBoardService.selectById(pboardId);
+      PlanBoard p = planBoardService.selectById(pboardId);
       //boolean isChecked = planBoardService.selectByBoardId(pboardId, users.getUserId());
 
-      //model.addAttribute("isChecked", isChecked);         
-
+      //model.addAttribute("isChecked", isChecked); 
+      
+      //DTO변환
+      DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+      PlanBoardDTO planBoard= new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(),p.getUser().getUserId(), p.getUserPlan().getPlannerCount(),
+   				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount());
+      
       model.addAttribute("planBoard" , planBoard);
-
-      System.out.println("나와라");
-
       return "/board/Planboard_Detail";
 
    }
@@ -172,7 +174,7 @@ public class PlanBoardController {
 	  System.out.println("pboardupdate00");
       String uploadpath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/planboard/";
       PlanBoard dbBoard = planBoardService.updatePlanBoard(planBoard, uploadpath);
-
+      
       System.out.println("pboardupdate");
 
       return "redirect:/board/Planboard_Detail/" + dbBoard.getPboardId();
@@ -242,7 +244,7 @@ public class PlanBoardController {
 	   List<PlanBoardDTO> planboardlist = new ArrayList<PlanBoardDTO>();
 	   
 	   for(PlanBoard p:plist) {
-		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(), p.getUserPlan().getPlannerCount(),
+		   planboardlist.add(new PlanBoardDTO(p.getPboardId(), p.getUserPlan().getPlannerId(),p.getUser().getUserId(), p.getUserPlan().getPlannerCount(),
 				   p.getPboardCategory(), p.getPboardTitle(), p.getPboardContent(), p.getPboardAttach(), p.getPboardRegdate().format(format), p.getLikesCount()));
 	   }
 	   
