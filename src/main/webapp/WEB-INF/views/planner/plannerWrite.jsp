@@ -495,6 +495,7 @@ pageEncoding="UTF-8"%>
 						data: {plannerplaceId: targetUpdatePlan, date: updatetargetDay},
 						success: function(){
 							selectPlaceByMyPlanner();
+							initMap();
 						},
 						error: function(){
 							alert("일정을 수정하지 못했습니다.")
