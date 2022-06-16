@@ -115,7 +115,17 @@ $(function(){
 					data+=`<p>${"${item.goodsContent}"}</p></div></div>`;
 					data+=`<div class='col-lg-3'>`;
 					data+=`<button type='button' class='search-btn mb-4' id='ask' value=''>1대1 문의</button>`;
-					data+=`<button type='button' class='search-btn mb-4' id='reply' value='${"${result.goods[index].goodsId}"}'>후기 작성</button>`;
+					
+					
+					if(result.replyCheck[index] ==0){
+						data+=`<button type='button' class='search-btn mb-4' id='reply' value='${"${result.goods[index].goodsId}"}'>후기 작성</button>`;
+					}else{
+						data+=`<button type='button' class='search-btn mb-4' id='replySelect' value='${"${result.goods[index].goodsId}"}'>후기 보러가기</button>`;
+					}
+					
+					
+					
+					
 					data+=`<button type='button' class='search-btn mb-4' id='cancle' value='${"${result.orderLine[index].orderLineId}"}'>예약 취소</button>`;
 					if(state=="환불"){
 						data+=`<button type='button' class='search-btn mb-4' id='delete' value='${"${result.orderLine[index].orderLineId}"}'>삭제</button>`;
@@ -155,12 +165,17 @@ $(function(){
 		})
 	}
 	selctAll();
-	
+	//후기작성
 	$(document).on("click", "#reply", function(){
 		var goodsId = $(this).val();
 		location.href = "${pageContext.request.contextPath}/review/mypage/goodsReply_Write/" + goodsId;
 	})
 	
+	//후기 보러가는거
+	$(document).on("click", "#replySelect", function(){
+		var goodsId = $(this).val();
+		location.href = "${pageContext.request.contextPath}/view/goods_View/" + goodsId;
+	})
 	
 	$(document).on("click","#ask",function(){
 		

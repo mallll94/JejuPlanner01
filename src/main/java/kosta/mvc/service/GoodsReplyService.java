@@ -4,6 +4,8 @@ import kosta.mvc.domain.GoodsReply;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public interface GoodsReplyService {
 
 	/**
@@ -26,4 +28,9 @@ public interface GoodsReplyService {
 	 */
 	public List<GoodsReply> getGoodsReplyByGoodsId(Long goodsId);
 	
+	/**
+	 * userId goodsID 비교에서 후기 여부 확인
+	 * 
+	 * */
+	public List<GoodsReply> selectByGoodsReplyCheck(Long goodsId, String userId);
 }
