@@ -63,7 +63,7 @@ $(function(){
 				var test = new Date(maxDay);
 				//alert(test)
 				var data = "";
-
+				console.log(result);
 				$.each(result.goods,function(index,item){//${"${item.goodsPhoto}"}
 					var state = "";
 					if(result.orderLine[index].orderLineState =="BU"){
@@ -79,6 +79,7 @@ $(function(){
 					if(bookTiem< maxDay ){
 						state="기간만료";
 					}
+					console.log(result.orderLine[index]);
 					var price =result.orderLine[index].orderLinePrice.toLocaleString('ko-KR')+"₩";
 					data+=`<h5 class='property-title mb-3'>${'${result.goodsLine[index].goodsLineDate}'}</h5>`;
 					data+=`<div class='single-property-item'>`;
@@ -97,8 +98,8 @@ $(function(){
 					data+=`<div class='properties-location'><i class='icon_pin'></i>${"${item.goodsAddr}"}</div>`;
 					data+=`<p>${"${item.goodsContent}"}</p></div></div>`;
 					data+=`<div class='col-lg-3'>`;
-					data+=`<button type='button' class='search-btn mb-4' id='reply' value=''>후기 작성</button>`;
 					data+=`<button type='button' class='search-btn mb-4' id='ask' value=''>1대1 문의</button>`;
+					data+=`<button type='button' class='search-btn mb-4' id='reply' value='${"${result.goods[index].goodsId}"}'>후기 작성</button>`;
 					data+=`<button type='button' class='search-btn mb-4' id='cancle' value='${"${result.orderLine[index].orderLineId}"}'>예약 취소</button>`;
 					if(state=="환불"){
 						data+=`<button type='button' class='search-btn mb-4' id='delete' value='${"${result.orderLine[index].orderLineId}"}'>삭제</button>`;
@@ -113,6 +114,11 @@ $(function(){
 		})
 	}
 	selctAll();
+	
+	$(document).on("click", "#reply", function(){
+		var goodsId = $(this).val();
+		location.href = "${pageContext.request.contextPath}/review/mypage/goodsReply_Write/" + goodsId;
+	})
 	
 	
 	$(document).on("click","#ask",function(){
