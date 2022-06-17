@@ -65,7 +65,7 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 	/**등록하기*/
 	@Override
 	public void insertPlanBoard(PlanBoard planBoard, String uploadpath) {
-		PlanBoard savePlan = planBoardRep.save(planBoard);
+		
 
 		MultipartFile file = planBoard.getFile();
 		if(!file.isEmpty()) {
@@ -75,12 +75,14 @@ public class PlanBoardServiceImpl implements PlanBoardService {
 
 			try {
 				String storeFileName = fileStore.storeFile(uploadpath, file);
-				savePlan.setPboardAttach(storeFileName);
+				planBoard.setPboardAttach(storeFileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
 			}
 		}
+		
+		PlanBoard savePlan = planBoardRep.save(planBoard);
 
 	}
 
