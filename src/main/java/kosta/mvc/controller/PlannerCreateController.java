@@ -16,15 +16,20 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import kosta.mvc.domain.Goods;
 import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.Users;
 import kosta.mvc.dto.PlannerPlaceDTO;
+import kosta.mvc.service.GoodsService;
 import kosta.mvc.service.PlaceService;
 import kosta.mvc.service.PlannerService;
 import kosta.mvc.service.UserService;
@@ -37,6 +42,7 @@ public class PlannerCreateController {
 
 	private final PlannerService plannerService;
 	private final PlaceService placeService;
+	private final GoodsService goodsService;
 	
 	
 	private final static int INDEX_PAGE_COUNT=4;
@@ -58,6 +64,7 @@ public class PlannerCreateController {
 		Pageable pageable = PageRequest.of((nowPage-1), INDEX_PAGE_COUNT, Direction.ASC, "plannerStart");
 		Page<Planner> pagelist = plannerService.selectAllByUserIdPageing(pageable,users.getUserId());
 		List<Planner> plist = pagelist.getContent();
+		List<Goods>	plannerGoods = goodsService.getAllGoodsByPlanner(users);
 		
 		int temp = (nowPage-1)%INDEX_BLOCK_COUNT;
 		int startPage =nowPage-temp;
@@ -68,8 +75,20 @@ public class PlannerCreateController {
 		model.addAttribute("blockCount",INDEX_BLOCK_COUNT);
 		model.addAttribute("startPage",startPage);
 		model.addAttribute("nowPage",nowPage);
-		
+		model.addAttribute("plannerGoods", plannerGoods);
 	}
+	/**
+	 * 플래너 추천상품 보여주기
+	 */
+//	@GetMapping("/plannerIndex")
+//	public ModelAndView getGoodsListViewPlannerCategory(Model model) {
+//		//플래너상
+//		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		List<Goods>	plannerGoods = goodsService.getAllGoodsByPlanner(users);
+//		model.addAttribute("plannerGoods", plannerGoods);
+//		return new ModelAndView("planner/plannerIndex");
+//	}
+	
 	
 	/**플래너 작성하기1로 이동*/
 	@RequestMapping("/plannerWrite")

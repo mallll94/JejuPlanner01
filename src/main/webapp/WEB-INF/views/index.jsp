@@ -279,29 +279,18 @@
                                     <div class="s-text">제주잇다 Only</div>
                                     <h2>${goods.goodsName}</h2>
                                     <div class="room-price">
-                                        
                                         <h4>${goods.goodsPrice}원</h4>
                                     </div>
-                                    <div class="properties-location">${goods.place.placeAddr}</div>
-                                    <p>${goods.goodsContent}</p>
-                                    <!-- <ul class="room-features">
+                                    <div class="properties-location">${goods.goodsAddr}</div>
+                                    
+                                   	<ul class="room-features">
                                         <li>
-                                            <i class="fa fa-arrows"></i>
-                                            <p>5201 sqft</p>
+                                        	<i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}
                                         </li>
                                         <li>
-                                            <i class="fa fa-bed"></i>
-                                            <p>8 Bed Room</p>
+                                            <i class="fa fa-tag"></i>${goods.goodsCategory}
                                         </li>
-                                        <li>
-                                            <i class="fa fa-bath"></i>
-                                            <p>7 Baths Bed</p>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-car"></i>
-                                            <p>1 Garage</p>
-                                        </li>
-                                    </ul> -->
+                                    </ul> 
                                 </div>
                             </div>
                         </div>
