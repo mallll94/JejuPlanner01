@@ -62,12 +62,20 @@ $(function() {
                             <p class="help-block text-danger"></p>
                     </div>
 	               
-	                <h5 class="card-header" style="text-align: left;">첨부파일</h5>
-		             <div class="card-body" align="left">
-		              <div class="mb-3">
-		                <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
-		              </div>
+	                 
+		             <div class="card-body" style="text-align: left;"><c:choose>
+                            <c:when test="${empty askboard.askAttach}">
+                                <%-- <p>${askboard.askContent}</p> --%>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="Image-area">
+                                    <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" class="boardImg">
+                                </div>
+                               <%--  <p>${askboard.askContent}</p> --%>
+                            </c:otherwise>
+                        </c:choose>
 		            </div>
+                   
                    </form> 
                                      
                 </div>
@@ -76,7 +84,7 @@ $(function() {
         </div>
     </div>
     <!-- Contact End -->
-
+    
 <!-- Reply -->
 <div class="control-group" style="margin-left: 320px; margin-right:320px">
 답변 

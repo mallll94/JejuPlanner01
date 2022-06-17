@@ -49,7 +49,7 @@ public class AskBoardServiceImpl implements AskBoardService {
 	/**등록하기*/
 	@Override
 	public void addAskBoard(AskBoard askBoard, String uploadpath) {
-		AskBoard saveAsk = askBoardRep.save(askBoard);
+		//AskBoard saveAsk = askBoardRep.save(askBoard);
 		
 		MultipartFile file = askBoard.getFile();
 		if(!file.isEmpty()) {
@@ -59,12 +59,14 @@ public class AskBoardServiceImpl implements AskBoardService {
 			
 			try {
 				String storeFileName = fileStore.storeFile(uploadpath, file);
-				saveAsk.setAskAttach(storeFileName);
+				askBoard.setAskAttach(storeFileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new RuntimeException("저장중 문제가 발생하였습니다.", e);
 			}
 		}
+		
+		askBoardRep.save(askBoard);
 		
 	}
 

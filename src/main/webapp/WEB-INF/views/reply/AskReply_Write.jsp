@@ -38,16 +38,36 @@
                             <p class="help-block text-danger"></p>
                       </div>
                       
-                       
-                       <div class="control-group" style="text-align: left;">
+                      
+                      <!-- <h5 class="card-header" style="text-align: left;">첨부파일</h5> -->
+		             <div class="card-body" style="text-align: left;"><c:choose>
+                            <c:when test="${empty askboard.askAttach}">
+                                <%-- <p>${askboard.askContent}</p> --%>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="Image-area">
+                                    <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" class="boardImg">
+                                </div>
+                               <%--  <p>${askboard.askContent}</p> --%>
+                            </c:otherwise>
+                        </c:choose>
+		              <%-- <div class="mb-3">
+		                <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
+		              </div> --%>
+		            </div>
+	                
+   <div class="control-group" style="text-align: left;">
                            답변 <textarea class="form-control" rows="6" id="message" name = "askReplyContent" placeholder="답변을 입력해주세요"
                                 required="required" data-validation-required-message="Please enter your message" style="resize: none"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         
 						<div align="right">
-							<button class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">답변 등록하기</button>
+							<button class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">답변 등록하기</button>			
 						</div>
+						
+						
+						 
 						
 					</form>
                 

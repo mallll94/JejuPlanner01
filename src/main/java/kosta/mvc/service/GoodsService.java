@@ -11,12 +11,12 @@ public interface GoodsService {
 	/**
 	 * 상품 등록하기
 	 */
-	public void addGoods(Goods goods);
+	public void addGoods(Goods goods, String uploadPath);
 
 	/**
 	 * 상품 수정하기
 	 */
-	public void updateGoods(Goods goods);
+	public void updateGoods(Goods goods, String uploadPath);
 
 	/**
 	 * 전체 상품 조회하기
@@ -33,7 +33,7 @@ public interface GoodsService {
 	/**
 	 * 상품 ID로 상품 조회하기
 	 */
-	public Goods getGoodsByGoodsId(Long goodsId) throws Exception;
+	public Goods getGoodsByGoodsId(Long goodsId);
 	
 	/**
 	 * 상품 이름으로 상품 조회하기

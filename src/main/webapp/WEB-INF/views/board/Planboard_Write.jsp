@@ -62,7 +62,7 @@ $(function() {
 					})
    					$("#plannerId").append(data);
    					
-   					alert(${planner.plannerId})
+   					//alert(${planner.plannerId})
    					$("#plannerId").val(${planner.plannerId});
 			},error : function(request, status, error){
 				//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

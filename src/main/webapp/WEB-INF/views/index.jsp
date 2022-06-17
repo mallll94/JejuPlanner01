@@ -65,66 +65,14 @@
     </style>
     <script>
         $(function(){
-            var loginUser='${sessionScope.loginUser.userId}'
 
             $(document).on("click","#create-planner-bnt",function(){
-					// if(!loginUser){
-					// 	alert("로그인 후 이용해 주십시오")
-					// }else{
-						let url = `${pageContext.request.contextPath}/planner/plannerWrite`
-						location.replace(url)
-                       // alert("플래너작성하기")
-					//}
-				})
+                let url = `${pageContext.request.contextPath}/planner/plannerWrite`
+                location.replace(url)
 
-            //추천상품
-            function recommendGoods(){
-                $.ajax({
-                    url:"${pageContext.request.contextPath}/planner/selectByUserId",
-                    type:"post",
-                    dataType:"json",
-                    data:{plannerId: targetPlannerId},
-                    success: function(result){
-                        let str="";
-                        $.each(result,function(index,board){
-
-                        })
-                        $("#recommend-goods-main").html()
-                        $("#recommend-goods-main").attr(str)
-                    },
-                    error: function(result){
-                        alert("플래너 정보가 없습니다.")
-                    }
-                })
-            }
-
-            //플래너게시판-추천
-            function recommendPlanner(){
-                $.ajax({
-                    url:"${pageContext.request.contextPath}/planner/selectByUserId",
-                    type:"post",
-                    dataType:"json",
-                    data:{plannerId: targetPlannerId},
-                    success: function(result){
-                        let str="";
-                        $.each(result,function(index,board){
-
-                        })
-                        $("#recommend-plan-main").html()
-                        $("#recommend-plan-main").attr(str)
-                    },
-                    error: function(result){
-                        alert("플래너 정보가 없습니다.")
-                    }
-                })
-            }
-
+			})
 
         })
-
-
-
-
         
     </script>
     
@@ -271,7 +219,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="stp-pic">
-                                    <img src="" alt="">
+                                    <img src="/images/goods/${goods.goodsPhoto}" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
