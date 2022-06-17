@@ -111,10 +111,9 @@ public class GoodsController {
 		List<GoodsReply> goodsReplyList = goodsReplyService.getGoodsReplyByGoodsId(goodsId);
 		model.addAttribute("goodsReplyList", goodsReplyList);
 		model.addAttribute("goods", goods);
-		return new ModelAndView("goods/goods_View");
-		
-		
+		return new ModelAndView("goods/goods_View");	
 	}
+	
 	@PostMapping("")
 	public String addGoods(Goods goods,HttpSession session) {
 		System.out.println(goods.getGoodsId());
