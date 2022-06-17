@@ -71,7 +71,7 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		builder.and(plannerPlace.planner.plannerId.eq(plannerId));
 		
-		List<PlannerPlace> list = (List<PlannerPlace>) plannerPlaceRep.findAll(builder, Sort.by(Sort.Order.asc("plannerPlaceDate")));
+		List<PlannerPlace> list = (List<PlannerPlace>) plannerPlaceRep.findAll(builder, Sort.by(Sort.Order.asc("plannerPlaceDate"),Sort.Order.asc("plannerPlaceId")));
 		return list;
 	}
 	@Override

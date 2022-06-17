@@ -36,7 +36,9 @@ public class PlannerSelectController {
 		Planner planner= plannerService.selectBy(plannerId);
 		
 		List<PlannerPlace> list = plannerService.selectPlaceBy(plannerId);
-		 
+		
+		list.forEach(b->System.out.println(b.getPlace().getPlaceName()));
+		
 		List<PlannerPlace> boxList = new ArrayList<>();
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
 		
