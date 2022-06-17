@@ -112,12 +112,19 @@ function selectAll(){
         <input type="file" class="form-control" id="pboardAttach" name="file" placeholder="Attach" accept=".png, .jpg" />
         <p class="help-block text-danger"></p>
 	</div> 
-    
-    <div class="card-body" style="text-align: left;">
-	  <div class="mb-3">
-		<img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">
-     </div>
-    </div>
+
+                 <div class="card-body" style="text-align: left;"><c:choose>
+                        <c:when test="${empty planBoard.pboardAttach}">
+                                <%-- <p>${planBoard.pboardContent}</p> --%>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="Image-area">
+                                <img alt = "첨부된 이미지" src="/images/ask/${planBoard.pboardAttach}" class="boardImg">
+                            </div>
+                            <%-- <p>${planBoard.pboardContent}</p> --%>
+                        </c:otherwise>
+                        </c:choose>
+		            </div>
  
    <div align="right">
      <button class="btn btn-primary py-1 px-2" type="submit" id="sendMessageButton">수정하기</button>

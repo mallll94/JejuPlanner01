@@ -733,13 +733,13 @@ $(document).ready(function(){
 					<div class="card-body">
 						<c:choose>
                             <c:when test="${empty planBoard.pboardAttach}">
-                                <p>${planBoard.pboardContent}</p>
+                                <%-- <p>${planBoard.pboardContent}</p> --%>
                             </c:when>
                             <c:otherwise>
                                 <div class="Image-area">
                                     <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" class="boardImg">
                                 </div>
-                                <p>${planBoard.pboardContent}</p>
+                                <%-- <p>${planBoard.pboardContent}</p> --%>
                             </c:otherwise>
                         </c:choose>
 						<!-- 하트 -->

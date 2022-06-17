@@ -12,15 +12,15 @@
 
 <script type="text/javascript">
    
-  $(function(){
+$(function(){
 	   
 	   $("button[value=삭제]").click(function() {
-       	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
+    	 $("#requestForm").attr("action", "${pageContext.request.contextPath}/Askdelete");
 		   $("#requestForm").submit();
 		})	
 		
-   }) 
-   
+})
+
 </script>    
     
 
@@ -54,23 +54,39 @@
                             <p class="help-block text-danger"></p>
                     </div>
 	               
-	                <h5 class="card-header" style="text-align: left;">첨부파일</h5>
-		             <div class="card-body" style="text-align: left;">
-		              <div class="mb-3">
+	                <!-- <h5 class="card-header" style="text-align: left;">첨부파일</h5> -->
+		             <div class="card-body" style="text-align: left;"><c:choose>
+                            <c:when test="${empty askboard.askAttach}">
+                                <%-- <p>${askboard.askContent}</p> --%>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="Image-area">
+                                    <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" class="boardImg">
+                                </div>
+                                <p>${askboard.askContent}</p>
+                            </c:otherwise>
+                        </c:choose>
+		              <%-- <div class="mb-3">
 		                <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" width="300" height="300">
-		              </div>
+		              </div> --%>
 		            </div>
-	                
-	                
-	                
+
                    </form> 
                    
-                   <form name="requestForm" method = "post" id="requestForm" >
-                     <input type="hidden" name="askId" value="${askboard.askId}">
-                       <div align="right">
-                         <button type="button" class="btn btn-primary py-1 px-2" value="삭제">삭제하기</button>
-                       </div>
-                   </form>    
+
+                        <div align="left">
+                            <button type="button" class="btn btn-outline-dark shadow-none" onclick="history.back()">목록으로 돌아가기</button>  
+                        </div>
+                        
+                        <div align="right">    
+                        <form name="requestForm" method="post" id="requestForm">
+                            <input type="hidden" name="askId" value="${askboard.askId}">
+                            <button type="button" class="btn btn-outline-dark shadow-none" name="${askboard.user.userId}" value="삭제">삭제</button>
+                        </form> 
+                        </div> 
+                       
+                   
+                      
                       
                 </div>
             </div>

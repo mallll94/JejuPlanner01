@@ -115,6 +115,7 @@ public class AskController {
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		
 		AskBoard askBoard = askBoardService.getAskBoard(askId);
         List<AskReply> replylist = askBoard.getAskReplyList();
 		
