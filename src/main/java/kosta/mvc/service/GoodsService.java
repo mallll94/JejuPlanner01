@@ -22,6 +22,8 @@ public interface GoodsService {
 	 * 전체 상품 조회하기
 	 */
 	public List<Goods> getAllGoods();
+	
+	public List<Goods> getAllGoodsOrderByPrice();
 
 	/**
 	 * 상품 삭제하기

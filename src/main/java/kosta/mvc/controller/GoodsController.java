@@ -55,6 +55,21 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_List");
 	}
+	
+	@GetMapping("/view/goods_List/lowPrice")
+	public ModelAndView getGoodsListViewlowPrice(Model model) {
+		List<Goods> goodsList = goodsService.getAllGoodsOrderByPrice();
+		model.addAttribute("goodsList", goodsList);
+		return new ModelAndView("goods/goods_List");
+	}
+	
+	@GetMapping("/view/goods_List/bestGoods")
+	public ModelAndView getGoodsListViewBest(Model model) {
+		List<Goods> goodsList = goodsService.getAllGoodsOrderBySalesAmount();
+		model.addAttribute("goodsList", goodsList);
+		return new ModelAndView("goods/goods_List");
+	}
+	
 	/**
 	 * 지역별 검색
 	 * @param localCategory
@@ -67,7 +82,7 @@ public class GoodsController {
 		model.addAttribute("goodsList", goodsList);
 		return new ModelAndView("goods/goods_List");
 	}
-	
+		
 	
 	@PostMapping("/view/goods_List/plannerCategory")
 	public ModelAndView getGoodsListViewPlannerCategory() {

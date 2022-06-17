@@ -59,6 +59,13 @@ public class GoodsServiceImpl implements GoodsService {
 		List<Goods> goodsList = goodsRepository.findAll();
 		return goodsList;
 	}
+	
+	public List<Goods> getAllGoodsOrderByPrice() {
+		List<Goods> goodsList = goodsRepository.findAll();
+		goodsList = goodsList.stream().sorted(Comparator.comparing(Goods::getGoodsPrice))
+				.collect(Collectors.toList());
+		return goodsList;
+	}
 
 	@Override
 	@Transactional
