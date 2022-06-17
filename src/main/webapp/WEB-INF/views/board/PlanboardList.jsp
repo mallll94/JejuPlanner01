@@ -146,7 +146,7 @@
 										   </c:choose>
                       </div>
                       <div class="title">${planboard.pboardTitle}</div>
-                      <div class="info">${planboard.user.userId}</div>
+                      <div class="info">${planboard.user.userId.substring(0,3)}****</div>
                     </div>
                   </a>
                 </div>
