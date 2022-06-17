@@ -748,12 +748,12 @@ $(document).ready(function(){
 							<span> 좋아요 </span><span id="likes-count">${planBoard.likesCount}</span>       
 						</div>
 					</div>
-					<!-- <div class="control-group" style="text-align: left;">
+					 <div class="control-group" style="text-align: left;">
 						내용 <textarea readonly class="form-control" rows="6" id="pboardContent" name="pboardContent" style="resize: none">${planBoard.pboardContent}</textarea>
 						<p class="help-block text-danger"></p>
 					</div>
 
-					<h5 class="card-header" style="text-align: left;">첨부파일</h5>
+					<!--<h5 class="card-header" style="text-align: left;">첨부파일</h5>
 					<div class="card-body" align="left">
 						<div class="mb-3">
 							<img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" width="300" height="300">

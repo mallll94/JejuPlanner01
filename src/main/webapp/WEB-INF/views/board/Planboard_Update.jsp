@@ -21,10 +21,10 @@ $(function() {
 				return false;
 			}
 			
-			if( $("#plannerId").val() == "none"){
+		    if( $("#plannerId").val() == "none"){
 				alert("플래너를 선택해주세요");
 				return false;
-			}
+			} 
 			
 			if( $("#pboardContent").val() == ""){
 				alert("내용을 입력해주세요");
@@ -35,7 +35,7 @@ $(function() {
 			
 	})
 	
-function selectAll(){
+ function selectAll(){
 		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/board/planSelect",
@@ -61,7 +61,7 @@ function selectAll(){
 		});
 		
 	}
-	selectAll();
+	selectAll(); 
 
 	
 }); //function
@@ -119,7 +119,7 @@ function selectAll(){
                         </c:when>
                         <c:otherwise>
                             <div class="Image-area">
-                                <img alt = "첨부된 이미지" src="/images/ask/${planBoard.pboardAttach}" class="boardImg">
+                                <img alt = "첨부된 이미지" src="/images/planboard/${planBoard.pboardAttach}" class="boardImg"  width="300" height="300">
                             </div>
                             <%-- <p>${planBoard.pboardContent}</p> --%>
                         </c:otherwise>

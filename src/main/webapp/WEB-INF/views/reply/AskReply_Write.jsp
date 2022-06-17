@@ -46,7 +46,7 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="Image-area">
-                                    <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" class="boardImg">
+                                    <img alt = "첨부된 이미지" src="/images/ask/${askboard.askAttach}" class="boardImg"  width="300" height="300">
                                 </div>
                                <%--  <p>${askboard.askContent}</p> --%>
                             </c:otherwise>
