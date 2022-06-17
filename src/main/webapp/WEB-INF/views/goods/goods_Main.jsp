@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="feature-author">
                                         <div class="fa-pic">
-                                            <img src="img/feature/f-author-1.jpg" alt="">
+                                            <img src="/images/goods/${goods.goodsPhoto}" alt="">
                                         </div>
                                         <div class="fa-text">
                                             <span>Rena Simmons</span>

@@ -167,7 +167,7 @@
                                     <c:forEach items="${requestScope.goodsList}" var="goods">
                                         <div class="col">
                                             <div class="card h-100" onclick="showDetail(${goods.goodsId})">
-                                                <img class="card-img-top" src="${goods.goodsPhoto}"
+                                                <img class="card-img-top" src="/images/goods/${goods.goodsPhoto}"
                                                     alt="Card image cap">
                                                 <div class="card-body">
                                                     <h4 class="card-title">${goods.goodsName}</h4>
