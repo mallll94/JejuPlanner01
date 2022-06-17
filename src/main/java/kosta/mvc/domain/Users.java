@@ -1,19 +1,23 @@
 package kosta.mvc.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -51,7 +55,68 @@ public class Users {
 	private String kakaoId;
 
 
+	
+	/**AskBoard*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<AskBoard> list;
+	/**Cart*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<Cart> cartlist;
+	/**ChatBoard*/
+	@OneToMany(mappedBy = "receiverUser",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<ChatBoard> receiverChatlist;
+	/**ChatBoard*/
+	@OneToMany(mappedBy = "senderUser",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<ChatBoard> senderChaelist;
+	
+	
+	/**CrewBoard*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<CrewBoard> crewBoardlist;
+	/**FreeReply*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<FreeBoard> freeBoardlist;
+	/**FreeReply*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<FreeReply> freeReplylist;
 
+	/**GoodsReply*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<GoodsReply> goodsReplylist;
+	/**Likes*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<Likes> likeslist;
+	/**Orders*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<Orders> orderslist;
+
+	/**PlanBoard*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<PlanBoard> planBoardlist;
+	
+	/**플래너*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<Planner> plannerlist;
+	/**PlannerPlace*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<PlannerPlace> plannerPlacelist;
+	/**PlanReply*/
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE  , orphanRemoval = true)
+	@JsonIgnore
+	private List<PlanReply> planReplylist;
 	
 	
 	
