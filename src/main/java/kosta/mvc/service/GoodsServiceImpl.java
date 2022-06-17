@@ -8,18 +8,24 @@ import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QGoods;
 import kosta.mvc.domain.QPlannerPlace;
 import kosta.mvc.domain.Users;
+import kosta.mvc.repository.FreeBoardRepository;
 import kosta.mvc.repository.GoodsReplyRepository;
 import kosta.mvc.repository.GoodsRepository;
 import kosta.mvc.repository.OrderLineRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
+import kosta.mvc.repository.UserRepository;
+import kosta.mvc.util.FileStore;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Lists;
 import com.querydsl.core.BooleanBuilder;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -27,29 +33,54 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class GoodsServiceImpl implements GoodsService {
 
-	@Autowired
-	private GoodsRepository goodsRepository;
-
-	@Autowired
-	private OrderLineRepository orderLineRepository;
-
-	@Autowired
-	private GoodsReplyRepository goodsReplyRepository;
 	
-	@Autowired
-	private PlannerPlaceRepository plannerPlaceRep;
+	private final GoodsRepository goodsRepository;
+	private final OrderLineRepository orderLineRepository;
+	private final GoodsReplyRepository goodsReplyRepository;
+	private final PlannerPlaceRepository plannerPlaceRep;
+	
+	private final FileStore fileStore;
 
 	@Override
 	@Transactional
-	public void addGoods(Goods goods) {
+	public void addGoods(Goods goods, String uploadPath) {
+		
+		MultipartFile file = goods.getFile();
+		if(!file.isEmpty()) {
+			if(file.getContentType().startsWith("image")==false) {
+				throw new RuntimeException("이미지형식이 아닙니다.");
+			}
+			try {
+				String storeFileName = fileStore.storeFile(uploadPath, file);
+				goods.setGoodsPhoto(storeFileName);
+			}catch(IOException e) {
+				throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+			}
+		}
+		
 		goodsRepository.save(goods);
 	}
 
 	@Override
 	@Transactional
-	public void updateGoods(Goods goods) {
+	public void updateGoods(Goods goods, String uploadPath) {
+		
+		MultipartFile file = goods.getFile();
+		if(!file.isEmpty()) {
+			if(file.getContentType().startsWith("image")==false) {
+				throw new RuntimeException("이미지형식이 아닙니다.");
+			}
+			try {
+				String storeFileName = fileStore.storeFile(uploadPath, file);
+				goods.setGoodsPhoto(storeFileName);
+			}catch(IOException e) {
+				throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+			}
+		}
+		
 		goodsRepository.save(goods);
 	}
 
@@ -68,8 +99,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Goods getGoodsByGoodsId(Long goodsId) throws RuntimeException {
-		Goods goods = goodsRepository.findById(goodsId).orElse(null);
+	public Goods getGoodsByGoodsId(Long goodsId) {
+		Goods goods = goodsRepository.findById(goodsId)
+				.orElseThrow(()-> new RuntimeException("상품을 찾을 수 없습니다."));
 		return goods;
 	}
 	/**

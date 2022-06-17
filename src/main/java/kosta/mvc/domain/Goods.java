@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,6 +55,9 @@ public class Goods {
 	
 	private String goodsPhoto;
 	private String goodsAddr;
+	
+	@Transient
+	private MultipartFile file;
 	
 	/** 상품후기 */
 	@OneToMany(mappedBy = "goods")

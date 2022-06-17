@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/goods")
@@ -99,16 +101,30 @@ public class GoodsController {
 		
 	}
 	@PostMapping("")
-	public String addGoods(Goods goods) {
+	public String addGoods(Goods goods,HttpSession session) {
 		System.out.println(goods.getGoodsId());
-		goodsService.addGoods(goods);
-		return "redirect:/goods/admin/goods_Admin";
+		//file upload경로
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/goods/";
+		goodsService.addGoods(goods,uploadPath);
+		return "redirect:/admin/goods_Admin";
+	}
+	
+	@RequestMapping("/updateForm")
+	@ResponseBody
+	public Goods getGoodsByGoodsIdAjax(Long goodsId) {
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
+		return goods;
 	}
 
-	@PutMapping("/{goodsId}")
-	public void updateGoods(@RequestBody Goods goods, @PathVariable Long goodsId) {
-		goods.setGoodsId(goodsId);
-		goodsService.updateGoods(goods);
+	//PutMapping("/{goodsId}")
+	@RequestMapping("/updateGoods")
+	public String updateGoods(Goods goods, HttpSession session) {
+		System.out.println("===========수정하기!!"+goods.getGoodsId()+"==========");
+		//goods.setGoodsId(goodsId);
+		//file upload경로
+		String uploadPath = session.getServletContext().getRealPath("/WEB-INF/") + "upload/goods/";
+		goodsService.updateGoods(goods,uploadPath);
+		return "redirect:/admin/goods_Admin";
 	}
 
 	@DeleteMapping("/{goodsId}")
@@ -118,14 +134,11 @@ public class GoodsController {
 
 	@GetMapping("/{goodsId}")
 	public void getGoodsByGoodsId(@PathVariable Long goodsId, Model model) {
-		Goods goods;
-		try {
-			goods = goodsService.getGoodsByGoodsId(goodsId);
+		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
 			model.addAttribute("goods", goods);
-		} catch (Exception e) {
-			model.addAttribute("goods", null);
-		}
 	}
+	
+	
 	
 	
 	
