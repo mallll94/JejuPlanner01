@@ -51,9 +51,9 @@
                                 //var photo = result.diaryLinePhoto;
                                 
                                 $("#updateGoodsAddr").val(result.goodsAddr);
-                                $("#updateGoodsCategory").val(result.goodsLocalCategory);
+                                $("#updateGoodsCategory").val(result.goodsCategory);
                                 $("#updateGoodsContent").val(result.goodsContent);
-                                $("#updateGoodsLocalCategory").val(result.goodsCategory);
+                                $("#updateGoodsLocalCategory").val(result.goodsLocalCategory);
                                 $("#updateGoodsName").val(result.goodsName);
                                 $("#savedGoodsPhoto").val(result.goodsPhoto);//기존 저장된 사진 있는지 확인용
                                 $("#updateGoodsPrice").val(result.goodsPrice);
