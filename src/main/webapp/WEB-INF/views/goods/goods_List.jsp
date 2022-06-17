@@ -36,6 +36,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/goods/bootstrap.min.css" type="text/css">
@@ -66,8 +67,22 @@
          .best-agents {
          	margin-top: 100px;
          }
-           
-        
+		 .card-img-top {
+			  width: 300px;
+			  height: 200px;
+			  object-fit: cover;
+		}
+		         
+		.card-title {
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.fa fa-map-marker{
+			color: gray;
+		}
+         * {
+                font-family: "Stylish", sans-serif;
+            }
     </style>
 
 
@@ -173,12 +188,8 @@
                                                     <h4 class="card-title">${goods.goodsName}</h4>
                                                     <h5 class="card-title">${goods.goodsPrice}</h5>
                                                     <ul>
-                                            			
                                             				<i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}
-                                            			
-                                            			
                                             				<i class="fa fa-tag"></i>${goods.goodsCategory}
-                                            			
                                        				 </ul>
                                                 </div>
                                             </div>
