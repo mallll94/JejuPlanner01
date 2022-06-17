@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import kosta.mvc.domain.Place;
 import kosta.mvc.domain.Planner;
 import kosta.mvc.domain.PlannerPlace;
 import kosta.mvc.domain.QPlanner;
+import kosta.mvc.domain.QPlannerPlace;
 import kosta.mvc.dto.PlannerPlaceDTO;
 import kosta.mvc.repository.PlaceRepository;
 import kosta.mvc.repository.PlannerPlaceRepository;
@@ -62,9 +64,25 @@ public class PlannerServiceImpl implements PlannerService {
 		return plist;
 	}
 
-	
+	@Override
+	public List<PlannerPlace> selectPlaceBy(Long plannerId) {
+		QPlannerPlace plannerPlace = QPlannerPlace.plannerPlace;
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		builder.and(plannerPlace.planner.plannerId.eq(plannerId));
+		
+		List<PlannerPlace> list = (List<PlannerPlace>) plannerPlaceRep.findAll(builder, Sort.by(Sort.Order.asc("plannerPlaceDate")));
+		return list;
+	}
 	@Override
 	public Planner selectBy(Long plannerId) {
+		//QPlanner planner = QPlanner.planner;
+		//BooleanBuilder builder = new BooleanBuilder();
+		
+		//builder.and(planner.plannerId.eq(plannerId));
+		
+		
+		
 		Planner planner = plannerRep.findById(plannerId)
 				.orElseThrow(()-> new RuntimeException("존재하지 않는 플래너입니다."));
 		System.out.println("planner = "+ planner);
@@ -289,5 +307,7 @@ public class PlannerServiceImpl implements PlannerService {
 
 		return list;
 	}
+
+	
 	
 }

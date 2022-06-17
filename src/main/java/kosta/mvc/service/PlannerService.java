@@ -30,6 +30,11 @@ public interface PlannerService {
 	Planner selectBy(Long plannerId);
 	
 	/**
+	 * 플래너  새로운 검색
+	 * */
+	List<PlannerPlace> selectPlaceBy(Long plannerId);
+	
+	/**
 	 * 일자별 플래너 검색
 	 * */
 	Planner selectByDay(Long plannerId,int day);

@@ -109,6 +109,7 @@
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
+			initMap();
 		});
 		
 		/////이름수정 모달//일정수정
@@ -194,19 +195,33 @@
 
 					deleteMarkers();
 					removeRoute();
+					
 					getLineColor();
 				
 					//deleteLine();
-					targets =[];
-					linestargets =[];
+					
 					////////////////////
-					for(let v =0;v<result.place.length;v++){
+					for(let r =1; r <=result.dayNo;r++){
 						
-						targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
+						targets =[];
+						linestargets =[];
+						
+						for(let v =0;v<result.place.length;v++){
+							if(r==result.plannerPlaces[v].plannerPlaceDate){
+							
+								targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude));
+								dayNo=r;
+							}
+							
+						}	
+						addMarker(targets);		
+						addLine(targets,getLineColor(dayNo));
+						
+						
 					}
 					
-					addMarker(targets);		
-					addLine(targets,getLineColor(dayNo))
+					
+					
 
 					let index=0;
 					for(let j=1; j<=dayNo;j++){ //dayNo = 1 , 2 ,3 , 4 ,    no=0일때 모두 , no=1 1day, no=2 ,2day	
