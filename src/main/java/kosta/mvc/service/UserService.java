@@ -47,7 +47,7 @@ public interface UserService {
 	/**
 	 * Pwd 찾고 비번 변경
 	 * */
-	void findUpdatePwd(Users user);
+	void findUpdatePwd(String userId ,String userPassword);
 	
 	/**
 	 * 회원탈퇴 - state변경하는거

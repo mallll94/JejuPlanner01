@@ -109,17 +109,17 @@ public class UserController {
 	}
 	
 	@RequestMapping("/pwdUpdate")
-	public String pwdUpdate(Users user) {
-		System.out.println("11111111111111111111111111");
-		System.out.println(user.getUserId()+user.getUserPassword());
-		String encodePassword=passwordEncoder.encode(user.getUserPassword());
-		System.out.println("22222222222222222222");
-		System.out.println(encodePassword);
-		user.setUserPassword(encodePassword);
-		System.out.println("33333333333333333333333331");
-		System.out.println(user.getUserPassword());
+	public String pwdUpdate(String userId ,String userPassword) {
+		//System.out.println("11111111111111111111111111");
+		//System.out.println(userId+userPassword);
+		String encodePassword=passwordEncoder.encode(userPassword);
+		//System.out.println("22222222222222222222");
+		//System.out.println(encodePassword);
+		//user.setUserPassword(encodePassword);
+		//System.out.println("33333333333333333333333331");
+		//System.out.println(user.getUserPassword());
 		
-		userService.findUpdatePwd(user);
+		userService.findUpdatePwd(userId,encodePassword);
 		
 		return "user/loginForm";
 	}

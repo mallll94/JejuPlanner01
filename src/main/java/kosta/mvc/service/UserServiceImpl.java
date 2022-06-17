@@ -111,8 +111,9 @@ public class UserServiceImpl implements UserService {
 		}else {
 			builder.and(users.userName.eq(user.getUserName()));
 			builder.and(users.userPhone.eq(user.getUserPhone()));
-			builder.and(users.userEmail.eq(user.getUserEmail()));
-			builder.and(users.userId.eq(user.getUserId()));
+			builder.and(users.userEmail.equalsIgnoreCase(user.getUserEmail()));
+			builder.and(users.userId.equalsIgnoreCase(user.getUserId()));
+			System.out.println(user.getUserPhone()+"|"+user.getUserEmail()+"|"+user.getUserName()+"|"+user.getUserId());
 			System.out.println("111");
 			id = userRep.findOne(builder).get().getUserId();			
 		
@@ -127,9 +128,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void findUpdatePwd(Users user) {
-		Users result = userRep.findById(user.getUserId()).orElse(user);
-		result.setUserPassword(user.getUserPassword());
+	public void findUpdatePwd(String userId ,String userPassword) {
+		Users result = userRep.findById(userId).orElse(null);
+		result.setUserPassword(userPassword);
 		
 
 	}

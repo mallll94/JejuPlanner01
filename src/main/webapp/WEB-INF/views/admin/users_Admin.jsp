@@ -192,8 +192,8 @@
       						data+="<td>주문일</td>";
       						data+="<td>이름</td>";
       						data+="<td>이메일</td>";
-      						data+="<td>결재금액</td>";
-      						data+="<td>결재방법</td>";
+      						data+="<td>결제금액</td>";
+      						data+="<td>결제방법</td>";
       						data+="</tr>";
       						$.each(result.pageList.content, function(index, item){
       						

@@ -204,7 +204,7 @@
 						
 						data+=`<tr class='table_row'><td class='column-1'>`;
 						data+=`<input class='form-check-input' type='checkbox' id='checkboxNoLabel' mal=${"${index}"} name='checkboxNoLabel' checked value=${"${result.cart[index].cartId}"}>`;
-						data+=`<div class='how-itemcart1'><img src='../img/bottom_logo.png' alt='IMG'></div>`;
+						data+=`<div class='how-itemcart1'><img src='/images/goods/\${item.goodsPhoto}' alt='IMG'></div>`;
 						data+=`</td>`;
 						data+=`<td class='column-2'>${'${item.goodsName}'}</td>`;	
 						data+=`<td class='column-3'><span id='price${"${index}"}'>${'${price2}'}</span></td>`;		

@@ -29,7 +29,7 @@
 </script>
 </head>
 <body>
-아이디 찾으면 나오는곳${userId}
+
 
 
 <c:choose>

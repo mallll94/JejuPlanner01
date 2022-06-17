@@ -66,7 +66,7 @@ $(function(){
 		   					sutotal +=sum;
 		   					data +=`<div class='order-details-confirmation mb-5'>`;
 			   				data +=`<div class='cart-page-heading'>`;
-			   				data +=`<h5>${'${item.goodsName}'}</h5><img src='../img/bottom_logo.png' alt='IMG' ></div>`; //${"${item.goodsPhoto}"}
+			   				data +=`<h5>${'${item.goodsName}'}</h5><img src='/images/goods/\${item.goodsPhoto}' alt='IMG' ></div>`; //${"${item.goodsPhoto}"}
 			   				data +=` <ul class='order-details-form mb-4'>`;
 			   				data +=`<li><span>사용일</span> <span >${'${result.goodsLine[index].goodsLineDate}'}</span></li>`;
 			   				data +=`<li><span>총금액(금액X갯수)</span> <span>${'${typeSume}'}</span></li></ul></div>`;
