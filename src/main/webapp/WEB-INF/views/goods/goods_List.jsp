@@ -80,8 +80,8 @@
 		.fa fa-map-marker{
 			color: gray;
 		}
-         * {
-                font-family: "Stylish", sans-serif;
+        #text {
+            font-family: "Stylish", sans-serif;
             }
     </style>
 
