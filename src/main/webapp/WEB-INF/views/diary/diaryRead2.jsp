@@ -206,11 +206,6 @@ pageEncoding="UTF-8"%>
 
 				})
 
-				//다이어리 내용 작성하기
-				function insertDL(){
-					
-
-				}
 				//다이어리 내용 수정하기
 				$(document).on("click","#edit-diaryline-bnt",function(){
 					let target = $(this).attr('plannerPlaceId');

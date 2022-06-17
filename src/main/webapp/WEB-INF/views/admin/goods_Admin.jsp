@@ -39,6 +39,47 @@
 
 
                 $(function () {
+
+                    //수정하기 ajax
+                    function modalUpdate(goodsId){
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/goods/updateForm",
+                            type: "post",
+                            dataType: "json",
+                            data: {goodsId: goodsId},
+                            success: function(result){
+                                //var photo = result.diaryLinePhoto;
+                                
+                                $("#updateGoodsAddr").val(result.goodsAddr);
+                                $("#updateGoodsCategory").val(result.goodsLocalCategory);
+                                $("#updateGoodsContent").val(result.goodsContent);
+                                $("#updateGoodsLocalCategory").val(result.goodsCategory);
+                                $("#updateGoodsName").val(result.goodsName);
+                                $("#savedGoodsPhoto").val(result.goodsPhoto);//기존 저장된 사진 있는지 확인용
+                                $("#updateGoodsPrice").val(result.goodsPrice);
+
+                                // if(photo){
+                                //     console.log("photo값:"+photo)
+                                //     //$("#update-diary-diaryPhoto").val(result.diaryLinePhoto); //file 타입에 값 넣는건 보안상의문제로 안됨 
+                                //     $("#update-diary-preview-image").attr("src", "/images/place/"+result.diaryLinePhoto )
+                                // }
+                                
+
+                            },
+                            error: function(error){
+                                alert("정보를 불러올 수 없습니다.")
+                            }
+                        })
+                    }
+
+                    //수정하기 값전달
+                    $(document).on("click","#goods-update-bnt",function(){
+                        let target = $(this).attr('goodsId');
+                        console.log("수정할 gooodsid"+target)
+                        $('#updateGoodsId').val(target)
+                        modalUpdate(target)
+                        
+                    })
                 })
             </script>
 
@@ -57,7 +98,7 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        <form action="/goods" method="post">
+                        <form name="insertForm" action="${pageContext.request.contextPath}/goods" method="post" enctype="multipart/form-data">
                             <div class="modal-header">
                                 <h4 class="modal-title">상품 추가하기</h4>
                             </div>
@@ -67,7 +108,8 @@
                                         <p>상품ID</p>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="spiner-text" id="goodsId" name="goodsId" value="1">
+                                        id안들어가도록 해봄
+                                        <!-- <input type="hidden" class="spiner-text" id="goodsId" name="goodsId"> -->
                                     </div>
                                 </div>
                                 <div class="row">
@@ -120,8 +162,8 @@
                                         <p>상품사진</p>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="spiner-text" id="goodsPhoto" name="goodsPhoto"
-                                            value="">
+                                        <!-- <input type="text" class="spiner-text" id="goodsPhoto" name="goodsPhoto" value=""> -->
+                                        <input id="goodsPhoto"  class="spiner-text" name="file" type="file" accept=".jpg, .jpeg, .png">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -129,11 +171,11 @@
                                         <p>상품가격</p>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="spiner-text" id="goodsPrice" name="goodsPrice"
-                                            value="">
+                                        <input type="text" class="spiner-text" id="goodsPrice" name="goodsPrice" value="">
+                                        
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-4">
                                         <p>장소명</p>
                                     </div>
@@ -145,13 +187,11 @@
                                             </c:forEach>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="modal-footer">
-                                    <input type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal"
-                                        id="goodsInsert">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-dismiss="modal">취소</button>
+                                    <input type="submit" class="btn btn-secondary btn-sm" data-dismiss="modal" id="goodsInsert">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
                                 </div>
                             </div>
                         </form>
@@ -177,7 +217,7 @@
                                     <th scope="col">상품사진</th>
                                     <th scope="col">상품가격</th>
                                     <th scope="col">Place_Fk</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">수정하기</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -192,6 +232,8 @@
                                         <td>${goods.goodsPhoto}</td>
                                         <td>${goods.goodsPrice}</td>
                                         <td>${goods.place.placeId}</td>
+                                        <td><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" id="goods-update-bnt"
+                                            data-bs-target="#updateGoodsModal" goodsId="${goods.goodsId}">수정하기</button></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -205,99 +247,85 @@
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">상품 수정하기</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상품ID</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <p id="updateGoodsId"></p>
-                                        <input type="hidden" class="spiner-text" id="updateGoodsIdHidden" value="">
-                                    </div>
+                            <form name="insertForm" action="${pageContext.request.contextPath}/goods/updateGoods" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">상품 수정하기</h4>
                                 </div>
-                                <input type="hidden" class="spiner-text" id="updateGoodsIdHidden" value="">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상품주소</p>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상품ID</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input id="updateGoodsId" type="hidden" class="spiner-text"  name="goodsId" value="">
+                                        </div>
                                     </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsAddr" value="">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상품주소</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsAddr" name="goodsAddr" value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>카테고리</p>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>카테고리</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsCategory" name="goodsCategory" value="">
+                                        </div>
                                     </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsCategory" value="">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상세설명</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsContent" name="goodsContent" value="">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상세설명</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsContent" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>지역</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsLocalCategory" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상품이름</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsName" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상품사진</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsPhoto" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>상품가격</p>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updateGoodsPrice" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p>장소명</p>
-                                    </div>
-                                    <div class="container">
-                                        <select id="placeFk">
-                                            <c:forEach items="${requestScope.placeList}" var="place">
-                                                <option value="${place.placeId}">${place.placeName}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="text" class="spiner-text" id="updatePlaceFk" value="">
-                                    </div>
-                                </div>
 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        onclick="goodsUpdate()">등록</button>
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">취소</button>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>지역</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsLocalCategory" name="goodsLocalCategory" value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상품이름</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsName" name="goodsName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상품사진</p>
+                                        </div>
+                                        <div class="col-8">
+                                            기존 사진: <input type="text" class="spiner-text" id="savedGoodsPhoto" value="" readonly>
+                                            <input id="updateGoodsPhoto"  class="spiner-text" name="file" type="file" accept=".jpg, .jpeg, .png">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p>상품가격</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" class="spiner-text" id="updateGoodsPrice" name="goodsPrice" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-secondary btn-sm" onclick="goodsUpdate()">등록</button> -->
+                                        <button id="update-bnt" class="btn btn-secondary btn-sm" >등록</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
