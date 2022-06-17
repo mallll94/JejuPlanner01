@@ -91,11 +91,11 @@
                             <div class="sidebar-btn">
                                 <div class="bt-item">
                                     <input type="radio" name="s-type" onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/category?category=전체보기'" id="st-buy" checked>
-                                    <label for="st-buy">제주잇다 Only</label>
+                                    <label for="st-buy">전체보기</label>
                                 </div>
                                 <div class="bt-item">
                                     <input type="radio" name="s-type" id="st-rent" onclick="location.href='${pageContext.request.contextPath}/goods/view/goods_List/bestGoods'">
-                                    <label for="st-rent">Best</label>
+                                    <label for="st-rent">Best상품</label>
                                 </div>
                             </div>
                             <select name="none" onchange="if(this.value) location.href=(this.value);">
@@ -121,7 +121,7 @@
                             </select>
                             <select name="none" onchange="if(this.value) location.href=(this.value);">
                                 <option value="">정렬기준</option>
-                                <option value="">판매량순</option>
+                                <option value="${pageContext.request.contextPath}/goods/view/goods_List/bestGoods">판매량순</option>
                                 <option value="${pageContext.request.contextPath}/goods/view/goods_List/lowPrice">낮은 가격순</option>
                                 <option value="">후기 많은 순</option>
                             </select>
