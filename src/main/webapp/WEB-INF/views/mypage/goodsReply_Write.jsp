@@ -102,9 +102,18 @@ $(function() {
                                 <h3><p>구체적으로 어떤 경험이었나요?</p></h3>
                                 <textarea class="form-control" rows="6" id="goodsReplyContent" name="goodsReplyContent" placeholder="이용하기 전에 알기 어려운 사실이나 꿀팁을 알려주세요."></textarea>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-4">
+                                    <p>상품사진</p>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="spiner-text" id="goodsPhoto" name="goodsPhoto" value="">
+                                    <input id="goodsPhoto"  class="spiner-text" name="file" type="file" accept=".jpg, .jpeg, .png">
+                                </div>
+                            </div> -->
                             <div class="control-group" style="text-align: left;">
                                 <h3><p>사진을 공유해주세요.(선택)</p></h3>
-                                <input type="file" class="form-control" id="goodsReplyAttach" name="file" placeholder="Attach" accept=".png, .jpg" />
+                                <input type="file" class="form-control" id="file" name="file" placeholder="Attach" accept=".png, .jpg, .jpeg" />
                             </div> 
                             <div align="right">
                               <br><button type="submit" class="btn btn-outline-dark shadow-none" id="goodsReply-bnt">등록하기</button>

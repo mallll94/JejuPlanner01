@@ -178,7 +178,7 @@
                                 </table>
                                 <div class="property-more-pic">
                                     <div class="product-pic-zoom">
-                                        <img class="product-big-img" src="img/properties/property-details-b1.jpg"
+                                        <img class="product-big-img" src="/images/goods/${goods.goodsPhoto}"
                                             alt="">
                                     </div>
                                     <div class="product-thumbs">
@@ -218,7 +218,7 @@
                                                             <c:forEach items="${requestScope.goodsReplyList}"
                                                                 var="goodsReply">
                                                                 <div class="sc-author">
-                                                                    <img src="${goodsReply.goodsReplyPhoto}" alt="">
+                                                                    <img src="/images/goodsReply/${goodsReply.goodsReplyPhoto}" alt="">
                                                                 </div>
                                                                 <div class="sc-text">
                                                                     <span>${goodsReply.goodsReplyStart}</span>
