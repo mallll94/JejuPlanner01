@@ -38,7 +38,7 @@
 
   
   <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
+    <a href="${pageContext.request.contextPath}/" class="app-brand-link">
       <span class="app-brand-logo demo">
             <img src="${path}/img/main_logo.png" style="width: 22%; height: auto" alt="제주잇다">
       </span>
@@ -88,7 +88,7 @@
         <div data-i18n="Basic">장소 데이터 관리</div>
       </a>
     </li>
-    <!-- User interface -->
+    <!-- User interface
     <li class="menu-item">
       <a href="" class="menu-link">
         <i class="menu-icon tf-icons bx bx-box"></i>
@@ -100,7 +100,7 @@
         <i class="menu-icon tf-icons bx bx-copy"></i>
         <div data-i18n="Basic">다이어리</div>
       </a>
-   </li>
+   </li> -->
     
     <!-- 상품 -->
     
