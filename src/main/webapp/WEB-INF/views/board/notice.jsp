@@ -116,7 +116,7 @@
 		        </h2>
 		        <div id="flush-collapseOne${notice.noticeId}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne${notice.noticeId}" data-bs-parent="#accordionExample">
 		          <div class="accordion-body">
-		                <img alt="첨부 이미지" src="/images/notice/${notice.noticeAttach}" width="300" height="300">
+		                <img alt="첨부 이미지" src="/images/notice/${notice.noticeAttach}" width="1000" height="500">
 		                <br>
 		                <br>
 		              <p>${notice.noticeContent}</p>         
