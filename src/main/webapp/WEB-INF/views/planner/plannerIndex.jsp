@@ -271,6 +271,8 @@
                         padding-bottom: 50px;
                         padding-top: 50px;
                     }
+                    .goodsRink{color: black;}
+                    .goodsRink:hover{color: black;}
                 </style>
 
 
@@ -473,35 +475,37 @@
                     <div class="container">
                         <div id='recommend-goods-main' class="top-properties-carousel owl-carousel">
                             <c:forEach items="${requestScope.plannerGoods}" var="goods">
-                                <div class="single-top-properties">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="stp-pic">
-                                                <img src="" alt="">
+                                <a href="${pageContext.request.contextPath}/goods/view/goods_View/${goods.goodsId}" class="goodsRink">
+                                    <div class="single-top-properties">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="stp-pic">
+                                                    <img src="/images/goods/${goods.goodsPhoto}" alt="">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="stp-text">
-                                                <div class="s-text">제주잇다 Only</div>
-                                                <h2>${goods.goodsName}</h2>
-                                                <div class="room-price">
-                                                    <h4>${goods.goodsPrice}원</h4>
-                                                </div>
-                                                <div class="properties-location">${goods.goodsAddr}
-                                                </div>
+                                            <div class="col-lg-6">
+                                                <div class="stp-text">
+                                                    <div class="s-text">제주잇다 Only</div>
+                                                    <h2>${goods.goodsName}</h2>
+                                                    <div class="room-price">
+                                                        <h4>${goods.goodsPrice}원</h4>
+                                                    </div>
+                                                    <div class="properties-location">${goods.goodsAddr}
+                                                    </div>
 
-                                                <ul class="room-features">
-                                                    <li>
-                                                        <i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}
-                                                    </li>
-                                                    <li>
-                                                        <i class="fa fa-tag"></i>${goods.goodsCategory}
-                                                    </li>
-                                                </ul>
+                                                    <ul class="room-features">
+                                                        <li>
+                                                            <i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-tag"></i>${goods.goodsCategory}
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </c:forEach>
                         </div>
                     </div>

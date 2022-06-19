@@ -29,8 +29,8 @@ pageEncoding="UTF-8"%>
 
 				//다이어리 title조회 ajax
 				function selectDiaryTitle(){
-					console.log(DiaryId)
-					console.log(curPage)
+					//console.log(DiaryId)
+					//console.log(curPage)
 					$.ajax({
 						url:"${pageContext.request.contextPath}/diary/DiaryTitle",
 						type:"post",
@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
 						data: {plannerId: DiaryId},
 						
 						success: function(result){
-							console.log(result)
+							//console.log(result)
 							let str="";
 							str+=`<p class='diaryTitle'>\${result.diary.diaryTitle}</p>`;
 							str+=`<p class='diaryDays'>\${result.diary.plannerStart} ~ \${result.diary.plannerEnd}  (\${result.diary.planDays} DAY)</p>`
@@ -187,7 +187,7 @@ pageEncoding="UTF-8"%>
 							$("#update-diary-bnt").val(result.plannerPlaceId);
 
 							if(photo){
-								console.log("photo값:"+photo)
+								//console.log("photo값:"+photo)
 								//$("#update-diary-diaryPhoto").val(result.diaryLinePhoto); //file 타입에 값 넣는건 보안상의문제로 안됨 
 								$("#update-diary-preview-image").attr("src", "/images/place/"+result.diaryLinePhoto )
 							}
@@ -209,7 +209,7 @@ pageEncoding="UTF-8"%>
 				//다이어리 내용 수정하기
 				$(document).on("click","#edit-diaryline-bnt",function(){
 					let target = $(this).attr('plannerPlaceId');
-					console.log(target)
+					//console.log(target)
 					modalUpdateDiary($(this).attr('plannerPlaceId'))
 					$('#edit-page').val(curPage)
 					
@@ -217,7 +217,7 @@ pageEncoding="UTF-8"%>
 
 				/////이름수정 모달//일정수정
 				$(document).on("change","#setting-select",function(){
-					console.log("모달 선택")
+					//console.log("모달 선택")
 					if($(this).val()=="updateTitle"){
 						$('#edit-name').val(curPage)
 						$('#NameUpdateModal').modal('show');
@@ -233,7 +233,7 @@ pageEncoding="UTF-8"%>
 				//다이어리 등록 폼 값 전달
 				$(document).on("click","#write-diaryline-bnt", function(){
 					let insertarget = $(this).attr('plannerPlaceId');
-					console.log(insertarget)
+					//console.log(insertarget)
 					$('#insert-diary-bnt').val(insertarget)
 					$('#write-page').val(curPage)
 				})
@@ -252,7 +252,7 @@ pageEncoding="UTF-8"%>
 
 
 			function checkValid(){
-				alert($('#write-page').val())
+				//alert($('#write-page').val())
 				//console.log("checkValid()옴"+$('#insert-diaryLinePrice').val())
 				//경비가 null값이면 0으로 submit
 				if($('#insert-diaryLinePrice').val()==''){
@@ -265,7 +265,7 @@ pageEncoding="UTF-8"%>
 			//다이어리 수정 폼 유효성 체크
 			function checkValidUpdate(){
 
-				console.log("값"+$('#insert-diaryLinePrice').val())
+				//console.log("값"+$('#insert-diaryLinePrice').val())
 				//경비가 null값이면 0으로 submit
 				if($('#insert-diaryLinePrice').val()==''){
 					$('#insert-diaryLinePrice').val('0')

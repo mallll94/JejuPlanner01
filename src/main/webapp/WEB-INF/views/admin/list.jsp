@@ -76,9 +76,7 @@
 			}
 		});
 		
-		$(document).on("click","#modal", function(){
-			modalSelect($(this).text());
-		});
+		
 
 		
 		
@@ -105,7 +103,7 @@
 						
 						 	data+="<tr>";
 							data+="<td>"+item.placeId+"</td>";
-							data+="<td><button class='btn btn-link-dark text-decoration-none' data-bs-toggle='modal' data-bs-target='#exampleModal' id='modal' >"+item.placeName+"</button></td>";
+							data+=`<td><button class='btn btn-link-dark text-decoration-none' data-bs-toggle='modal' data-bs-target='#exampleModal' id='modal' placeId='\${item.placeId}' >\${item.placeName}</button></td>`;
 							data+="<td>"+item.placeContent+"</td>";
 							data+="<td>"+item.placeSave+"</td>";
 							data+="</tr>";
@@ -140,16 +138,17 @@
 		
 		
 		//모달 뿌려주는 ajax
-		function modalSelect(placeName){
+		function modalSelect(placeId){
+			alert("장소아이디:"+placeId)
 			$.ajax({
 					url:"${pageContext.request.contextPath}/admin/modalSelect", 
 					type:"post", 
 					dataType:"json",
-					data: {name : placeName},
+					data: {placeId : placeId},
 					success: function(result){
 						$("#placeId").val(result.placeId);
 						$("#placeCategory").val(result.placeCategory);
-						$("#placeName").val(placeName);
+						$("#placeName").val(result.placeName);
 						$("#placeContent").html(result.placeContent);
 						$("#placeAddr").val(result.placeAddr);
 						$("#placeLatitude").val(result.placeLatitude);
@@ -168,6 +167,11 @@
 					}	
 			});//ajax
 		};
+		$(document).on("click","#modal", function(){
+			var targetPlace = $(this).attr('placeId')
+			alert(targetPlace)
+			modalSelect(targetPlace);
+		});
 
 		$("#delete").click(function(){
 			  $("#modalForm").attr("action", "${pageContext.request.contextPath}/admin/placeDelete");
@@ -255,7 +259,7 @@
                           
                          <div class="col-sm-10">
                         	<input type="hidden" id="placeId" class="form-control placeId-mask" name="placeId" />
-                         	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="placeCategory" disabled="disabled" />
+                         	<input type="text" id="placeCategory" class="form-control placeCategory-mask" name="placeCategory"/>
                           </div>
                        </div>
                        <div class="row mb-3">

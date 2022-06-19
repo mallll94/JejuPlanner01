@@ -1,5 +1,6 @@
 package kosta.mvc.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.mvc.domain.FreeBoard;
@@ -75,12 +77,13 @@ public class GoodsReplyController {
 	 * @throws Exception 
 	 **/
 	@RequestMapping("/mypage/goodsReply_Insert")
-	public String insert(Long goodsId, int goodsReplyStart, String goodsReplyContent, HttpSession session) throws Exception {
+	public String insert(Long goodsId, int goodsReplyStart, String goodsReplyContent, MultipartFile file, HttpSession session) throws Exception {
 		
 		Users users = (Users)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		GoodsReply goodsReply = new GoodsReply();
 		goodsReply.setGoodsReplyStart(goodsReplyStart);
 		goodsReply.setGoodsReplyContent(goodsReplyContent);
+		goodsReply.setFile(file);
 		goodsReply.setUser(users);
 		Goods goods = goodsService.getGoodsByGoodsId(goodsId);
 		goodsReply.setGoods(goods);

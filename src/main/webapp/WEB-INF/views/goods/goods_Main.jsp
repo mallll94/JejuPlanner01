@@ -148,35 +148,37 @@
             <div class="row">
                 <div class="feature-carousel owl-carousel">
                     <c:forEach items="${requestScope.goodsList}" var="goods">
-                        <div class="col-lg-4">
-                            <div class="feature-item" onclick="">
-                                <div class="fi-pic set-bg" data-setbg="img/feature/feature-1.jpg">
-                                    <div class="pic-tag">
-                                        <div class="f-text">Best</div>
-                                        <div class="s-text">제주잇다 only</div>
-                                    </div>
-                                    <div class="feature-author">
-                                        <div class="fa-pic">
-                                            <img src="/images/goods/${goods.goodsPhoto}" alt="">
+                        <a href="${pageContext.request.contextPath}/goods/view/goods_View/${goods.goodsId}">
+                            <div class="col-lg-4">
+                                <div class="feature-item" onclick="">
+                                    <div class="fi-pic set-bg" data-setbg="/images/goods/${goods.goodsPhoto}">
+                                        <div class="pic-tag">
+                                            <div class="f-text">Best</div>
+                                            <div class="s-text">제주잇다 only</div>
                                         </div>
-                                        <div class="fa-text">
-                                            <span>Rena Simmons</span>
-                                        </div>
+                                        <!-- <div class="feature-author">
+                                            <div class="fa-pic">
+                                                <img src="/images/goods/${goods.goodsPhoto}" alt="">
+                                            </div>
+                                            <div class="fa-text">
+                                                <span>Rena Simmons</span>
+                                            </div>
+                                        </div> -->
                                     </div>
-                                </div>
-                                <div class="fi-text">
-                                    <div class="inside-text">
-                                        <h4>${goods.goodsName}</h4>
-                                        <ul>
-                                            <li>
-                                            	<i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}</li>
-                                            <li><i class="fa fa-tag"></i>${goods.goodsCategory}</li>
-                                        </ul>
-                                        <h4 class="price">${goods.goodsPrice}</h4>
+                                    <div class="fi-text">
+                                        <div class="inside-text">
+                                            <h4>${goods.goodsName}</h4>
+                                            <ul>
+                                                <li>
+                                                    <i class="fa fa-map-marker"></i>${goods.goodsLocalCategory}</li>
+                                                <li><i class="fa fa-tag"></i>${goods.goodsCategory}</li>
+                                            </ul>
+                                            <h4 class="price">${goods.goodsPrice}</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </c:forEach>
                 </div>
             </div>

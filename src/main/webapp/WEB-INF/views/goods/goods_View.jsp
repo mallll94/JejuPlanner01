@@ -65,13 +65,18 @@
                     margin-bottom: 20px;
                 }
 
-                .property-sidebar {
+                /* .property-sidebar {
                     margin-top: 135px;
-				
+                }
+				 */
 				.comment-option {
 					margin-top: 30px;
 				}
-
+                .starRateImg{
+                    width: 100px;
+                    height: inherit;
+                    
+                }
 
                 
             </style>
@@ -178,10 +183,10 @@
                                 </table>
                                 <div class="property-more-pic">
                                     <div class="product-pic-zoom">
-                                        <img class="product-big-img" src="img/properties/property-details-b1.jpg"
+                                        <img class="product-big-img" src="/images/goods/${goods.goodsPhoto}"
                                             alt="">
                                     </div>
-                                    <div class="product-thumbs">
+                                    <!-- <div class="product-thumbs">
                                         <div class="product-thumbs-track ps-slider owl-carousel">
                                             <div class="pt" data-imgbigurl="img/properties/property-details-b2.jpg"><img
                                                     src="img/properties/thumb-1.jpg" alt=""></div>
@@ -195,7 +200,7 @@
                                             <div class="pt" data-imgbigurl="img/properties/property-details-b5.jpg"><img
                                                     src="img/properties/thumb-5.jpg" alt=""></div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="pd-desc">
                                     <h4>상품상세</h4>
@@ -215,13 +220,30 @@
                                                 <div class="property-more-table">
                                                     <div class="comment-option">
                                                         <div class="single-comment-item first-comment">
-                                                            <c:forEach items="${requestScope.goodsReplyList}"
-                                                                var="goodsReply">
+                                                            <c:forEach items="${requestScope.goodsReplyList}" var="goodsReply">
                                                                 <div class="sc-author">
-                                                                    <img src="${goodsReply.goodsReplyPhoto}" alt="">
+                                                                    <img src="/images/goodsReply/${goodsReply.goodsReplyPhoto}" alt="">
                                                                 </div>
                                                                 <div class="sc-text">
-                                                                    <span>${goodsReply.goodsReplyStart}</span>
+                                                                    <c:choose>
+                                                                        <c:when test="${goodsReply.goodsReplyStart==1}">
+                                                                            <span> <img src="../../../img/goodsReply/star1.jpeg" class="starRateImg"></span>
+                                                                        </c:when>
+                                                                        <c:when test="${goodsReply.goodsReplyStart==2}">
+                                                                            <span><img src="../../../img/goodsReply/star2.jpeg" class="starRateImg"></span>
+                                                                        </c:when>
+                                                                        <c:when test="${goodsReply.goodsReplyStart==3}">
+                                                                            <span><img src="../../../img/goodsReply/star3.jpeg" class="starRateImg"></span>
+                                                                        </c:when>
+                                                                        <c:when test="${goodsReply.goodsReplyStart==4}">
+                                                                            <span><img src="../../../img/goodsReply/star4.jpeg" class="starRateImg"></span>
+                                                                        </c:when>
+                                                                        <c:when test="${goodsReply.goodsReplyStart==5}">
+                                                                            <span><img src="../../../img/goodsReply/star5.jpeg" class="starRateImg"></span>
+                                                                        </c:when>
+                                                                    </c:choose>
+
+                                                                    <!-- <span>${goodsReply.goodsReplyStart}</span> -->
                                                                     <h6>${goodsReply.user.userId}</h6>
                                                                     <p>${goodsReply.goodsReplyRegdate}</p>
                                                                     <p>${goodsReply.goodsReplyContent}</p>
@@ -301,24 +323,20 @@
                                                     <p>수량 선택</p>
                                                 </td>
                                                 <td>
-                                                    <button type="button"
-                                                        class="btn btn-outline-dark shadow-none btn-sm"
-                                                        name="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="currentColor" class="bi bi-dash"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                                                        </svg></button>
-                                                    <input type="number" class="form-control-plaintext num"
-                                                        name="cartQty" min="1" max="9999" step="1" value="1"
-                                                        readonly="readonly">
-                                                    <button type="button"
-                                                        class="btn btn-outline-dark shadow-none btn-sm" name="plus"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                                        </svg></button>
+                                                    <div style="display: flex;">
+                                                        <button type="button"class="btn btn-outline-dark shadow-none btn-sm" name="minus" style="margin-right: 15px;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                                            </svg>
+                                                        </button>
+                                                        <input type="number" class="form-control-plaintext num"name="cartQty" min="1" max="9999" step="1" value="1"readonly="readonly" style="width: 50px; text-align: center;">
+                                                        <button type="button"class="btn btn-outline-dark shadow-none btn-sm" name="plus">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>

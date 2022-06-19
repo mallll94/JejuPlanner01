@@ -32,18 +32,23 @@ public class PlannerSelectController {
 	public Map<String, Object> selectAll(Long plannerId,int DayPlanner){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
 		Planner planner= plannerService.selectBy(plannerId);
-		List<PlannerPlace> list = null;
+		
+		List<PlannerPlace> list = plannerService.selectPlaceBy(plannerId);
+		
+		list.forEach(b->System.out.println(b.getPlace().getPlaceName()));
+		
 		List<PlannerPlace> boxList = new ArrayList<>();
 		Period period = Period.between(planner.getPlannerStart(), planner.getPlannerEnd());
-
+		
 		if(DayPlanner==0) {
-			list = planner.getPlannerPlaceList();
 			
 		}else {
-			for(int i=0;i<planner.getPlannerPlaceList().size();i++) {
-				if(planner.getPlannerPlaceList().get(i).getPlannerPlaceDate()==DayPlanner) {				
-					boxList.add(planner.getPlannerPlaceList().get(i));
+			
+			for(int i=0;i<list.size();i++) {
+				if(list.get(i).getPlannerPlaceDate()==DayPlanner) {				
+					boxList.add(list.get(i));
 				}
 			}
 			

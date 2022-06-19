@@ -61,6 +61,7 @@ $(function(){
 					<div class="col-md-12 form-group">
 						<button type="submit"  class="button button-login w-100">변경하기</button>
 					</div>
+					<input type="hidden" name="userId" value="${userId}">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 				<div style="padding-bottom: 150px;">문제가 있거나 도움이 필요하실 경우 1:1 문의로 연락 주시면 신속하게 해결해드리겠습니다.</div>

@@ -6,13 +6,17 @@ import kosta.mvc.domain.QGoodsReply;
 import kosta.mvc.repository.GoodsReplyRepository;
 import kosta.mvc.repository.GoodsRepository;
 import kosta.mvc.repository.UserRepository;
+import kosta.mvc.util.FileStore;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.querydsl.core.BooleanBuilder;
 
@@ -26,14 +30,51 @@ public class GoodsReplyServiceImpl implements GoodsReplyService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private FileStore fileStore;
+
 	/**
 	 * 등록하기
 	 */
+	@Transactional
 	@Override
 	public void addGoodsReply(GoodsReply goodsReply, String uploadPath) {
-		goodsReplyRepository.save(goodsReply);
-
+	
+	MultipartFile file = goodsReply.getFile();
+	if(!file.isEmpty()) {
+		if(file.getContentType().startsWith("image")==false) {
+			throw new RuntimeException("이미지형식이 아닙니다.");
+		}
+		try {
+			String storeFileName = fileStore.storeFile(uploadPath, file);
+			goodsReply.setGoodsReplyPhoto(storeFileName);
+		}catch(IOException e) {
+			throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+		}
 	}
+	
+	goodsReplyRepository.save(goodsReply);
+	
+}
+//	@Override
+//	@Transactional
+//	public void addGoods(Goods goods, String uploadPath) {
+//		
+//		MultipartFile file = goods.getFile();
+//		if(!file.isEmpty()) {
+//			if(file.getContentType().startsWith("image")==false) {
+//				throw new RuntimeException("이미지형식이 아닙니다.");
+//			}
+//			try {
+//				String storeFileName = fileStore.storeFile(uploadPath, file);
+//				goods.setGoodsPhoto(storeFileName);
+//			}catch(IOException e) {
+//				throw new RuntimeException("파일을 업로드 하는 도중 문제가 발생했습니다.",e);
+//			}
+//		}
+//		
+//		goodsRepository.save(goods);
+//	}
 	/**
 	 * 삭제하기 
 	 */

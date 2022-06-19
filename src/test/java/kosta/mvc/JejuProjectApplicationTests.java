@@ -122,15 +122,15 @@ class JejuProjectApplicationTests {
 	//주의 user는 id가 pk라서 등록일, 회원상태(default값 있는 경우)
 		@Test
 		void userinsert() {
-			userRep.save(new Users("aaa", "데이지", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01012341234, "aaa111@gmail.com", null, null, "F","ROLE_USER",null));
-			userRep.save(new Users("bbb", "구름", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01011112222, "cloud@gmail.com", null, null, "M","ROLE_USER",null));
-			userRep.save(new Users("abc123", "오월", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01055550000, "may55@gmail.com", null, null, "F","ROLE_USER",null));
-			userRep.save(new Users("admin", "관리자", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 00000000000, "admin@gmail.com", null, null, "F","ROLE_ADMIN",null));
-			userRep.save(new Users("ccc", "유월", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01012341234, "1111@gmail.com", null, null, "F","ROLE_USER",null));
-			userRep.save(new Users("ddd", "감자", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01011112222, "2222@gmail.com", null, null, "M","ROLE_USER",null));
-			userRep.save(new Users("eee", "제주도좋아", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01055550000, "3333@gmail.com", null, null, "F","ROLE_USER",null));
-
-		
+//			userRep.save(new Users("aaa", "데이지", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01012341234, "aaa111@gmail.com", null, null, "F","ROLE_USER",null));
+//			userRep.save(new Users("bbb", "구름", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01011112222, "cloud@gmail.com", null, null, "M","ROLE_USER",null));
+//			userRep.save(new Users("abc123", "오월", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01055550000, "may55@gmail.com", null, null, "F","ROLE_USER",null));
+//			userRep.save(new Users("admin", "관리자", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 00000000000, "admin@gmail.com", null, null, "F","ROLE_ADMIN",null));
+//			userRep.save(new Users("ccc", "유월", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01012341234, "1111@gmail.com", null, null, "F","ROLE_USER",null));
+//			userRep.save(new Users("ddd", "감자", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01011112222, "2222@gmail.com", null, null, "M","ROLE_USER",null));
+//			userRep.save(new Users("eee", "제주도좋아", "$2a$10$gdBXJlCnThVce5.1nhOO2OHbGiHPHNzPs.7p.WJIo9DRcmPZ0azEK", 01055550000, "3333@gmail.com", null, null, "F","ROLE_USER",null));
+//
+//		
 			
 		    
 			
