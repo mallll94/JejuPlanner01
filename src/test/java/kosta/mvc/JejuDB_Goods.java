@@ -88,9 +88,9 @@ public class JejuDB_Goods {
 		Goods goods1 = goodsRep.findById(1L).orElse(null);
 		Goods goods2 = goodsRep.findById(2L).orElse(null);
 		Goods goods3 = goodsRep.findById(3L).orElse(null);
-		goodsReplyRep.save(new GoodsReply(null, goods1, user1, "주변 풍경이 너무 이뻐요!", null, 5, null));
-		goodsReplyRep.save(new GoodsReply(null, goods1, user3, "재밌어요 ㅋㅋ", null, 4, null));
-		goodsReplyRep.save(new GoodsReply(null, goods2, user3, "멀미했어요 ㅜㅜ", null, 3, null));
+//		goodsReplyRep.save(new GoodsReply(null, goods1, user1, "주변 풍경이 너무 이뻐요!", null, 5, null));
+//		goodsReplyRep.save(new GoodsReply(null, goods1, user3, "재밌어요 ㅋㅋ", null, 4, null));
+//		goodsReplyRep.save(new GoodsReply(null, goods2, user3, "멀미했어요 ㅜㅜ", null, 3, null));
 		
 	}
 }

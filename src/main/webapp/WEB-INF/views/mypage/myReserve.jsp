@@ -106,7 +106,7 @@ $(function(){
 					data+=`<div class='row'>`;
 					data+=`<div class='col-md-3'>`;
 					data+=`<div class='property-pic'>`;
-					data+=`<img src='${pageContext.request.contextPath}/img/place/7dbf3d3f-efa4-430d-a05f-8b5598631638Do.jpg' alt='상품사진'>`;
+					data+=`<img src='/images/goods//\{item.goodsPhoto}' alt='상품사진'>`;
 					data+=`</div></div>`;
 					data+=` <div class='col-md-6'>`;
 					data+=`<div class='property-text'>`;
