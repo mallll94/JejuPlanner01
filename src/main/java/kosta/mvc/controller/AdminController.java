@@ -101,14 +101,24 @@ public class AdminController {
 		return "redirect:/admin/list";
 	}
 	
+//	@RequestMapping("/modalSelect")
+//	@ResponseBody
+//	public Place insert(String name) {
+//		Optional<Place> optional =placeService.selectByName(name);	
+//		Place result = optional.orElse(null);
+//		
+//		return result;
+//	}
+	
 	@RequestMapping("/modalSelect")
 	@ResponseBody
-	public Place insert(String name) {
-		Optional<Place> optional =placeService.selectByName(name);	
-		Place result = optional.orElse(null);
+	public Place insert(Long placeId) {
+		Place dbplace =placeService.selectById(placeId);
 		
-		return result;
+		
+		return dbplace;
 	}
+	
 	
 	@RequestMapping(value="/placeUpdate", method = RequestMethod.POST)
 	public String update(Place place, HttpSession session) {
