@@ -106,7 +106,7 @@ $(function(){
 					data+=`<div class='row'>`;
 					data+=`<div class='col-md-3'>`;
 					data+=`<div class='property-pic'>`;
-					data+=`<img src='/images/goods//\{item.goodsPhoto}' alt='상품사진'>`;
+					data+=`<img src='/images/goods/\${item.goodsPhoto}' alt='상품사진'>`;
 					data+=`</div></div>`;
 					data+=` <div class='col-md-6'>`;
 					data+=`<div class='property-text'>`;
