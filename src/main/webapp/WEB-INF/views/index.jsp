@@ -339,62 +339,61 @@
                     <div class="testimonial-slider owl-carousel">
                         <div class="ts-item">
                             <div class="profile-Img-area">
-                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="김정현">
+                                <img class="profile-Img" src="../../../img/main/kim.jpg" alt="김정현">
                             </div>
-                            <p>Create a list with all possible keywords that fit to your product, service or business
-                                field. The more the better. So you will get also a lot of keywords which you mus pay for
-                                only the minimal commandment of 5 cents</p>
+                            <p>좋은 팀원들을 만나 프로젝트를 즐겁게 잘 마무리 하며 좋은결과물을 얻을 수 있었습니다. 힘들었을텐데 서로 배려하며 열심히 하는 모습이 너무 좋았습니다.
+                            
+                            
+                            </p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;"><a href="${pageContext.request.contextPath}/planner/aa" id="d" style="color: white;">김정현</a></h5>
-                                <span>CEO deercreative</span>
+                                <span>팀장</span>
                             </div>
                         </div>
                         <div class="ts-item">
                             <div class="profile-Img-area">
-                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="박민서">
+                                <img class="profile-Img" src="../../../img/main/pa.jpg" alt="박민서">
                             </div>
-                            <p>Create a list with all possible keywords that fit to your product, service or business
-                                field. The more the better. So you will get also a lot of keywords which you mus pay for
-                                only the minimal commandment of 5 cents</p>
+                            <p>여러사람의 도움으로 프로젝트를 마무리 할 수 있었다. 
+                            3번의 프로젝트를 통해 IT분야에 대해 조금이나마 흐름을 알게 되었으며 아직은 개발자라고 불릴 수 없지만 지속적인 공부를 통해 개발자라는 직업에 어울리는 사람이 되고싶다.</p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;">박민서</h5>
-                                <span>CEO deercreative</span>
+                                <span>팀원</span>
                             </div>
                         </div>
                         <div class="ts-item">
                             <div class="profile-Img-area">
-                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="손채정">
+                                <img class="profile-Img" src="../../../img/main/son2.JPG" alt="손채정">
                             </div>
-                            <p>Create a list with all possible keywords that fit to your product, service or business
-                                field. The more the better. So you will get also a lot of keywords which you mus pay for
-                                only the minimal commandment of 5 cents</p>
+                            <p>즐겁게 기획하고 개발한 '제주잇다'! 멋진 팀원들과 코딩할 수 있어서 감사했습니다.
+                            다함께 매일매일 노력하고 성장한 덕분에 더 좋은 결과물이 나왔다고 생각합니다. 
+                            좋은 인연으로 만나 좋게 마무리 되어 다행입니다. 
+                            팀원들 모두 건강하고 앞으로도 버그없는 코딩길만 걸으세요 ~ 😉</p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;">손채정</h5>
-                                <span>CEO deercreative</span>
+                                <span>팀원</span>
                             </div>
                         </div>
                         <div class="ts-item">
                             <div class="profile-Img-area">
-                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="이아리">
+                                <img class="profile-Img" src="../../../img/main/al.png" alt="이아리">
                             </div>
-                            <p>Create a list with all possible keywords that fit to your product, service or business
-                                field. The more the better. So you will get also a lot of keywords which you mus pay for
-                                only the minimal commandment of 5 cents</p>
+                            <p>3번의 프로젝트를 끝내고 수료를 한 다는 것에 뿌듯하기도 하고, spring에 대해 많이 배울 수 있는 시간이었어서 행복했습니다. 
+								그리고, 개발 의외에도 좋은 인연들을 만나 힘든 취업생활도 잘 마무리할 수 있었습니다. 제주잇다 팀원분들 정말 감사해요! 앞으로 모두 행복하길 바라겠습니다 !</p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;">이아리</h5>
-                                <span>CEO deercreative</span>
+                                <span>팀원</span>
                             </div>
                         </div>
                         <div class="ts-item">
                             <div class="profile-Img-area">
-                                <img class="profile-Img" src="../../../img/planner-default.jpg" alt="이준원">
+                                <img class="profile-Img" src="../../../img/main/jun.jpg" alt="이준원">
                             </div>
-                            <p>Create a list with all possible keywords that fit to your product, service or business
-                                field. The more the better. So you will get also a lot of keywords which you mus pay for
-                                only the minimal commandment of 5 cents</p>
+                            <p>KOSTA에서 진행하는 마지막프로젝트를 훌륭한 팀원들을 만나 완성했다는것에대해 감사하게 생각합니다. 
+                            오랜기간동안 다들 지치고 힘들었을텐데 항상 밝은 모습으로 이끌어주셔서 덕분에 동기부여도 받고 끝까지 즐겁게 마무리할수있었던거같습니다. </p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;">이준원</h5>
-                                <span>CEO deercreative</span>
+                                <span>팀원</span>
                             </div>
                         </div>
                     </div>
