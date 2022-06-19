@@ -344,6 +344,7 @@
                             <p>좋은 팀원들을 만나 프로젝트를 즐겁게 잘 마무리 하며 좋은결과물을 얻을 수 있었습니다. 힘들었을텐데 서로 배려하며 열심히 하는 모습이 너무 좋았습니다.
                             
                             
+                            
                             </p>
                             <div class="ti-author">
                                 <h5 style="color: white;font-size: 25px;"><a href="${pageContext.request.contextPath}/planner/aa" id="d" style="color: white;">김정현</a></h5>
