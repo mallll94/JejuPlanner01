@@ -105,7 +105,7 @@
 			})
 		})
 		
-		//alert("${param.plannerId}")
+		//날짜 변경
 		$(document).on("change","#days", function(){
 			
 			selectAll($(this).val());
@@ -184,23 +184,20 @@
 					var dayNoLi = "<option value='0'>✏️전체일정</option>";
 
 					var saveDayNo= result.dayNo;
-
+					
 					if(no!=0){
 						dayNo=no;
 					}
-
 					for(let i=0; i <saveDayNo ;i++){
 						dayNoLi+=`<option value=${'${i+1}'}>${'${i+1}'}day</option>`;
 					}
-
+					
+					
 					deleteMarkers();
 					removeRoute();
-					
 					getLineColor();
 				
-					//deleteLine();
-					
-					////////////////////
+
 					for(let r =1; r <=result.dayNo;r++){
 						
 						targets =[];
@@ -208,19 +205,13 @@
 						
 						for(let v =0;v<result.place.length;v++){
 							if(r==result.plannerPlaces[v].plannerPlaceDate){
-							
 								targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude));
 								dayNo=r;
 							}
-							
 						}	
 						addMarker(targets);		
-						addLine(targets,getLineColor(dayNo));
-						
-						
+						addLine(targets,getLineColor(dayNo));				
 					}
-					
-					
 					
 
 					let index=0;
@@ -259,25 +250,6 @@
 						
 					}
 
-					/* 
-					//마커를 지우고 다시찍자 
-					//deleteLine(targets);
-					deleteMarkers();
-					removeRoute();
-					
-					getLineColor();
-				
-					//deleteLine();
-					targets =[];
-					////////////////////
-					for(let v =0;v<result.place.length;v++){		
-						targets.push(new google.maps.LatLng(result.place[v].placeLatitude, result.place[v].placeLongitude))
-					}
-					addMarker(targets);	
-					addLine(targets,getLineColor);		
-					 */
-					
-					
 					$("#days").empty();
 					$("#days").append(dayNoLi);
 					$("#days").val(no);
@@ -417,7 +389,7 @@
 		     markers[i].setMap(null);
 		   }
 	}
-	
+	//선삭제
 	function removeRoute(){
 		 if(typeof line !== 'undefined'){
 		  line.setMap(null);
