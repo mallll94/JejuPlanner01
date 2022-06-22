@@ -22,5 +22,7 @@
 
 - **메인**
 
-  <p align="center"><img src="https://github.com/mallll94/JejuPlanner01/tree/main/src/main/webapp/img/gitGif/0.gif?raw=true"/></p>
-ㅀㄹ
+  <p align="center"><img src="https://user-images.githubusercontent.com/98471267/175023777-084e1eae-7f4d-4ad8-bd32-6f3a83164fe3.gif"/></p>
+  <p align="center"><img src="https://user-images.githubusercontent.com/98471267/175024408-8bb1b61b-4c56-4910-a774-ba55f8bb32b0.gif"/></p>
+  <p align="center"><img src="https://user-images.githubusercontent.com/98471267/175024415-95aae0ee-c502-49aa-ba53-47d33ee3511a.gif"/></p>
+  <p align="center"><img src="https://user-images.githubusercontent.com/98471267/175024419-7029cf5d-6a91-4c6a-b529-365de58e9b75.gif"/></p>
