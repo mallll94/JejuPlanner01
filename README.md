@@ -23,3 +23,4 @@
 - **메인**
 
   <p align="center"><img src="https://github.com/mallll94/JejuPlanner01/tree/main/src/main/webapp/img/gitGif/0.gif?raw=true"/></p>
+ㅀㄹ
