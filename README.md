@@ -12,7 +12,7 @@
 
 - 참여 인원: Backend 4명
 
-- 사용 기술
+### BULT WITH
 - <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/><img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/><img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=JAVASCRIPT&logoColor=white"/><img src="https://img.shields.io/badge/jquery-0769AD?style=flat-square&logo=jquery&logoColor=white"><img src="https://img.shields.io/badge/BOOTSTRAP-7952B3?style=flat-square&logo=BOOTSTRAP&logoColor=white"/><img src="https://img.shields.io/badge/JAVA-007396?style=flat-square&logo=java&logoColor=white"><img src="https://img.shields.io/badge/oracle-F80000?style=flat-square&logo=oracle&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"><img src="https://img.shields.io/badge/apache tomcat-F8DC75?style=flat-square&logo=apachetomcat&logoColor=white">
 
 - 담당 구현 파트
