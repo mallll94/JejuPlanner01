@@ -18,3 +18,8 @@
 - 담당 구현 파트
 
 
+# Views
+
+- **메인**
+
+  <p align="center"><img src="https://github.com/mallll94/JejuPlanner01/tree/main/src/main/webapp/img/gitGif/플래너작성.gif?raw=true"/></p>
